@@ -1,24 +1,25 @@
-#ifndef SYSCALL_HEADER
-#define SYSCALL_HEADER
+#ifndef WINCALL_HEADER
+#define WINCALL_HEADER
 /***************************************************************************
- *            syscall_file.h
+ *            wincall_file.h
  *
- *  Sat Aug 24 23:55:08 2002
+ *  Fri Aug 22 17:00:00 2002
  *  Copyright  2002  Roman Dementiev
- *  dementiev@mpi-sb.mpg.de
+ *  dementiev@ira.uka.de
  ****************************************************************************/
 
-
-#include "ufs_file.h"
+#include "wfs_file.h"
 #include "../common/debug.h"
+
+#ifdef BOOST_MSVC
 
 __STXXL_BEGIN_NAMESPACE
 
   //! \addtogroup fileimpl
   //! \{
 
-	//! \brief Implementation of file based on UNIX syscalls
-	class syscall_file : public ufs_file_base
+	//! \brief Implementation of file based on Windows native I/O calls
+	class wincall_file:public wfs_file_base
 	{
 	 protected:
 	 public:
@@ -27,7 +28,7 @@ __STXXL_BEGIN_NAMESPACE
 		//! \attention filename must be resided at memory disk partition
 		//! \param mode open mode, see \c stxxl::file::open_modes
 		//! \param disk disk(file) identifier
-		syscall_file(
+		wincall_file(
 				const std::string & filename, 
 				int mode,
 			  int disk = -1);
@@ -44,12 +45,12 @@ __STXXL_BEGIN_NAMESPACE
 	};
 	
 	//! \brief Implementation of request based on UNIX syscalls
-	class syscall_request: public ufs_request_base
+	class wincall_request: public wfs_request_base
 	{
-		friend class syscall_file;
+		friend class wincall_file;
 	 protected:
-		syscall_request(
-				syscall_file * f, 
+		wincall_request(
+				wincall_file * f, 
 				void *buf, 
 				stxxl::int64 off,	
 				size_t b, 
@@ -61,9 +62,9 @@ __STXXL_BEGIN_NAMESPACE
    private:
     // Following methods are declared but not implemented 
     // intentionnaly to forbid their usage
-		syscall_request(const syscall_request &);
-    	syscall_request & operator=(const syscall_request &);
-		syscall_request();
+		wincall_request(const wincall_request &);
+    	wincall_request & operator=(const wincall_request &);
+		wincall_request();
 	};
 
   
@@ -71,5 +72,6 @@ __STXXL_BEGIN_NAMESPACE
   
 __STXXL_END_NAMESPACE
 
+#endif // BOOST_MSVC
 
-#endif
+#endif // WINCALL_HEADER

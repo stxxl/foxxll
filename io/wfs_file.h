@@ -1,50 +1,51 @@
-#ifndef UFSFILEBASE_HEADER
-#define UFSFILEBASE_HEADER
+#ifndef WFSFILEBASE_HEADER
+#define WFSFILEBASE_HEADER
 
 /***************************************************************************
- *            ufs_file.h
- *  UNIX file system file base
- *  Sat Aug 24 23:55:13 2002
- *  Copyright  2002  Roman Dementiev
- *  dementiev@mpi-sb.mpg.de
+ *            wfs_file.h
+ *  Windows file system file base
+ *  Fri Jul 22 15:39:59 2005
+ *  Copyright  2005  Roman Dementiev
+ *  dementiev@ira.uka.de
  ****************************************************************************/
 
 #include "iobase.h"
 
+#ifdef BOOST_MSVC
 
 __STXXL_BEGIN_NAMESPACE
 
   //! \addtogroup fileimpl
   //! \{
 
-	class ufs_request_base;
+	class wfs_request_base;
 
-	//! \brief Base for UNIX file system implementations
-	class ufs_file_base:public file
+	//! \brief Base for Windows file system implementations
+	class wfs_file_base:public file
 	{
 	protected:
-		int file_des;	// file descriptor
+		HANDLE file_des; // file descriptor
 		int mode_; // open mode
-		ufs_file_base (const std::string & filename, int mode, int disk);
+		wfs_file_base (const std::string & filename, int mode, int disk);
 	private:
-		ufs_file_base ();
+		wfs_file_base ();
 	public:
-		int get_file_des() const;
-		~ufs_file_base();
+		HANDLE get_file_des() const;
+		~wfs_file_base();
 		stxxl::int64 size ();
 		void set_size(stxxl::int64 newsize);
 	};
 
 	//! \brief Base for UNIX file system implementations
-	class ufs_request_base: public request
+	class wfs_request_base:public request
 	{
-		friend class ufs_file_base;
+		friend class wfs_file_base;
 	protected:
 		// states of request
 		enum { OP = 0, DONE = 1, READY2DIE = 2 };	// OP - operating, DONE - request served, 
 																							// READY2DIE - can be destroyed
 		/*
-		ufs_file_base *file;
+		wfs_file_base *file;
 		void *buffer;
 		stxxl::int64 offset;
 		size_t bytes;
@@ -59,25 +60,30 @@ __STXXL_BEGIN_NAMESPACE
 		#endif
 		std::set < onoff_switch * > waiters;
 
-		ufs_request_base (
-				ufs_file_base * f, 
+		wfs_request_base (
+				wfs_file_base * f, 
 				void *buf, 
 				stxxl::int64 off,
 				size_t b, 
 				request_type t,
 				completion_handler on_cmpl);
+
 		bool add_waiter (onoff_switch * sw);
 		void delete_waiter (onoff_switch * sw);
 		int nwaiters (); // returns number of waiters
 		void check_aligning ();
 		unsigned size() const ;
 	public:
-		virtual ~ufs_request_base ();
+		virtual ~wfs_request_base ();
 		void wait ();
 		bool poll();
 		const char *io_type ();
 	};
+  
+  //! \}
 
 __STXXL_END_NAMESPACE
 
-#endif
+#endif // BOOST_MSVC
+
+#endif // WFSFILEBASE_HEADER
