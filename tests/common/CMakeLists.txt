@@ -10,12 +10,8 @@
 #  http://www.boost.org/LICENSE_1_0.txt)
 ############################################################################
 
-foxxll_build_test(test_cmdline)
-foxxll_build_test(test_log2)
 foxxll_build_test(test_uint_types)
 
-foxxll_test(test_cmdline)
-foxxll_test(test_log2)
 foxxll_test(test_uint_types)
 
 ############################################################################

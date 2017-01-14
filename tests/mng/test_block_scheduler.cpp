@@ -11,8 +11,8 @@
  *  http://www.boost.org/LICENSE_1_0.txt)
  **************************************************************************/
 
-#include <foxxll/common/cmdline.hpp>
 #include <foxxll/mng/block_scheduler.hpp>
+#include <tlx/cmdline_parser.hpp>
 
 #include <iostream>
 #include <limits>
@@ -347,7 +347,7 @@ int main(int argc, char** argv)
     int test_case = -1;
     int internal_memory_megabytes = 256;
 
-    foxxll::cmdline_parser cp;
+    tlx::CmdlineParser cp;
 
     cp.add_int('t', "test-case", "I", test_case,
                "number of the test case to run");
