@@ -15,8 +15,11 @@ matrix:
         apt:
           sources:
             - ubuntu-toolchain-r-test
+            - george-edison55-precise-backports # cmake 3.2.3 / doxygen 1.8.3
           packages:
             - g++-5
+            - cmake
+            - cmake-data
     - env: CMAKE_CC="gcc-5" CMAKE_CXX="g++-5" CMAKE_FLAGS=""     CMAKE_ARGS="-DCMAKE_BUILD_TYPE=RelWithAssert   -DUSE_OPENMP=ON   -DUSE_GNU_PARALLEL=ON"
       addons: *gcc5
     - env: CMAKE_CC="gcc-5" CMAKE_CXX="g++-5" CMAKE_FLAGS=""     CMAKE_ARGS="-DCMAKE_BUILD_TYPE=Release -DUSE_OPENMP=ON   -DUSE_GNU_PARALLEL=OFF"
@@ -29,9 +32,12 @@ matrix:
         apt:
           sources:
             - ubuntu-toolchain-r-test
+            - george-edison55-precise-backports # cmake 3.2.3 / doxygen 1.8.3
           packages:
             - g++-5-multilib
             - linux-libc-dev:i386
+            - cmake
+            - cmake-data
       # clang build
     - env: CMAKE_CC="clang-3.9"   CMAKE_CXX="clang++-3.9" CMAKE_FLAGS="" CMAKE_ARGS="-DCMAKE_BUILD_TYPE=RelWithAssert -DUSE_GNU_PARALLEL=OFF"
       addons:
@@ -39,8 +45,11 @@ matrix:
           sources:
             - ubuntu-toolchain-r-test
             - llvm-toolchain-precise-3.9
+            - george-edison55-precise-backports # cmake 3.2.3 / doxygen 1.8.3
           packages:
             - clang-3.9
+            - cmake
+            - cmake-data
 
 before_script:
   # run on ramdisk
