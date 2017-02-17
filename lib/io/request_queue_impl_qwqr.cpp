@@ -16,7 +16,6 @@
 #include <stxxl/bits/common/error_handling.h>
 #include <stxxl/bits/io/request_queue_impl_qwqr.h>
 #include <stxxl/bits/io/serving_request.h>
-#include <stxxl/bits/parallel.h>
 
 #if STXXL_MSVC >= 1700
  #include <windows.h>

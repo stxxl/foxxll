@@ -13,7 +13,6 @@
 
 #include <stxxl/bits/common/onoff_switch.h>
 #include <stxxl/bits/io/request_with_waiters.h>
-#include <stxxl/bits/parallel.h>
 
 #include <algorithm>
 #include <functional>
@@ -49,8 +48,7 @@ void request_with_waiters::notify_waiters()
 {
     std::unique_lock<std::mutex> lock(m_waiters_mutex);
     std::for_each(m_waiters.begin(), m_waiters.end(),
-                  std::mem_fun(&onoff_switch::on)
-                  _STXXL_FORCE_SEQUENTIAL);
+                  std::mem_fun(&onoff_switch::on));
 }
 
 size_t request_with_waiters::num_waiters()

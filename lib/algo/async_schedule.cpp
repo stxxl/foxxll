@@ -20,7 +20,6 @@
 #include <stxxl/bits/common/simple_vector.h>
 #include <stxxl/bits/common/types.h>
 #include <stxxl/bits/io/file.h>
-#include <stxxl/bits/parallel.h>
 #include <stxxl/bits/unused.h>
 #include <stxxl/bits/verbose.h>
 
@@ -188,7 +187,7 @@ void compute_prefetch_schedule(
     for (int_type i = 0; i < L; i++)
         STXXL_VERBOSE1(first[i] << " " << write_order[i].first << " " << write_order[i].second);
 
-    std::stable_sort(write_order, write_order + L, async_schedule_local::write_time_cmp() _STXXL_FORCE_SEQUENTIAL);
+    std::stable_sort(write_order, write_order + L, async_schedule_local::write_time_cmp());
 
     for (int_type i = 0; i < L; i++)
     {

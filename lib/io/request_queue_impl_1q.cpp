@@ -17,7 +17,6 @@
 #include <stxxl/bits/config.h>
 #include <stxxl/bits/io/request_queue_impl_1q.h>
 #include <stxxl/bits/io/serving_request.h>
-#include <stxxl/bits/parallel.h>
 
 #include <algorithm>
 
