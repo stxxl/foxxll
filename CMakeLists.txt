@@ -64,16 +64,7 @@ endif()
 
 # please document all build options in doc/install.doc:install_build_options
 
-option(FOXXLL_BUILD_EXAMPLES "Build all foxxll examples" OFF)
-
 option(FOXXLL_BUILD_TESTS "Build all foxxll test programs" OFF)
-if(FOXXLL_BUILD_TESTS)
-  set(FOXXLL_BUILD_EXAMPLES ON)
-endif()
-
-option(FOXXLL_BUILD_EXTRAS "Build all extra foxxll tests and tool programs" OFF)
-
-option(FOXXLL_RUN_SLOW_TESTS "Run slow tests of extra foxxll tests and tool programs" ON)
 
 option(USE_OPENMP "Use OpenMP for multi-core parallelism" ON)
 
@@ -513,15 +504,6 @@ macro(foxxll_build_tool PROGNAME)
 
 endmacro(foxxll_build_tool)
 
-# macro for building foxxll examples
-macro(foxxll_build_example TESTNAME)
-
-  if(FOXXLL_BUILD_EXAMPLES)
-    foxxll_build_tool(${TESTNAME} ${ARGN})
-  endif(FOXXLL_BUILD_EXAMPLES)
-
-endmacro(foxxll_build_example)
-
 # macro for building foxxll tests
 macro(foxxll_build_test TESTNAME)
 
@@ -551,24 +533,6 @@ macro(foxxll_test TESTNAME)
   endif(FOXXLL_BUILD_TESTS)
 
 endmacro(foxxll_test)
-
-# macro for building foxxll extra program
-macro(foxxll_build_extra_tool)
-
-  if(FOXXLL_BUILD_EXTRAS)
-    foxxll_build_tool(${ARGN})
-  endif(FOXXLL_BUILD_EXTRAS)
-
-endmacro(foxxll_build_extra_tool)
-
-# macro for registering extra foxxll tests
-macro(foxxll_extra_test)
-
-  if(FOXXLL_BUILD_EXTRAS AND FOXXLL_RUN_SLOW_TESTS)
-    foxxll_test(${ARGN})
-  endif(FOXXLL_BUILD_EXTRAS AND FOXXLL_RUN_SLOW_TESTS)
-
-endmacro(foxxll_extra_test)
 
 # macro for setting additional defines for targets
 macro(add_define PROGNAME)
