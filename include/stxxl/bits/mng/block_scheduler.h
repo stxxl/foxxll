@@ -13,9 +13,10 @@
 #ifndef STXXL_MNG_BLOCK_SCHEDULER_HEADER
 #define STXXL_MNG_BLOCK_SCHEDULER_HEADER
 
-#include <stxxl/bits/common/addressable_queues.h>
 #include <stxxl/bits/mng/block_manager.h>
 #include <stxxl/bits/mng/typed_block.h>
+
+#include <foxxll/common/addressable_queues.hpp>
 
 #include <algorithm>
 #include <deque>
@@ -617,7 +618,7 @@ protected:
     using block_scheduler_algorithm_type::return_free_internal_block_to_block_scheduler;
 
     //! Holds swappable blocks, whose internal block can be freed, i.e. that are internal but unacquired.
-    addressable_fifo_queue<swappable_block_identifier_type> evictable_blocks;
+    foxxll::addressable_fifo_queue<swappable_block_identifier_type> evictable_blocks;
 
     internal_block_type * get_free_internal_block()
     {
@@ -939,7 +940,7 @@ protected:
     };
 
     //! Holds swappable blocks, whose internal block can be freed, i.e. that are internal but unacquired.
-    addressable_priority_queue<swappable_block_identifier_type, priority> evictable_blocks;
+    foxxll::addressable_priority_queue<swappable_block_identifier_type, priority> evictable_blocks;
     /*!
      * Stores for the sequence of releases extracted from the prediction_sequence:
      * (true, timestamp of the blocks next acquire) if it is acquired next

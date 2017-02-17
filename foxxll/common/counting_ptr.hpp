@@ -1,5 +1,5 @@
 /***************************************************************************
- *  include/stxxl/bits/common/counting_ptr.h
+ *  foxxll/common/counting_ptr.hpp
  *
  *  Part of the STXXL. See http://stxxl.org
  *

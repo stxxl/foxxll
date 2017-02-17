@@ -1,5 +1,5 @@
 /***************************************************************************
- *  include/stxxl/bits/common/addressable_queues.h
+ *  foxxll/common/addressable_queues.hpp
  *
  *  Part of the STXXL. See http://stxxl.org
  *
@@ -20,7 +20,7 @@
 #include <set>
 #include <utility>
 
-namespace stxxl {
+namespace foxxll {
 
 //! An internal fifo queue that allows removing elements addressed with (a copy
 //! of) themselves.
@@ -199,6 +199,6 @@ public:
     }
 };
 
-} // namespace stxxl
+} // namespace foxxll
 
 #endif // !STXXL_COMMON_ADDRESSABLE_QUEUES_HEADER

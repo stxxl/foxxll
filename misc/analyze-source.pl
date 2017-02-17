@@ -468,7 +468,7 @@ foreach my $file (@filelist)
     if ($file =~ m!^extlib/!) {
         # skip external libraries
     }
-    elsif ($file =~ /\.(h|cpp|h.in)$/) {
+    elsif ($file =~ /\.(h|hpp|cpp|h.in)$/) {
         process_cpp($file);
     }
     elsif ($file =~ m!^doc/[^/]*\.dox$!) {
