@@ -1,5 +1,5 @@
 /***************************************************************************
- *  include/stxxl/bits/algo/async_schedule.h
+ *  include/stxxl/bits/mng/async_schedule.h
  *
  *  Part of the STXXL. See http://stxxl.org
  *

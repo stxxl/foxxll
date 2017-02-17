@@ -1,5 +1,5 @@
 /***************************************************************************
- *  tools/stxxl_tool.cpp
+ *  tools/foxxll_tool.cpp
  *
  *  Part of the STXXL. See http://stxxl.org
  *
