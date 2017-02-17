@@ -89,6 +89,14 @@ if(BUILD_SHARED_LIBS)
   add_library(foxxll SHARED ${LIBFOXXLL_SOURCES})
   set_target_properties(foxxll PROPERTIES OUTPUT_NAME "${FOXXLL_LIBNAME}")
   set_target_properties(foxxll PROPERTIES VERSION "${FOXXLL_VERSION_STRING}")
+
+  target_compile_definitions(foxxll PUBLIC ${FOXXLL_DEFINITIONS})
+  target_include_directories(foxxll PUBLIC
+    $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include/>
+    $<INSTALL_INTERFACE:include/>)
+  #target_include_directories(foxxll SYSTEM PUBLIC ${FOXXLL_INCLUDE_DIRS})
+  target_link_libraries(foxxll ${FOXXLL_EXTRA_LIBRARIES})
+
   install(TARGETS foxxll
     EXPORT foxxll-targets
     ARCHIVE DESTINATION ${INSTALL_LIB_DIR}
@@ -99,6 +107,14 @@ if(BUILD_SHARED_LIBS)
     add_library(foxxll_static STATIC ${LIBFOXXLL_SOURCES})
     set_target_properties(foxxll_static PROPERTIES OUTPUT_NAME "${FOXXLL_LIBNAME}")
     set_target_properties(foxxll_static PROPERTIES VERSION "${FOXXLL_VERSION_STRING}")
+
+    target_compile_definitions(foxxll_static PUBLIC ${FOXXLL_DEFINITIONS})
+    target_include_directories(foxxll_static PUBLIC
+      $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include/>
+      $<INSTALL_INTERFACE:include/>)
+    #target_include_directories(foxxll_static SYSTEM PUBLIC ${FOXXLL_INCLUDE_DIRS})
+    target_link_libraries(foxxll_static ${FOXXLL_EXTRA_LIBRARIES})
+
     install(TARGETS foxxll_static
       EXPORT foxxll-targets
       ARCHIVE DESTINATION ${INSTALL_LIB_DIR})
@@ -117,6 +133,14 @@ else()
   add_library(foxxll STATIC ${LIBFOXXLL_SOURCES})
   set_target_properties(foxxll PROPERTIES OUTPUT_NAME "${FOXXLL_LIBNAME}")
   set_target_properties(foxxll PROPERTIES VERSION "${FOXXLL_VERSION_STRING}")
+
+  target_compile_definitions(foxxll PUBLIC ${FOXXLL_DEFINITIONS})
+  target_include_directories(foxxll PUBLIC
+    $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include/>
+    $<INSTALL_INTERFACE:include/>)
+  #target_include_directories(foxxll SYSTEM PUBLIC ${FOXXLL_INCLUDE_DIRS})
+  target_link_libraries(foxxll ${FOXXLL_EXTRA_LIBRARIES})
+
   install(TARGETS foxxll
     EXPORT foxxll-targets
     ARCHIVE DESTINATION ${INSTALL_LIB_DIR}
