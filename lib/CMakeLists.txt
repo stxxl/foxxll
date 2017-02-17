@@ -39,11 +39,10 @@ set(LIBFOXXLL_SOURCES
   io/wfs_file_base.cpp
   io/wincall_file.cpp
 
+  mng/async_schedule.cpp
   mng/block_manager.cpp
   mng/config.cpp
   mng/disk_block_allocator.cpp
-
-  algo/async_schedule.cpp
 
   )
 

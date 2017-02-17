@@ -10,6 +10,7 @@
 #  http://www.boost.org/LICENSE_1_0.txt)
 ############################################################################
 
+foxxll_build_test(test_async_schedule)
 foxxll_build_test(test_aligned)
 foxxll_build_test(test_block_alloc_strategy)
 foxxll_build_test(test_block_manager)
@@ -24,6 +25,7 @@ foxxll_build_test(test_prefetch_pool)
 foxxll_build_test(test_read_write_pool)
 foxxll_build_test(test_write_pool)
 
+foxxll_test(test_async_schedule 3 100 1000 42)
 foxxll_test(test_aligned)
 foxxll_test(test_block_alloc_strategy)
 foxxll_test(test_block_manager)

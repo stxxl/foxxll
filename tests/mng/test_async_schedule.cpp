@@ -1,5 +1,5 @@
 /***************************************************************************
- *  tests/algo/test_asch.cpp
+ *  tests/mng/test_async_schedule.cpp
  *
  *  Part of the STXXL. See http://stxxl.org
  *
@@ -11,7 +11,7 @@
  *  http://www.boost.org/LICENSE_1_0.txt)
  **************************************************************************/
 
-#include <stxxl/bits/algo/async_schedule.h>
+#include <stxxl/bits/mng/async_schedule.h>
 #include <stxxl/bits/verbose.h>
 
 #include <cstdlib>

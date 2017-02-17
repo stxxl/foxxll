@@ -1,5 +1,5 @@
 /***************************************************************************
- *  lib/algo/async_schedule.cpp
+ *  lib/mng/async_schedule.cpp
  *
  *  Part of the STXXL. See http://stxxl.org
  *
@@ -16,10 +16,10 @@
 // and queued writing on parallel disks, 2005
 // DOI: 10.1137/S0097539703431573
 
-#include <stxxl/bits/algo/async_schedule.h>
 #include <stxxl/bits/common/simple_vector.h>
 #include <stxxl/bits/common/types.h>
 #include <stxxl/bits/io/file.h>
+#include <stxxl/bits/mng/async_schedule.h>
 #include <stxxl/bits/unused.h>
 #include <stxxl/bits/verbose.h>
 

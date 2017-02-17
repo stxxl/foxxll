@@ -13,7 +13,7 @@
 #ifndef STXXL_MNG_BUF_ISTREAM_HEADER
 #define STXXL_MNG_BUF_ISTREAM_HEADER
 
-#include <stxxl/bits/algo/async_schedule.h>
+#include <stxxl/bits/mng/async_schedule.h>
 #include <stxxl/bits/mng/block_prefetcher.h>
 #include <stxxl/bits/mng/config.h>
 

@@ -11,8 +11,8 @@
  *  http://www.boost.org/LICENSE_1_0.txt)
  **************************************************************************/
 
-#ifndef STXXL_ALGO_ASYNC_SCHEDULE_HEADER
-#define STXXL_ALGO_ASYNC_SCHEDULE_HEADER
+#ifndef STXXL_MNG_ASYNC_SCHEDULE_HEADER
+#define STXXL_MNG_ASYNC_SCHEDULE_HEADER
 
 // Implements the "prudent prefetching" as described in
 // D. Hutchinson, P. Sanders, J. S. Vitter: Duality between prefetching
@@ -73,5 +73,5 @@ void compute_prefetch_schedule(
 
 } // namespace stxxl
 
-#endif // !STXXL_ALGO_ASYNC_SCHEDULE_HEADER
+#endif // !STXXL_MNG_ASYNC_SCHEDULE_HEADER
 // vim: et:ts=4:sw=4
