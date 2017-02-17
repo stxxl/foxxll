@@ -81,24 +81,8 @@ struct SubTool subtools[] = {
         "Benchmark different file access methods, e.g. syscall or mmap_files."
     },
     {
-        "benchmark_sort", &benchmark_sort, false,
-        "Run benchmark tests of different sorting methods in STXXL"
-    },
-    {
         "benchmark_disks_random", &benchmark_disks_random, false,
         "Benchmark random block access time to .stxxl configured disks."
-    },
-    {
-        "benchmark_pqueue", &benchmark_pqueue, false,
-        "Benchmark priority queue implementation using sequence of operations."
-    },
-    {
-        "mlock", &do_mlock, true,
-        "Lock physical memory."
-    },
-    {
-        "mallinfo", &do_mallinfo, true,
-        "Show mallinfo statistics."
     },
     { nullptr, nullptr, false, nullptr }
 };

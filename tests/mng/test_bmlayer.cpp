@@ -12,8 +12,14 @@
  *  http://www.boost.org/LICENSE_1_0.txt)
  **************************************************************************/
 
+#include <stxxl/bits/io/request_operations.h>
+#include <stxxl/bits/mng/block_manager.h>
+#include <stxxl/bits/mng/buf_istream.h>
+#include <stxxl/bits/mng/buf_ostream.h>
+#include <stxxl/bits/mng/prefetch_pool.h>
+#include <stxxl/bits/mng/typed_block.h>
+
 #include <iostream>
-#include <stxxl.h>
 
 #define BLOCK_SIZE (1024 * 512)
 

@@ -441,7 +441,7 @@ foreach my $arg (@ARGV) {
 
 @dirs_to_search = ("doc", "examples", "include", "lib", "misc", "tests", "tools") unless @dirs_to_search;
 
-(-e "include/stxxl.h")
+(-e "include/stxxl/io")
     or die("Please run this script in the STXXL source base directory.");
 
 # check uncrustify's version:

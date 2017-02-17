@@ -668,9 +668,7 @@ install(EXPORT stxxl-targets DESTINATION "${INSTALL_CMAKE_DIR}")
 # build tests and tools
 
 add_subdirectory(tools)
-add_subdirectory(examples)
 add_subdirectory(tests)
-add_subdirectory(local)
 
 ###############################################################################
 # cmake script STXXL_TRY_COMPILE all stxxl header files
