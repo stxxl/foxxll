@@ -17,8 +17,8 @@ set(CMAKE_LEGACY_CYGWIN_WIN32 0) # needed to silence warning on cygwin
 # require cmake 2.6.2 (but please use 2.8.x)
 cmake_minimum_required(VERSION 2.6.2 FATAL_ERROR)
 
-# the STXXL project
-project(stxxl)
+# the FOXXLL project
+project(foxxll)
 
 # for additional cmake scripts
 set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/misc/cmake)
@@ -34,12 +34,12 @@ if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
   set(CMAKE_BUILD_TYPE "Debug")
 endif()
 
-# STXXL version string
-set(STXXL_VERSION_MAJOR "1")
-set(STXXL_VERSION_MINOR "4")
-set(STXXL_VERSION_PATCH "99")
-set(STXXL_VERSION_STRING "${STXXL_VERSION_MAJOR}.${STXXL_VERSION_MINOR}.${STXXL_VERSION_PATCH}")
-set(STXXL_VERSION_PHASE "prerelease/${CMAKE_BUILD_TYPE}")
+# FOXXLL version string
+set(FOXXLL_VERSION_MAJOR "1")
+set(FOXXLL_VERSION_MINOR "4")
+set(FOXXLL_VERSION_PATCH "99")
+set(FOXXLL_VERSION_STRING "${FOXXLL_VERSION_MAJOR}.${FOXXLL_VERSION_MINOR}.${FOXXLL_VERSION_PATCH}")
+set(FOXXLL_VERSION_PHASE "prerelease/${CMAKE_BUILD_TYPE}")
 
 # read git directory (if it exists) and find git sha
 if(EXISTS ${PROJECT_SOURCE_DIR}/.git)
@@ -47,15 +47,15 @@ if(EXISTS ${PROJECT_SOURCE_DIR}/.git)
   if(GIT_FOUND)
     execute_process(COMMAND ${GIT_EXECUTABLE} describe HEAD
       WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
-      OUTPUT_VARIABLE "STXXL_VERSION_GIT_REFSPEC"
+      OUTPUT_VARIABLE "FOXXLL_VERSION_GIT_REFSPEC"
       ERROR_QUIET
       OUTPUT_STRIP_TRAILING_WHITESPACE)
     execute_process(COMMAND ${GIT_EXECUTABLE} rev-parse HEAD
       WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}"
-      OUTPUT_VARIABLE "STXXL_VERSION_GIT_SHA1"
+      OUTPUT_VARIABLE "FOXXLL_VERSION_GIT_SHA1"
       ERROR_QUIET
       OUTPUT_STRIP_TRAILING_WHITESPACE)
-    message(STATUS "Detected git refspec ${STXXL_VERSION_GIT_REFSPEC} sha ${STXXL_VERSION_GIT_SHA1}")
+    message(STATUS "Detected git refspec ${FOXXLL_VERSION_GIT_REFSPEC} sha ${FOXXLL_VERSION_GIT_SHA1}")
   endif()
 endif()
 
@@ -64,16 +64,16 @@ endif()
 
 # please document all build options in doc/install.doc:install_build_options
 
-option(STXXL_BUILD_EXAMPLES "Build all stxxl examples" OFF)
+option(FOXXLL_BUILD_EXAMPLES "Build all foxxll examples" OFF)
 
-option(STXXL_BUILD_TESTS "Build all stxxl test programs" OFF)
-if(STXXL_BUILD_TESTS)
-  set(STXXL_BUILD_EXAMPLES ON)
+option(FOXXLL_BUILD_TESTS "Build all foxxll test programs" OFF)
+if(FOXXLL_BUILD_TESTS)
+  set(FOXXLL_BUILD_EXAMPLES ON)
 endif()
 
-option(STXXL_BUILD_EXTRAS "Build all extra stxxl tests and tool programs" OFF)
+option(FOXXLL_BUILD_EXTRAS "Build all extra foxxll tests and tool programs" OFF)
 
-option(STXXL_RUN_SLOW_TESTS "Run slow tests of extra stxxl tests and tool programs" ON)
+option(FOXXLL_RUN_SLOW_TESTS "Run slow tests of extra foxxll tests and tool programs" ON)
 
 option(USE_OPENMP "Use OpenMP for multi-core parallelism" ON)
 
@@ -87,7 +87,7 @@ if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" OR CMAKE_CXX_COMPILER_ID STREQUAL "Clang
   endif()
 endif()
 
-option(STXXL_TRY_COMPILE_HEADERS "Test stxxl header files for self-sufficiency: try to compile them." OFF)
+option(FOXXLL_TRY_COMPILE_HEADERS "Test foxxll header files for self-sufficiency: try to compile them." OFF)
 
 option(USE_VALGRIND "Run tests with valgrind, pre-initialize some memory buffers." OFF)
 
@@ -95,17 +95,17 @@ option(USE_MALLOC_COUNT "Compile all programs with included malloc_count heap pr
 
 option(USE_GCOV "Compile and run tests with gcov for coverage analysis." OFF)
 
-option(STXXL_DEBUG_ASSERTIONS "Enable more costly assertions for internal debugging." OFF)
-if(STXXL_DEBUG_ASSERTIONS)
-  set(STXXL_DEBUG_ASSERTIONS "1") # change from ON/OFF to 1/0
+option(FOXXLL_DEBUG_ASSERTIONS "Enable more costly assertions for internal debugging." OFF)
+if(FOXXLL_DEBUG_ASSERTIONS)
+  set(FOXXLL_DEBUG_ASSERTIONS "1") # change from ON/OFF to 1/0
 endif()
 
 ### building shared and/or static libraries
 
 # by default we currently only build a static library, since we do not aim to
 # keep a stable binary interface.
-option(BUILD_STATIC_LIBS "Build static library version of libstxxl" ON)
-option(BUILD_SHARED_LIBS "Build shared library version of libstxxl" OFF)
+option(BUILD_STATIC_LIBS "Build static library version of libfoxxll" ON)
+option(BUILD_SHARED_LIBS "Build shared library version of libfoxxll" OFF)
 
 ### allow user to specify other installation paths
 
@@ -117,7 +117,7 @@ set(INSTALL_PKGCONFIG_DIR "lib/pkgconfig" CACHE PATH "Installation directory for
 if(WIN32 AND NOT CYGWIN)
   set(DEF_INSTALL_CMAKE_DIR "CMake")
 else()
-  set(DEF_INSTALL_CMAKE_DIR "lib/cmake/stxxl")
+  set(DEF_INSTALL_CMAKE_DIR "lib/cmake/foxxll")
 endif()
 set(INSTALL_CMAKE_DIR "${DEF_INSTALL_CMAKE_DIR}" CACHE PATH "Installation directory for cmake files")
 
@@ -127,10 +127,10 @@ set(INSTALL_CMAKE_DIR "${DEF_INSTALL_CMAKE_DIR}" CACHE PATH "Installation direct
 enable_testing()
 
 include(CTest)
-set(CTEST_PROJECT_NAME "STXXL")
+set(CTEST_PROJECT_NAME "FOXXLL")
 
 if(USE_VALGRIND)
-  set(STXXL_WITH_VALGRIND 1)
+  set(FOXXLL_WITH_VALGRIND 1)
   set(VALGRIND_OPTS --leak-check=full --error-exitcode=1 --suppressions=${PROJECT_SOURCE_DIR}/misc/valgrind.supp)
 endif()
 
@@ -138,13 +138,13 @@ endif()
 # enable use of "make package"
 
 # general package settings
-set(CPACK_PACKAGE_VENDOR "STXXL Maintainer Team")
+set(CPACK_PACKAGE_VENDOR "FOXXLL Maintainer Team")
 set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Library of external memory algorithms")
 set(CPACK_PACKAGE_DESCRIPTION_FILE "${CMAKE_CURRENT_SOURCE_DIR}/README")
 set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_SOURCE_DIR}/LICENSE_1_0.txt")
-set(CPACK_PACKAGE_VERSION_MAJOR "${STXXL_VERSION_MAJOR}")
-set(CPACK_PACKAGE_VERSION_MINOR "${STXXL_VERSION_MINOR}")
-set(CPACK_PACKAGE_VERSION_PATCH "${STXXL_VERSION_PATCH}")
+set(CPACK_PACKAGE_VERSION_MAJOR "${FOXXLL_VERSION_MAJOR}")
+set(CPACK_PACKAGE_VERSION_MINOR "${FOXXLL_VERSION_MINOR}")
+set(CPACK_PACKAGE_VERSION_PATCH "${FOXXLL_VERSION_PATCH}")
 
 # source packaging
 set(CPACK_SOURCE_GENERATOR "TGZ")
@@ -160,11 +160,11 @@ include(CPack)
 # check platform
 
 if(WIN32 OR WIN64 OR MINGW)
-  set(STXXL_WINDOWS "1")
+  set(FOXXLL_WINDOWS "1")
 endif()
 
 if(MSVC)
-  set(STXXL_MSVC ${MSVC_VERSION})
+  set(FOXXLL_MSVC ${MSVC_VERSION})
 endif()
 
 ###############################################################################
@@ -283,7 +283,7 @@ if(USE_GCOV)
   add_custom_target(lcov-html
     COMMAND ${LCOV} -q --directory . --capture --output-file lcov.info
     COMMAND ${LCOV} -q --remove lcov.info '/usr/*' ${LCOV_FLAGS} --output-file lcov-clean.info
-    COMMAND ${GENHTML} -q -o coverage --title "STXXL ${GITDESC}" --prefix ${PROJECT_SOURCE_DIR} ${GENHTML_FLAGS} lcov-clean.info
+    COMMAND ${GENHTML} -q -o coverage --title "FOXXLL ${GITDESC}" --prefix ${PROJECT_SOURCE_DIR} ${GENHTML_FLAGS} lcov-clean.info
     COMMENT "Capturing code coverage counters and create HTML coverage report"
     WORKING_DIRECTORY ${CMAKE_BINARY_DIR})
 
@@ -320,7 +320,7 @@ check_cxx_source_compiles(
   HAVE_STD_THREAD)
 
 # also check for <random>
-check_include_file_cxx(random STXXL_STD_RANDOM)
+check_include_file_cxx(random FOXXLL_STD_RANDOM)
 
 ###############################################################################
 # determine large file support
@@ -341,13 +341,13 @@ endif()
 
 if(CYGWIN)
   #-tb O_DIRECT messes up cygwin
-  set(STXXL_DIRECT_IO_OFF 1)
+  set(FOXXLL_DIRECT_IO_OFF 1)
 elseif(MSVC OR MINGW)
   # have FILE_FLAG_NO_BUFFERING on Windows
-  set(STXXL_DIRECT_IO_OFF 0)
+  set(FOXXLL_DIRECT_IO_OFF 0)
 elseif(APPLE)
   # we do not have to test anything, all is well.
-  set(STXXL_DIRECT_IO_OFF 0)
+  set(FOXXLL_DIRECT_IO_OFF 0)
 else()
 
   include(CheckCXXSourceCompiles)
@@ -368,7 +368,7 @@ endif()
 if(STXXL_DIRECT_IO_OFF)
   message(WARNING
     "The open() flag O_DIRECT was disabled!\n"
-    "This means that STXXL cannot bypass the system cache on your system, which may degrade performance.")
+    "This means that FOXXLL cannot bypass the system cache on your system, which may degrade performance.")
 endif()
 
 ###############################################################################
@@ -425,7 +425,7 @@ if(USE_OPENMP OR USE_GNU_PARALLEL)
 
 else()
 
-  message(STATUS "OpenMP disabled in STXXL (no parallelism is used).")
+  message(STATUS "OpenMP disabled in FOXXLL (no parallelism is used).")
   set(STXXL_PARALLEL 0)
 
 endif(USE_OPENMP OR USE_GNU_PARALLEL)
@@ -450,7 +450,7 @@ if(USE_GNU_PARALLEL)
 endif(USE_GNU_PARALLEL)
 
 ###############################################################################
-# test for additional includes and features used by some stxxl_tool components
+# test for additional includes and features used by some foxxll_tool components
 
 include(CheckSymbolExists)
 check_symbol_exists(mallinfo "malloc.h" STXXL_HAVE_MALLINFO_PROTO)
@@ -459,7 +459,7 @@ check_symbol_exists(mlock "sys/mman.h" STXXL_HAVE_MLOCK_PROTO)
 if(USE_MALLOC_COUNT)
   # malloc_count requires the linux dl (dynamic linker) library
   find_library(DL_LIBRARIES NAMES dl)
-  set(STXXL_EXTRA_LIBRARIES ${STXXL_EXTRA_LIBRARIES} ${DL_LIBRARIES})
+  set(FOXXLL_EXTRA_LIBRARIES ${FOXXLL_EXTRA_LIBRARIES} ${DL_LIBRARIES})
 endif()
 
 ###############################################################################
@@ -469,7 +469,7 @@ endif()
 configure_file(${PROJECT_SOURCE_DIR}/include/stxxl/bits/config.h.in ${PROJECT_BINARY_DIR}/include/stxxl/bits/config.h)
 
 # CXX_FLAGS required for compilation
-set(STXXL_CXX_FLAGS ${OpenMP_CXX_FLAGS})
+set(FOXXLL_CXX_FLAGS ${OpenMP_CXX_FLAGS})
 
 # Custom build type "ReleaseWithAssert".
 string(REGEX REPLACE "[/-][dD][^/-]*NDEBUG" "" CMAKE_C_FLAGS_RELWITHASSERT_INIT_T "${CMAKE_C_FLAGS_RELWITHDEBINFO_INIT}")
@@ -487,55 +487,56 @@ mark_as_advanced( CMAKE_CXX_FLAGS_RELWITHASSERT CMAKE_C_FLAGS_RELWITHASSERT CMAK
 set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS "None" "Debug" "Release" "RelWithDebInfo" "MinSizeRel" "RelWithAssert")
 
 # globally adds top-level include directories
-set(STXXL_INCLUDE_DIRS ${PROJECT_SOURCE_DIR}/include/ ${PROJECT_BINARY_DIR}/include/)
-include_directories(${STXXL_INCLUDE_DIRS})
+set(FOXXLL_INCLUDE_DIRS ${PROJECT_SOURCE_DIR}/include/ ${PROJECT_BINARY_DIR}/include/)
+include_directories(${FOXXLL_INCLUDE_DIRS})
 
-# for targets using stxxl library
-set(STXXL_EXTRA_LIBRARIES ${STXXL_EXTRA_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT})
-set(STXXL_LIBRARIES stxxl ${STXXL_EXTRA_LIBRARIES})
+# for targets using foxxll library
+set(FOXXLL_EXTRA_LIBRARIES ${FOXXLL_EXTRA_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT})
+set(FOXXLL_LIBRARIES foxxll ${FOXXLL_EXTRA_LIBRARIES})
 
-# export STXXL_INCLUDE_DIRS and STXXL_LIBRARIES to global CACHE
-set(STXXL_CXX_FLAGS "${STXXL_CXX_FLAGS}" CACHE STRING "Compiler flags for STXXL")
-set(STXXL_INCLUDE_DIRS "${STXXL_INCLUDE_DIRS}" CACHE STRING "Include paths for STXXL")
-set(STXXL_LIBRARIES "${STXXL_LIBRARIES}" CACHE STRING "Libraries to link for STXXL")
+# export FOXXLL_INCLUDE_DIRS and FOXXLL_LIBRARIES to global CACHE
+set(FOXXLL_CXX_FLAGS "${FOXXLL_CXX_FLAGS}" CACHE STRING "Compiler flags for FOXXLL")
+set(FOXXLL_INCLUDE_DIRS "${FOXXLL_INCLUDE_DIRS}" CACHE STRING "Include paths for FOXXLL")
+set(FOXXLL_LIBRARIES "${FOXXLL_LIBRARIES}" CACHE STRING "Libraries to link for FOXXLL")
 
-# build libstxxl in /lib
+# build libfoxxll in /lib
 add_subdirectory(lib)
 
 ###############################################################################
-# macros for building stxxl programs and tests
+# macros for building foxxll programs and tests
 
-# macro for building stxxl programs
-macro(stxxl_build_tool PROGNAME)
+# macro for building foxxll programs
+macro(foxxll_build_tool PROGNAME)
 
   add_executable(${PROGNAME} ${PROGNAME}.cpp ${ARGN})
-  target_link_libraries(${PROGNAME} ${STXXL_LIBRARIES})
+  target_link_libraries(${PROGNAME} ${FOXXLL_LIBRARIES})
 
-endmacro(stxxl_build_tool)
+endmacro(foxxll_build_tool)
 
-# macro for building stxxl examples
-macro(stxxl_build_example TESTNAME)
+# macro for building foxxll examples
+macro(foxxll_build_example TESTNAME)
 
-  if(STXXL_BUILD_EXAMPLES)
-    stxxl_build_tool(${TESTNAME} ${ARGN})
-  endif(STXXL_BUILD_EXAMPLES)
+  if(FOXXLL_BUILD_EXAMPLES)
+    foxxll_build_tool(${TESTNAME} ${ARGN})
+  endif(FOXXLL_BUILD_EXAMPLES)
 
-endmacro(stxxl_build_example)
+endmacro(foxxll_build_example)
 
-# macro for building stxxl tests
-macro(stxxl_build_test TESTNAME)
+# macro for building foxxll tests
+macro(foxxll_build_test TESTNAME)
 
-  if(STXXL_BUILD_TESTS)
-    stxxl_build_tool(${TESTNAME} ${ARGN})
-  endif(STXXL_BUILD_TESTS)
+  if(FOXXLL_BUILD_TESTS)
+    add_executable(foxxll_${TESTNAME} ${TESTNAME}.cpp ${ARGN})
+    target_link_libraries(foxxll_${TESTNAME} ${FOXXLL_LIBRARIES})
+  endif(FOXXLL_BUILD_TESTS)
 
-endmacro(stxxl_build_test)
+endmacro(foxxll_build_test)
 
-# macro for registering stxxl tests
-macro(stxxl_test TESTNAME)
+# macro for registering foxxll tests
+macro(foxxll_test TESTNAME)
 
-  if(STXXL_BUILD_TESTS)
-    set(TESTFULLNAME ${TESTNAME} ${ARGN})
+  if(FOXXLL_BUILD_TESTS)
+    set(TESTFULLNAME foxxll_${TESTNAME} ${ARGN})
     string(REPLACE ";" "_" TESTFULLNAME "${TESTFULLNAME}") # stringify list
 
     if(USE_VALGRIND)
@@ -543,31 +544,31 @@ macro(stxxl_test TESTNAME)
       add_test(${TESTFULLNAME} /usr/bin/valgrind ${VALGRIND_OPTS} ./${TESTNAME} ${ARGN})
       set_tests_properties(${TESTFULLNAME} PROPERTIES TIMEOUT 7200)
     else()
-      add_test(${TESTFULLNAME} ${TESTNAME} ${ARGN})
+      add_test(${TESTFULLNAME} foxxll_${TESTNAME} ${ARGN})
       set_tests_properties(${TESTFULLNAME} PROPERTIES TIMEOUT 3600)
     endif()
 
-  endif(STXXL_BUILD_TESTS)
+  endif(FOXXLL_BUILD_TESTS)
 
-endmacro(stxxl_test)
+endmacro(foxxll_test)
 
-# macro for building stxxl extra program
-macro(stxxl_build_extra_tool)
+# macro for building foxxll extra program
+macro(foxxll_build_extra_tool)
 
-  if(STXXL_BUILD_EXTRAS)
-    stxxl_build_tool(${ARGN})
-  endif(STXXL_BUILD_EXTRAS)
+  if(FOXXLL_BUILD_EXTRAS)
+    foxxll_build_tool(${ARGN})
+  endif(FOXXLL_BUILD_EXTRAS)
 
-endmacro(stxxl_build_extra_tool)
+endmacro(foxxll_build_extra_tool)
 
-# macro for registering extra stxxl tests
-macro(stxxl_extra_test)
+# macro for registering extra foxxll tests
+macro(foxxll_extra_test)
 
-  if(STXXL_BUILD_EXTRAS AND STXXL_RUN_SLOW_TESTS)
-    stxxl_test(${ARGN})
-  endif(STXXL_BUILD_EXTRAS AND STXXL_RUN_SLOW_TESTS)
+  if(FOXXLL_BUILD_EXTRAS AND FOXXLL_RUN_SLOW_TESTS)
+    foxxll_test(${ARGN})
+  endif(FOXXLL_BUILD_EXTRAS AND FOXXLL_RUN_SLOW_TESTS)
 
-endmacro(stxxl_extra_test)
+endmacro(foxxll_extra_test)
 
 # macro for setting additional defines for targets
 macro(add_define PROGNAME)
@@ -575,9 +576,9 @@ macro(add_define PROGNAME)
   if(TARGET ${PROGNAME})
     set_property(TARGET ${PROGNAME} APPEND PROPERTY COMPILE_DEFINITIONS ${ARGN})
   else()
-    if(STXXL_BUILD_TESTS)
+    if(FOXXLL_BUILD_TESTS)
       message("Ignoring add_define(${PROGNAME} ${ARGN}) for unknown target ${PROGNAME}")
-    endif(STXXL_BUILD_TESTS)
+    endif(FOXXLL_BUILD_TESTS)
   endif()
 
 endmacro(add_define TESTNAME)
@@ -585,7 +586,7 @@ endmacro(add_define TESTNAME)
 ###############################################################################
 # figure out STXXL_TMPDIR for tests
 
-if(STXXL_BUILD_TESTS)
+if(FOXXLL_BUILD_TESTS)
 
   if(DEFINED ENV{STXXL_TMPDIR})
     set(STXXL_TMPDIR "$ENV{STXXL_TMPDIR}")
@@ -595,27 +596,27 @@ if(STXXL_BUILD_TESTS)
 
   message(STATUS "Using STXXL_TMPDIR ${STXXL_TMPDIR} for tests")
 
-endif(STXXL_BUILD_TESTS)
+endif(FOXXLL_BUILD_TESTS)
 
 ###############################################################################
 # install header files
 
-install(FILES include/stxxl.h DESTINATION ${INSTALL_INCLUDE_DIR})
-install(DIRECTORY include/stxxl DESTINATION ${INSTALL_INCLUDE_DIR})
+install(FILES include/foxxll.h DESTINATION ${INSTALL_INCLUDE_DIR})
+install(DIRECTORY include/foxxll DESTINATION ${INSTALL_INCLUDE_DIR})
 
 # also copy the config file with build options!
-install(FILES ${PROJECT_BINARY_DIR}/include/stxxl/bits/config.h
-  DESTINATION ${INSTALL_INCLUDE_DIR}/stxxl/bits/)
+install(FILES ${PROJECT_BINARY_DIR}/include/foxxll/bits/config.h
+  DESTINATION ${INSTALL_INCLUDE_DIR}/foxxll/bits/)
 
 ###############################################################################
 # prepare pkg-config file
 
-configure_file(misc/cmake/stxxl.pc
-  "${PROJECT_BINARY_DIR}/${STXXL_LIBNAME}.pc" @ONLY)
+configure_file(misc/cmake/foxxll.pc
+  "${PROJECT_BINARY_DIR}/${FOXXLL_LIBNAME}.pc" @ONLY)
 
-# copy the stxxl.pc file into lib/pkgconfig
+# copy the foxxll.pc file into lib/pkgconfig
 if(INSTALL_PKGCONFIG_DIR)
-  install(FILES ${PROJECT_BINARY_DIR}/${STXXL_LIBNAME}.pc
+  install(FILES ${PROJECT_BINARY_DIR}/${FOXXLL_LIBNAME}.pc
     DESTINATION ${INSTALL_PKGCONFIG_DIR})
 endif()
 
@@ -624,11 +625,11 @@ endif()
 
 if(${CMAKE_MAJOR_VERSION}.${CMAKE_MINOR_VERSION} GREATER 2.6)
   # register package for use from the global CMake-registry
-  export(PACKAGE stxxl)
+  export(PACKAGE foxxll)
 endif()
 
-# add stxxl library targets to the build tree export set
-export(TARGETS ${STXXL_EXPORTED_LIBS} FILE "${PROJECT_BINARY_DIR}/stxxl-targets.cmake")
+# add foxxll library targets to the build tree export set
+export(TARGETS ${FOXXLL_EXPORTED_LIBS} FILE "${PROJECT_BINARY_DIR}/foxxll-targets.cmake")
 
 # calculate absolute install paths
 foreach(dir LIB BIN INCLUDE CMAKE)
@@ -641,28 +642,28 @@ endforeach()
 # calculate final installed include path relative to cmake install path
 file(RELATIVE_PATH REL_INCLUDE_DIR "${ABS_INSTALL_CMAKE_DIR}" "${ABS_INSTALL_INCLUDE_DIR}")
 
-# create common stxxl-config.cmake file
-configure_file(misc/cmake/stxxl-version.cmake.in
-  "${PROJECT_BINARY_DIR}/stxxl-version.cmake" @ONLY)
+# create common foxxll-config.cmake file
+configure_file(misc/cmake/foxxll-version.cmake.in
+  "${PROJECT_BINARY_DIR}/foxxll-version.cmake" @ONLY)
 
-# create stxxl-version.cmake file for the build tree
-set(CONF_INCLUDE_DIRS "${STXXL_INCLUDE_DIRS}")
-configure_file(misc/cmake/stxxl-config.cmake.in
-  "${PROJECT_BINARY_DIR}/stxxl-config.cmake" @ONLY)
+# create foxxll-version.cmake file for the build tree
+set(CONF_INCLUDE_DIRS "${FOXXLL_INCLUDE_DIRS}")
+configure_file(misc/cmake/foxxll-config.cmake.in
+  "${PROJECT_BINARY_DIR}/foxxll-config.cmake" @ONLY)
 
-# create stxxl-version.cmake file for the install tree
-set(CONF_INCLUDE_DIRS "\${STXXL_CMAKE_DIR}/${REL_INCLUDE_DIR}")
-configure_file(misc/cmake/stxxl-config.cmake.in
-  "${PROJECT_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/stxxl-config.cmake" @ONLY)
+# create foxxll-version.cmake file for the install tree
+set(CONF_INCLUDE_DIRS "\${FOXXLL_CMAKE_DIR}/${REL_INCLUDE_DIR}")
+configure_file(misc/cmake/foxxll-config.cmake.in
+  "${PROJECT_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/foxxll-config.cmake" @ONLY)
 
-# install the stxxl-config.cmake and stxxl-version.cmake
+# install the foxxll-config.cmake and foxxll-version.cmake
 install(FILES
-  "${PROJECT_BINARY_DIR}/stxxl-version.cmake"
-  "${PROJECT_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/stxxl-config.cmake"
+  "${PROJECT_BINARY_DIR}/foxxll-version.cmake"
+  "${PROJECT_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/foxxll-config.cmake"
   DESTINATION "${INSTALL_CMAKE_DIR}")
 
 # Install the export set for use with the install-tree
-install(EXPORT stxxl-targets DESTINATION "${INSTALL_CMAKE_DIR}")
+install(EXPORT foxxll-targets DESTINATION "${INSTALL_CMAKE_DIR}")
 
 ###############################################################################
 # build tests and tools
@@ -671,15 +672,15 @@ add_subdirectory(tools)
 add_subdirectory(tests)
 
 ###############################################################################
-# cmake script STXXL_TRY_COMPILE all stxxl header files
+# cmake script FOXXLL_TRY_COMPILE all foxxll header files
 
-if(STXXL_TRY_COMPILE_HEADERS)
+if(FOXXLL_TRY_COMPILE_HEADERS)
 
   file(MAKE_DIRECTORY "${PROJECT_BINARY_DIR}/try_compile")
 
   file(GLOB_RECURSE header_files
     RELATIVE "${PROJECT_SOURCE_DIR}/include" FOLLOW_SYMLINKS "include/*")
-  list(REMOVE_ITEM header_files "stxxl/bits/config.h.in")
+  list(REMOVE_ITEM header_files "foxxll/bits/config.h.in")
 
   foreach(header_file ${header_files})
     # replace / and . with _ to get a valid target and file name
@@ -694,12 +695,12 @@ if(STXXL_TRY_COMPILE_HEADERS)
        int main() { return 0; }")
 
     add_executable(${target_name} ${source_name})
-    target_link_libraries(${target_name} ${STXXL_LIBRARIES})
+    target_link_libraries(${target_name} ${FOXXLL_LIBRARIES})
     set_property(TARGET ${target_name}
       PROPERTY RUNTIME_OUTPUT_DIRECTORY "try_compile/")
 
   endforeach()
 
-endif(STXXL_TRY_COMPILE_HEADERS)
+endif(FOXXLL_TRY_COMPILE_HEADERS)
 
 ################################################################################

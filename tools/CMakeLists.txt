@@ -10,13 +10,13 @@
 #  http://www.boost.org/LICENSE_1_0.txt)
 ############################################################################
 
-stxxl_build_tool(stxxl_tool
+foxxll_build_tool(foxxll_tool
   create_files.cpp
   benchmark_disks.cpp
   benchmark_files.cpp
   benchmark_disks_random.cpp
   )
 
-install(TARGETS stxxl_tool RUNTIME DESTINATION ${INSTALL_BIN_DIR})
+install(TARGETS foxxll_tool RUNTIME DESTINATION ${INSTALL_BIN_DIR})
 
 ############################################################################

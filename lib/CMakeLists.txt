@@ -12,7 +12,7 @@
 #  http://www.boost.org/LICENSE_1_0.txt)
 ############################################################################
 
-set(LIBSTXXL_SOURCES
+set(LIBFOXXLL_SOURCES
 
   common/cmdline.cpp
   common/exithandler.cpp
@@ -49,14 +49,14 @@ set(LIBSTXXL_SOURCES
 
 if(NOT MSVC)
   # additional sources for non Visual Studio builds
-  set(LIBSTXXL_SOURCES ${LIBSTXXL_SOURCES}
+  set(LIBFOXXLL_SOURCES ${LIBFOXXLL_SOURCES}
     io/mmap_file.cpp
     )
 endif(NOT MSVC)
 
 if(STXXL_HAVE_LINUXAIO_FILE)
   # additional sources fo LinuxAIO fileio access method
-  set(LIBSTXXL_SOURCES ${LIBSTXXL_SOURCES}
+  set(LIBFOXXLL_SOURCES ${LIBFOXXLL_SOURCES}
     io/linuxaio_file.cpp
     io/linuxaio_queue.cpp
     io/linuxaio_request.cpp
@@ -65,7 +65,7 @@ endif()
 
 if(USE_MALLOC_COUNT)
   # enable light-weight heap profiling tool malloc_count
-  set(LIBSTXXL_SOURCES ${LIBSTXXL_SOURCES}
+  set(LIBFOXXLL_SOURCES ${LIBFOXXLL_SOURCES}
     utils/malloc_count.cpp
     )
 
@@ -75,55 +75,55 @@ if(USE_MALLOC_COUNT)
 endif(USE_MALLOC_COUNT)
 
 # tell top-level cmakelists which library we build
-set(STXXL_EXPORTED_LIBS stxxl)
+set(FOXXLL_EXPORTED_LIBS foxxll)
 
-# we name debug library builds "stxxl_debug" and release builds "stxxl"
-string(TOLOWER "stxxl_${CMAKE_BUILD_TYPE}" STXXL_LIBNAME)
-if(STXXL_LIBNAME STREQUAL "stxxl_release" OR STXXL_LIBNAME STREQUAL "stxxl_")
-  set(STXXL_LIBNAME "stxxl")
+# we name debug library builds "foxxll_debug" and release builds "foxxll"
+string(TOLOWER "foxxll_${CMAKE_BUILD_TYPE}" FOXXLL_LIBNAME)
+if(FOXXLL_LIBNAME STREQUAL "foxxll_release" OR FOXXLL_LIBNAME STREQUAL "foxxll_")
+  set(FOXXLL_LIBNAME "foxxll")
 endif()
 
 if(BUILD_SHARED_LIBS)
 
-  # build stxxl SHARED library and link all programs again it
-  add_library(stxxl SHARED ${LIBSTXXL_SOURCES})
-  set_target_properties(stxxl PROPERTIES OUTPUT_NAME "${STXXL_LIBNAME}")
-  set_target_properties(stxxl PROPERTIES VERSION "${STXXL_VERSION_STRING}")
-  install(TARGETS stxxl
-    EXPORT stxxl-targets
+  # build foxxll SHARED library and link all programs again it
+  add_library(foxxll SHARED ${LIBFOXXLL_SOURCES})
+  set_target_properties(foxxll PROPERTIES OUTPUT_NAME "${FOXXLL_LIBNAME}")
+  set_target_properties(foxxll PROPERTIES VERSION "${FOXXLL_VERSION_STRING}")
+  install(TARGETS foxxll
+    EXPORT foxxll-targets
     ARCHIVE DESTINATION ${INSTALL_LIB_DIR}
     LIBRARY DESTINATION ${INSTALL_LIB_DIR})
 
   if(BUILD_STATIC_LIBS)
     # but also build STATIC library
-    add_library(stxxl_static STATIC ${LIBSTXXL_SOURCES})
-    set_target_properties(stxxl_static PROPERTIES OUTPUT_NAME "${STXXL_LIBNAME}")
-    set_target_properties(stxxl_static PROPERTIES VERSION "${STXXL_VERSION_STRING}")
-    install(TARGETS stxxl_static
-      EXPORT stxxl-targets
+    add_library(foxxll_static STATIC ${LIBFOXXLL_SOURCES})
+    set_target_properties(foxxll_static PROPERTIES OUTPUT_NAME "${FOXXLL_LIBNAME}")
+    set_target_properties(foxxll_static PROPERTIES VERSION "${FOXXLL_VERSION_STRING}")
+    install(TARGETS foxxll_static
+      EXPORT foxxll-targets
       ARCHIVE DESTINATION ${INSTALL_LIB_DIR})
 
     # we build both shared and static, export both
-    set(STXXL_EXPORTED_LIBS stxxl stxxl_static)
+    set(FOXXLL_EXPORTED_LIBS foxxll foxxll_static)
   endif()
 
 else()
 
   if(NOT BUILD_STATIC_LIBS)
-    message(FATAL_ERROR "You must build either a static or shared STXXL library")
+    message(FATAL_ERROR "You must build either a static or shared FOXXLL library")
   endif()
 
-  # build stxxl STATIC library and link all programs again it
-  add_library(stxxl STATIC ${LIBSTXXL_SOURCES})
-  set_target_properties(stxxl PROPERTIES OUTPUT_NAME "${STXXL_LIBNAME}")
-  set_target_properties(stxxl PROPERTIES VERSION "${STXXL_VERSION_STRING}")
-  install(TARGETS stxxl
-    EXPORT stxxl-targets
+  # build foxxll STATIC library and link all programs again it
+  add_library(foxxll STATIC ${LIBFOXXLL_SOURCES})
+  set_target_properties(foxxll PROPERTIES OUTPUT_NAME "${FOXXLL_LIBNAME}")
+  set_target_properties(foxxll PROPERTIES VERSION "${FOXXLL_VERSION_STRING}")
+  install(TARGETS foxxll
+    EXPORT foxxll-targets
     ARCHIVE DESTINATION ${INSTALL_LIB_DIR}
     LIBRARY DESTINATION ${INSTALL_LIB_DIR})
 
 endif()
 
 # export variables to top-level cmakelists
-set(STXXL_LIBNAME ${STXXL_LIBNAME} PARENT_SCOPE)
-set(STXXL_EXPORTED_LIBS ${STXXL_EXPORTED_LIBS} PARENT_SCOPE)
+set(FOXXLL_LIBNAME ${FOXXLL_LIBNAME} PARENT_SCOPE)
+set(FOXXLL_EXPORTED_LIBS ${FOXXLL_EXPORTED_LIBS} PARENT_SCOPE)

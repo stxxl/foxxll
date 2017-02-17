@@ -1,0 +1,11 @@
+prefix=@CMAKE_INSTALL_PREFIX@
+exec_prefix=${prefix}
+includedir=${prefix}/@INSTALL_INCLUDE_DIR@
+libdir=${exec_prefix}/@INSTALL_LIB_DIR@
+
+Name: foxxll
+Description: FOundation of stXXl and thriLL
+URL: http://stxxl.org
+Version: @FOXXLL_VERSION_STRING@
+Cflags: -I${includedir} @FOXXLL_CXX_FLAGS@
+Libs: -L${libdir} -l@FOXXLL_LIBNAME@ @FOXXLL_EXTRA_LIBRARIES@

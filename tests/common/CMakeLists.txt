@@ -10,14 +10,14 @@
 #  http://www.boost.org/LICENSE_1_0.txt)
 ############################################################################
 
-stxxl_build_test(test_cmdline)
-stxxl_build_test(test_counting_ptr)
-stxxl_build_test(test_log2)
-stxxl_build_test(test_uint_types)
+foxxll_build_test(test_cmdline)
+foxxll_build_test(test_counting_ptr)
+foxxll_build_test(test_log2)
+foxxll_build_test(test_uint_types)
 
-stxxl_test(test_cmdline)
-stxxl_test(test_counting_ptr)
-stxxl_test(test_log2)
-stxxl_test(test_uint_types)
+foxxll_test(test_cmdline)
+foxxll_test(test_counting_ptr)
+foxxll_test(test_log2)
+foxxll_test(test_uint_types)
 
 ############################################################################
