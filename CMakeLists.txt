@@ -644,14 +644,14 @@ if(FOXXLL_TRY_COMPILE_HEADERS)
 
   file(GLOB_RECURSE header_files
     RELATIVE "${PROJECT_SOURCE_DIR}/include" FOLLOW_SYMLINKS "include/*")
-  list(REMOVE_ITEM header_files "foxxll/bits/config.h.in")
+  list(REMOVE_ITEM header_files "stxxl/bits/config.h.in")
 
   foreach(header_file ${header_files})
     # replace / and . with _ to get a valid target and file name
     string(REPLACE "/" "_" compile_name "${header_file}")
     string(REPLACE "." "_" compile_name "${compile_name}")
 
-    set(target_name "try_compile_${compile_name}")
+    set(target_name "foxxll_try_compile_${compile_name}")
     set(source_name "${PROJECT_BINARY_DIR}/try_compile/${target_name}.cpp")
 
     file(WRITE ${source_name}
