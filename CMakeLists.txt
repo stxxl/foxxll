@@ -490,8 +490,8 @@ set(FOXXLL_CXX_FLAGS "${FOXXLL_CXX_FLAGS}" CACHE STRING "Compiler flags for FOXX
 set(FOXXLL_INCLUDE_DIRS "${FOXXLL_INCLUDE_DIRS}" CACHE STRING "Include paths for FOXXLL")
 set(FOXXLL_LIBRARIES "${FOXXLL_LIBRARIES}" CACHE STRING "Libraries to link for FOXXLL")
 
-# build libfoxxll in /lib
-add_subdirectory(lib)
+# build libfoxxll
+add_subdirectory(foxxll)
 
 ###############################################################################
 # macros for building foxxll programs and tests
