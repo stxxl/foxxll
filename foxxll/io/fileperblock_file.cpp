@@ -12,7 +12,6 @@
  **************************************************************************/
 
 #include <stxxl/bits/common/aligned_alloc.h>
-#include <stxxl/bits/common/counting_ptr.h>
 #include <stxxl/bits/common/error_handling.h>
 #include <stxxl/bits/common/exceptions.h>
 #include <stxxl/bits/config.h>
@@ -27,6 +26,8 @@
 #include <stxxl/bits/io/wincall_file.h>
 #include <stxxl/bits/unused.h>
 #include <stxxl/bits/verbose.h>
+
+#include <foxxll/common/counting_ptr.hpp>
 
 #include "ufs_platform.h"
 
@@ -84,7 +85,7 @@ void fileperblock_file<base_file_type>::lock()
 {
     if (!lock_file_)
     {
-        lock_file_ = make_counting<base_file_type>(
+        lock_file_ = foxxll::make_counting<base_file_type>(
             filename_prefix_ + "_fpb_lock", mode_, get_queue_id());
 
         //create lock file and fill it with one page, an empty file cannot be locked

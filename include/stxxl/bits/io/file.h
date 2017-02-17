@@ -16,17 +16,17 @@
 #ifndef STXXL_IO_FILE_HEADER
 #define STXXL_IO_FILE_HEADER
 
-#include <stxxl/bits/config.h>
-#include <stxxl/bits/io/iostats.h>
-
-#include <stxxl/bits/common/counting_ptr.h>
 #include <stxxl/bits/common/exceptions.h>
 #include <stxxl/bits/common/types.h>
+#include <stxxl/bits/config.h>
+#include <stxxl/bits/io/iostats.h>
 #include <stxxl/bits/io/request.h>
 #include <stxxl/bits/io/request_interface.h>
 #include <stxxl/bits/libstxxl.h>
 #include <stxxl/bits/unused.h>
 #include <stxxl/bits/verbose.h>
+
+#include <foxxll/common/counting_ptr.hpp>
 
 #if defined(__linux__)
  #define STXXL_CHECK_BLOCK_ALIGNING
@@ -50,7 +50,7 @@ namespace stxxl {
 //!
 //! It is a base class for different implementations that might
 //! base on various file systems or even remote storage interfaces
-class file : public reference_count
+class file : public foxxll::reference_count
 {
 public:
     //! the offset of a request, also the size of the file

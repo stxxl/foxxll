@@ -15,10 +15,11 @@
 #ifndef STXXL_IO_REQUEST_HEADER
 #define STXXL_IO_REQUEST_HEADER
 
-#include <stxxl/bits/common/counting_ptr.h>
 #include <stxxl/bits/common/exceptions.h>
 #include <stxxl/bits/io/request_interface.h>
 #include <stxxl/bits/verbose.h>
+
+#include <foxxll/common/counting_ptr.hpp>
 
 #include <cassert>
 #include <functional>
@@ -36,15 +37,15 @@ class file;
 class request;
 
 //! A reference counting pointer for \c file.
-using file_ptr = counting_ptr<file>;
+using file_ptr = foxxll::counting_ptr<file>;
 
 //! A reference counting pointer for \c request.
-using request_ptr = counting_ptr<request>;
+using request_ptr = foxxll::counting_ptr<request>;
 
 using completion_handler = std::function<void(request* r, bool success)>;
 
 //! Request object encapsulating basic properties like file and offset.
-class request : virtual public request_interface, public reference_count
+class request : virtual public request_interface, public foxxll::reference_count
 {
     friend class linuxaio_queue;
 

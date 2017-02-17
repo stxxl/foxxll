@@ -12,13 +12,13 @@
  *  http://www.boost.org/LICENSE_1_0.txt)
  **************************************************************************/
 
-#include <stxxl/bits/common/counting_ptr.h>
+#include <foxxll/common/counting_ptr.hpp>
 #include <stxxl/bits/verbose.h>
 
 static unsigned int count_deletes = 0;
 
 // derive from counted_object to include reference counter
-struct my_int : public stxxl::reference_count
+struct my_int : public foxxll::reference_count
 {
     int i;
 
@@ -29,8 +29,8 @@ struct my_int : public stxxl::reference_count
     { ++count_deletes; }
 };
 
-using int_ptr = stxxl::counting_ptr<my_int>;
-using int_cptr = stxxl::counting_ptr<const my_int>;
+using int_ptr = foxxll::counting_ptr<my_int>;
+using int_cptr = foxxll::counting_ptr<const my_int>;
 
 int_cptr run_test()
 {
@@ -57,7 +57,7 @@ int_cptr run_test()
     STXXL_CHECK(i3->get_reference_count() == 3);
 
     // replace object in i3 with new integer
-    i3 = stxxl::make_counting<my_int>(5);
+    i3 = foxxll::make_counting<my_int>(5);
     STXXL_CHECK(i1 != i3);
     STXXL_CHECK(i1->get_reference_count() == 2);
 

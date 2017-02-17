@@ -23,7 +23,7 @@ request_ptr linuxaio_file::aread(
     void* buffer, offset_type offset, size_type bytes,
     const completion_handler& on_complete)
 {
-    request_ptr req = make_counting<linuxaio_request>(
+    request_ptr req = foxxll::make_counting<linuxaio_request>(
         on_complete, this, buffer, offset, bytes, request::READ);
 
     disk_queues::get_instance()->add_request(req, get_queue_id());
@@ -35,7 +35,7 @@ request_ptr linuxaio_file::awrite(
     void* buffer, offset_type offset, size_type bytes,
     const completion_handler& on_complete)
 {
-    request_ptr req = make_counting<linuxaio_request>(
+    request_ptr req = foxxll::make_counting<linuxaio_request>(
         on_complete, this, buffer, offset, bytes, request::WRITE);
 
     disk_queues::get_instance()->add_request(req, get_queue_id());

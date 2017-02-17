@@ -31,12 +31,12 @@ void testIO()
     const char* paths[2] = { "data1", "data2" };
 #else
     const char* paths[2] = { "/var/tmp/data1", "/var/tmp/data2" };
-    stxxl::file_ptr file1 = stxxl::make_counting<stxxl::mmap_file>(
+    stxxl::file_ptr file1 = foxxll::make_counting<stxxl::mmap_file>(
         paths[0], stxxl::file::CREAT | stxxl::file::RDWR, 0);
     file1->set_size(size * 1024);
 #endif
 
-    stxxl::file_ptr file2 = stxxl::make_counting<stxxl::syscall_file>(
+    stxxl::file_ptr file2 = foxxll::make_counting<stxxl::syscall_file>(
         paths[1], stxxl::file::CREAT | stxxl::file::RDWR, 1);
 
     stxxl::request_ptr req[16];

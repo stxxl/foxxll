@@ -21,13 +21,13 @@
 #include <ostream>
 #include <type_traits>
 
-namespace stxxl {
+namespace foxxll {
 
 //! \addtogroup support
 //! \{
 
 //! default deleter for counting_ptr
-class default_counting_ptr_deleter
+class counting_ptr_default_deleter
 {
 public:
     template <typename Type>
@@ -58,7 +58,7 @@ public:
  * which are only related if constructed with std::make_shared.
  */
 template <typename Type,
-          typename Deleter = default_counting_ptr_deleter>
+          typename Deleter = counting_ptr_default_deleter>
 class counting_ptr
 {
 public:
@@ -320,6 +320,6 @@ public:
 
 //! \}
 
-} // namespace stxxl
+} // namespace foxxll
 
 #endif // !STXXL_COMMON_COUNTING_PTR_HEADER
