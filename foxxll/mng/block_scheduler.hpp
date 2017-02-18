@@ -1,5 +1,5 @@
 /***************************************************************************
- *  include/stxxl/bits/mng/block_scheduler.h
+ *  foxxll/mng/block_scheduler.hpp
  *
  *  Part of the STXXL. See http://stxxl.org
  *
@@ -13,8 +13,8 @@
 #ifndef STXXL_MNG_BLOCK_SCHEDULER_HEADER
 #define STXXL_MNG_BLOCK_SCHEDULER_HEADER
 
-#include <stxxl/bits/mng/block_manager.h>
-#include <stxxl/bits/mng/typed_block.h>
+#include <foxxll/mng/block_manager.hpp>
+#include <foxxll/mng/typed_block.hpp>
 
 #include <foxxll/common/addressable_queues.hpp>
 
@@ -31,7 +31,7 @@
 #include <utility>
 #include <vector>
 
-namespace stxxl {
+namespace foxxll {
 
 //! Virtualization of a block of data.
 //! Holds information for allocating and swapping. To use in cooperation with block_scheduler.
@@ -618,7 +618,7 @@ protected:
     using block_scheduler_algorithm_type::return_free_internal_block_to_block_scheduler;
 
     //! Holds swappable blocks, whose internal block can be freed, i.e. that are internal but unacquired.
-    foxxll::addressable_fifo_queue<swappable_block_identifier_type> evictable_blocks;
+    addressable_fifo_queue<swappable_block_identifier_type> evictable_blocks;
 
     internal_block_type * get_free_internal_block()
     {
@@ -940,7 +940,7 @@ protected:
     };
 
     //! Holds swappable blocks, whose internal block can be freed, i.e. that are internal but unacquired.
-    foxxll::addressable_priority_queue<swappable_block_identifier_type, priority> evictable_blocks;
+    addressable_priority_queue<swappable_block_identifier_type, priority> evictable_blocks;
     /*!
      * Stores for the sequence of releases extracted from the prediction_sequence:
      * (true, timestamp of the blocks next acquire) if it is acquired next
@@ -1856,6 +1856,6 @@ public:
     }
 };
 
-} // namespace stxxl
+} // namespace foxxll
 
 #endif // !STXXL_MNG_BLOCK_SCHEDULER_HEADER

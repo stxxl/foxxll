@@ -1,5 +1,5 @@
 /***************************************************************************
- *  include/stxxl/bits/io/request_queue_impl_worker.h
+ *  foxxll/io/request_queue_impl_worker.hpp
  *
  *  Part of the STXXL. See http://stxxl.org
  *
@@ -16,14 +16,14 @@
 #ifndef STXXL_IO_REQUEST_QUEUE_IMPL_WORKER_HEADER
 #define STXXL_IO_REQUEST_QUEUE_IMPL_WORKER_HEADER
 
-#include <stxxl/bits/common/semaphore.h>
-#include <stxxl/bits/common/shared_state.h>
-#include <stxxl/bits/config.h>
-#include <stxxl/bits/io/request_queue.h>
+#include <foxxll/common/semaphore.hpp>
+#include <foxxll/common/shared_state.hpp>
+#include <foxxll/config.hpp>
+#include <foxxll/io/request_queue.hpp>
 
 #include <thread>
 
-namespace stxxl {
+namespace foxxll {
 
 //! \addtogroup reqlayer
 //! \{
@@ -47,7 +47,7 @@ protected:
 
 //! \}
 
-} // namespace stxxl
+} // namespace foxxll
 
 #endif // !STXXL_IO_REQUEST_QUEUE_IMPL_WORKER_HEADER
 // vim: et:ts=4:sw=4

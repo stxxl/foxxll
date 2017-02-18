@@ -1,5 +1,5 @@
 /***************************************************************************
- *  include/stxxl/bits/common/onoff_switch.h
+ *  foxxll/common/onoff_switch.hpp
  *
  *  Kind of binary semaphore: initially OFF, then multiple waiters can attach
  *  to the switch, which get notified one-by-one when switched ON.
@@ -20,7 +20,7 @@
 #include <condition_variable>
 #include <mutex>
 
-namespace stxxl {
+namespace foxxll {
 
 class onoff_switch
 {
@@ -84,6 +84,6 @@ public:
     }
 };
 
-} // namespace stxxl
+} // namespace foxxll
 
 #endif // !STXXL_COMMON_ONOFF_SWITCH_HEADER

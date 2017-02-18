@@ -10,14 +10,14 @@
  *  http://www.boost.org/LICENSE_1_0.txt)
  **************************************************************************/
 
-#include <stxxl/bits/common/cmdline.h>
-#include <stxxl/bits/common/utils.h>
+#include <foxxll/common/cmdline.hpp>
+#include <foxxll/common/utils.hpp>
 
 #include <algorithm>
 #include <cstring>
 #include <iomanip>
 
-namespace stxxl {
+namespace foxxll {
 
 void cmdline_parser::output_wrap(std::ostream& os, const std::string& text, size_t wraplen,
                                  size_t indent_first, size_t indent_rest,
@@ -353,6 +353,6 @@ void cmdline_parser::print_result(std::ostream& os)
     os.copyfmt(state);
 }
 
-} // namespace stxxl
+} // namespace foxxll
 
 /******************************************************************************/

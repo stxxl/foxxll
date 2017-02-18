@@ -1,5 +1,5 @@
 /***************************************************************************
- *  include/stxxl/bits/deprecated.h
+ *  foxxll/deprecated.hpp
  *
  *  Part of the STXXL. See http://stxxl.org
  *
@@ -14,7 +14,7 @@
 #ifndef STXXL_DEPRECATED_HEADER
 #define STXXL_DEPRECATED_HEADER
 
-#include <stxxl/bits/config.h>
+#include <foxxll/config.hpp>
 
 // deprecated functions
 

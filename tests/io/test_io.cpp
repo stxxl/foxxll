@@ -11,21 +11,21 @@
  *  http://www.boost.org/LICENSE_1_0.txt)
  **************************************************************************/
 
-#include <stxxl/aligned_alloc>
-#include <stxxl/io>
+#include <foxxll/common/aligned_alloc.hpp>
+#include <foxxll/io.hpp>
 
 #include <cstring>
 #include <limits>
 
 //! \example io/test_io.cpp
-//! This is an example of use of \c \<stxxl\> files, requests, and
-//! completion tracking mechanisms, i.e. \c stxxl::file , \c stxxl::request
+//! This is an example of use of \c \<foxxll\> files, requests, and
+//! completion tracking mechanisms, i.e. \c foxxll::file , \c foxxll::request
 
-using stxxl::file;
+using foxxll::file;
 
 struct my_handler
 {
-    void operator () (stxxl::request* ptr, bool success)
+    void operator () (foxxll::request* ptr, bool success)
     {
         STXXL_MSG("Request completed: " << ptr << " success: " << success);
     }
@@ -45,19 +45,19 @@ int main(int argc, char** argv)
 
     std::cout << sizeof(void*) << std::endl;
     const int size = 1024 * 384;
-    char* buffer = (char*)stxxl::aligned_alloc<4096>(size);
+    char* buffer = (char*)foxxll::aligned_alloc<4096>(size);
     memset(buffer, 0, size);
 
 #if STXXL_HAVE_MMAP_FILE
-    stxxl::file_ptr file1 = foxxll::make_counting<stxxl::mmap_file>(
+    foxxll::file_ptr file1 = foxxll::make_counting<foxxll::mmap_file>(
         tempfilename[0], file::CREAT | file::RDWR | file::DIRECT, 0);
     file1->set_size(size * 1024);
 #endif
 
-    stxxl::file_ptr file2 = foxxll::make_counting<stxxl::syscall_file>(
+    foxxll::file_ptr file2 = foxxll::make_counting<foxxll::syscall_file>(
         tempfilename[1], file::CREAT | file::RDWR | file::DIRECT, 1);
 
-    stxxl::request_ptr req[16];
+    foxxll::request_ptr req[16];
     unsigned i;
     for (i = 0; i < 16; i++)
         req[i] = file2->awrite(buffer, i * size, size, my_handler());
@@ -72,21 +72,21 @@ int main(int argc, char** argv)
 
     wait_all(req, 16);
 
-    stxxl::aligned_dealloc<4096>(buffer);
+    foxxll::aligned_dealloc<4096>(buffer);
 
-    std::cout << *(stxxl::stats::get_instance());
+    std::cout << *(foxxll::stats::get_instance());
 
     size_t sz;
     for (sz = 123, i = 0; i < 20; ++i, sz *= 10)
-        STXXL_MSG(">>>" << stxxl::add_SI_multiplier(sz) << "<<<");
+        STXXL_MSG(">>>" << foxxll::add_SI_multiplier(sz) << "<<<");
     for (sz = 123, i = 0; i < 20; ++i, sz *= 10)
-        STXXL_MSG(">>>" << stxxl::add_SI_multiplier(sz, "B") << "<<<");
-    STXXL_MSG(">>>" << stxxl::add_SI_multiplier(std::numeric_limits<uint64_t>::max(), "B") << "<<<");
+        STXXL_MSG(">>>" << foxxll::add_SI_multiplier(sz, "B") << "<<<");
+    STXXL_MSG(">>>" << foxxll::add_SI_multiplier(std::numeric_limits<uint64_t>::max(), "B") << "<<<");
     for (sz = 123, i = 0; i < 20; ++i, sz *= 10)
-        STXXL_MSG(">>>" << stxxl::add_IEC_binary_multiplier(sz) << "<<<");
+        STXXL_MSG(">>>" << foxxll::add_IEC_binary_multiplier(sz) << "<<<");
     for (sz = 123, i = 0; i < 20; ++i, sz *= 10)
-        STXXL_MSG(">>>" << stxxl::add_IEC_binary_multiplier(sz, "B") << "<<<");
-    STXXL_MSG(">>>" << stxxl::add_IEC_binary_multiplier(std::numeric_limits<uint64_t>::max(), "B") << "<<<");
+        STXXL_MSG(">>>" << foxxll::add_IEC_binary_multiplier(sz, "B") << "<<<");
+    STXXL_MSG(">>>" << foxxll::add_IEC_binary_multiplier(std::numeric_limits<uint64_t>::max(), "B") << "<<<");
 
 #if STXXL_HAVE_MMAP_FILE
     file1->close_remove();

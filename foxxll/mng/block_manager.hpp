@@ -1,5 +1,5 @@
 /***************************************************************************
- *  include/stxxl/bits/mng/block_manager.h
+ *  foxxll/mng/block_manager.hpp
  *
  *  Part of the STXXL. See http://stxxl.org
  *
@@ -15,19 +15,19 @@
 #ifndef STXXL_MNG_BLOCK_MANAGER_HEADER
 #define STXXL_MNG_BLOCK_MANAGER_HEADER
 
-#include <stxxl/bits/common/simple_vector.h>
-#include <stxxl/bits/common/utils.h>
-#include <stxxl/bits/config.h>
-#include <stxxl/bits/defines.h>
-#include <stxxl/bits/deprecated.h>
-#include <stxxl/bits/io/create_file.h>
-#include <stxxl/bits/io/file.h>
-#include <stxxl/bits/io/request.h>
-#include <stxxl/bits/mng/bid.h>
-#include <stxxl/bits/mng/block_alloc_strategy.h>
-#include <stxxl/bits/mng/config.h>
-#include <stxxl/bits/mng/disk_block_allocator.h>
-#include <stxxl/bits/singleton.h>
+#include <foxxll/common/simple_vector.hpp>
+#include <foxxll/common/utils.hpp>
+#include <foxxll/config.hpp>
+#include <foxxll/defines.hpp>
+#include <foxxll/deprecated.hpp>
+#include <foxxll/io/create_file.hpp>
+#include <foxxll/io/file.hpp>
+#include <foxxll/io/request.hpp>
+#include <foxxll/mng/bid.hpp>
+#include <foxxll/mng/block_alloc_strategy.hpp>
+#include <foxxll/mng/config.hpp>
+#include <foxxll/mng/disk_block_allocator.hpp>
+#include <foxxll/singleton.hpp>
 
 #include <algorithm>
 #include <cstdlib>
@@ -37,10 +37,10 @@
 #include <vector>
 
 #if STXXL_MSVC
-#include <memory.h>
+#include <memory.hpp>
 #endif
 
-namespace stxxl {
+namespace foxxll {
 
 //! \addtogroup mnglayer
 //! \{
@@ -278,12 +278,12 @@ struct dummy_default_block_size
         return 2 * 1024 * 1024;
     }
 };
-    #define STXXL_DEFAULT_BLOCK_SIZE(type) (size_t(stxxl::dummy_default_block_size<type>::size())) // use traits
+#define STXXL_DEFAULT_BLOCK_SIZE(type) (size_t(::foxxll::dummy_default_block_size<type>::size())) // use traits
 #endif
 
 //! \}
 
-} // namespace stxxl
+} // namespace foxxll
 
 #endif // !STXXL_MNG_BLOCK_MANAGER_HEADER
 // vim: et:ts=4:sw=4

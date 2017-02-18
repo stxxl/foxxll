@@ -10,19 +10,19 @@
  *  http://www.boost.org/LICENSE_1_0.txt)
  **************************************************************************/
 
-#include <stxxl/mng>
+#include <foxxll/mng.hpp>
 
 #include <iostream>
 
 #define BLOCK_SIZE (1024 * 1024 * 32)
 
-using block_type = stxxl::typed_block<BLOCK_SIZE, int>;
-template class stxxl::typed_block<BLOCK_SIZE, int>; // forced instantiation
+using block_type = foxxll::typed_block<BLOCK_SIZE, int>;
+template class foxxll::typed_block<BLOCK_SIZE, int>; // forced instantiation
 
 int main()
 {
     size_t totalsize = 0;
-    stxxl::config* config = stxxl::config::get_instance();
+    foxxll::config* config = foxxll::config::get_instance();
 
     for (size_t i = 0; i < config->disks_number(); ++i)
         totalsize += config->disk_size(i);
@@ -32,19 +32,19 @@ int main()
 
     STXXL_MSG("external memory: " << totalsize << " bytes  ==  " << totalblocks << " blocks");
 
-    stxxl::BIDArray<BLOCK_SIZE> b5a(totalblocks / 5);
-    stxxl::BIDArray<BLOCK_SIZE> b5b(totalblocks / 5);
-    stxxl::BIDArray<BLOCK_SIZE> b5c(totalblocks / 5);
-    stxxl::BIDArray<BLOCK_SIZE> b5d(totalblocks / 5);
-    stxxl::BIDArray<BLOCK_SIZE> b2(totalblocks / 2);
+    foxxll::BIDArray<BLOCK_SIZE> b5a(totalblocks / 5);
+    foxxll::BIDArray<BLOCK_SIZE> b5b(totalblocks / 5);
+    foxxll::BIDArray<BLOCK_SIZE> b5c(totalblocks / 5);
+    foxxll::BIDArray<BLOCK_SIZE> b5d(totalblocks / 5);
+    foxxll::BIDArray<BLOCK_SIZE> b2(totalblocks / 2);
 
-    stxxl::block_manager* bm = stxxl::block_manager::get_instance();
+    foxxll::block_manager* bm = foxxll::block_manager::get_instance();
 
     STXXL_MSG("get 4 x " << totalblocks / 5);
-    bm->new_blocks(stxxl::striping(), b5a.begin(), b5a.end());
-    bm->new_blocks(stxxl::striping(), b5b.begin(), b5b.end());
-    bm->new_blocks(stxxl::striping(), b5c.begin(), b5c.end());
-    bm->new_blocks(stxxl::striping(), b5d.begin(), b5d.end());
+    bm->new_blocks(foxxll::striping(), b5a.begin(), b5a.end());
+    bm->new_blocks(foxxll::striping(), b5b.begin(), b5b.end());
+    bm->new_blocks(foxxll::striping(), b5c.begin(), b5c.end());
+    bm->new_blocks(foxxll::striping(), b5d.begin(), b5d.end());
 
     STXXL_MSG("free 2 x " << totalblocks / 5);
     bm->delete_blocks(b5a.begin(), b5a.end());
@@ -53,7 +53,7 @@ int main()
     // the external memory should now be fragmented enough,
     // s.t. the following request needs to be split into smaller ones
     STXXL_MSG("get 1 x " << totalblocks / 2);
-    bm->new_blocks(stxxl::striping(), b2.begin(), b2.end());
+    bm->new_blocks(foxxll::striping(), b2.begin(), b2.end());
 
     bm->delete_blocks(b5b.begin(), b5b.end());
     bm->delete_blocks(b5d.begin(), b5d.end());

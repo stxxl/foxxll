@@ -1,5 +1,5 @@
 /***************************************************************************
- *  include/stxxl/bits/common/exithandler.h
+ *  foxxll/common/exithandler.hpp
  *
  *  Part of the STXXL. See http://stxxl.org
  *
@@ -13,7 +13,7 @@
 #ifndef STXXL_COMMON_EXITHANDLER_HEADER
 #define STXXL_COMMON_EXITHANDLER_HEADER
 
-namespace stxxl {
+namespace foxxll {
 
 // There are several possibilities for the exit handlers.  To use the default
 // implementation (which uses atexit()), nothing special has to be done.
@@ -30,7 +30,7 @@ namespace stxxl {
 int register_exit_handler(void (* function)(void));
 void run_exit_handlers();
 
-} // namespace stxxl
+} // namespace foxxll
 
 #endif // !STXXL_COMMON_EXITHANDLER_HEADER
 // vim: et:ts=4:sw=4

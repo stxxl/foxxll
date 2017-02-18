@@ -1,5 +1,5 @@
 /***************************************************************************
- *  include/stxxl/bits/mng/buf_istream.h
+ *  foxxll/mng/buf_istream.hpp
  *
  *  Part of the STXXL. See http://stxxl.org
  *
@@ -13,13 +13,13 @@
 #ifndef STXXL_MNG_BUF_ISTREAM_HEADER
 #define STXXL_MNG_BUF_ISTREAM_HEADER
 
-#include <stxxl/bits/mng/async_schedule.h>
-#include <stxxl/bits/mng/block_prefetcher.h>
-#include <stxxl/bits/mng/config.h>
+#include <foxxll/mng/async_schedule.hpp>
+#include <foxxll/mng/block_prefetcher.hpp>
+#include <foxxll/mng/config.hpp>
 
 #include <algorithm>
 
-namespace stxxl {
+namespace foxxll {
 
 //! \addtogroup schedlayer
 //! \{
@@ -158,6 +158,6 @@ public:
 
 //! \}
 
-} // namespace stxxl
+} // namespace foxxll
 
 #endif // !STXXL_MNG_BUF_ISTREAM_HEADER

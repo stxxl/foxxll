@@ -10,7 +10,7 @@
  *  http://www.boost.org/LICENSE_1_0.txt)
  **************************************************************************/
 
-#include <stxxl/bits/common/exithandler.h>
+#include <foxxll/common/exithandler.hpp>
 
 // 1. do nothing for default handler
 // 2. #define STXXL_NON_DEFAULT_EXIT_HANDLER for a handler that does not use atexit()
@@ -21,7 +21,7 @@
 
 #include <cstdlib>
 
-namespace stxxl {
+namespace foxxll {
 
 // default exit handler
 int register_exit_handler(void (* function)(void))
@@ -35,14 +35,14 @@ void run_exit_handlers()
     // nothing to do
 }
 
-} // namespace stxxl
+} // namespace foxxll
 
 #else // STXXL_NON_DEFAULT_EXIT_HANDLER
 
 #include <mutex>
 #include <vector>
 
-namespace stxxl {
+namespace foxxll {
 
 std::mutex exit_handler_mutex;
 std::vector<void (*)(void)> exit_handlers;
@@ -64,7 +64,7 @@ void run_exit_handlers()
     }
 }
 
-} // namespace stxxl
+} // namespace foxxll
 
 #endif // STXXL_NON_DEFAULT_EXIT_HANDLER
 #endif // STXXL_EXTERNAL_EXIT_HANDLER

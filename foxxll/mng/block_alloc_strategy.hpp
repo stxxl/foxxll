@@ -1,5 +1,5 @@
 /***************************************************************************
- *  include/stxxl/bits/mng/block_alloc_strategy.h
+ *  foxxll/mng/block_alloc_strategy.hpp
  *
  *  Part of the STXXL. See http://stxxl.org
  *
@@ -14,14 +14,14 @@
 #ifndef STXXL_MNG_BLOCK_ALLOC_STRATEGY_HEADER
 #define STXXL_MNG_BLOCK_ALLOC_STRATEGY_HEADER
 
-#include <stxxl/bits/mng/block_manager.h>
-#include <stxxl/bits/mng/config.h>
+#include <foxxll/mng/block_manager.hpp>
+#include <foxxll/mng/config.hpp>
 
 #include <algorithm>
 #include <random>
 #include <vector>
 
-namespace stxxl {
+namespace foxxll {
 
 //! \defgroup alloc Allocation Functors
 //! \ingroup mnglayer
@@ -251,12 +251,12 @@ struct offset_allocator
 };
 
 #ifndef STXXL_DEFAULT_ALLOC_STRATEGY
-    #define STXXL_DEFAULT_ALLOC_STRATEGY stxxl::random_cyclic
+    #define STXXL_DEFAULT_ALLOC_STRATEGY foxxll::random_cyclic
 #endif
 
 //! \}
 
-} // namespace stxxl
+} // namespace foxxll
 
 #endif // !STXXL_MNG_BLOCK_ALLOC_STRATEGY_HEADER
 // vim: et:ts=4:sw=4

@@ -1,5 +1,5 @@
 /***************************************************************************
- *  include/stxxl/bits/io/request_queue.h
+ *  foxxll/io/request_queue.hpp
  *
  *  Part of the STXXL. See http://stxxl.org
  *
@@ -14,9 +14,9 @@
 #ifndef STXXL_IO_REQUEST_QUEUE_HEADER
 #define STXXL_IO_REQUEST_QUEUE_HEADER
 
-#include <stxxl/bits/io/request.h>
+#include <foxxll/io/request.hpp>
 
-namespace stxxl {
+namespace foxxll {
 
 //! \addtogroup reqlayer
 //! \{
@@ -43,7 +43,7 @@ public:
 
 //! \}
 
-} // namespace stxxl
+} // namespace foxxll
 
 #endif // !STXXL_IO_REQUEST_QUEUE_HEADER
 // vim: et:ts=4:sw=4

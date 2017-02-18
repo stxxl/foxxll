@@ -12,8 +12,8 @@
 
 //! \example mng/test_read_write_pool.cpp
 
-#include <stxxl/bits/mng/read_write_pool.h>
-#include <stxxl/mng>
+#include <foxxll/mng.hpp>
+#include <foxxll/mng/read_write_pool.hpp>
 
 #include <iostream>
 
@@ -25,20 +25,20 @@ struct MyType
     char chars[5];
 };
 
-using block_type = stxxl::typed_block<BLOCK_SIZE, MyType>;
+using block_type = foxxll::typed_block<BLOCK_SIZE, MyType>;
 
 // forced instantiation
-template class stxxl::typed_block<BLOCK_SIZE, MyType>;
-template class stxxl::read_write_pool<block_type>;
+template class foxxll::typed_block<BLOCK_SIZE, MyType>;
+template class foxxll::read_write_pool<block_type>;
 
 int main()
 {
-    stxxl::block_manager* bm = stxxl::block_manager::get_instance();
+    foxxll::block_manager* bm = foxxll::block_manager::get_instance();
     STXXL_DEFAULT_ALLOC_STRATEGY alloc;
 
     {
         STXXL_MSG("Write-After-Write coherence test");
-        stxxl::read_write_pool<block_type> pool(2, 10);
+        foxxll::read_write_pool<block_type> pool(2, 10);
         block_type* blk;
         block_type::bid_type bid;
 
@@ -75,7 +75,7 @@ int main()
 
     {
         STXXL_MSG("Write-After-Hint coherence test #1");
-        stxxl::read_write_pool<block_type> pool(1, 1);
+        foxxll::read_write_pool<block_type> pool(1, 1);
         block_type* blk;
         block_type::bid_type bid;
 
@@ -105,7 +105,7 @@ int main()
 
     {
         STXXL_MSG("Write-After-Hint coherence test #2");
-        stxxl::read_write_pool<block_type> pool(1, 1);
+        foxxll::read_write_pool<block_type> pool(1, 1);
         block_type* blk;
         block_type::bid_type bid;
 

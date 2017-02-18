@@ -12,9 +12,9 @@
  *  http://www.boost.org/LICENSE_1_0.txt)
  **************************************************************************/
 
-#include <stxxl/bits/common/error_handling.h>
-#include <stxxl/bits/mng/block_alloc_strategy_interleaved.h>
-#include <stxxl/mng>
+#include <foxxll/common/error_handling.hpp>
+#include <foxxll/mng.hpp>
+#include <foxxll/mng/block_alloc_strategy_interleaved.hpp>
 
 template <typename strategy>
 void test_strategy()
@@ -22,8 +22,8 @@ void test_strategy()
     STXXL_MSG(STXXL_PRETTY_FUNCTION_NAME);
     strategy s0;
     strategy s2(1, 3);
-    stxxl::offset_allocator<strategy> o(1, s0);
-    using interleaved = typename stxxl::interleaved_alloc_traits<strategy>::strategy;
+    foxxll::offset_allocator<strategy> o(1, s0);
+    using interleaved = typename foxxll::interleaved_alloc_traits<strategy>::strategy;
     interleaved itl(23, strategy(1, 3));
     for (int i = 0; i < 16; ++i)
         STXXL_MSG(s0(i) << " " << s2(i) << " " << o(i) << " " << itl(i));
@@ -44,21 +44,21 @@ void test_strategy()
 
 int main()
 {
-    stxxl::config* cfg = stxxl::config::get_instance();
+    foxxll::config* cfg = foxxll::config::get_instance();
 
     // instantiate the allocation strategies
     STXXL_MSG("Number of disks: " << cfg->disks_number());
     for (unsigned i = 0; i < cfg->disks_number(); ++i)
         STXXL_MSG(cfg->disk_path(i) << ", " << cfg->disk_size(i) << ", " << cfg->disk_io_impl(i));
-    test_strategy<stxxl::striping>();
-    test_strategy<stxxl::fully_random>();
-    test_strategy<stxxl::simple_random>();
-    test_strategy<stxxl::random_cyclic>();
+    test_strategy<foxxll::striping>();
+    test_strategy<foxxll::fully_random>();
+    test_strategy<foxxll::simple_random>();
+    test_strategy<foxxll::random_cyclic>();
     STXXL_MSG("Regular disks: [" << cfg->regular_disk_range().first << "," << cfg->regular_disk_range().second << ")");
     if (cfg->regular_disk_range().first != cfg->regular_disk_range().second)
-        test_strategy<stxxl::random_cyclic_disk>();
+        test_strategy<foxxll::random_cyclic_disk>();
     STXXL_MSG("Flash devices: [" << cfg->flash_range().first << "," << cfg->flash_range().second << ")");
     if (cfg->flash_range().first != cfg->flash_range().second)
-        test_strategy<stxxl::random_cyclic_flash>();
-    test_strategy<stxxl::single_disk>();
+        test_strategy<foxxll::random_cyclic_flash>();
+    test_strategy<foxxll::single_disk>();
 }

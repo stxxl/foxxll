@@ -1,5 +1,5 @@
 /***************************************************************************
- *  include/stxxl/bits/common/log.h
+ *  foxxll/common/log.hpp
  *
  *  Part of the STXXL. See http://stxxl.org
  *
@@ -14,11 +14,11 @@
 #ifndef STXXL_COMMON_LOG_HEADER
 #define STXXL_COMMON_LOG_HEADER
 
-#include <stxxl/bits/singleton.h>
+#include <foxxll/singleton.hpp>
 
 #include <fstream>
 
-namespace stxxl {
+namespace foxxll {
 
 class logger : public singleton<logger>
 {
@@ -48,6 +48,6 @@ public:
     }
 };
 
-} // namespace stxxl
+} // namespace foxxll
 
 #endif // !STXXL_COMMON_LOG_HEADER

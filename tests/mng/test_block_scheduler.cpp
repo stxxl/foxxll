@@ -11,16 +11,16 @@
  *  http://www.boost.org/LICENSE_1_0.txt)
  **************************************************************************/
 
-#include <stxxl/bits/common/cmdline.h>
-#include <stxxl/bits/mng/block_scheduler.h>
+#include <foxxll/common/cmdline.hpp>
+#include <foxxll/mng/block_scheduler.hpp>
 
 #include <iostream>
 #include <limits>
 
-using stxxl::external_size_type;
+using foxxll::external_size_type;
 
 // forced instantiation
-template class stxxl::block_scheduler<stxxl::swappable_block<size_t, 1024> >;
+template class foxxll::block_scheduler<foxxll::swappable_block<size_t, 1024> >;
 
 template <class IBT>
 void set_pattern_A(IBT& ib)
@@ -59,8 +59,8 @@ using value_type = size_t;
 
 size_t internal_memory = 0;
 
-using block_scheduler_type = stxxl::block_scheduler<stxxl::swappable_block<value_type, block_size> >;
-using swappable_block_type = stxxl::swappable_block<value_type, block_size>;
+using block_scheduler_type = foxxll::block_scheduler<foxxll::swappable_block<value_type, block_size> >;
+using swappable_block_type = foxxll::swappable_block<value_type, block_size>;
 using swappable_block_identifier_type = block_scheduler_type::swappable_block_identifier_type;
 using internal_block_type = block_scheduler_type::internal_block_type;
 using external_block_type = block_scheduler_type::external_block_type;
@@ -72,7 +72,7 @@ void test1()
 
     // prepare an external_block with pattern A
     external_block_type ext_bl;
-    stxxl::block_manager::get_instance()->new_block(stxxl::striping(), ext_bl);
+    foxxll::block_manager::get_instance()->new_block(foxxll::striping(), ext_bl);
     internal_block_type* int_bl = new internal_block_type;
     set_pattern_A(*int_bl);
     int_bl->write(ext_bl)->wait();
@@ -149,8 +149,8 @@ void test1()
     bs.explicit_timestep();
 
     // switch to simulation mode
-    stxxl::block_scheduler_algorithm_simulation<swappable_block_type>* asim =
-        new stxxl::block_scheduler_algorithm_simulation<swappable_block_type>(bs);
+    foxxll::block_scheduler_algorithm_simulation<swappable_block_type>* asim =
+        new foxxll::block_scheduler_algorithm_simulation<swappable_block_type>(bs);
     delete bs.switch_algorithm_to(asim);
 
     // allocate swappable block
@@ -180,7 +180,7 @@ void test1()
 
     // switch to LFD processing
     delete bs.switch_algorithm_to(
-        new stxxl::block_scheduler_algorithm_offline_lfd<swappable_block_type>(asim));
+        new foxxll::block_scheduler_algorithm_offline_lfd<swappable_block_type>(asim));
 
     sbi = bs.allocate_swappable_block();
     bs.acquire(sbi);
@@ -199,7 +199,7 @@ void test1()
 #if 0
     // 2013-tb: segfaults due to missing prediction sequence? TODO
     delete bs.switch_algorithm_to(
-        new stxxl::block_scheduler_algorithm_offline_lru_prefetching<swappable_block_type>(asim));
+        new foxxll::block_scheduler_algorithm_offline_lru_prefetching<swappable_block_type>(asim));
     sbi = bs.allocate_swappable_block();
     bs.acquire(sbi);
     bs.acquire(sbi);
@@ -347,14 +347,14 @@ int main(int argc, char** argv)
     int test_case = -1;
     int internal_memory_megabytes = 256;
 
-    stxxl::cmdline_parser cp;
+    foxxll::cmdline_parser cp;
 
     cp.add_int('t', "test-case", "I", test_case,
                "number of the test case to run");
     cp.add_int('m', "memory", "N", internal_memory_megabytes,
                "internal memory to use (in megabytes)");
 
-    cp.set_description("stxxl block_scheduler test");
+    cp.set_description("foxxll block_scheduler test");
     cp.set_author("Raoul Steffen, R-Steffen@gmx.de");
 
     if (!cp.process(argc, argv))

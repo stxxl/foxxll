@@ -22,21 +22,21 @@
         "file.log" using ($3/1024):($7)  w l title "write"
  */
 
-#include <stxxl/aligned_alloc>
-#include <stxxl/bits/common/cmdline.h>
-#include <stxxl/bits/version.h>
-#include <stxxl/io>
-#include <stxxl/timer>
+#include <foxxll/common/aligned_alloc.hpp>
+#include <foxxll/common/cmdline.hpp>
+#include <foxxll/common/timer.hpp>
+#include <foxxll/io.hpp>
+#include <foxxll/version.hpp>
 
 #include <algorithm>
 #include <cstring>
 #include <iomanip>
 #include <vector>
 
-using stxxl::request_ptr;
-using stxxl::file;
-using stxxl::timestamp;
-using stxxl::external_size_type;
+using foxxll::request_ptr;
+using foxxll::file;
+using foxxll::timestamp;
+using foxxll::external_size_type;
 
 #ifdef BLOCK_ALIGN
  #undef BLOCK_ALIGN
@@ -112,7 +112,7 @@ int benchmark_files(int argc, char* argv[])
 
     std::vector<std::string> files_arr;
 
-    stxxl::cmdline_parser cp;
+    foxxll::cmdline_parser cp;
 
     cp.add_param_bytes("length", length,
                        "Length to write in file.");
@@ -190,7 +190,7 @@ int benchmark_files(int argc, char* argv[])
     const char* myself = strrchr(argv[0], '/');
     if (!myself || !*(++myself))
         myself = argv[0];
-    std::cout << "# " << myself << " " << stxxl::get_version_string_long();
+    std::cout << "# " << myself << " " << foxxll::get_version_string_long();
 #if STXXL_DIRECT_IO_OFF
     std::cout << " STXXL_DIRECT_IO_OFF";
 #endif
@@ -208,8 +208,8 @@ int benchmark_files(int argc, char* argv[])
     const size_t block_size_int = block_size / sizeof(uint32_t);
     const size_t step_size_int = step_size / sizeof(uint32_t);
 
-    uint32_t* buffer = (uint32_t*)stxxl::aligned_alloc<BLOCK_ALIGN>(step_size * nfiles);
-    std::vector<stxxl::file_ptr> files(nfiles);
+    uint32_t* buffer = (uint32_t*)foxxll::aligned_alloc<BLOCK_ALIGN>(step_size * nfiles);
+    std::vector<foxxll::file_ptr> files(nfiles);
     std::vector<request_ptr> reqs(nfiles* batch_size);
 
 #ifdef WATCH_TIMES
@@ -235,7 +235,7 @@ int benchmark_files(int argc, char* argv[])
             openmode |= file::SYNC;
         }
 
-        files[i] = stxxl::create_file(file_type, files_arr[i], openmode, static_cast<int>(i));
+        files[i] = foxxll::create_file(file_type, files_arr[i], openmode, static_cast<int>(i));
         if (resize_after_open)
             files[i]->set_size(endpos);
     }
@@ -249,13 +249,13 @@ int benchmark_files(int argc, char* argv[])
               << " O_SYNC=" << (sync_io ? "yes" : "no")
               << std::endl;
 
-    stxxl::timer t_total(true);
+    foxxll::timer t_total(true);
     try {
         while (offset + step_size <= endpos || length == 0)
         {
             const size_t current_step_size = (length == 0) ? step_size : static_cast<size_t>(std::min<external_size_type>(step_size, endpos - offset));
             const size_t current_step_size_int = current_step_size / sizeof(uint32_t);
-            const size_t current_num_blocks = stxxl::div_ceil(current_step_size, block_size);
+            const size_t current_num_blocks = foxxll::div_ceil(current_step_size, block_size);
 
             std::cout << "File offset    " << std::setw(8) << offset / MB << " MiB: " << std::fixed;
 
@@ -448,7 +448,7 @@ int benchmark_files(int argc, char* argv[])
     delete[] r_finish_times;
     delete[] w_finish_times;
 #endif
-    stxxl::aligned_dealloc<BLOCK_ALIGN>(buffer);
+    foxxll::aligned_dealloc<BLOCK_ALIGN>(buffer);
 
     return (verify_failed ? 1 : 0);
 }

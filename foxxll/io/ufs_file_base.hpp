@@ -1,5 +1,5 @@
 /***************************************************************************
- *  include/stxxl/bits/io/ufs_file_base.h
+ *  foxxll/io/ufs_file_base.hpp
  *
  *  UNIX file system file base
  *
@@ -18,12 +18,12 @@
 #ifndef STXXL_IO_UFS_FILE_BASE_HEADER
 #define STXXL_IO_UFS_FILE_BASE_HEADER
 
-#include <stxxl/bits/io/file.h>
+#include <foxxll/io/file.hpp>
 
 #include <mutex>
 #include <string>
 
-namespace stxxl {
+namespace foxxll {
 
 //! \addtogroup fileimpl
 //! \{
@@ -58,6 +58,6 @@ public:
 
 //! \}
 
-} // namespace stxxl
+} // namespace foxxll
 
 #endif // !STXXL_IO_UFS_FILE_BASE_HEADER

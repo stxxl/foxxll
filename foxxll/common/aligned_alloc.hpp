@@ -1,5 +1,5 @@
 /***************************************************************************
- *  include/stxxl/bits/common/aligned_alloc.h
+ *  foxxll/common/aligned_alloc.hpp
  *
  *  Part of the STXXL. See http://stxxl.org
  *
@@ -14,8 +14,8 @@
 #ifndef STXXL_COMMON_ALIGNED_ALLOC_HEADER
 #define STXXL_COMMON_ALIGNED_ALLOC_HEADER
 
-#include <stxxl/bits/common/utils.h>
-#include <stxxl/bits/verbose.h>
+#include <foxxll/common/utils.hpp>
+#include <foxxll/verbose.hpp>
 
 #include <cassert>
 #include <cstdlib>
@@ -24,7 +24,7 @@
 #define STXXL_VERBOSE_ALIGNED_ALLOC STXXL_VERBOSE2
 #endif
 
-namespace stxxl {
+namespace foxxll {
 
 template <typename MustBeInt>
 struct aligned_alloc_settings {
@@ -124,7 +124,7 @@ aligned_dealloc(void* ptr)
     std::free(buffer);
 }
 
-} // namespace stxxl
+} // namespace foxxll
 
 #endif // !STXXL_COMMON_ALIGNED_ALLOC_HEADER
 // vim: et:ts=4:sw=4

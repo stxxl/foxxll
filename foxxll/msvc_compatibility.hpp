@@ -1,5 +1,5 @@
 /***************************************************************************
- *  include/stxxl/bits/msvc_compatibility.h
+ *  foxxll/msvc_compatibility.hpp
  *
  *  Part of the STXXL. See http://stxxl.org
  *
@@ -13,11 +13,11 @@
 #ifndef STXXL_MSVC_COMPATIBILITY_HEADER
 #define STXXL_MSVC_COMPATIBILITY_HEADER
 
-#include <stxxl/bits/config.h>
+#include <foxxll/config.hpp>
 
 #if STXXL_MSVC
 
-#include <cmath>
+#include <cma.hpp>
 
 inline double log2(double x)
 {

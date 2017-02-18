@@ -13,17 +13,16 @@
  *  http://www.boost.org/LICENSE_1_0.txt)
  **************************************************************************/
 
-#include <stxxl/bits/common/error_handling.h>
-#include <stxxl/bits/common/exceptions.h>
-#include <stxxl/bits/io/create_file.h>
-#include <stxxl/bits/io/io.h>
-#include <stxxl/bits/mng/config.h>
+#include <foxxll/common/error_handling.hpp>
+#include <foxxll/common/exceptions.hpp>
+#include <foxxll/io.hpp>
+#include <foxxll/mng/config.hpp>
 
 #include <ostream>
 #include <stdexcept>
 #include <string>
 
-namespace stxxl {
+namespace foxxll {
 
 file_ptr create_file(const std::string& io_impl,
                      const std::string& filename,
@@ -72,8 +71,8 @@ file_ptr create_file(disk_config& cfg, int mode, int disk_allocator_id)
 
     if (cfg.io_impl == "syscall")
     {
-        foxxll::counting_ptr<ufs_file_base> result =
-            foxxll::make_counting<syscall_file>(
+        counting_ptr<ufs_file_base> result =
+            make_counting<syscall_file>(
                 cfg.path, mode, cfg.queue, disk_allocator_id, cfg.device_id);
         result->lock();
 
@@ -99,16 +98,16 @@ file_ptr create_file(disk_config& cfg, int mode, int disk_allocator_id)
     }
     else if (cfg.io_impl == "fileperblock_syscall")
     {
-        foxxll::counting_ptr<fileperblock_file<syscall_file> > result =
-            foxxll::make_counting<fileperblock_file<syscall_file> >(
+        counting_ptr<fileperblock_file<syscall_file> > result =
+            make_counting<fileperblock_file<syscall_file> >(
                 cfg.path, mode, cfg.queue, disk_allocator_id, cfg.device_id);
         result->lock();
         return result;
     }
     else if (cfg.io_impl == "memory")
     {
-        foxxll::counting_ptr<memory_file> result =
-            foxxll::make_counting<memory_file>(
+        counting_ptr<memory_file> result =
+            make_counting<memory_file>(
                 cfg.queue, disk_allocator_id, cfg.device_id);
         result->lock();
         return result;
@@ -120,8 +119,8 @@ file_ptr create_file(disk_config& cfg, int mode, int disk_allocator_id)
         // linuxaio_queue is a singleton.
         cfg.queue = file::DEFAULT_LINUXAIO_QUEUE;
 
-        foxxll::counting_ptr<ufs_file_base> result =
-            foxxll::make_counting<linuxaio_file>(
+        counting_ptr<ufs_file_base> result =
+            make_counting<linuxaio_file>(
                 cfg.path, mode, cfg.queue, disk_allocator_id,
                 cfg.device_id, cfg.queue_length);
 
@@ -151,8 +150,8 @@ file_ptr create_file(disk_config& cfg, int mode, int disk_allocator_id)
 #if STXXL_HAVE_MMAP_FILE
     else if (cfg.io_impl == "mmap")
     {
-        foxxll::counting_ptr<ufs_file_base> result =
-            foxxll::make_counting<mmap_file>(
+        counting_ptr<ufs_file_base> result =
+            make_counting<mmap_file>(
                 cfg.path, mode, cfg.queue, disk_allocator_id, cfg.device_id);
         result->lock();
 
@@ -163,8 +162,8 @@ file_ptr create_file(disk_config& cfg, int mode, int disk_allocator_id)
     }
     else if (cfg.io_impl == "fileperblock_mmap")
     {
-        foxxll::counting_ptr<fileperblock_file<mmap_file> > result =
-            foxxll::make_counting<fileperblock_file<mmap_file> >(
+        counting_ptr<fileperblock_file<mmap_file> > result =
+            make_counting<fileperblock_file<mmap_file> >(
                 cfg.path, mode, cfg.queue, disk_allocator_id, cfg.device_id);
         result->lock();
         return result;
@@ -173,16 +172,16 @@ file_ptr create_file(disk_config& cfg, int mode, int disk_allocator_id)
 #if STXXL_HAVE_WINCALL_FILE
     else if (cfg.io_impl == "wincall")
     {
-        foxxll::counting_ptr<wfs_file_base> result =
-            foxxll::make_counting<wincall_file>(
+        counting_ptr<wfs_file_base> result =
+            make_counting<wincall_file>(
                 cfg.path, mode, cfg.queue, disk_allocator_id, cfg.device_id);
         result->lock();
         return result;
     }
     else if (cfg.io_impl == "fileperblock_wincall")
     {
-        foxxll::counting_ptr<fileperblock_file<wincall_file> > result =
-            foxxll::make_counting<fileperblock_file<wincall_file> >(
+        counting_ptr<fileperblock_file<wincall_file> > result =
+            make_counting<fileperblock_file<wincall_file> >(
                 cfg.path, mode, cfg.queue, disk_allocator_id, cfg.device_id);
         result->lock();
         return result;
@@ -193,5 +192,5 @@ file_ptr create_file(disk_config& cfg, int mode, int disk_allocator_id)
                 "Unsupported disk I/O implementation '" << cfg.io_impl << "'.");
 }
 
-} // namespace stxxl
+} // namespace foxxll
 // vim: et:ts=4:sw=4

@@ -11,26 +11,26 @@
  *  http://www.boost.org/LICENSE_1_0.txt)
  **************************************************************************/
 
-#include <stxxl/bits/io/linuxaio_queue.h>
+#include <foxxll/io/linuxaio_queue.hpp>
 
 #if STXXL_HAVE_LINUXAIO_FILE
 
-#include <sys/syscall.h>
-#include <unistd.h>
-
-#include <stxxl/bits/common/error_handling.h>
-#include <stxxl/bits/io/linuxaio_queue.h>
-#include <stxxl/bits/io/linuxaio_request.h>
-#include <stxxl/bits/mng/block_manager.h>
-#include <stxxl/bits/verbose.h>
+#include <foxxll/common/error_handling.hpp>
+#include <foxxll/io/linuxaio_queue.hpp>
+#include <foxxll/io/linuxaio_request.hpp>
+#include <foxxll/mng/block_manager.hpp>
+#include <foxxll/verbose.hpp>
 
 #include <algorithm>
+
+#include <sys/syscall.h>
+#include <unistd.h>
 
 #ifndef STXXL_CHECK_FOR_PENDING_REQUESTS_ON_SUBMISSION
 #define STXXL_CHECK_FOR_PENDING_REQUESTS_ON_SUBMISSION 1
 #endif
 
-namespace stxxl {
+namespace foxxll {
 
 linuxaio_queue::linuxaio_queue(int desired_queue_length)
     : num_waiting_requests_(0), num_free_events_(0), num_posted_requests_(0),
@@ -286,7 +286,7 @@ void* linuxaio_queue::wait_async(void* arg)
 #endif
 }
 
-} // namespace stxxl
+} // namespace foxxll
 
 #endif // #if STXXL_HAVE_LINUXAIO_FILE
 // vim: et:ts=4:sw=4

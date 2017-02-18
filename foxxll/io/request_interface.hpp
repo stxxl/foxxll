@@ -1,5 +1,5 @@
 /***************************************************************************
- *  include/stxxl/bits/io/request_interface.h
+ *  foxxll/io/request_interface.hpp
  *
  *  Part of the STXXL. See http://stxxl.org
  *
@@ -15,11 +15,11 @@
 #ifndef STXXL_IO_REQUEST_INTERFACE_HEADER
 #define STXXL_IO_REQUEST_INTERFACE_HEADER
 
-#include <stxxl/bits/common/types.h>
+#include <foxxll/common/types.hpp>
 
 #include <ostream>
 
-namespace stxxl {
+namespace foxxll {
 
 //! \addtogroup reqlayer
 //! \{
@@ -94,7 +94,7 @@ public:
 
 //! \}
 
-} // namespace stxxl
+} // namespace foxxll
 
 #endif // !STXXL_IO_REQUEST_INTERFACE_HEADER
 // vim: et:ts=4:sw=4

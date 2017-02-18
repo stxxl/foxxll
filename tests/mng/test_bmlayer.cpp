@@ -12,12 +12,12 @@
  *  http://www.boost.org/LICENSE_1_0.txt)
  **************************************************************************/
 
-#include <stxxl/bits/io/request_operations.h>
-#include <stxxl/bits/mng/block_manager.h>
-#include <stxxl/bits/mng/buf_istream.h>
-#include <stxxl/bits/mng/buf_ostream.h>
-#include <stxxl/bits/mng/prefetch_pool.h>
-#include <stxxl/bits/mng/typed_block.h>
+#include <foxxll/io/request_operations.hpp>
+#include <foxxll/mng/block_manager.hpp>
+#include <foxxll/mng/buf_istream.hpp>
+#include <foxxll/mng/buf_ostream.hpp>
+#include <foxxll/mng/prefetch_pool.hpp>
+#include <foxxll/mng/typed_block.hpp>
 
 #include <iostream>
 
@@ -31,22 +31,22 @@ struct MyType
 
 struct my_handler
 {
-    void operator () (stxxl::request* req, bool /* success */)
+    void operator () (foxxll::request* req, bool /* success */)
     {
         STXXL_MSG(req << " done, type=" << req->io_type());
     }
 };
 
-using block_type = stxxl::typed_block<BLOCK_SIZE, MyType>;
+using block_type = foxxll::typed_block<BLOCK_SIZE, MyType>;
 
 void testIO()
 {
     const unsigned nblocks = 2;
-    stxxl::BIDArray<BLOCK_SIZE> bids(nblocks);
+    foxxll::BIDArray<BLOCK_SIZE> bids(nblocks);
     std::vector<int> disks(nblocks, 2);
-    stxxl::request_ptr* reqs = new stxxl::request_ptr[nblocks];
-    stxxl::block_manager* bm = stxxl::block_manager::get_instance();
-    bm->new_blocks(stxxl::striping(), bids.begin(), bids.end());
+    foxxll::request_ptr* reqs = new foxxll::request_ptr[nblocks];
+    foxxll::block_manager* bm = foxxll::block_manager::get_instance();
+    bm->new_blocks(foxxll::striping(), bids.begin(), bids.end());
 
     block_type* block = new block_type;
     STXXL_MSG(std::hex);
@@ -63,7 +63,7 @@ void testIO()
         reqs[i] = block->write(bids[i], my_handler());
 
     std::cout << "Waiting " << std::endl;
-    stxxl::wait_all(reqs, nblocks);
+    foxxll::wait_all(reqs, nblocks);
 
     for (i = 0; i < nblocks; ++i)
     {
@@ -83,11 +83,11 @@ void testIO()
 
 void testIO2()
 {
-    using block_type = stxxl::typed_block<128* 1024, double>;
+    using block_type = foxxll::typed_block<128* 1024, double>;
     std::vector<block_type::bid_type> bids(32);
-    std::vector<stxxl::request_ptr> requests;
-    stxxl::block_manager* bm = stxxl::block_manager::get_instance();
-    bm->new_blocks(stxxl::striping(), bids.begin(), bids.end());
+    std::vector<foxxll::request_ptr> requests;
+    foxxll::block_manager* bm = foxxll::block_manager::get_instance();
+    bm->new_blocks(foxxll::striping(), bids.begin(), bids.end());
     block_type* blocks = new block_type[32];
     int vIndex;
     for (vIndex = 0; vIndex < 32; ++vIndex) {
@@ -98,19 +98,19 @@ void testIO2()
     for (vIndex = 0; vIndex < 32; ++vIndex) {
         requests.push_back(blocks[vIndex].write(bids[vIndex]));
     }
-    stxxl::wait_all(requests.begin(), requests.end());
+    foxxll::wait_all(requests.begin(), requests.end());
     bm->delete_blocks(bids.begin(), bids.end());
     delete[] blocks;
 }
 
 void testPrefetchPool()
 {
-    stxxl::prefetch_pool<block_type> pool(2);
+    foxxll::prefetch_pool<block_type> pool(2);
     pool.resize(10);
     pool.resize(5);
     block_type* blk = new block_type;
     block_type::bid_type bid;
-    stxxl::block_manager::get_instance()->new_block(stxxl::single_disk(), bid);
+    foxxll::block_manager::get_instance()->new_block(foxxll::single_disk(), bid);
     pool.hint(bid);
     pool.read(blk, bid)->wait();
     delete blk;
@@ -118,27 +118,27 @@ void testPrefetchPool()
 
 void testWritePool()
 {
-    stxxl::write_pool<block_type> pool(100);
+    foxxll::write_pool<block_type> pool(100);
     pool.resize(10);
     pool.resize(5);
     block_type* blk = new block_type;
     block_type::bid_type bid;
-    stxxl::block_manager::get_instance()->new_block(stxxl::single_disk(), bid);
+    foxxll::block_manager::get_instance()->new_block(foxxll::single_disk(), bid);
     pool.write(blk, bid);
 }
 
-using block_type1 = stxxl::typed_block<BLOCK_SIZE, int>;
-using buf_ostream_type = stxxl::buf_ostream<block_type1, stxxl::BIDArray<BLOCK_SIZE>::iterator>;
-using buf_istream_type = stxxl::buf_istream<block_type1, stxxl::BIDArray<BLOCK_SIZE>::iterator>;
+using block_type1 = foxxll::typed_block<BLOCK_SIZE, int>;
+using buf_ostream_type = foxxll::buf_ostream<block_type1, foxxll::BIDArray<BLOCK_SIZE>::iterator>;
+using buf_istream_type = foxxll::buf_istream<block_type1, foxxll::BIDArray<BLOCK_SIZE>::iterator>;
 
 void testStreams()
 {
     const unsigned nblocks = 64;
     const unsigned nelements = nblocks * block_type1::size;
-    stxxl::BIDArray<BLOCK_SIZE> bids(nblocks);
+    foxxll::BIDArray<BLOCK_SIZE> bids(nblocks);
 
-    stxxl::block_manager* bm = stxxl::block_manager::get_instance();
-    bm->new_blocks(stxxl::striping(), bids.begin(), bids.end());
+    foxxll::block_manager* bm = foxxll::block_manager::get_instance();
+    bm->new_blocks(foxxll::striping(), bids.begin(), bids.end());
     {
         buf_ostream_type out(bids.begin(), 2);
         for (unsigned i = 0; i < nelements; i++)
@@ -164,7 +164,7 @@ int main()
     testWritePool();
     testStreams();
 
-    stxxl::block_manager* bm = stxxl::block_manager::get_instance();
+    foxxll::block_manager* bm = foxxll::block_manager::get_instance();
     STXXL_MSG("block_manager total allocation: " << bm->total_allocation());
     STXXL_MSG("block_manager current allocation: " << bm->current_allocation());
     STXXL_MSG("block_manager maximum allocation: " << bm->maximum_allocation());

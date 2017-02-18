@@ -21,18 +21,18 @@
         "disk.log" using ($2/1024):($4)  w l title "write"
  */
 
-#include <stxxl/cmdline>
-#include <stxxl/io>
-#include <stxxl/mng>
+#include <foxxll/common/cmdline.hpp>
+#include <foxxll/io.hpp>
+#include <foxxll/mng.hpp>
 
 #include <algorithm>
 #include <ctime>
 #include <iomanip>
 #include <vector>
 
-using stxxl::request_ptr;
-using stxxl::timestamp;
-using stxxl::external_size_type;
+using foxxll::request_ptr;
+using foxxll::timestamp;
+using foxxll::external_size_type;
 
 #define KiB (1024)
 #define MiB (1024 * 1024)
@@ -43,7 +43,7 @@ struct print_number
 
     explicit print_number(size_t n) : n(n) { }
 
-    void operator () (stxxl::request*, bool /* success */)
+    void operator () (foxxll::request*, bool /* success */)
     {
         //std::cout << n << " " << std::flush;
     }
@@ -54,11 +54,11 @@ void run_test(external_size_type span, external_size_type worksize, bool do_init
 {
     const size_t raw_block_size = BlockSize;
 
-    using block_type = stxxl::typed_block<raw_block_size, size_t>;
-    using BID_type = stxxl::BID<raw_block_size>;
+    using block_type = foxxll::typed_block<raw_block_size, size_t>;
+    using BID_type = foxxll::BID<raw_block_size>;
 
-    external_size_type num_blocks = stxxl::div_ceil(worksize, raw_block_size);
-    external_size_type num_blocks_in_span = stxxl::div_ceil(span, raw_block_size);
+    external_size_type num_blocks = foxxll::div_ceil(worksize, raw_block_size);
+    external_size_type num_blocks_in_span = foxxll::div_ceil(span, raw_block_size);
 
     num_blocks = std::min(num_blocks, num_blocks_in_span);
     if (num_blocks == 0) num_blocks = num_blocks_in_span;
@@ -77,17 +77,17 @@ void run_test(external_size_type span, external_size_type worksize, bool do_init
         AllocStrategy alloc;
 
         blocks.resize(num_blocks_in_span);
-        stxxl::block_manager::get_instance()->new_blocks(alloc, blocks.begin(), blocks.end());
+        foxxll::block_manager::get_instance()->new_blocks(alloc, blocks.begin(), blocks.end());
 
         std::cout << "# Span size: "
-                  << stxxl::add_IEC_binary_multiplier(span, "B") << " ("
+                  << foxxll::add_IEC_binary_multiplier(span, "B") << " ("
                   << num_blocks_in_span << " blocks of "
-                  << stxxl::add_IEC_binary_multiplier(raw_block_size, "B") << ")" << std::endl;
+                  << foxxll::add_IEC_binary_multiplier(raw_block_size, "B") << ")" << std::endl;
 
         std::cout << "# Work size: "
-                  << stxxl::add_IEC_binary_multiplier(worksize, "B") << " ("
+                  << foxxll::add_IEC_binary_multiplier(worksize, "B") << " ("
                   << num_blocks << " blocks of "
-                  << stxxl::add_IEC_binary_multiplier(raw_block_size, "B") << ")" << std::endl;
+                  << foxxll::add_IEC_binary_multiplier(raw_block_size, "B") << ")" << std::endl;
 
         double begin, end, elapsed;
 
@@ -150,7 +150,7 @@ void run_test(external_size_type span, external_size_type worksize, bool do_init
     delete[] reqs;
     delete buffer;
 
-    stxxl::block_manager::get_instance()->delete_blocks(blocks.begin(), blocks.end());
+    foxxll::block_manager::get_instance()->delete_blocks(blocks.begin(), blocks.end());
 }
 
 template <typename AllocStrategy>
@@ -206,7 +206,7 @@ int benchmark_disks_random(int argc, char* argv[])
 {
     // parse command line
 
-    stxxl::cmdline_parser cp;
+    foxxll::cmdline_parser cp;
 
     external_size_type span, worksize = 0;
     size_t block_size = 8 * MiB;
@@ -230,7 +230,7 @@ int benchmark_disks_random(int argc, char* argv[])
 
     cp.set_description(
         "This program will benchmark _random_ block access on the disks "
-        "configured by the standard .stxxl disk configuration files mechanism. "
+        "configured by the standard .foxxll disk configuration files mechanism. "
         "Available block sizes are power of two from 4 KiB to 128 MiB. "
         "A set of three operations can be performed: sequential initialization, "
         "random reading and random writing."
@@ -243,13 +243,13 @@ int benchmark_disks_random(int argc, char* argv[])
     if (allocstr.size())
     {
         if (allocstr == "random_cyclic")
-            return run_alloc(stxxl::random_cyclic);
+            return run_alloc(foxxll::random_cyclic);
         if (allocstr == "simple_random")
-            return run_alloc(stxxl::simple_random);
+            return run_alloc(foxxll::simple_random);
         if (allocstr == "fully_random")
-            return run_alloc(stxxl::fully_random);
+            return run_alloc(foxxll::fully_random);
         if (allocstr == "striping")
-            return run_alloc(stxxl::striping);
+            return run_alloc(foxxll::striping);
 
         std::cout << "Unknown allocation strategy '" << allocstr << "'" << std::endl;
         cp.print_usage();

@@ -13,7 +13,7 @@
  **************************************************************************/
 
 #include <foxxll/common/counting_ptr.hpp>
-#include <stxxl/bits/verbose.h>
+#include <foxxll/verbose.hpp>
 
 static unsigned int count_deletes = 0;
 

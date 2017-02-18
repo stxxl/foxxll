@@ -1,5 +1,5 @@
 /***************************************************************************
- *  include/stxxl/bits/version.h
+ *  foxxll/version.hpp
  *
  *  Part of the STXXL. See http://stxxl.org
  *
@@ -11,13 +11,13 @@
  *  http://www.boost.org/LICENSE_1_0.txt)
  **************************************************************************/
 
-#ifndef STXXL_VERSION_HEADER
-#define STXXL_VERSION_HEADER
+#ifndef FOXXLL_VERSION_HEADER
+#define FOXXLL_VERSION_HEADER
 
-#include <stxxl/bits/config.h>
-#include <stxxl/bits/verbose.h>
+#include <foxxll/config.hpp>
+#include <foxxll/verbose.hpp>
 
-namespace stxxl {
+namespace foxxll {
 
 // STXXL_VERSION_{MAJOR,MINOR,PATCH} are defined in cmake generated config.h
 
@@ -83,7 +83,7 @@ inline int check_library_version()
 //! Check and print mismatch between header and library versions
 inline void print_library_version_mismatch()
 {
-    if (stxxl::check_library_version() != 0)
+    if (foxxll::check_library_version() != 0)
     {
         STXXL_ERRMSG("version mismatch between headers" <<
                      " (" << STXXL_VERSION_STRING ") and library" <<
@@ -91,6 +91,6 @@ inline void print_library_version_mismatch()
     }
 }
 
-} // namespace stxxl
+} // namespace foxxll
 
-#endif // !STXXL_VERSION_HEADER
+#endif // !FOXXLL_VERSION_HEADER

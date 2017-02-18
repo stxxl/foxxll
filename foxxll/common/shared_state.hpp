@@ -1,5 +1,5 @@
 /***************************************************************************
- *  include/stxxl/bits/common/shared_state.h
+ *  foxxll/common/shared_state.hpp
  *
  *  Part of the STXXL. See http://stxxl.org
  *
@@ -18,7 +18,7 @@
 #include <condition_variable>
 #include <mutex>
 
-namespace stxxl {
+namespace foxxll {
 
 template <typename ValueType = size_t>
 class shared_state
@@ -65,6 +65,6 @@ public:
     }
 };
 
-} // namespace stxxl
+} // namespace foxxll
 
 #endif // !STXXL_COMMON_SHARED_STATE_HEADER

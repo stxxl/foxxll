@@ -1,5 +1,5 @@
 /***************************************************************************
- *  include/stxxl/bits/common/cmdline.h
+ *  foxxll/common/cmdline.hpp
  *
  *  Part of the STXXL. See http://stxxl.org
  *
@@ -13,8 +13,8 @@
 #ifndef STXXL_COMMON_CMDLINE_HEADER
 #define STXXL_COMMON_CMDLINE_HEADER
 
-#include <stxxl/bits/common/types.h>
-#include <stxxl/bits/common/utils.h>
+#include <foxxll/common/types.hpp>
+#include <foxxll/common/utils.hpp>
 
 #include <algorithm>
 #include <cstddef>
@@ -23,7 +23,7 @@
 #include <string>
 #include <vector>
 
-namespace stxxl {
+namespace foxxll {
 
 //! \addtogroup support
 //! \{
@@ -788,6 +788,6 @@ public:
 
 //! \}
 
-} // namespace stxxl
+} // namespace foxxll
 
 #endif // !STXXL_COMMON_CMDLINE_HEADER

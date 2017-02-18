@@ -1,5 +1,5 @@
 /***************************************************************************
- *  include/stxxl/bits/io/serving_request.h
+ *  foxxll/io/serving_request.hpp
  *
  *  Part of the STXXL. See http://stxxl.org
  *
@@ -14,9 +14,9 @@
 #ifndef STXXL_IO_SERVING_REQUEST_HEADER
 #define STXXL_IO_SERVING_REQUEST_HEADER
 
-#include <stxxl/bits/io/request_with_state.h>
+#include <foxxll/io/request_with_state.hpp>
 
-namespace stxxl {
+namespace foxxll {
 
 //! \addtogroup reqlayer
 //! \{
@@ -45,7 +45,7 @@ public:
 
 //! \}
 
-} // namespace stxxl
+} // namespace foxxll
 
 #endif // !STXXL_IO_SERVING_REQUEST_HEADER
 // vim: et:ts=4:sw=4

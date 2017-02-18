@@ -1,5 +1,5 @@
 /***************************************************************************
- *  include/stxxl/bits/io/wfs_file_base.h
+ *  foxxll/io/wfs_file_base.hpp
  *
  *  Windows file system file base
  *
@@ -17,16 +17,16 @@
 #ifndef STXXL_IO_WFS_FILE_BASE_HEADER
 #define STXXL_IO_WFS_FILE_BASE_HEADER
 
-#include <stxxl/bits/config.h>
+#include <foxxll/config.hpp>
 
 #if STXXL_WINDOWS
 
-#include <stxxl/bits/io/file.h>
-#include <stxxl/bits/io/request.h>
+#include <foxxll/io/file.hpp>
+#include <foxxll/io/request.hpp>
 
 #include <string>
 
-namespace stxxl {
+namespace foxxll {
 
 //! \addtogroup fileimpl
 //! \{
@@ -58,7 +58,7 @@ public:
 
 //! \}
 
-} // namespace stxxl
+} // namespace foxxll
 
 #endif // STXXL_WINDOWS
 

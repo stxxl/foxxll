@@ -11,18 +11,18 @@
  *  http://www.boost.org/LICENSE_1_0.txt)
  **************************************************************************/
 
-#include <stxxl/bits/io/linuxaio_request.h>
+#include <foxxll/io/linuxaio_request.hpp>
 
 #if STXXL_HAVE_LINUXAIO_FILE
 
-#include <stxxl/bits/common/error_handling.h>
-#include <stxxl/bits/io/disk_queues.h>
-#include <stxxl/bits/verbose.h>
+#include <foxxll/common/error_handling.hpp>
+#include <foxxll/io/disk_queues.hpp>
+#include <foxxll/verbose.hpp>
 
 #include <sys/syscall.h>
 #include <unistd.h>
 
-namespace stxxl {
+namespace foxxll {
 
 void linuxaio_request::completed(bool posted, bool canceled)
 {
@@ -119,7 +119,7 @@ bool linuxaio_request::cancel_aio()
     return result == 0;
 }
 
-} // namespace stxxl
+} // namespace foxxll
 
 #endif // #if STXXL_HAVE_LINUXAIO_FILE
 // vim: et:ts=4:sw=4

@@ -1,5 +1,5 @@
 /***************************************************************************
- *  include/stxxl/bits/io/request_with_state.h
+ *  foxxll/io/request_with_state.hpp
  *
  *  Part of the STXXL. See http://stxxl.org
  *
@@ -14,11 +14,11 @@
 #ifndef STXXL_IO_REQUEST_WITH_STATE_HEADER
 #define STXXL_IO_REQUEST_WITH_STATE_HEADER
 
-#include <stxxl/bits/common/shared_state.h>
-#include <stxxl/bits/io/request.h>
-#include <stxxl/bits/io/request_with_waiters.h>
+#include <foxxll/common/shared_state.hpp>
+#include <foxxll/io/request.hpp>
+#include <foxxll/io/request_with_waiters.hpp>
 
-namespace stxxl {
+namespace foxxll {
 
 //! \addtogroup reqlayer
 //! \{
@@ -54,7 +54,7 @@ protected:
 
 //! \}
 
-} // namespace stxxl
+} // namespace foxxll
 
 #endif // !STXXL_IO_REQUEST_WITH_STATE_HEADER
 // vim: et:ts=4:sw=4

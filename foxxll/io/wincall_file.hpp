@@ -1,5 +1,5 @@
 /***************************************************************************
- *  include/stxxl/bits/io/wincall_file.h
+ *  foxxll/io/wincall_file.hpp
  *
  *  Part of the STXXL. See http://stxxl.org
  *
@@ -15,7 +15,7 @@
 #ifndef STXXL_IO_WINCALL_FILE_HEADER
 #define STXXL_IO_WINCALL_FILE_HEADER
 
-#include <stxxl/bits/config.h>
+#include <foxxll/config.hpp>
 
 #ifndef STXXL_HAVE_WINCALL_FILE
 #if STXXL_WINDOWS
@@ -27,12 +27,12 @@
 
 #if STXXL_HAVE_WINCALL_FILE
 
-#include <stxxl/bits/io/disk_queued_file.h>
-#include <stxxl/bits/io/wfs_file_base.h>
+#include <foxxll/io/disk_queued_file.hpp>
+#include <foxxll/io/wfs_file_base.hpp>
 
 #include <string>
 
-namespace stxxl {
+namespace foxxll {
 
 //! \addtogroup fileimpl
 //! \{
@@ -65,7 +65,7 @@ public:
 
 //! \}
 
-} // namespace stxxl
+} // namespace foxxll
 
 #endif // #if STXXL_HAVE_WINCALL_FILE
 

@@ -11,11 +11,13 @@
  *  http://www.boost.org/LICENSE_1_0.txt)
  **************************************************************************/
 
-#include <stxxl/bits/mng/async_schedule.h>
-#include <stxxl/bits/verbose.h>
+#include <foxxll/mng/async_schedule.hpp>
+#include <foxxll/verbose.hpp>
 
 #include <cstdlib>
 #include <random>
+
+using int_type = foxxll::int_type;
 
 // Test async schedule algorithm
 
@@ -28,10 +30,10 @@ int main(int argc, char* argv[])
     }
     const int D = atoi(argv[1]);
     const int L = atoi(argv[2]);
-    const stxxl::int_type m = atoi(argv[3]);
+    const int_type m = atoi(argv[3]);
     uint32_t seed = atoi(argv[4]);
-    stxxl::int_type* disks = new stxxl::int_type[L];
-    stxxl::int_type* prefetch_order = new stxxl::int_type[L];
+    int_type* disks = new int_type[L];
+    int_type* prefetch_order = new int_type[L];
     int* count = new int[D];
 
     for (int i = 0; i < D; i++)
@@ -47,7 +49,7 @@ int main(int argc, char* argv[])
     for (int i = 0; i < D; i++)
         std::cout << "Disk " << i << " has " << count[i] << " blocks" << std::endl;
 
-    stxxl::compute_prefetch_schedule(disks, disks + L, prefetch_order, m, D);
+    foxxll::compute_prefetch_schedule(disks, disks + L, prefetch_order, m, D);
 
     STXXL_MSG("Prefetch order:");
     for (int i = 0; i < L; ++i) {

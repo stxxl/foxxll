@@ -11,16 +11,17 @@
  *  http://www.boost.org/LICENSE_1_0.txt)
  **************************************************************************/
 
-#include <stxxl/bits/io/mmap_file.h>
+#include <foxxll/io/mmap_file.hpp>
 
 #if STXXL_HAVE_MMAP_FILE
 
-#include "ufs_platform.h"
-#include <stxxl/bits/common/error_handling.h>
-#include <stxxl/bits/io/iostats.h>
+#include "ufs_platform.hpp"
+#include <foxxll/common/error_handling.hpp>
+#include <foxxll/io/iostats.hpp>
+
 #include <sys/mman.h>
 
-namespace stxxl {
+namespace foxxll {
 
 void mmap_file::serve(void* buffer, offset_type offset, size_type bytes,
                       request::read_or_write op)
@@ -69,7 +70,7 @@ const char* mmap_file::io_type() const
     return "mmap";
 }
 
-} // namespace stxxl
+} // namespace foxxll
 
 #endif // #if STXXL_HAVE_MMAP_FILE
 // vim: et:ts=4:sw=4

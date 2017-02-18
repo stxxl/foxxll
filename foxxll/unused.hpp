@@ -1,5 +1,5 @@
 /***************************************************************************
- *  include/stxxl/bits/unused.h
+ *  foxxll/unused.hpp
  *
  *  Part of the STXXL. See http://stxxl.org
  *
@@ -14,13 +14,13 @@
 #ifndef STXXL_UNUSED_HEADER
 #define STXXL_UNUSED_HEADER
 
-namespace stxxl {
+namespace foxxll {
 
 template <typename U>
 inline void STXXL_UNUSED(const U&)
 { }
 
-} // namespace stxxl
+} // namespace foxxll
 
 #endif // !STXXL_UNUSED_HEADER
 // vim: et:ts=4:sw=4

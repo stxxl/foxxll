@@ -1,5 +1,5 @@
 /***************************************************************************
- *  include/stxxl/bits/io/linuxaio_queue.h
+ *  foxxll/io/linuxaio_queue.hpp
  *
  *  Part of the STXXL. See http://stxxl.org
  *
@@ -14,18 +14,18 @@
 #ifndef STXXL_IO_LINUXAIO_QUEUE_HEADER
 #define STXXL_IO_LINUXAIO_QUEUE_HEADER
 
-#include <stxxl/bits/io/linuxaio_file.h>
+#include <foxxll/io/linuxaio_file.hpp>
 
 #if STXXL_HAVE_LINUXAIO_FILE
 
-#include <stxxl/bits/io/request_queue_impl_worker.h>
+#include <foxxll/io/request_queue_impl_worker.hpp>
 
 #include <linux/aio_abi.h>
 
 #include <list>
 #include <mutex>
 
-namespace stxxl {
+namespace foxxll {
 
 //! \addtogroup reqlayer
 //! \{
@@ -93,7 +93,7 @@ public:
 
 //! \}
 
-} // namespace stxxl
+} // namespace foxxll
 
 #endif // #if STXXL_HAVE_LINUXAIO_FILE
 

@@ -1,5 +1,5 @@
 /***************************************************************************
- *  include/stxxl/bits/io/request.h
+ *  foxxll/io/request.hpp
  *
  *  Part of the STXXL. See http://stxxl.org
  *
@@ -15,9 +15,9 @@
 #ifndef STXXL_IO_REQUEST_HEADER
 #define STXXL_IO_REQUEST_HEADER
 
-#include <stxxl/bits/common/exceptions.h>
-#include <stxxl/bits/io/request_interface.h>
-#include <stxxl/bits/verbose.h>
+#include <foxxll/common/exceptions.hpp>
+#include <foxxll/io/request_interface.hpp>
+#include <foxxll/verbose.hpp>
 
 #include <foxxll/common/counting_ptr.hpp>
 
@@ -26,7 +26,7 @@
 #include <memory>
 #include <string>
 
-namespace stxxl {
+namespace foxxll {
 
 //! \addtogroup reqlayer
 //! \{
@@ -37,15 +37,15 @@ class file;
 class request;
 
 //! A reference counting pointer for \c file.
-using file_ptr = foxxll::counting_ptr<file>;
+using file_ptr = counting_ptr<file>;
 
 //! A reference counting pointer for \c request.
-using request_ptr = foxxll::counting_ptr<request>;
+using request_ptr = counting_ptr<request>;
 
 using completion_handler = std::function<void(request* r, bool success)>;
 
 //! Request object encapsulating basic properties like file and offset.
-class request : virtual public request_interface, public foxxll::reference_count
+class request : virtual public request_interface, public reference_count
 {
     friend class linuxaio_queue;
 
@@ -81,14 +81,14 @@ public:
     //! execution.
     void error_occured(const char* msg)
     {
-        error_.reset(new stxxl::io_error(msg));
+        error_.reset(new io_error(msg));
     }
 
     //! Inform the request object that an error occurred during the I/O
     //! execution.
     void error_occured(const std::string& msg)
     {
-        error_.reset(new stxxl::io_error(msg));
+        error_.reset(new io_error(msg));
     }
 
     //! Rises an exception if there were error with the I/O.
@@ -115,7 +115,7 @@ std::ostream& operator << (std::ostream& out, const request& req);
 
 //! \}
 
-} // namespace stxxl
+} // namespace foxxll
 
 #endif // !STXXL_IO_REQUEST_HEADER
 // vim: et:ts=4:sw=4

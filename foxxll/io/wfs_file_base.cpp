@@ -12,17 +12,17 @@
  *  http://www.boost.org/LICENSE_1_0.txt)
  **************************************************************************/
 
-#include <stxxl/bits/common/error_handling.h>
-#include <stxxl/bits/io/wfs_file_base.h>
+#include <foxxll/common/error_handling.hpp>
+#include <foxxll/io/wfs_file_base.hpp>
 
 #if STXXL_WINDOWS
 
 #ifndef NOMINMAX
   #define NOMINMAX
 #endif
-#include <windows.h>
+#include <windows.hpp>
 
-namespace stxxl {
+namespace foxxll {
 
 const char* wfs_file_base::io_type() const
 {
@@ -234,7 +234,7 @@ void wfs_file_base::close_remove()
     ::DeleteFileA(filename.c_str());
 }
 
-} // namespace stxxl
+} // namespace foxxll
 
 #endif // STXXL_WINDOWS
 // vim: et:ts=4:sw=4

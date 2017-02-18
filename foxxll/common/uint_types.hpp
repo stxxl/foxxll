@@ -1,5 +1,5 @@
 /***************************************************************************
- *  include/stxxl/bits/common/uint_types.h
+ *  foxxll/common/uint_types.hpp
  *
  *  Class representing a 40-bit or 48-bit unsigned integer encoded in five or
  *  six bytes.
@@ -16,15 +16,15 @@
 #ifndef STXXL_COMMON_UINT_TYPES_HEADER
 #define STXXL_COMMON_UINT_TYPES_HEADER
 
-#include <stxxl/bits/common/types.h>
-#include <stxxl/bits/common/utils.h>
-#include <stxxl/bits/config.h>
+#include <foxxll/common/types.hpp>
+#include <foxxll/common/utils.hpp>
+#include <foxxll/config.hpp>
 
 #include <cassert>
 #include <limits>
 #include <ostream>
 
-namespace stxxl {
+namespace foxxll {
 
 /*!
  * Construct an 40-bit or 48-bit unsigned integer stored in five or six bytes.
@@ -252,28 +252,28 @@ using uint48 = uint_pair<uint16_t>;
 
 //! \}
 
-} // namespace stxxl
+} // namespace foxxll
 
 namespace std {
 
 //! template class providing some numeric_limits fields for uint_pair types.
 template <typename HighType>
-class numeric_limits<stxxl::uint_pair<HighType> >
+class numeric_limits<foxxll::uint_pair<HighType> >
 {
 public:
     //! yes we have information about uint_pair
     static const bool is_specialized = true;
 
     //! return an uint_pair instance containing the smallest value possible
-    static stxxl::uint_pair<HighType> min()
-    { return stxxl::uint_pair<HighType>::min(); }
+    static foxxll::uint_pair<HighType> min()
+    { return foxxll::uint_pair<HighType>::min(); }
 
     //! return an uint_pair instance containing the largest value possible
-    static stxxl::uint_pair<HighType> max()
-    { return stxxl::uint_pair<HighType>::max(); }
+    static foxxll::uint_pair<HighType> max()
+    { return foxxll::uint_pair<HighType>::max(); }
 
     //! return an uint_pair instance containing the smallest value possible
-    static stxxl::uint_pair<HighType> lowest()
+    static foxxll::uint_pair<HighType> lowest()
     { return min(); }
 
     //! unit_pair types are unsigned
@@ -289,15 +289,15 @@ public:
     static const int radix = 2;
 
     //! number of binary digits (bits) in uint_pair
-    static const int digits = stxxl::uint_pair<HighType>::digits;
+    static const int digits = foxxll::uint_pair<HighType>::digits;
 
     //! epsilon is zero
-    static const stxxl::uint_pair<HighType> epsilon()
-    { return stxxl::uint_pair<HighType>(0, 0); }
+    static const foxxll::uint_pair<HighType> epsilon()
+    { return foxxll::uint_pair<HighType>(0, 0); }
 
     //! rounding error is zero
-    static const stxxl::uint_pair<HighType> round_error()
-    { return stxxl::uint_pair<HighType>(0, 0); }
+    static const foxxll::uint_pair<HighType> round_error()
+    { return foxxll::uint_pair<HighType>(0, 0); }
 
     //! no exponent
     static const int min_exponent = 0;

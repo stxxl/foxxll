@@ -1,5 +1,5 @@
 /***************************************************************************
- *  include/stxxl/bits/mng/block_prefetcher.h
+ *  foxxll/mng/block_prefetcher.hpp
  *
  *  Part of the STXXL. See http://stxxl.org
  *
@@ -15,15 +15,15 @@
 #ifndef STXXL_MNG_BLOCK_PREFETCHER_HEADER
 #define STXXL_MNG_BLOCK_PREFETCHER_HEADER
 
-#include <stxxl/bits/common/onoff_switch.h>
-#include <stxxl/bits/io/iostats.h>
-#include <stxxl/bits/io/request.h>
+#include <foxxll/common/onoff_switch.hpp>
+#include <foxxll/io/iostats.hpp>
+#include <foxxll/io/request.hpp>
 
 #include <algorithm>
 #include <queue>
 #include <vector>
 
-namespace stxxl {
+namespace foxxll {
 
 //! \addtogroup schedlayer
 //! \{
@@ -230,6 +230,6 @@ public:
 
 //! \}
 
-} // namespace stxxl
+} // namespace foxxll
 
 #endif // !STXXL_MNG_BLOCK_PREFETCHER_HEADER

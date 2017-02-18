@@ -12,17 +12,17 @@
  **************************************************************************/
 
 #include <cstring>
-#include <stxxl/aligned_alloc>
-#include <stxxl/io>
+#include <foxxll/common/aligned_alloc.hpp>
+#include <foxxll/io.hpp>
 
 //! \example io/test_cancel.cpp
 //! This tests the request cancelation mechanisms.
 
-using stxxl::file;
+using foxxll::file;
 
 struct print_completion
 {
-    void operator () (stxxl::request* ptr, bool success)
+    void operator () (foxxll::request* ptr, bool success)
     {
         std::cout << "Request completed: " << ptr
                   << " success: " << success << std::endl;
@@ -38,28 +38,28 @@ int main(int argc, char** argv)
     }
 
     const size_t size = 16 * 1024 * 1024, num_blocks = 16;
-    char* buffer = (char*)stxxl::aligned_alloc<4096>(size);
+    char* buffer = (char*)foxxll::aligned_alloc<4096>(size);
     memset(buffer, 0, size);
 
-    stxxl::file_ptr file = stxxl::create_file(
+    foxxll::file_ptr file = foxxll::create_file(
         argv[1], argv[2],
-        stxxl::file::CREAT | stxxl::file::RDWR | stxxl::file::DIRECT);
+        foxxll::file::CREAT | foxxll::file::RDWR | foxxll::file::DIRECT);
 
     file->set_size(num_blocks * size);
-    stxxl::request_ptr req[num_blocks];
+    foxxll::request_ptr req[num_blocks];
 
     //without cancelation
     std::cout << "Posting " << num_blocks << " requests." << std::endl;
-    stxxl::stats_data stats1(*stxxl::stats::get_instance());
+    foxxll::stats_data stats1(*foxxll::stats::get_instance());
     unsigned i = 0;
     for ( ; i < num_blocks; i++)
         req[i] = file->awrite(buffer, i * size, size, print_completion());
     wait_all(req, num_blocks);
-    std::cout << stxxl::stats_data(*stxxl::stats::get_instance()) - stats1;
+    std::cout << foxxll::stats_data(*foxxll::stats::get_instance()) - stats1;
 
     //with cancelation
     std::cout << "Posting " << num_blocks << " requests." << std::endl;
-    stxxl::stats_data stats2(*stxxl::stats::get_instance());
+    foxxll::stats_data stats2(*foxxll::stats::get_instance());
     for (unsigned i = 0; i < num_blocks; i++)
         req[i] = file->awrite(buffer, i * size, size, print_completion());
     //cancel first half
@@ -76,9 +76,9 @@ int main(int argc, char** argv)
             std::cout << "Request not canceled: " << &(*(req[i])) << std::endl;
     }
     wait_all(req, num_blocks);
-    std::cout << stxxl::stats_data(*stxxl::stats::get_instance()) - stats2;
+    std::cout << foxxll::stats_data(*foxxll::stats::get_instance()) - stats2;
 
-    stxxl::aligned_dealloc<4096>(buffer);
+    foxxll::aligned_dealloc<4096>(buffer);
 
     file->close_remove();
 

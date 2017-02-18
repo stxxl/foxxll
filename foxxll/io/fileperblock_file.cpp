@@ -11,25 +11,25 @@
  *  http://www.boost.org/LICENSE_1_0.txt)
  **************************************************************************/
 
-#include <stxxl/bits/common/aligned_alloc.h>
-#include <stxxl/bits/common/error_handling.h>
-#include <stxxl/bits/common/exceptions.h>
-#include <stxxl/bits/config.h>
-#include <stxxl/bits/io/disk_queued_file.h>
-#include <stxxl/bits/io/file.h>
-#include <stxxl/bits/io/fileperblock_file.h>
-#include <stxxl/bits/io/mmap_file.h>
-#include <stxxl/bits/io/request.h>
-#include <stxxl/bits/io/serving_request.h>
-#include <stxxl/bits/io/syscall_file.h>
-#include <stxxl/bits/io/wincall_file.h>
-#include <stxxl/bits/io/wincall_file.h>
-#include <stxxl/bits/unused.h>
-#include <stxxl/bits/verbose.h>
+#include <foxxll/common/aligned_alloc.hpp>
+#include <foxxll/common/error_handling.hpp>
+#include <foxxll/common/exceptions.hpp>
+#include <foxxll/config.hpp>
+#include <foxxll/io/disk_queued_file.hpp>
+#include <foxxll/io/file.hpp>
+#include <foxxll/io/fileperblock_file.hpp>
+#include <foxxll/io/mmap_file.hpp>
+#include <foxxll/io/request.hpp>
+#include <foxxll/io/serving_request.hpp>
+#include <foxxll/io/syscall_file.hpp>
+#include <foxxll/io/wincall_file.hpp>
+#include <foxxll/io/wincall_file.hpp>
+#include <foxxll/unused.hpp>
+#include <foxxll/verbose.hpp>
 
 #include <foxxll/common/counting_ptr.hpp>
 
-#include "ufs_platform.h"
+#include "ufs_platform.hpp"
 
 #include <cassert>
 #include <cstdio>
@@ -37,7 +37,7 @@
 #include <sstream>
 #include <string>
 
-namespace stxxl {
+namespace foxxll {
 
 template <class base_file_type>
 fileperblock_file<base_file_type>::fileperblock_file(
@@ -85,7 +85,7 @@ void fileperblock_file<base_file_type>::lock()
 {
     if (!lock_file_)
     {
-        lock_file_ = foxxll::make_counting<base_file_type>(
+        lock_file_ = make_counting<base_file_type>(
             filename_prefix_ + "_fpb_lock", mode_, get_queue_id());
 
         //create lock file and fill it with one page, an empty file cannot be locked
@@ -156,6 +156,6 @@ template class fileperblock_file<mmap_file>;
 template class fileperblock_file<wincall_file>;
 #endif
 
-} // namespace stxxl
+} // namespace foxxll
 
 /******************************************************************************/

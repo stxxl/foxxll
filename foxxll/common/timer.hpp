@@ -1,5 +1,5 @@
 /***************************************************************************
- *  include/stxxl/bits/common/timer.h
+ *  foxxll/common/timer.hpp
  *
  *  Part of the STXXL. See http://stxxl.org
  *
@@ -16,15 +16,15 @@
 #ifndef STXXL_COMMON_TIMER_HEADER
 #define STXXL_COMMON_TIMER_HEADER
 
-#include <stxxl/bits/common/utils.h>
-#include <stxxl/bits/config.h>
-#include <stxxl/bits/verbose.h>
+#include <foxxll/common/utils.hpp>
+#include <foxxll/config.hpp>
+#include <foxxll/verbose.hpp>
 
 #include <chrono>
 #include <limits>
 #include <string>
 
-namespace stxxl {
+namespace foxxll {
 
 //! \addtogroup support
 //! \{
@@ -57,7 +57,7 @@ class timer
     //! return current timestamp
     static inline double timestamp()
     {
-        return stxxl::timestamp();
+        return foxxll::timestamp();
     }
 
 public:
@@ -210,7 +210,7 @@ protected:
     uint64_t m_bytes;
 
     //! timer
-    stxxl::timer m_timer;
+    foxxll::timer m_timer;
 
 public:
     //! save message and start timer
@@ -242,7 +242,7 @@ public:
     }
 
     //! constant access to enclosed timer
-    const stxxl::timer & timer() const
+    const foxxll::timer & timer() const
     {
         return m_timer;
     }
@@ -250,7 +250,7 @@ public:
 
 //! \}
 
-} // namespace stxxl
+} // namespace foxxll
 
 #endif // !STXXL_COMMON_TIMER_HEADER
 // vim: et:ts=4:sw=4

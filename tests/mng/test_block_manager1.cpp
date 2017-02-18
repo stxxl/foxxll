@@ -10,17 +10,17 @@
  *  http://www.boost.org/LICENSE_1_0.txt)
  **************************************************************************/
 
-#include <stxxl/mng>
-#include <stxxl/request>
+#include <foxxll/io.hpp>
+#include <foxxll/mng.hpp>
 
 int main()
 {
-    using block_type = stxxl::typed_block<128* 1024, double>;
+    using block_type = foxxll::typed_block<128* 1024, double>;
     std::vector<block_type::bid_type> bids(32);
-    std::vector<stxxl::request_ptr> requests;
-    stxxl::block_manager* bm = stxxl::block_manager::get_instance();
-    bm->new_blocks(stxxl::striping(), bids.begin(), bids.end());
-    std::vector<block_type, stxxl::new_alloc<block_type> > blocks(32);
+    std::vector<foxxll::request_ptr> requests;
+    foxxll::block_manager* bm = foxxll::block_manager::get_instance();
+    bm->new_blocks(foxxll::striping(), bids.begin(), bids.end());
+    std::vector<block_type, foxxll::new_alloc<block_type> > blocks(32);
     for (int vIndex = 0; vIndex < 32; ++vIndex) {
         for (size_t vIndex2 = 0; vIndex2 < block_type::size; ++vIndex2) {
             blocks[vIndex][vIndex2] = static_cast<double>(vIndex2);
@@ -29,7 +29,7 @@ int main()
     for (int vIndex = 0; vIndex < 32; ++vIndex) {
         requests.push_back(blocks[vIndex].write(bids[vIndex]));
     }
-    stxxl::wait_all(requests.begin(), requests.end());
+    foxxll::wait_all(requests.begin(), requests.end());
     bm->delete_blocks(bids.begin(), bids.end());
     return 0;
 }

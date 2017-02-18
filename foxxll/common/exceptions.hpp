@@ -1,5 +1,5 @@
 /***************************************************************************
- *  include/stxxl/bits/common/exceptions.h
+ *  foxxll/common/exceptions.hpp
  *
  *  Part of the STXXL. See http://stxxl.org
  *
@@ -18,7 +18,7 @@
 #include <stdexcept>
 #include <string>
 
-namespace stxxl {
+namespace foxxll {
 
 class io_error : public std::ios_base::failure
 {
@@ -80,7 +80,7 @@ public:
     { }
 };
 
-} // namespace stxxl
+} // namespace foxxll
 
 #endif // !STXXL_COMMON_EXCEPTIONS_HEADER
 // vim: et:ts=4:sw=4

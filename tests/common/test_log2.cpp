@@ -11,10 +11,10 @@
  *  http://www.boost.org/LICENSE_1_0.txt)
  **************************************************************************/
 
-#include <stxxl/bits/common/tmeta.h>
-#include <stxxl/bits/common/utils.h>
-#include <stxxl/bits/config.h>
-#include <stxxl/bits/verbose.h>
+#include <foxxll/common/tmeta.hpp>
+#include <foxxll/common/utils.hpp>
+#include <foxxll/config.hpp>
+#include <foxxll/verbose.hpp>
 
 #include <cassert>
 #include <cmath>
@@ -24,43 +24,43 @@ template <size_t i>
 void log_i(size_t floorv, size_t ceilv)
 {
     std::cout << i << "\t" << (i < 1000000 ? "\t" : "")
-              << stxxl::LOG2_floor<i>::value << "\t"
-              << stxxl::LOG2<i>::floor << "\t"
-              << stxxl::LOG2<i>::ceil << std::endl;
+              << foxxll::LOG2_floor<i>::value << "\t"
+              << foxxll::LOG2<i>::floor << "\t"
+              << foxxll::LOG2<i>::ceil << std::endl;
 
     std::cout << "\t\t"
-              << stxxl::ilog2_floor(i) << "\t"
-              << stxxl::ilog2_floor(i) << "\t"
-              << stxxl::ilog2_ceil(i) << std::endl;
+              << foxxll::ilog2_floor(i) << "\t"
+              << foxxll::ilog2_floor(i) << "\t"
+              << foxxll::ilog2_ceil(i) << std::endl;
 
-    STXXL_CHECK(stxxl::LOG2_floor<i>::value == stxxl::ilog2_floor(i));
-    STXXL_CHECK(stxxl::LOG2<i>::floor == stxxl::ilog2_floor(i));
-    STXXL_CHECK(stxxl::LOG2<i>::ceil == stxxl::ilog2_ceil(i));
+    STXXL_CHECK(foxxll::LOG2_floor<i>::value == foxxll::ilog2_floor(i));
+    STXXL_CHECK(foxxll::LOG2<i>::floor == foxxll::ilog2_floor(i));
+    STXXL_CHECK(foxxll::LOG2<i>::ceil == foxxll::ilog2_ceil(i));
 
     if (i <= 1)
     {
-        STXXL_CHECK(stxxl::LOG2_floor<i>::value == 0);
-        STXXL_CHECK(stxxl::LOG2<i>::floor == 0);
-        STXXL_CHECK(stxxl::LOG2<i>::ceil == 0);
+        STXXL_CHECK(foxxll::LOG2_floor<i>::value == 0);
+        STXXL_CHECK(foxxll::LOG2<i>::floor == 0);
+        STXXL_CHECK(foxxll::LOG2<i>::ceil == 0);
     }
     else if (i == 2)
     {
-        STXXL_CHECK(stxxl::LOG2_floor<i>::value == 1);
-        STXXL_CHECK(stxxl::LOG2<i>::floor == 1);
-        STXXL_CHECK(stxxl::LOG2<i>::ceil == 1);
+        STXXL_CHECK(foxxll::LOG2_floor<i>::value == 1);
+        STXXL_CHECK(foxxll::LOG2<i>::floor == 1);
+        STXXL_CHECK(foxxll::LOG2<i>::ceil == 1);
     }
     else
     {
-        STXXL_CHECK(stxxl::LOG2_floor<i>::value == floorv);
-        STXXL_CHECK(stxxl::LOG2<i>::floor == floorv);
-        STXXL_CHECK(stxxl::LOG2<i>::ceil == ceilv);
+        STXXL_CHECK(foxxll::LOG2_floor<i>::value == floorv);
+        STXXL_CHECK(foxxll::LOG2<i>::floor == floorv);
+        STXXL_CHECK(foxxll::LOG2<i>::ceil == ceilv);
 
 #if 0                                   // not many compiler have log2l()
         if (i <= ((uint64_t)(1) << 59)) // does not work for higher powers
         {
-            STXXL_CHECK(stxxl::LOG2_floor<i>::value == (size_t)floorl(log2l(i)));
-            STXXL_CHECK(stxxl::LOG2<i>::floor == (size_t)floorl(log2l(i)));
-            STXXL_CHECK(stxxl::LOG2<i>::ceil == (size_t)ceill(log2l(i)));
+            STXXL_CHECK(foxxll::LOG2_floor<i>::value == (size_t)floorl(log2l(i)));
+            STXXL_CHECK(foxxll::LOG2<i>::floor == (size_t)floorl(log2l(i)));
+            STXXL_CHECK(foxxll::LOG2<i>::ceil == (size_t)ceill(log2l(i)));
         }
 #endif
     }

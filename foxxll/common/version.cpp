@@ -11,10 +11,10 @@
  *  http://www.boost.org/LICENSE_1_0.txt)
  **************************************************************************/
 
-#include <stxxl/bits/config.h>
-#include <stxxl/bits/version.h>
+#include <foxxll/config.hpp>
+#include <foxxll/version.hpp>
 
-namespace stxxl {
+namespace foxxll {
 
 int version_major()
 {
@@ -46,6 +46,6 @@ const char * get_library_version_string_long()
     return get_version_string_long();
 }
 
-} // namespace stxxl
+} // namespace foxxll
 
 // vim: et:ts=4:sw=4

@@ -1,5 +1,5 @@
 /***************************************************************************
- *  include/stxxl/bits/io/file.h
+ *  foxxll/io/file.hpp
  *
  *  Part of the STXXL. See http://stxxl.org
  *
@@ -16,15 +16,15 @@
 #ifndef STXXL_IO_FILE_HEADER
 #define STXXL_IO_FILE_HEADER
 
-#include <stxxl/bits/common/exceptions.h>
-#include <stxxl/bits/common/types.h>
-#include <stxxl/bits/config.h>
-#include <stxxl/bits/io/iostats.h>
-#include <stxxl/bits/io/request.h>
-#include <stxxl/bits/io/request_interface.h>
-#include <stxxl/bits/libstxxl.h>
-#include <stxxl/bits/unused.h>
-#include <stxxl/bits/verbose.h>
+#include <foxxll/common/exceptions.hpp>
+#include <foxxll/common/types.hpp>
+#include <foxxll/config.hpp>
+#include <foxxll/io/iostats.hpp>
+#include <foxxll/io/request.hpp>
+#include <foxxll/io/request_interface.hpp>
+#include <foxxll/libstxxl.hpp>
+#include <foxxll/unused.hpp>
+#include <foxxll/verbose.hpp>
 
 #include <foxxll/common/counting_ptr.hpp>
 
@@ -36,7 +36,7 @@
 #include <ostream>
 #include <string>
 
-namespace stxxl {
+namespace foxxll {
 
 //! \addtogroup iolayer
 //! \{
@@ -50,7 +50,7 @@ namespace stxxl {
 //!
 //! It is a base class for different implementations that might
 //! base on various file systems or even remote storage interfaces
-class file : public foxxll::reference_count
+class file : public reference_count
 {
 public:
     //! the offset of a request, also the size of the file
@@ -254,7 +254,7 @@ public:
 
 //! \}
 
-} // namespace stxxl
+} // namespace foxxll
 
 #endif // !STXXL_IO_FILE_HEADER
 // vim: et:ts=4:sw=4

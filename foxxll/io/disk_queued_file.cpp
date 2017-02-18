@@ -10,21 +10,21 @@
  *  http://www.boost.org/LICENSE_1_0.txt)
  **************************************************************************/
 
-#include <stxxl/bits/io/disk_queued_file.h>
-#include <stxxl/bits/io/disk_queues.h>
-#include <stxxl/bits/io/file.h>
-#include <stxxl/bits/io/request.h>
-#include <stxxl/bits/io/request_interface.h>
-#include <stxxl/bits/io/serving_request.h>
-#include <stxxl/bits/singleton.h>
+#include <foxxll/io/disk_queued_file.hpp>
+#include <foxxll/io/disk_queues.hpp>
+#include <foxxll/io/file.hpp>
+#include <foxxll/io/request.hpp>
+#include <foxxll/io/request_interface.hpp>
+#include <foxxll/io/serving_request.hpp>
+#include <foxxll/singleton.hpp>
 
-namespace stxxl {
+namespace foxxll {
 
 request_ptr disk_queued_file::aread(
     void* buffer, offset_type offset, size_type bytes,
     const completion_handler& on_complete)
 {
-    request_ptr req = foxxll::make_counting<serving_request>(
+    request_ptr req = make_counting<serving_request>(
         on_complete, this, buffer, offset, bytes, request::READ);
 
     disk_queues::get_instance()->add_request(req, get_queue_id());
@@ -36,7 +36,7 @@ request_ptr disk_queued_file::awrite(
     void* buffer, offset_type offset, size_type bytes,
     const completion_handler& on_complete)
 {
-    request_ptr req = foxxll::make_counting<serving_request>(
+    request_ptr req = make_counting<serving_request>(
         on_complete, this, buffer, offset, bytes, request::WRITE);
 
     disk_queues::get_instance()->add_request(req, get_queue_id());
@@ -44,5 +44,5 @@ request_ptr disk_queued_file::awrite(
     return req;
 }
 
-} // namespace stxxl
+} // namespace foxxll
 // vim: et:ts=4:sw=4

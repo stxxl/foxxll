@@ -16,12 +16,12 @@
 // and queued writing on parallel disks, 2005
 // DOI: 10.1137/S0097539703431573
 
-#include <stxxl/bits/common/simple_vector.h>
-#include <stxxl/bits/common/types.h>
-#include <stxxl/bits/io/file.h>
-#include <stxxl/bits/mng/async_schedule.h>
-#include <stxxl/bits/unused.h>
-#include <stxxl/bits/verbose.h>
+#include <foxxll/common/simple_vector.hpp>
+#include <foxxll/common/types.hpp>
+#include <foxxll/io/file.hpp>
+#include <foxxll/mng/async_schedule.hpp>
+#include <foxxll/unused.hpp>
+#include <foxxll/verbose.hpp>
 
 #include <algorithm>
 #include <cassert>
@@ -30,7 +30,7 @@
 #include <utility>
 #include <vector>
 
-namespace stxxl {
+namespace foxxll {
 namespace async_schedule_local {
 
 // only one type of event: WRITE COMPLETED
@@ -200,6 +200,6 @@ void compute_prefetch_schedule(
     STXXL_UNUSED(w_steps);
 }
 
-} // namespace stxxl
+} // namespace foxxll
 
 // vim: et:ts=4:sw=4

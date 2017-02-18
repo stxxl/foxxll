@@ -1,5 +1,5 @@
 /***************************************************************************
- *  include/stxxl/bits/common/types.h
+ *  foxxll/common/types.hpp
  *
  *  Part of the STXXL. See http://stxxl.org
  *
@@ -14,12 +14,13 @@
 #ifndef STXXL_COMMON_TYPES_HEADER
 #define STXXL_COMMON_TYPES_HEADER
 
+#include <foxxll/config.hpp>
+
 #include <cstddef>
 #include <cstdint>
-#include <stxxl/bits/config.h>
 #include <type_traits>
 
-namespace stxxl {
+namespace foxxll {
 
 using int_type = std::make_signed<size_t>::type;
 
@@ -40,6 +41,6 @@ typename std::make_signed<Integral>::type as_signed(Integral value)
     return static_cast<typename std::make_signed<Integral>::type>(value);
 }
 
-} // namespace stxxl
+} // namespace foxxll
 
 #endif // !STXXL_COMMON_TYPES_HEADER

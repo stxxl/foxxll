@@ -1,5 +1,5 @@
 /***************************************************************************
- *  include/stxxl/bits/io/fileperblock_file.h
+ *  foxxll/io/fileperblock_file.hpp
  *
  *  Part of the STXXL. See http://stxxl.org
  *
@@ -13,11 +13,11 @@
 #ifndef STXXL_IO_FILEPERBLOCK_FILE_HEADER
 #define STXXL_IO_FILEPERBLOCK_FILE_HEADER
 
-#include <stxxl/bits/io/disk_queued_file.h>
+#include <foxxll/io/disk_queued_file.hpp>
 
 #include <string>
 
-namespace stxxl {
+namespace foxxll {
 
 //! \addtogroup fileimpl
 //! \{
@@ -31,7 +31,7 @@ private:
     std::string filename_prefix_;
     int mode_;
     offset_type current_size_;
-    foxxll::counting_ptr<base_file_type> lock_file_;
+    counting_ptr<base_file_type> lock_file_;
 
 protected:
     //! Constructs a file name for a given block.
@@ -75,6 +75,6 @@ public:
 
 //! \}
 
-} // namespace stxxl
+} // namespace foxxll
 
 #endif // !STXXL_IO_FILEPERBLOCK_FILE_HEADER

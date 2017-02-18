@@ -1,5 +1,5 @@
 /***************************************************************************
- *  include/stxxl/bits/singleton.h
+ *  foxxll/singleton.hpp
  *
  *  Part of the STXXL. See http://stxxl.org
  *
@@ -13,13 +13,13 @@
 #ifndef STXXL_SINGLETON_HEADER
 #define STXXL_SINGLETON_HEADER
 
-#include <stxxl/bits/common/exithandler.h>
-#include <stxxl/types>
+#include <foxxll/common/exithandler.hpp>
+#include <foxxll/common/types.hpp>
 
 #include <cstdlib>
 #include <mutex>
 
-namespace stxxl {
+namespace foxxll {
 
 template <typename INSTANCE, bool destroy_on_exit = true>
 class singleton
@@ -76,6 +76,6 @@ template <typename INSTANCE, bool destroy_on_exit>
 typename singleton<INSTANCE, destroy_on_exit>::volatile_instance_pointer
 singleton<INSTANCE, destroy_on_exit>::instance = nullptr;
 
-} // namespace stxxl
+} // namespace foxxll
 
 #endif // !STXXL_SINGLETON_HEADER

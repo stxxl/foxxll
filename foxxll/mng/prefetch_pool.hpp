@@ -1,5 +1,5 @@
 /***************************************************************************
- *  include/stxxl/bits/mng/prefetch_pool.h
+ *  foxxll/mng/prefetch_pool.hpp
  *
  *  Part of the STXXL. See http://stxxl.org
  *
@@ -14,15 +14,15 @@
 #ifndef STXXL_MNG_PREFETCH_POOL_HEADER
 #define STXXL_MNG_PREFETCH_POOL_HEADER
 
-#include <stxxl/bits/config.h>
-#include <stxxl/bits/mng/write_pool.h>
+#include <foxxll/config.hpp>
+#include <foxxll/mng/write_pool.hpp>
 
 #include <algorithm>
 #include <list>
 #include <unordered_map>
 #include <utility>
 
-namespace stxxl {
+namespace foxxll {
 
 //! \addtogroup schedlayer
 //! \{
@@ -377,13 +377,13 @@ public:
 
 //! \}
 
-} // namespace stxxl
+} // namespace foxxll
 
 namespace std {
 
 template <class BlockType>
-void swap(stxxl::prefetch_pool<BlockType>& a,
-          stxxl::prefetch_pool<BlockType>& b)
+void swap(foxxll::prefetch_pool<BlockType>& a,
+          foxxll::prefetch_pool<BlockType>& b)
 {
     a.swap(b);
 }

@@ -1,5 +1,5 @@
 /***************************************************************************
- *  include/stxxl/bits/mng/disk_block_allocator.h
+ *  foxxll/mng/disk_block_allocator.hpp
  *
  *  Part of the STXXL. See http://stxxl.org
  *
@@ -16,13 +16,13 @@
 #ifndef STXXL_MNG_DISK_BLOCK_ALLOCATOR_HEADER
 #define STXXL_MNG_DISK_BLOCK_ALLOCATOR_HEADER
 
-#include <stxxl/bits/common/error_handling.h>
-#include <stxxl/bits/common/exceptions.h>
-#include <stxxl/bits/common/types.h>
-#include <stxxl/bits/io/file.h>
-#include <stxxl/bits/mng/bid.h>
-#include <stxxl/bits/mng/config.h>
-#include <stxxl/bits/verbose.h>
+#include <foxxll/common/error_handling.hpp>
+#include <foxxll/common/exceptions.hpp>
+#include <foxxll/common/types.hpp>
+#include <foxxll/io/file.hpp>
+#include <foxxll/mng/bid.hpp>
+#include <foxxll/mng/config.hpp>
+#include <foxxll/verbose.hpp>
 
 #include <algorithm>
 #include <cassert>
@@ -31,7 +31,7 @@
 #include <ostream>
 #include <utility>
 
-namespace stxxl {
+namespace foxxll {
 
 //! \ingroup mnglayer
 //! \{
@@ -78,7 +78,7 @@ class disk_block_allocator
     }
 
 public:
-    disk_block_allocator(stxxl::file* storage, const disk_config& cfg)
+    disk_block_allocator(file* storage, const disk_config& cfg)
         : cfg_bytes_(cfg.size),
           storage_(storage),
           autogrow_(cfg.autogrow)
@@ -251,7 +251,7 @@ void disk_block_allocator::new_blocks(BIDIterator begin, BIDIterator end)
 
 //! \}
 
-} // namespace stxxl
+} // namespace foxxll
 
 #endif // !STXXL_MNG_DISK_BLOCK_ALLOCATOR_HEADER
 // vim: et:ts=4:sw=4

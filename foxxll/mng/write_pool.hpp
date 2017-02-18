@@ -1,5 +1,5 @@
 /***************************************************************************
- *  include/stxxl/bits/mng/write_pool.h
+ *  foxxll/mng/write_pool.hpp
  *
  *  Part of the STXXL. See http://stxxl.org
  *
@@ -14,9 +14,9 @@
 #ifndef STXXL_MNG_WRITE_POOL_HEADER
 #define STXXL_MNG_WRITE_POOL_HEADER
 
-#include <stxxl/bits/config.h>
-#include <stxxl/bits/deprecated.h>
-#include <stxxl/bits/io/request_operations.h>
+#include <foxxll/config.hpp>
+#include <foxxll/deprecated.hpp>
+#include <foxxll/io/request_operations.hpp>
 
 #include <algorithm>
 #include <list>
@@ -24,7 +24,7 @@
 
 #define STXXL_VERBOSE_WPOOL(msg) STXXL_VERBOSE1("write_pool[" << static_cast<void*>(this) << "]" << msg)
 
-namespace stxxl {
+namespace foxxll {
 
 //! \addtogroup schedlayer
 //! \{
@@ -279,13 +279,13 @@ protected:
 
 //! \}
 
-} // namespace stxxl
+} // namespace foxxll
 
 namespace std {
 
 template <class BlockType>
-void swap(stxxl::write_pool<BlockType>& a,
-          stxxl::write_pool<BlockType>& b)
+void swap(foxxll::write_pool<BlockType>& a,
+          foxxll::write_pool<BlockType>& b)
 {
     a.swap(b);
 }

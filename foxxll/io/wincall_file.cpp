@@ -11,19 +11,19 @@
  *  http://www.boost.org/LICENSE_1_0.txt)
  **************************************************************************/
 
-#include <stxxl/bits/io/wincall_file.h>
+#include <foxxll/io/wincall_file.hpp>
 
 #if STXXL_HAVE_WINCALL_FILE
 
-#include <stxxl/bits/common/error_handling.h>
-#include <stxxl/bits/io/iostats.h>
+#include <foxxll/common/error_handling.hpp>
+#include <foxxll/io/iostats.hpp>
 
 #ifndef NOMINMAX
   #define NOMINMAX
 #endif
-#include <windows.h>
+#include <windows.hpp>
 
-namespace stxxl {
+namespace foxxll {
 
 void wincall_file::serve(void* buffer, offset_type offset, size_type bytes,
                          request::read_or_write op)
@@ -101,7 +101,7 @@ const char* wincall_file::io_type() const
     return "wincall";
 }
 
-} // namespace stxxl
+} // namespace foxxll
 
 #endif // #if STXXL_HAVE_WINCALL_FILE
 // vim: et:ts=4:sw=4

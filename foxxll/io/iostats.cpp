@@ -13,18 +13,18 @@
  *  http://www.boost.org/LICENSE_1_0.txt)
  **************************************************************************/
 
-#include <stxxl/bits/common/log.h>
-#include <stxxl/bits/common/timer.h>
-#include <stxxl/bits/common/types.h>
-#include <stxxl/bits/io/iostats.h>
-#include <stxxl/bits/verbose.h>
+#include <foxxll/common/log.hpp>
+#include <foxxll/common/timer.hpp>
+#include <foxxll/common/types.hpp>
+#include <foxxll/io/iostats.hpp>
+#include <foxxll/verbose.hpp>
 
 #include <iomanip>
 #include <mutex>
 #include <sstream>
 #include <string>
 
-namespace stxxl {
+namespace foxxll {
 
 /******************************************************************************/
 // file_stats
@@ -797,5 +797,5 @@ std::ostream& operator << (std::ostream& o, const stats_data& s)
 #undef hr
 }
 
-} // namespace stxxl
+} // namespace foxxll
 // vim: et:ts=4:sw=4

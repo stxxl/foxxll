@@ -1,5 +1,5 @@
 /***************************************************************************
- *  include/stxxl/bits/common/utils.h
+ *  foxxll/common/utils.hpp
  *
  *  Part of the STXXL. See http://stxxl.org
  *
@@ -16,9 +16,9 @@
 #ifndef STXXL_COMMON_UTILS_HEADER
 #define STXXL_COMMON_UTILS_HEADER
 
-#include <stxxl/bits/common/types.h>
-#include <stxxl/bits/config.h>
-#include <stxxl/bits/msvc_compatibility.h>
+#include <foxxll/common/types.hpp>
+#include <foxxll/config.hpp>
+#include <foxxll/msvc_compatibility.hpp>
 
 #include <algorithm>
 #include <cmath>
@@ -29,7 +29,7 @@
 #include <type_traits>
 #include <vector>
 
-namespace stxxl {
+namespace foxxll {
 
 ////////////////////////////////////////////////////////////////////////////
 
@@ -283,7 +283,7 @@ inline typename Container::value_type pop_begin(Container& c)
 
 ////////////////////////////////////////////////////////////////////////////
 
-} // namespace stxxl
+} // namespace foxxll
 
 #endif // !STXXL_COMMON_UTILS_HEADER
 // vim: et:ts=4:sw=4

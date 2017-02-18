@@ -12,20 +12,20 @@
  *  http://www.boost.org/LICENSE_1_0.txt)
  **************************************************************************/
 
-#include <stxxl/bits/mng/block_manager.h>
+#include <foxxll/mng/block_manager.hpp>
 
-#include <stxxl/bits/common/types.h>
-#include <stxxl/bits/io/create_file.h>
-#include <stxxl/bits/io/disk_queues.h>
-#include <stxxl/bits/io/file.h>
-#include <stxxl/bits/mng/config.h>
-#include <stxxl/bits/mng/disk_block_allocator.h>
-#include <stxxl/bits/verbose.h>
+#include <foxxll/common/types.hpp>
+#include <foxxll/io/create_file.hpp>
+#include <foxxll/io/disk_queues.hpp>
+#include <foxxll/io/file.hpp>
+#include <foxxll/mng/config.hpp>
+#include <foxxll/mng/disk_block_allocator.hpp>
+#include <foxxll/verbose.hpp>
 
 #include <cstddef>
 #include <string>
 
-namespace stxxl {
+namespace foxxll {
 
 class io_error;
 
@@ -136,5 +136,5 @@ uint64_t block_manager::maximum_allocation() const
     return maximum_allocation_;
 }
 
-} // namespace stxxl
+} // namespace foxxll
 // vim: et:ts=4:sw=4

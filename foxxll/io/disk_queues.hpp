@@ -1,5 +1,5 @@
 /***************************************************************************
- *  include/stxxl/bits/io/disk_queues.h
+ *  foxxll/io/disk_queues.hpp
  *
  *  Part of the STXXL. See http://stxxl.org
  *
@@ -16,17 +16,17 @@
 #ifndef STXXL_IO_DISK_QUEUES_HEADER
 #define STXXL_IO_DISK_QUEUES_HEADER
 
-#include <stxxl/bits/io/iostats.h>
-#include <stxxl/bits/io/linuxaio_queue.h>
-#include <stxxl/bits/io/linuxaio_request.h>
-#include <stxxl/bits/io/request.h>
-#include <stxxl/bits/io/request_queue_impl_qwqr.h>
-#include <stxxl/bits/io/serving_request.h>
-#include <stxxl/bits/singleton.h>
+#include <foxxll/io/iostats.hpp>
+#include <foxxll/io/linuxaio_queue.hpp>
+#include <foxxll/io/linuxaio_request.hpp>
+#include <foxxll/io/request.hpp>
+#include <foxxll/io/request_queue_impl_qwqr.hpp>
+#include <foxxll/io/serving_request.hpp>
+#include <foxxll/singleton.hpp>
 
 #include <map>
 
-namespace stxxl {
+namespace foxxll {
 
 //! \addtogroup reqlayer
 //! \{
@@ -45,7 +45,7 @@ protected:
 
     disk_queues()
     {
-        stxxl::stats::get_instance(); // initialize stats before ourselves
+        stats::get_instance(); // initialize stats before ourselves
     }
 
 public:
@@ -140,7 +140,7 @@ public:
 
 //! \}
 
-} // namespace stxxl
+} // namespace foxxll
 
 #endif // !STXXL_IO_DISK_QUEUES_HEADER
 // vim: et:ts=4:sw=4

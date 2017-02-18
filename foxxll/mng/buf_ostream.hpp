@@ -1,5 +1,5 @@
 /***************************************************************************
- *  include/stxxl/bits/mng/buf_ostream.h
+ *  foxxll/mng/buf_ostream.hpp
  *
  *  Part of the STXXL. See http://stxxl.org
  *
@@ -13,9 +13,9 @@
 #ifndef STXXL_MNG_BUF_OSTREAM_HEADER
 #define STXXL_MNG_BUF_OSTREAM_HEADER
 
-#include <stxxl/bits/mng/buf_writer.h>
+#include <foxxll/mng/buf_writer.hpp>
 
-namespace stxxl {
+namespace foxxll {
 
 //! \addtogroup schedlayer
 //! \{
@@ -126,6 +126,6 @@ public:
 
 //! \}
 
-} // namespace stxxl
+} // namespace foxxll
 
 #endif // !STXXL_MNG_BUF_OSTREAM_HEADER

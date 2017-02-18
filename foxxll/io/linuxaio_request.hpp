@@ -1,5 +1,5 @@
 /***************************************************************************
- *  include/stxxl/bits/io/linuxaio_request.h
+ *  foxxll/io/linuxaio_request.hpp
  *
  *  Part of the STXXL. See http://stxxl.org
  *
@@ -14,16 +14,16 @@
 #ifndef STXXL_IO_LINUXAIO_REQUEST_HEADER
 #define STXXL_IO_LINUXAIO_REQUEST_HEADER
 
-#include <stxxl/bits/io/linuxaio_file.h>
+#include <foxxll/io/linuxaio_file.hpp>
 
 #if STXXL_HAVE_LINUXAIO_FILE
 
+#include <foxxll/io/request_with_state.hpp>
 #include <linux/aio_abi.h>
-#include <stxxl/bits/io/request_with_state.h>
 
 #define STXXL_VERBOSE_LINUXAIO(msg) STXXL_VERBOSE2(msg)
 
-namespace stxxl {
+namespace foxxll {
 
 //! \addtogroup reqlayer
 //! \{
@@ -64,7 +64,7 @@ public:
 
 //! \}
 
-} // namespace stxxl
+} // namespace foxxll
 
 #endif // #if STXXL_HAVE_LINUXAIO_FILE
 

@@ -11,12 +11,12 @@
  **************************************************************************/
 
 //! \example mng/test_mng.cpp
-//! This is an example of use of completion handlers, \c stxxl::block_manager, and
-//! \c stxxl::typed_block
+//! This is an example of use of completion handlers, \c foxxll::block_manager, and
+//! \c foxxll::typed_block
 
-#include <stxxl/bits/verbose.h>
-#include <stxxl/mng>
-#include <stxxl/request>
+#include <foxxll/io.hpp>
+#include <foxxll/mng.hpp>
+#include <foxxll/verbose.hpp>
 
 #include <iostream>
 #include <vector>
@@ -32,24 +32,24 @@ struct MyType
 
 struct my_handler
 {
-    void operator () (stxxl::request* req, bool /* success */)
+    void operator () (foxxll::request* req, bool /* success */)
     {
         STXXL_MSG(req << " done, type=" << req->io_type());
     }
 };
 
-using block_type = stxxl::typed_block<BLOCK_SIZE, MyType>;
+using block_type = foxxll::typed_block<BLOCK_SIZE, MyType>;
 
 int main()
 {
     STXXL_MSG(sizeof(MyType) << " " << (BLOCK_SIZE % sizeof(MyType)));
     STXXL_MSG(sizeof(block_type) << " " << BLOCK_SIZE);
     const unsigned nblocks = 2;
-    stxxl::BIDArray<BLOCK_SIZE> bids(nblocks);
+    foxxll::BIDArray<BLOCK_SIZE> bids(nblocks);
     std::vector<int> disks(nblocks, 2);
-    stxxl::request_ptr* reqs = new stxxl::request_ptr[nblocks];
-    stxxl::block_manager* bm = stxxl::block_manager::get_instance();
-    bm->new_blocks(stxxl::striping(), bids.begin(), bids.end());
+    foxxll::request_ptr* reqs = new foxxll::request_ptr[nblocks];
+    foxxll::block_manager* bm = foxxll::block_manager::get_instance();
+    bm->new_blocks(foxxll::striping(), bids.begin(), bids.end());
 
     block_type* block = new block_type[2];
     STXXL_MSG(std::hex);
@@ -66,7 +66,7 @@ int main()
         reqs[i] = block->write(bids[i], my_handler());
 
     std::cout << "Waiting " << std::endl;
-    stxxl::wait_all(reqs, nblocks);
+    foxxll::wait_all(reqs, nblocks);
 
     for (i = 0; i < nblocks; ++i)
     {

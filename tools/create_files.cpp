@@ -11,9 +11,9 @@
  *  http://www.boost.org/LICENSE_1_0.txt)
  **************************************************************************/
 
-#include <stxxl/aligned_alloc>
-#include <stxxl/bits/common/cmdline.h>
-#include <stxxl/io>
+#include <foxxll/common/aligned_alloc.hpp>
+#include <foxxll/common/cmdline.hpp>
+#include <foxxll/io.hpp>
 
 #include <cstdio>
 #include <iomanip>
@@ -23,10 +23,10 @@
  #include <unistd.h>
 #endif
 
-using stxxl::request_ptr;
-using stxxl::file;
-using stxxl::timestamp;
-using stxxl::external_size_type;
+using foxxll::request_ptr;
+using foxxll::file;
+using foxxll::timestamp;
+using foxxll::external_size_type;
 
 #ifdef BLOCK_ALIGN
  #undef BLOCK_ALIGN
@@ -90,7 +90,7 @@ int create_files(int argc, char* argv[])
     std::vector<std::string> disks_arr;
     external_size_type offset = 0, length;
 
-    stxxl::cmdline_parser cp;
+    foxxll::cmdline_parser cp;
     cp.add_param_bytes("filesize", length,
                        "Number of bytes to write to files.");
     cp.add_param_stringlist("filename", disks_arr,
@@ -122,7 +122,7 @@ int create_files(int argc, char* argv[])
 
     size_t i = 0, j = 0;
 
-    int* buffer = (int*)stxxl::aligned_alloc<BLOCK_ALIGN>(buffer_size * ndisks);
+    int* buffer = (int*)foxxll::aligned_alloc<BLOCK_ALIGN>(buffer_size * ndisks);
     file** disks = new file*[ndisks];
     request_ptr* reqs = new request_ptr[ndisks * chunks];
 #ifdef WATCH_TIMES
@@ -137,19 +137,19 @@ int create_files(int argc, char* argv[])
     {
 #if STXXL_WINDOWS
  #ifdef RAW_ACCESS
-        disks[i] = new stxxl::wincall_file(disks_arr[i],
-                                           file::CREAT | file::RDWR | file::DIRECT, static_cast<int>(i));
+        disks[i] = new foxxll::wincall_file(disks_arr[i],
+                                            file::CREAT | file::RDWR | file::DIRECT, static_cast<int>(i));
  #else
-        disks[i] = new stxxl::wincall_file(disks_arr[i],
-                                           file::CREAT | file::RDWR, static_cast<int>(i));
+        disks[i] = new foxxll::wincall_file(disks_arr[i],
+                                            file::CREAT | file::RDWR, static_cast<int>(i));
  #endif
 #else
  #ifdef RAW_ACCESS
-        disks[i] = new stxxl::syscall_file(disks_arr[i],
-                                           file::CREAT | file::RDWR | file::DIRECT, static_cast<int>(i));
+        disks[i] = new foxxll::syscall_file(disks_arr[i],
+                                            file::CREAT | file::RDWR | file::DIRECT, static_cast<int>(i));
  #else
-        disks[i] = new stxxl::syscall_file(disks_arr[i],
-                                           file::CREAT | file::RDWR, static_cast<int>(i));
+        disks[i] = new foxxll::syscall_file(disks_arr[i],
+                                            file::CREAT | file::RDWR, static_cast<int>(i));
  #endif
 #endif
     }
@@ -265,7 +265,7 @@ int create_files(int argc, char* argv[])
     for (i = 0; i < ndisks; i++)
         delete disks[i];
     delete[] disks;
-    stxxl::aligned_dealloc<BLOCK_ALIGN>(buffer);
+    foxxll::aligned_dealloc<BLOCK_ALIGN>(buffer);
 
     return 0;
 }

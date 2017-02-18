@@ -14,15 +14,15 @@
  *  http://www.boost.org/LICENSE_1_0.txt)
  **************************************************************************/
 
-#include "ufs_platform.h"
-#include <stxxl/bits/common/error_handling.h>
-#include <stxxl/bits/common/exceptions.h>
-#include <stxxl/bits/config.h>
-#include <stxxl/bits/io/file.h>
-#include <stxxl/bits/io/ufs_file_base.h>
-#include <stxxl/bits/verbose.h>
+#include "ufs_platform.hpp"
+#include <foxxll/common/error_handling.hpp>
+#include <foxxll/common/exceptions.hpp>
+#include <foxxll/config.hpp>
+#include <foxxll/io/file.hpp>
+#include <foxxll/io/ufs_file_base.hpp>
+#include <foxxll/verbose.hpp>
 
-namespace stxxl {
+namespace foxxll {
 
 const char* ufs_file_base::io_type() const
 {
@@ -284,5 +284,5 @@ bool ufs_file_base::is_device() const
     return is_device_;
 }
 
-} // namespace stxxl
+} // namespace foxxll
 // vim: et:ts=4:sw=4

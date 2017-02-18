@@ -1,5 +1,5 @@
 /***************************************************************************
- *  include/stxxl/bits/io/disk_queued_file.h
+ *  foxxll/io/disk_queued_file.hpp
  *
  *  Part of the STXXL. See http://stxxl.org
  *
@@ -15,10 +15,10 @@
 #ifndef STXXL_IO_DISK_QUEUED_FILE_HEADER
 #define STXXL_IO_DISK_QUEUED_FILE_HEADER
 
-#include <stxxl/bits/io/file.h>
-#include <stxxl/bits/io/request.h>
+#include <foxxll/io/file.hpp>
+#include <foxxll/io/request.hpp>
 
-namespace stxxl {
+namespace foxxll {
 
 //! \addtogroup fileimpl
 //! \{
@@ -54,7 +54,7 @@ public:
 
 //! \}
 
-} // namespace stxxl
+} // namespace foxxll
 
 #endif // !STXXL_IO_DISK_QUEUED_FILE_HEADER
 // vim: et:ts=4:sw=4

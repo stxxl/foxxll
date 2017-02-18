@@ -1,5 +1,5 @@
 /***************************************************************************
- *  include/stxxl/bits/mng/bid.h
+ *  foxxll/mng/bid.hpp
  *
  *  Part of the STXXL. See http://stxxl.org
  *
@@ -16,9 +16,9 @@
 #ifndef STXXL_MNG_BID_HEADER
 #define STXXL_MNG_BID_HEADER
 
-#include <stxxl/bits/common/simple_vector.h>
-#include <stxxl/bits/common/utils.h>
-#include <stxxl/bits/io/file.h>
+#include <foxxll/common/simple_vector.hpp>
+#include <foxxll/common/utils.hpp>
+#include <foxxll/io/file.hpp>
 
 #include <cstring>
 #include <iomanip>
@@ -29,7 +29,7 @@
 #endif
 #define FMT_BID(_bid_) "[" << (_bid_).storage->get_allocator_id() << "]0x" << std::hex << std::setfill('0') << std::setw(8) << (_bid_).offset << "/0x" << std::setw(8) << (_bid_).size
 
-namespace stxxl {
+namespace foxxll {
 
 //! \addtogroup mnglayer
 //! \{
@@ -185,7 +185,7 @@ using BIDArray = simple_vector<BID<BlockSize> >;
 
 //! \}
 
-} // namespace stxxl
+} // namespace foxxll
 
 #endif // !STXXL_MNG_BID_HEADER
 // vim: et:ts=4:sw=4

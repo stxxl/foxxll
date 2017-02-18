@@ -12,18 +12,18 @@
  *  http://www.boost.org/LICENSE_1_0.txt)
  **************************************************************************/
 
-#include <stxxl/bits/common/shared_state.h>
-#include <stxxl/bits/io/disk_queues.h>
-#include <stxxl/bits/io/file.h>
-#include <stxxl/bits/io/iostats.h>
-#include <stxxl/bits/io/request.h>
-#include <stxxl/bits/io/request_with_state.h>
-#include <stxxl/bits/singleton.h>
-#include <stxxl/bits/verbose.h>
+#include <foxxll/common/shared_state.hpp>
+#include <foxxll/io/disk_queues.hpp>
+#include <foxxll/io/file.hpp>
+#include <foxxll/io/iostats.hpp>
+#include <foxxll/io/request.hpp>
+#include <foxxll/io/request_with_state.hpp>
+#include <foxxll/singleton.hpp>
+#include <foxxll/verbose.hpp>
 
 #include <cassert>
 
-namespace stxxl {
+namespace foxxll {
 
 request_with_state::~request_with_state()
 {
@@ -97,6 +97,6 @@ void request_with_state::completed(bool canceled)
     state_.set_to(READY2DIE);
 }
 
-} // namespace stxxl
+} // namespace foxxll
 
 // vim: et:ts=4:sw=4

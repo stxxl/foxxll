@@ -1,5 +1,5 @@
 /***************************************************************************
- *  include/stxxl/bits/common/semaphore.h
+ *  foxxll/common/semaphore.hpp
  *
  *  Part of the STXXL. See http://stxxl.org
  *
@@ -17,7 +17,7 @@
 #include <condition_variable>
 #include <mutex>
 
-namespace stxxl {
+namespace foxxll {
 
 class semaphore
 {
@@ -78,6 +78,6 @@ private:
     std::condition_variable cv_;
 };
 
-} // namespace stxxl
+} // namespace foxxll
 
 #endif // !STXXL_COMMON_SEMAPHORE_HEADER

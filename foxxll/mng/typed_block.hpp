@@ -1,5 +1,5 @@
 /***************************************************************************
- *  include/stxxl/bits/mng/typed_block.h
+ *  foxxll/mng/typed_block.hpp
  *
  *  Constructs a typed_block object containing as many elements elements plus
  *  some metadata as fits into the given block size.
@@ -18,16 +18,16 @@
 #ifndef STXXL_MNG_TYPED_BLOCK_HEADER
 #define STXXL_MNG_TYPED_BLOCK_HEADER
 
-#include <stxxl/bits/common/aligned_alloc.h>
-#include <stxxl/bits/config.h>
-#include <stxxl/bits/io/request.h>
-#include <stxxl/bits/mng/bid.h>
+#include <foxxll/common/aligned_alloc.hpp>
+#include <foxxll/config.hpp>
+#include <foxxll/io/request.hpp>
+#include <foxxll/mng/bid.hpp>
 
 #ifndef STXXL_VERBOSE_TYPED_BLOCK
 #define STXXL_VERBOSE_TYPED_BLOCK STXXL_VERBOSE2
 #endif
 
-namespace stxxl {
+namespace foxxll {
 
 //! \addtogroup mnglayer
 //! \{
@@ -384,7 +384,7 @@ public:
 
 //! \}
 
-} // namespace stxxl
+} // namespace foxxll
 
 #endif // !STXXL_MNG_TYPED_BLOCK_HEADER
 // vim: et:ts=4:sw=4

@@ -13,9 +13,10 @@
 
 //! \example mng/test_write_pool.cpp
 
+#include <foxxll/mng.hpp>
+#include <foxxll/mng/write_pool.hpp>
+
 #include <iostream>
-#include <stxxl/bits/mng/write_pool.h>
-#include <stxxl/mng>
 
 #define BLOCK_SIZE (1024 * 512)
 
@@ -25,20 +26,20 @@ struct MyType
     char chars[5];
 };
 
-using block_type = stxxl::typed_block<BLOCK_SIZE, MyType>;
+using block_type = foxxll::typed_block<BLOCK_SIZE, MyType>;
 
 // forced instantiation
-template class stxxl::typed_block<BLOCK_SIZE, MyType>;
-template class stxxl::write_pool<block_type>;
+template class foxxll::typed_block<BLOCK_SIZE, MyType>;
+template class foxxll::write_pool<block_type>;
 
 int main()
 {
-    stxxl::write_pool<block_type> pool(100);
+    foxxll::write_pool<block_type> pool(100);
     pool.resize(10);
     pool.resize(5);
     block_type* blk = new block_type;
     block_type::bid_type bid;
-    stxxl::block_manager::get_instance()->new_block(stxxl::single_disk(), bid);
+    foxxll::block_manager::get_instance()->new_block(foxxll::single_disk(), bid);
     pool.write(blk, bid)->wait();
     delete blk;
 }

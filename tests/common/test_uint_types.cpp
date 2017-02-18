@@ -10,12 +10,12 @@
  *  http://www.boost.org/LICENSE_1_0.txt)
  **************************************************************************/
 
-#include <stxxl/bits/common/uint_types.h>
-#include <stxxl/bits/verbose.h>
+#include <foxxll/common/uint_types.hpp>
+#include <foxxll/verbose.hpp>
 
 // forced instantiation
-template class stxxl::uint_pair<uint8_t>;
-template class stxxl::uint_pair<uint16_t>;
+template class foxxll::uint_pair<uint8_t>;
+template class foxxll::uint_pair<uint16_t>;
 
 template <typename uint>
 void dotest(unsigned int nbytes)
@@ -72,8 +72,8 @@ void dotest(unsigned int nbytes)
 
 int main()
 {
-    dotest<stxxl::uint40>(5);
-    dotest<stxxl::uint48>(6);
+    dotest<foxxll::uint40>(5);
+    dotest<foxxll::uint48>(6);
 
     return 0;
 }

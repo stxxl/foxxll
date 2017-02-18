@@ -13,12 +13,12 @@
  *  http://www.boost.org/LICENSE_1_0.txt)
  **************************************************************************/
 
-#include <stxxl/bits/common/error_handling.h>
-#include <stxxl/bits/io/request_queue_impl_qwqr.h>
-#include <stxxl/bits/io/serving_request.h>
+#include <foxxll/common/error_handling.hpp>
+#include <foxxll/io/request_queue_impl_qwqr.hpp>
+#include <foxxll/io/serving_request.hpp>
 
 #if STXXL_MSVC >= 1700
- #include <windows.h>
+ #include <windows.hpp>
 #endif
 
 #include <algorithm>
@@ -27,7 +27,7 @@
 #define STXXL_CHECK_FOR_PENDING_REQUESTS_ON_SUBMISSION 1
 #endif
 
-namespace stxxl {
+namespace foxxll {
 
 struct file_offset_match
     : public std::binary_function<request_ptr, request_ptr, bool>
@@ -224,5 +224,5 @@ void* request_queue_impl_qwqr::worker(void* arg)
 #endif
 }
 
-} // namespace stxxl
+} // namespace foxxll
 // vim: et:ts=4:sw=4

@@ -11,12 +11,12 @@
  *  http://www.boost.org/LICENSE_1_0.txt)
  **************************************************************************/
 
+#include <foxxll/io/file.hpp>
+#include <foxxll/io/request.hpp>
+
 #include <ostream>
 
-#include <stxxl/bits/io/file.h>
-#include <stxxl/bits/io/request.h>
-
-namespace stxxl {
+namespace foxxll {
 
 request::request(
     const completion_handler& on_complete,
@@ -86,5 +86,5 @@ std::ostream& operator << (std::ostream& out, const request& req)
     return req.print(out);
 }
 
-} // namespace stxxl
+} // namespace foxxll
 // vim: et:ts=4:sw=4

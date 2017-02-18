@@ -91,9 +91,8 @@ if(BUILD_SHARED_LIBS)
 
   target_compile_definitions(foxxll PUBLIC ${FOXXLL_DEFINITIONS})
   target_include_directories(foxxll PUBLIC
-    $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include/>
     $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/>
-    $<INSTALL_INTERFACE:include/>
+    $<BUILD_INTERFACE:${PROJECT_BINARY_DIR}/>
     $<INSTALL_INTERFACE:/>)
   #target_include_directories(foxxll SYSTEM PUBLIC ${FOXXLL_INCLUDE_DIRS})
   target_link_libraries(foxxll ${FOXXLL_EXTRA_LIBRARIES})
@@ -111,9 +110,8 @@ if(BUILD_SHARED_LIBS)
 
     target_compile_definitions(foxxll_static PUBLIC ${FOXXLL_DEFINITIONS})
     target_include_directories(foxxll_static PUBLIC
-      $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include/>
       $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/>
-      $<INSTALL_INTERFACE:include/>
+      $<BUILD_INTERFACE:${PROJECT_BINARY_DIR}/>
       $<INSTALL_INTERFACE:/>)
     #target_include_directories(foxxll_static SYSTEM PUBLIC ${FOXXLL_INCLUDE_DIRS})
     target_link_libraries(foxxll_static ${FOXXLL_EXTRA_LIBRARIES})
@@ -139,9 +137,8 @@ else()
 
   target_compile_definitions(foxxll PUBLIC ${FOXXLL_DEFINITIONS})
   target_include_directories(foxxll PUBLIC
-    $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include/>
     $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/>
-    $<INSTALL_INTERFACE:include/>
+    $<BUILD_INTERFACE:${PROJECT_BINARY_DIR}/>
     $<INSTALL_INTERFACE:/>)
   #target_include_directories(foxxll SYSTEM PUBLIC ${FOXXLL_INCLUDE_DIRS})
   target_link_libraries(foxxll ${FOXXLL_EXTRA_LIBRARIES})

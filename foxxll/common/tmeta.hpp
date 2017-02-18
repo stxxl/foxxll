@@ -1,5 +1,5 @@
 /***************************************************************************
- *  include/stxxl/bits/common/tmeta.h
+ *  foxxll/common/tmeta.hpp
  *
  *  Template Metaprogramming Tools
  *  (from the Generative Programming book Krysztof Czarnecki, Ulrich Eisenecker)
@@ -17,9 +17,9 @@
 #ifndef STXXL_COMMON_TMETA_HEADER
 #define STXXL_COMMON_TMETA_HEADER
 
-#include <stxxl/bits/common/types.h>
+#include <foxxll/common/types.hpp>
 
-namespace stxxl {
+namespace foxxll {
 
 //! IF template metaprogramming statement.
 //!
@@ -157,6 +157,6 @@ public:
     };
 };
 
-} // namespace stxxl
+} // namespace foxxll
 
 #endif // !STXXL_COMMON_TMETA_HEADER

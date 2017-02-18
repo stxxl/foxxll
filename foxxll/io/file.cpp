@@ -10,16 +10,16 @@
  *  http://www.boost.org/LICENSE_1_0.txt)
  **************************************************************************/
 
-#include "ufs_platform.h"
-#include <stxxl/bits/io/file.h>
+#include "ufs_platform.hpp"
+#include <foxxll/io/file.hpp>
 
-namespace stxxl {
+namespace foxxll {
 
 int file::unlink(const char* path)
 {
     return ::unlink(path);
 }
 
-} // namespace stxxl
+} // namespace foxxll
 
 /******************************************************************************/

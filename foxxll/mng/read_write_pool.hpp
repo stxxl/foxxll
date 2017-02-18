@@ -1,5 +1,5 @@
 /***************************************************************************
- *  include/stxxl/bits/mng/read_write_pool.h
+ *  foxxll/mng/read_write_pool.hpp
  *
  *  Part of the STXXL. See http://stxxl.org
  *
@@ -13,12 +13,12 @@
 #ifndef STXXL_MNG_READ_WRITE_POOL_HEADER
 #define STXXL_MNG_READ_WRITE_POOL_HEADER
 
-#include <stxxl/bits/mng/prefetch_pool.h>
-#include <stxxl/bits/mng/write_pool.h>
+#include <foxxll/mng/prefetch_pool.hpp>
+#include <foxxll/mng/write_pool.hpp>
 
 #include <algorithm>
 
-namespace stxxl {
+namespace foxxll {
 
 //! \addtogroup schedlayer
 //! \{
@@ -214,13 +214,13 @@ public:
 
 //! \}
 
-} // namespace stxxl
+} // namespace foxxll
 
 namespace std {
 
 template <class BlockType>
-void swap(stxxl::read_write_pool<BlockType>& a,
-          stxxl::read_write_pool<BlockType>& b)
+void swap(foxxll::read_write_pool<BlockType>& a,
+          foxxll::read_write_pool<BlockType>& b)
 {
     a.swap(b);
 }

@@ -13,21 +13,21 @@
  *  http://www.boost.org/LICENSE_1_0.txt)
  **************************************************************************/
 
-#include <stxxl/bits/common/error_handling.h>
-#include <stxxl/bits/common/semaphore.h>
-#include <stxxl/bits/common/shared_state.h>
-#include <stxxl/bits/config.h>
-#include <stxxl/bits/io/request_queue_impl_worker.h>
+#include <foxxll/common/error_handling.hpp>
+#include <foxxll/common/semaphore.hpp>
+#include <foxxll/common/shared_state.hpp>
+#include <foxxll/config.hpp>
+#include <foxxll/io/request_queue_impl_worker.hpp>
 
 #if STXXL_MSVC >= 1700
- #include <windows.h>
+ #include <windows.hpp>
 #endif
 
 #include <cassert>
 #include <cstddef>
 #include <thread>
 
-namespace stxxl {
+namespace foxxll {
 
 void request_queue_impl_worker::start_thread(
     void* (*worker)(void*), void* arg, std::thread& t,
@@ -64,5 +64,5 @@ void request_queue_impl_worker::stop_thread(
     s.set_to(NOT_RUNNING);
 }
 
-} // namespace stxxl
+} // namespace foxxll
 // vim: et:ts=4:sw=4

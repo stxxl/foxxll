@@ -1,5 +1,5 @@
 /***************************************************************************
- *  include/stxxl/bits/common/new_alloc.h
+ *  foxxll/common/new_alloc.hpp
  *
  *  Part of the STXXL. See http://stxxl.org
  *
@@ -17,7 +17,7 @@
 #include <limits>
 #include <memory>
 
-namespace stxxl {
+namespace foxxll {
 
 template <class Type>
 class new_alloc;
@@ -134,7 +134,7 @@ inline bool operator != (
     return false;
 }
 
-} // namespace stxxl
+} // namespace foxxll
 
 #endif // !STXXL_COMMON_NEW_ALLOC_HEADER
 // vim: et:ts=4:sw=4

@@ -11,20 +11,20 @@
  *  http://www.boost.org/LICENSE_1_0.txt)
  **************************************************************************/
 
-#include <stxxl/bits/common/cmdline.h>
-#include <stxxl/bits/common/utils.h>
-#include <stxxl/io>
-#include <stxxl/mng>
-#include <stxxl/version.h>
+#include <foxxll/common/cmdline.hpp>
+#include <foxxll/common/utils.hpp>
+#include <foxxll/io.hpp>
+#include <foxxll/mng.hpp>
+#include <foxxll/version.hpp>
 
 #include <algorithm>
 
 int stxxl_info(int, char**)
 {
-    stxxl::config::get_instance();
-    stxxl::block_manager::get_instance();
-    stxxl::stats::get_instance();
-    stxxl::disk_queues::get_instance();
+    foxxll::config::get_instance();
+    foxxll::block_manager::get_instance();
+    foxxll::stats::get_instance();
+    foxxll::disk_queues::get_instance();
 
     STXXL_MSG("sizeof(unsigned int)   = " << sizeof(unsigned int));
     STXXL_MSG("sizeof(uint64_t)       = " << sizeof(uint64_t));
@@ -70,7 +70,7 @@ struct SubTool subtools[] = {
     {
         "benchmark_disks", &benchmark_disks, false,
         "This program will benchmark the disks configured by the standard "
-        ".stxxl disk configuration files mechanism."
+        ".foxxll disk configuration files mechanism."
     },
     {
         "benchmark_files", &benchmark_files, false,
@@ -78,14 +78,14 @@ struct SubTool subtools[] = {
     },
     {
         "benchmark_disks_random", &benchmark_disks_random, false,
-        "Benchmark random block access time to .stxxl configured disks."
+        "Benchmark random block access time to .foxxll configured disks."
     },
     { nullptr, nullptr, false, nullptr }
 };
 
 int main_usage(const char* arg0)
 {
-    STXXL_MSG(stxxl::get_version_string_long());
+    STXXL_MSG(foxxll::get_version_string_long());
 
     std::cout << "Usage: " << arg0 << " <subtool> ..." << std::endl
               << "Available subtools: " << std::endl;
@@ -102,7 +102,7 @@ int main_usage(const char* arg0)
     {
         if (subtools[i].shortline) continue;
         std::cout << "  " << subtools[i].name << std::endl;
-        stxxl::cmdline_parser::output_wrap(std::cout, subtools[i].description, 80, 6, 6);
+        foxxll::cmdline_parser::output_wrap(std::cout, subtools[i].description, 80, 6, 6);
         std::cout << std::endl;
     }
 
@@ -121,7 +121,7 @@ int main(int argc, char** argv)
 {
     char progsub[256];
 
-    if (stxxl::check_library_version() != 0)
+    if (foxxll::check_library_version() != 0)
         STXXL_ERRMSG("version mismatch between headers and library");
 
     if (argc > 1)

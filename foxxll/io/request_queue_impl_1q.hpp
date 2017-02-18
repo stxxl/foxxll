@@ -1,5 +1,5 @@
 /***************************************************************************
- *  include/stxxl/bits/io/request_queue_impl_1q.h
+ *  foxxll/io/request_queue_impl_1q.hpp
  *
  *  Part of the STXXL. See http://stxxl.org
  *
@@ -15,12 +15,12 @@
 #ifndef STXXL_IO_REQUEST_QUEUE_IMPL_1Q_HEADER
 #define STXXL_IO_REQUEST_QUEUE_IMPL_1Q_HEADER
 
-#include <stxxl/bits/io/request_queue_impl_worker.h>
+#include <foxxll/io/request_queue_impl_worker.hpp>
 
 #include <list>
 #include <mutex>
 
-namespace stxxl {
+namespace foxxll {
 
 //! \addtogroup reqlayer
 //! \{
@@ -65,7 +65,7 @@ public:
 
 //! \}
 
-} // namespace stxxl
+} // namespace foxxll
 
 #endif // !STXXL_IO_REQUEST_QUEUE_IMPL_1Q_HEADER
 // vim: et:ts=4:sw=4

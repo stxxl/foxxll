@@ -1,5 +1,5 @@
 /***************************************************************************
- *  include/stxxl/bits/io/create_file.h
+ *  foxxll/io/create_file.hpp
  *
  *  Part of the STXXL. See http://stxxl.org
  *
@@ -14,11 +14,11 @@
 #ifndef STXXL_IO_CREATE_FILE_HEADER
 #define STXXL_IO_CREATE_FILE_HEADER
 
-#include <stxxl/bits/io/file.h>
+#include <foxxll/io/file.hpp>
 
 #include <string>
 
-namespace stxxl {
+namespace foxxll {
 
 //! create fileio object from io_impl string and a few parameters
 file_ptr create_file(const std::string& io_impl,
@@ -34,7 +34,7 @@ class disk_config;
 file_ptr create_file(disk_config& config, int mode,
                      int disk_allocator_id = file::NO_ALLOCATOR);
 
-} // namespace stxxl
+} // namespace foxxll
 
 #endif // !STXXL_IO_CREATE_FILE_HEADER
 // vim: et:ts=4:sw=4

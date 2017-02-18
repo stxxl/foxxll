@@ -1,5 +1,5 @@
 /***************************************************************************
- *  include/stxxl/bits/common/error_handling.h
+ *  foxxll/common/error_handling.hpp
  *
  *  Part of the STXXL. See http://stxxl.org
  *
@@ -18,14 +18,14 @@
  * Macros for convenient error checking and reporting via exception.
  */
 
-#include <stxxl/bits/common/exceptions.h>
-#include <stxxl/bits/config.h>
+#include <foxxll/common/exceptions.hpp>
+#include <foxxll/config.hpp>
 
 #include <cerrno>
 #include <cstring>
 #include <sstream>
 
-namespace stxxl {
+namespace foxxll {
 
 #if STXXL_MSVC
  #define STXXL_PRETTY_FUNCTION_NAME __FUNCTION__
@@ -153,6 +153,6 @@ namespace stxxl {
 
 ////////////////////////////////////////////////////////////////////////////
 
-} // namespace stxxl
+} // namespace foxxll
 
 #endif // !STXXL_COMMON_ERROR_HANDLING_HEADER

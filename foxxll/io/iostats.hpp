@@ -1,5 +1,5 @@
 /***************************************************************************
- *  include/stxxl/bits/io/iostats.h
+ *  foxxll/io/iostats.hpp
  *
  *  Part of the STXXL. See http://stxxl.org
  *
@@ -16,13 +16,13 @@
 #ifndef STXXL_IO_IOSTATS_HEADER
 #define STXXL_IO_IOSTATS_HEADER
 
-#include <stxxl/bits/common/error_handling.h>
-#include <stxxl/bits/common/timer.h>
-#include <stxxl/bits/common/types.h>
-#include <stxxl/bits/common/utils.h>
-#include <stxxl/bits/deprecated.h>
-#include <stxxl/bits/singleton.h>
-#include <stxxl/bits/unused.h>
+#include <foxxll/common/error_handling.hpp>
+#include <foxxll/common/timer.hpp>
+#include <foxxll/common/types.hpp>
+#include <foxxll/common/utils.hpp>
+#include <foxxll/deprecated.hpp>
+#include <foxxll/singleton.hpp>
+#include <foxxll/unused.hpp>
 
 #include <algorithm>
 #include <iostream>
@@ -32,7 +32,7 @@
 #include <string>
 #include <vector>
 
-namespace stxxl {
+namespace foxxll {
 
 //! \addtogroup iolayer
 //!
@@ -625,7 +625,7 @@ std::ostream& operator << (std::ostream& o, const stats_data& s);
 static inline
 std::ostream& operator << (std::ostream& o, const stats& s)
 {
-    o << stxxl::stats_data(s);
+    o << stats_data(s);
     return o;
 }
 
@@ -648,7 +648,7 @@ std::string add_SI_multiplier(
 
 //! \}
 
-} // namespace stxxl
+} // namespace foxxll
 
 #endif // !STXXL_IO_IOSTATS_HEADER
 // vim: et:ts=4:sw=4

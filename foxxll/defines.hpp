@@ -1,5 +1,5 @@
 /***************************************************************************
- *  include/stxxl/bits/defines.h
+ *  foxxll/defines.hpp
  *
  *  Document all defines that may change the behavior of stxxl.
  *

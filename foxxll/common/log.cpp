@@ -12,11 +12,11 @@
  *  http://www.boost.org/LICENSE_1_0.txt)
  **************************************************************************/
 
-#include <stxxl/bits/common/log.h>
+#include <foxxll/common/log.hpp>
 
 #include <cstdlib>
 
-namespace stxxl {
+namespace foxxll {
 
 logger::logger() : waitlog_stream_(nullptr)
 {
@@ -38,6 +38,6 @@ logger::~logger()
     delete waitlog_stream_;
 }
 
-} // namespace stxxl
+} // namespace foxxll
 
 /******************************************************************************/

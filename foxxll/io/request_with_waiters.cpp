@@ -11,14 +11,14 @@
  *  http://www.boost.org/LICENSE_1_0.txt)
  **************************************************************************/
 
-#include <stxxl/bits/common/onoff_switch.h>
-#include <stxxl/bits/io/request_with_waiters.h>
+#include <foxxll/common/onoff_switch.hpp>
+#include <foxxll/io/request_with_waiters.hpp>
 
 #include <algorithm>
 #include <functional>
 #include <mutex>
 
-namespace stxxl {
+namespace foxxll {
 
 bool request_with_waiters::add_waiter(onoff_switch* sw)
 {
@@ -57,5 +57,5 @@ size_t request_with_waiters::num_waiters()
     return m_waiters.size();
 }
 
-} // namespace stxxl
+} // namespace foxxll
 // vim: et:ts=4:sw=4

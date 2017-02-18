@@ -1,5 +1,5 @@
 /***************************************************************************
- *  include/stxxl/bits/mng/buf_writer.h
+ *  foxxll/mng/buf_writer.hpp
  *
  *  Part of the STXXL. See http://stxxl.org
  *
@@ -13,13 +13,13 @@
 #ifndef STXXL_MNG_BUF_WRITER_HEADER
 #define STXXL_MNG_BUF_WRITER_HEADER
 
-#include <stxxl/bits/io/disk_queues.h>
-#include <stxxl/bits/io/request_operations.h>
+#include <foxxll/io/disk_queues.hpp>
+#include <foxxll/io/request_operations.hpp>
 
 #include <queue>
 #include <vector>
 
-namespace stxxl {
+namespace foxxll {
 
 //! \defgroup schedlayer Block Scheduling Sublayer
 //! \ingroup mnglayer
@@ -222,6 +222,6 @@ public:
 
 //! \}
 
-} // namespace stxxl
+} // namespace foxxll
 
 #endif // !STXXL_MNG_BUF_WRITER_HEADER

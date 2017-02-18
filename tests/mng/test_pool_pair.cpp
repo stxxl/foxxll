@@ -12,9 +12,9 @@
 
 //! \example mng/test_pool_pair.cpp
 
-#include <stxxl/bits/mng/prefetch_pool.h>
-#include <stxxl/bits/mng/write_pool.h>
-#include <stxxl/mng>
+#include <foxxll/mng.hpp>
+#include <foxxll/mng/prefetch_pool.hpp>
+#include <foxxll/mng/write_pool.hpp>
 
 #include <iostream>
 
@@ -26,22 +26,22 @@ struct MyType
     char chars[5];
 };
 
-using block_type = stxxl::typed_block<BLOCK_SIZE, MyType>;
+using block_type = foxxll::typed_block<BLOCK_SIZE, MyType>;
 
 // forced instantiation
-template class stxxl::typed_block<BLOCK_SIZE, MyType>;
-template class stxxl::prefetch_pool<block_type>;
-template class stxxl::write_pool<block_type>;
+template class foxxll::typed_block<BLOCK_SIZE, MyType>;
+template class foxxll::prefetch_pool<block_type>;
+template class foxxll::write_pool<block_type>;
 
 int main()
 {
-    stxxl::block_manager* bm = stxxl::block_manager::get_instance();
+    foxxll::block_manager* bm = foxxll::block_manager::get_instance();
     STXXL_DEFAULT_ALLOC_STRATEGY alloc;
 
     {
         STXXL_MSG("Write-After-Write coherence test");
-        stxxl::prefetch_pool<block_type> p_pool(2);
-        stxxl::write_pool<block_type> w_pool(10);
+        foxxll::prefetch_pool<block_type> p_pool(2);
+        foxxll::write_pool<block_type> w_pool(10);
         block_type* blk;
         block_type::bid_type bid;
 
@@ -78,8 +78,8 @@ int main()
 
     {
         STXXL_MSG("Write-After-Hint coherence test #1");
-        stxxl::prefetch_pool<block_type> p_pool(1);
-        stxxl::write_pool<block_type> w_pool(1);
+        foxxll::prefetch_pool<block_type> p_pool(1);
+        foxxll::write_pool<block_type> w_pool(1);
         block_type* blk;
         block_type::bid_type bid;
 
@@ -110,8 +110,8 @@ int main()
 
     {
         STXXL_MSG("Write-After-Hint coherence test #2");
-        stxxl::prefetch_pool<block_type> p_pool(1);
-        stxxl::write_pool<block_type> w_pool(1);
+        foxxll::prefetch_pool<block_type> p_pool(1);
+        foxxll::write_pool<block_type> w_pool(1);
         block_type* blk;
         block_type::bid_type bid;
 

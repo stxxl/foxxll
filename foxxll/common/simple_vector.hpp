@@ -1,5 +1,5 @@
 /***************************************************************************
- *  include/stxxl/bits/common/simple_vector.h
+ *  foxxll/common/simple_vector.hpp
  *
  *  Part of the STXXL. See http://stxxl.org
  *
@@ -15,14 +15,14 @@
 #ifndef STXXL_COMMON_SIMPLE_VECTOR_HEADER
 #define STXXL_COMMON_SIMPLE_VECTOR_HEADER
 
-#include <stxxl/bits/common/utils.h>
-#include <stxxl/bits/verbose.h>
+#include <foxxll/common/utils.hpp>
+#include <foxxll/verbose.hpp>
 
 #include <algorithm>
 #include <cassert>
 #include <cstring>
 
-namespace stxxl {
+namespace foxxll {
 
 //! \addtogroup support
 //! \{
@@ -171,13 +171,13 @@ public:
 
 // \}
 
-} // namespace stxxl
+} // namespace foxxll
 
 namespace std {
 
 template <class ValueType>
-void swap(stxxl::simple_vector<ValueType>& a,
-          stxxl::simple_vector<ValueType>& b)
+void swap(foxxll::simple_vector<ValueType>& a,
+          foxxll::simple_vector<ValueType>& b)
 {
     a.swap(b);
 }

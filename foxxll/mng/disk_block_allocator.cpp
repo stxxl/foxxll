@@ -11,18 +11,18 @@
  *  http://www.boost.org/LICENSE_1_0.txt)
  **************************************************************************/
 
-#include <stxxl/bits/common/error_handling.h>
-#include <stxxl/bits/common/exceptions.h>
-#include <stxxl/bits/common/types.h>
-#include <stxxl/bits/mng/disk_block_allocator.h>
-#include <stxxl/bits/verbose.h>
+#include <foxxll/common/error_handling.hpp>
+#include <foxxll/common/exceptions.hpp>
+#include <foxxll/common/types.hpp>
+#include <foxxll/mng/disk_block_allocator.hpp>
+#include <foxxll/verbose.hpp>
 
 #include <cassert>
 #include <map>
 #include <ostream>
 #include <utility>
 
-namespace stxxl {
+namespace foxxll {
 
 void disk_block_allocator::dump() const
 {
@@ -158,5 +158,5 @@ void disk_block_allocator::add_free_region(uint64_t block_pos, uint64_t block_si
     //dump();
 }
 
-} // namespace stxxl
+} // namespace foxxll
 // vim: et:ts=4:sw=4

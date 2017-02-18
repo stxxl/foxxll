@@ -1,5 +1,5 @@
 /***************************************************************************
- *  include/stxxl/bits/mng/async_schedule.h
+ *  foxxll/mng/async_schedule.hpp
  *
  *  Part of the STXXL. See http://stxxl.org
  *
@@ -19,10 +19,10 @@
 // and queued writing on parallel disks, 2005
 // DOI: 10.1137/S0097539703431573
 
-#include <stxxl/bits/common/simple_vector.h>
-#include <stxxl/bits/common/types.h>
+#include <foxxll/common/simple_vector.hpp>
+#include <foxxll/common/types.hpp>
 
-namespace stxxl {
+namespace foxxll {
 
 void compute_prefetch_schedule(
     const int_type* first,
@@ -71,7 +71,7 @@ void compute_prefetch_schedule(
     compute_prefetch_schedule(disks.begin(), disks.end(), out_first, m, D);
 }
 
-} // namespace stxxl
+} // namespace foxxll
 
 #endif // !STXXL_MNG_ASYNC_SCHEDULE_HEADER
 // vim: et:ts=4:sw=4

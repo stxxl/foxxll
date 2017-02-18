@@ -13,8 +13,8 @@
 
 //! \example mng/test_prefetch_pool.cpp
 
-#include <stxxl/bits/mng/prefetch_pool.h>
-#include <stxxl/mng>
+#include <foxxll/mng.hpp>
+#include <foxxll/mng/prefetch_pool.hpp>
 
 #include <iostream>
 
@@ -26,21 +26,21 @@ struct MyType
     char chars[5];
 };
 
-using block_type = stxxl::typed_block<BLOCK_SIZE, MyType>;
+using block_type = foxxll::typed_block<BLOCK_SIZE, MyType>;
 
 // forced instantiation
-template class stxxl::prefetch_pool<block_type>;
+template class foxxll::prefetch_pool<block_type>;
 
 int main()
 {
-    stxxl::prefetch_pool<block_type> pool(2);
+    foxxll::prefetch_pool<block_type> pool(2);
     pool.resize(10);
     pool.resize(5);
 
     block_type* blk = new block_type;
     (*blk)[0].integer = 42;
     block_type::bid_type bids[2];
-    stxxl::block_manager::get_instance()->new_blocks(stxxl::single_disk(), bids, bids + 2);
+    foxxll::block_manager::get_instance()->new_blocks(foxxll::single_disk(), bids, bids + 2);
     blk->write(bids[0])->wait();
     blk->write(bids[1])->wait();
 

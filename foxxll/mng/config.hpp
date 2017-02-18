@@ -1,5 +1,5 @@
 /***************************************************************************
- *  include/stxxl/bits/mng/config.h
+ *  foxxll/mng/config.hpp
  *
  *  Part of the STXXL. See http://stxxl.org
  *
@@ -15,9 +15,9 @@
 #ifndef STXXL_MNG_CONFIG_HEADER
 #define STXXL_MNG_CONFIG_HEADER
 
-#include <stxxl/bits/common/log.h>
-#include <stxxl/bits/singleton.h>
-#include <stxxl/version.h>
+#include <foxxll/common/log.hpp>
+#include <foxxll/singleton.hpp>
+#include <foxxll/version.hpp>
 
 #include <cassert>
 #include <cstdlib>
@@ -25,7 +25,7 @@
 #include <utility>
 #include <vector>
 
-namespace stxxl {
+namespace foxxll {
 
 //! \addtogroup mnglayer
 //! \{
@@ -271,7 +271,7 @@ public:
 
 //! \}
 
-} // namespace stxxl
+} // namespace foxxll
 
 #endif // !STXXL_MNG_CONFIG_HEADER
 // vim: et:ts=4:sw=4

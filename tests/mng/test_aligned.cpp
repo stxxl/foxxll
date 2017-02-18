@@ -14,8 +14,9 @@
 #define STXXL_VERBOSE_ALIGNED_ALLOC STXXL_VERBOSE0
 #define STXXL_VERBOSE_TYPED_BLOCK STXXL_VERBOSE0
 
+#include <foxxll/mng.hpp>
+
 #include <iostream>
-#include <stxxl/mng>
 #include <vector>
 
 #define BLOCK_SIZE (512 * 1024)
@@ -26,8 +27,8 @@ struct type
     ~type() { }
 };
 
-using block_type = stxxl::typed_block<BLOCK_SIZE, type>;
-template class stxxl::typed_block<BLOCK_SIZE, type>; // forced instantiation
+using block_type = foxxll::typed_block<BLOCK_SIZE, type>;
+template class foxxll::typed_block<BLOCK_SIZE, type>; // forced instantiation
 
 void test_typed_block()
 {
@@ -50,18 +51,18 @@ void test_typed_block()
 
 void test_aligned_alloc()
 {
-    void* p = stxxl::aligned_alloc<1024>(4096);
+    void* p = foxxll::aligned_alloc<1024>(4096);
     void* q = nullptr;
-    void* r = stxxl::aligned_alloc<1024>(4096, 42);
-    stxxl::aligned_dealloc<1024>(p);
-    stxxl::aligned_dealloc<1024>(q);
-    stxxl::aligned_dealloc<1024>(r);
+    void* r = foxxll::aligned_alloc<1024>(4096, 42);
+    foxxll::aligned_dealloc<1024>(p);
+    foxxll::aligned_dealloc<1024>(q);
+    foxxll::aligned_dealloc<1024>(r);
 }
 
 void test_typed_block_vector()
 {
     std::vector<block_type> v1(2);
-    std::vector<block_type, stxxl::new_alloc<block_type> > v2(2);
+    std::vector<block_type, foxxll::new_alloc<block_type> > v2(2);
 }
 
 int main()

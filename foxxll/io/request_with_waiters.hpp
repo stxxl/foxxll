@@ -1,5 +1,5 @@
 /***************************************************************************
- *  include/stxxl/bits/io/request_with_waiters.h
+ *  foxxll/io/request_with_waiters.hpp
  *
  *  Part of the STXXL. See http://stxxl.org
  *
@@ -14,13 +14,13 @@
 #ifndef STXXL_IO_REQUEST_WITH_WAITERS_HEADER
 #define STXXL_IO_REQUEST_WITH_WAITERS_HEADER
 
-#include <stxxl/bits/common/onoff_switch.h>
-#include <stxxl/bits/io/request.h>
+#include <foxxll/common/onoff_switch.hpp>
+#include <foxxll/io/request.hpp>
 
 #include <mutex>
 #include <set>
 
-namespace stxxl {
+namespace foxxll {
 
 //! \addtogroup reqlayer
 //! \{
@@ -50,7 +50,7 @@ public:
 
 //! \}
 
-} // namespace stxxl
+} // namespace foxxll
 
 #endif // !STXXL_IO_REQUEST_WITH_WAITERS_HEADER
 // vim: et:ts=4:sw=4

@@ -1,5 +1,5 @@
 /***************************************************************************
- *  include/stxxl/bits/io/request_operations.h
+ *  foxxll/io/request_operations.hpp
  *
  *  Part of the STXXL. See http://stxxl.org
  *
@@ -15,11 +15,11 @@
 #ifndef STXXL_IO_REQUEST_OPERATIONS_HEADER
 #define STXXL_IO_REQUEST_OPERATIONS_HEADER
 
-#include <stxxl/bits/common/onoff_switch.h>
-#include <stxxl/bits/io/iostats.h>
-#include <stxxl/bits/io/request.h>
+#include <foxxll/common/onoff_switch.hpp>
+#include <foxxll/io/iostats.hpp>
+#include <foxxll/io/request.hpp>
 
-namespace stxxl {
+namespace foxxll {
 
 //! \addtogroup reqlayer
 //! \{
@@ -154,7 +154,7 @@ size_t wait_any(request_ptr req_array[], size_t count)
 
 //! \}
 
-} // namespace stxxl
+} // namespace foxxll
 
 #endif // !STXXL_IO_REQUEST_OPERATIONS_HEADER
 // vim: et:ts=4:sw=4

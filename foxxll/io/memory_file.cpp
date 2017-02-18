@@ -11,14 +11,14 @@
  *  http://www.boost.org/LICENSE_1_0.txt)
  **************************************************************************/
 
-#include <stxxl/bits/io/iostats.h>
-#include <stxxl/bits/io/memory_file.h>
+#include <foxxll/io/iostats.hpp>
+#include <foxxll/io/memory_file.hpp>
 
 #include <cassert>
 #include <cstring>
 #include <limits>
 
-namespace stxxl {
+namespace foxxll {
 
 void memory_file::serve(void* buffer, offset_type offset, size_type bytes,
                         request::read_or_write op)
@@ -89,6 +89,6 @@ void memory_file::discard(offset_type offset, offset_type size)
 #endif
 }
 
-} // namespace stxxl
+} // namespace foxxll
 
 /******************************************************************************/

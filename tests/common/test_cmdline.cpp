@@ -10,8 +10,8 @@
  *  http://www.boost.org/LICENSE_1_0.txt)
  **************************************************************************/
 
-#include <stxxl/bits/common/cmdline.h>
-#include <stxxl/bits/verbose.h>
+#include <foxxll/common/cmdline.hpp>
+#include <foxxll/verbose.hpp>
 
 #include <sstream>
 
@@ -20,7 +20,7 @@ void test1()
     int a_int = 0;
     std::string a_str;
 
-    stxxl::cmdline_parser cp;
+    foxxll::cmdline_parser cp;
     cp.add_int('i', "int", "<N>", a_int, "an integer");
     cp.add_string('f', "filename", "<F>", a_str, "a filename");
 

@@ -12,7 +12,7 @@
  **************************************************************************/
 
 /*
-  This programm will benchmark the disks configured via .stxxl disk
+  This programm will benchmark the disks configured via .foxxll disk
   configuration files. The block manager is used to read and write blocks using
   the different allocation strategies.
 */
@@ -26,9 +26,9 @@
         "disk.log" using ($2/1024):($4)  w l title "write"
  */
 
-#include <stxxl/bits/common/cmdline.h>
-#include <stxxl/io>
-#include <stxxl/mng>
+#include <foxxll/common/cmdline.hpp>
+#include <foxxll/io.hpp>
+#include <foxxll/mng.hpp>
 
 #include <algorithm>
 #include <iomanip>
@@ -36,8 +36,8 @@
 #include <string>
 #include <vector>
 
-using stxxl::timestamp;
-using stxxl::external_size_type;
+using foxxll::timestamp;
+using foxxll::external_size_type;
 
 #ifdef BLOCK_ALIGN
  #undef BLOCK_ALIGN
@@ -67,41 +67,41 @@ int benchmark_disks_alloc(
     bool do_write = (optrw.find('w') != std::string::npos);
 
     // initialize disk configuration
-    stxxl::block_manager::get_instance();
+    foxxll::block_manager::get_instance();
 
     // construct block type
 
     const size_t block_size = raw_block_size / sizeof(uint32_t);
 
     using block_type = uint32_t *;
-    using BID = stxxl::BID<0>;
+    using BID = foxxll::BID<0>;
 
     if (batch_size == 0)
-        batch_size = stxxl::config::get_instance()->disks_number();
+        batch_size = foxxll::config::get_instance()->disks_number();
 
     // calculate total bytes processed in a batch
     batch_size = raw_block_size * batch_size;
 
-    size_t num_blocks_per_batch = stxxl::div_ceil(batch_size, raw_block_size);
+    size_t num_blocks_per_batch = foxxll::div_ceil(batch_size, raw_block_size);
     batch_size = num_blocks_per_batch * raw_block_size;
 
     std::vector<block_type> buffer(num_blocks_per_batch);
-    stxxl::request_ptr* reqs = new stxxl::request_ptr[num_blocks_per_batch];
+    foxxll::request_ptr* reqs = new foxxll::request_ptr[num_blocks_per_batch];
     std::vector<BID> bids;
     double totaltimeread = 0, totaltimewrite = 0;
     external_size_type totalsizeread = 0, totalsizewrite = 0;
 
     std::cout << "# Batch size: "
-              << stxxl::add_IEC_binary_multiplier(batch_size, "B") << " ("
+              << foxxll::add_IEC_binary_multiplier(batch_size, "B") << " ("
               << num_blocks_per_batch << " blocks of "
-              << stxxl::add_IEC_binary_multiplier(raw_block_size, "B") << ")"
+              << foxxll::add_IEC_binary_multiplier(raw_block_size, "B") << ")"
               << " using " << AllocStrategy().name()
               << std::endl;
 
     // allocate data blocks
     for (size_t j = 0; j < num_blocks_per_batch; ++j) {
         buffer[j] = reinterpret_cast<block_type>(
-            stxxl::aligned_alloc<4096>(raw_block_size));
+            foxxll::aligned_alloc<4096>(raw_block_size));
     }
 
     // touch data, so it is actually allocated
@@ -122,7 +122,7 @@ int benchmark_disks_alloc(
             const size_t current_batch_size_int = current_batch_size / sizeof(uint32_t);
 #endif
             const size_t current_num_blocks_per_batch =
-                stxxl::div_ceil(current_batch_size, raw_block_size);
+                foxxll::div_ceil(current_batch_size, raw_block_size);
 
             size_t num_total_blocks = bids.size();
             bids.resize(num_total_blocks + current_num_blocks_per_batch);
@@ -130,7 +130,7 @@ int benchmark_disks_alloc(
             // fill in block size of BID<0> variable blocks
             for (BID& b : bids) b.size = raw_block_size;
 
-            stxxl::block_manager::get_instance()->new_blocks(
+            foxxll::block_manager::get_instance()->new_blocks(
                 alloc, bids.begin() + num_total_blocks, bids.end());
 
             if (offset < start_offset)
@@ -224,7 +224,7 @@ int benchmark_disks_alloc(
     delete[] reqs;
 
     for (size_t j = 0; j < num_blocks_per_batch; ++j)
-        stxxl::aligned_dealloc<4096>(buffer[j]);
+        foxxll::aligned_dealloc<4096>(buffer[j]);
 
     return 0;
 }
@@ -233,7 +233,7 @@ int benchmark_disks(int argc, char* argv[])
 {
     // parse command line
 
-    stxxl::cmdline_parser cp;
+    foxxll::cmdline_parser cp;
 
     external_size_type length = 0, offset = 0;
     unsigned int batch_size = 0;
@@ -258,7 +258,7 @@ int benchmark_disks(int argc, char* argv[])
 
     cp.set_description(
         "This program will benchmark the disks configured by the standard "
-        ".stxxl disk configuration files mechanism. Blocks of 8 MiB are "
+        ".foxxll disk configuration files mechanism. Blocks of 8 MiB are "
         "written and/or read in sequence using the block manager. The batch "
         "size describes how many blocks are written/read in one batch. The "
         "are taken from block_manager using given the specified allocation "
@@ -271,16 +271,16 @@ int benchmark_disks(int argc, char* argv[])
     if (allocstr.size())
     {
         if (allocstr == "random_cyclic")
-            return benchmark_disks_alloc<stxxl::random_cyclic>(
+            return benchmark_disks_alloc<foxxll::random_cyclic>(
                 length, offset, batch_size, block_size, optrw);
         if (allocstr == "simple_random")
-            return benchmark_disks_alloc<stxxl::simple_random>(
+            return benchmark_disks_alloc<foxxll::simple_random>(
                 length, offset, batch_size, block_size, optrw);
         if (allocstr == "fully_random")
-            return benchmark_disks_alloc<stxxl::fully_random>(
+            return benchmark_disks_alloc<foxxll::fully_random>(
                 length, offset, batch_size, block_size, optrw);
         if (allocstr == "striping")
-            return benchmark_disks_alloc<stxxl::striping>(
+            return benchmark_disks_alloc<foxxll::striping>(
                 length, offset, batch_size, block_size, optrw);
 
         std::cout << "Unknown allocation strategy '" << allocstr << "'" << std::endl;

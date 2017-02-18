@@ -1,5 +1,5 @@
 /***************************************************************************
- *  foxxll/io/ufs_platform.h
+ *  foxxll/io/ufs_platform.hpp
  *
  *  Platform porting code local the I/O file implementations. This header is
  *  not part of STXXL's template library interface and must only be used inside
@@ -22,7 +22,7 @@
     #define NOMINMAX
   #endif
   #include <windows.h>
-// this is not stxxl/bits/io/io.h !
+// this is not foxxll/io/io.hpp !
   #include <io.h>
 #else
   #include <unistd.h>

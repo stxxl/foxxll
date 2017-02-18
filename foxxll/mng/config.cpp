@@ -13,12 +13,12 @@
  *  http://www.boost.org/LICENSE_1_0.txt)
  **************************************************************************/
 
-#include <stxxl/bits/common/error_handling.h>
-#include <stxxl/bits/common/utils.h>
-#include <stxxl/bits/config.h>
-#include <stxxl/bits/io/file.h>
-#include <stxxl/bits/mng/config.h>
-#include <stxxl/version.h>
+#include <foxxll/common/error_handling.hpp>
+#include <foxxll/common/utils.hpp>
+#include <foxxll/config.hpp>
+#include <foxxll/io/file.hpp>
+#include <foxxll/mng/config.hpp>
+#include <foxxll/version.hpp>
 
 #include <fstream>
 
@@ -31,7 +31,7 @@
   #include <unistd.h>
 #endif
 
-namespace stxxl {
+namespace foxxll {
 
 static inline bool exist_file(const std::string& path)
 {
@@ -493,5 +493,5 @@ std::string disk_config::fileio_string() const
     return oss.str();
 }
 
-} // namespace stxxl
+} // namespace foxxll
 // vim: et:ts=4:sw=4

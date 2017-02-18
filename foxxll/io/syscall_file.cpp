@@ -12,18 +12,18 @@
  *  http://www.boost.org/LICENSE_1_0.txt)
  **************************************************************************/
 
-#include "ufs_platform.h"
-#include <stxxl/bits/common/error_handling.h>
-#include <stxxl/bits/config.h>
-#include <stxxl/bits/io/iostats.h>
-#include <stxxl/bits/io/request.h>
-#include <stxxl/bits/io/request_interface.h>
-#include <stxxl/bits/io/syscall_file.h>
+#include "ufs_platform.hpp"
+#include <foxxll/common/error_handling.hpp>
+#include <foxxll/config.hpp>
+#include <foxxll/io/iostats.hpp>
+#include <foxxll/io/request.hpp>
+#include <foxxll/io/request_interface.hpp>
+#include <foxxll/io/syscall_file.hpp>
 
 #include <limits>
 #include <mutex>
 
-namespace stxxl {
+namespace foxxll {
 
 void syscall_file::serve(void* buffer, offset_type offset, size_type bytes,
                          request::read_or_write op)
@@ -119,5 +119,5 @@ const char* syscall_file::io_type() const
     return "syscall";
 }
 
-} // namespace stxxl
+} // namespace foxxll
 // vim: et:ts=4:sw=4

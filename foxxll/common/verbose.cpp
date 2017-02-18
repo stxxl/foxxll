@@ -10,10 +10,10 @@
  *  http://www.boost.org/LICENSE_1_0.txt)
  **************************************************************************/
 
-#include <stxxl/bits/common/log.h>
-#include <stxxl/bits/common/timer.h>
-#include <stxxl/bits/msvc_compatibility.h>
-#include <stxxl/bits/verbose.h>
+#include <foxxll/common/log.hpp>
+#include <foxxll/common/timer.hpp>
+#include <foxxll/msvc_compatibility.hpp>
+#include <foxxll/verbose.hpp>
 
 #include <cmath>
 #include <cstdio>
@@ -21,7 +21,7 @@
 #include <sstream>
 #include <thread>
 
-namespace stxxl {
+namespace foxxll {
 
 static const double program_start_time_stamp = timestamp();
 
@@ -63,6 +63,6 @@ void print_msg(const char* label, const std::string& msg, unsigned flags)
         logger_instance->errlog_stream() << s.str() << std::flush;
 }
 
-} // namespace stxxl
+} // namespace foxxll
 
 // vim: et:ts=4:sw=4

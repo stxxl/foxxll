@@ -11,17 +11,17 @@
  *  http://www.boost.org/LICENSE_1_0.txt)
  **************************************************************************/
 
-#include <stxxl/bits/common/exceptions.h>
-#include <stxxl/bits/common/shared_state.h>
-#include <stxxl/bits/io/file.h>
-#include <stxxl/bits/io/request_interface.h>
-#include <stxxl/bits/io/request_with_state.h>
-#include <stxxl/bits/io/serving_request.h>
-#include <stxxl/bits/verbose.h>
+#include <foxxll/common/exceptions.hpp>
+#include <foxxll/common/shared_state.hpp>
+#include <foxxll/io/file.hpp>
+#include <foxxll/io/request_interface.hpp>
+#include <foxxll/io/request_with_state.hpp>
+#include <foxxll/io/serving_request.hpp>
+#include <foxxll/verbose.hpp>
 
 #include <iomanip>
 
-namespace stxxl {
+namespace foxxll {
 
 serving_request::serving_request(
     const completion_handler& on_cmpl,
@@ -67,5 +67,5 @@ const char* serving_request::io_type() const
     return file_->io_type();
 }
 
-} // namespace stxxl
+} // namespace foxxll
 // vim: et:ts=4:sw=4

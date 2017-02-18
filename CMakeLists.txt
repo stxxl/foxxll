@@ -457,7 +457,9 @@ endif()
 # configure environment for building
 
 # create config.h with define switches _inside binary dir_!
-configure_file(${PROJECT_SOURCE_DIR}/include/stxxl/bits/config.h.in ${PROJECT_BINARY_DIR}/include/stxxl/bits/config.h)
+configure_file(
+  ${PROJECT_SOURCE_DIR}/foxxll/config.hpp.in
+  ${PROJECT_BINARY_DIR}/foxxll/config.hpp)
 
 # CXX_FLAGS required for compilation
 set(FOXXLL_CXX_FLAGS ${OpenMP_CXX_FLAGS})
@@ -478,8 +480,7 @@ mark_as_advanced( CMAKE_CXX_FLAGS_RELWITHASSERT CMAKE_C_FLAGS_RELWITHASSERT CMAK
 set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS "None" "Debug" "Release" "RelWithDebInfo" "MinSizeRel" "RelWithAssert")
 
 # globally adds top-level include directories
-set(FOXXLL_INCLUDE_DIRS
-  ${PROJECT_SOURCE_DIR}/ ${PROJECT_SOURCE_DIR}/include/ ${PROJECT_BINARY_DIR}/include/)
+set(FOXXLL_INCLUDE_DIRS ${PROJECT_SOURCE_DIR}/ ${PROJECT_BINARY_DIR}/)
 include_directories(${FOXXLL_INCLUDE_DIRS})
 
 # for targets using foxxll library

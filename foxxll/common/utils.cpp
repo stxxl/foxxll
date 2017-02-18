@@ -10,14 +10,14 @@
  *  http://www.boost.org/LICENSE_1_0.txt)
  **************************************************************************/
 
-#include <stxxl/bits/common/types.h>
-#include <stxxl/bits/common/utils.h>
+#include <foxxll/common/types.hpp>
+#include <foxxll/common/utils.hpp>
 
 #include <iomanip>
 #include <sstream>
 #include <string>
 
-namespace stxxl {
+namespace foxxll {
 
 //! Parse a string like "343KB" or "  44 GiB  " into the corresponding size in
 //! bytes.
@@ -125,6 +125,6 @@ std::string format_IEC_size(uint64_t number)
     return out.str();
 }
 
-} // namespace stxxl
+} // namespace foxxll
 
 /******************************************************************************/

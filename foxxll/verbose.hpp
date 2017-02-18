@@ -1,5 +1,5 @@
 /***************************************************************************
- *  include/stxxl/bits/verbose.h
+ *  foxxll/verbose.hpp
  *
  *  Part of the STXXL. See http://stxxl.org
  *
@@ -15,7 +15,7 @@
 #ifndef STXXL_VERBOSE_HEADER
 #define STXXL_VERBOSE_HEADER
 
-#include <stxxl/bits/unused.h>
+#include <foxxll/unused.hpp>
 
 #include <cstdlib>
 #include <iostream>
@@ -34,17 +34,17 @@
 #define _STXXL_PRINT_FLAGS_ERROR    (_STXXL_PRNT_CERR | _STXXL_PRNT_ERRLOG)
 #define _STXXL_PRINT_FLAGS_VERBOSE  (_STXXL_PRINT_FLAGS_DEFAULT | _STXXL_PRNT_TIMESTAMP | _STXXL_PRNT_THREAD_ID)
 
-namespace stxxl {
+namespace foxxll {
 
 void print_msg(const char* label, const std::string& msg, unsigned flags);
 
-} // namespace stxxl
+} // namespace foxxll
 
-#define _STXXL_PRINT(label, message, flags)                                  \
-    do {                                                                     \
-        std::ostringstream str_;                                             \
-        str_ << message;                                                     \
-        stxxl::print_msg(label, str_.str(), flags | _STXXL_PRNT_ADDNEWLINE); \
+#define _STXXL_PRINT(label, message, flags)                                     \
+    do {                                                                        \
+        std::ostringstream str_;                                                \
+        str_ << message;                                                        \
+        ::foxxll::print_msg(label, str_.str(), flags | _STXXL_PRNT_ADDNEWLINE); \
     } while (false)
 
 #define _STXXL_NOT_VERBOSE(message)  \
@@ -86,7 +86,7 @@ void print_msg(const char* label, const std::string& msg, unsigned flags);
 
 // STXXL_MEMDUMP(x) prints the name of x together with its value as an amount of memory in IEC units.
 #if STXXL_VERBOSE_LEVEL > -10
- #define STXXL_MEMDUMP(x) _STXXL_PRINT("STXXL-MSG", #x " = " << stxxl::format_IEC_size(x) << "B", _STXXL_PRINT_FLAGS_DEFAULT)
+ #define STXXL_MEMDUMP(x) _STXXL_PRINT("STXXL-MSG", #x " = " << ::foxxll::format_IEC_size(x) << "B", _STXXL_PRINT_FLAGS_DEFAULT)
 #else
  #define STXXL_MEMDUMP(x) _STXXL_NOT_VERBOSE
 #endif

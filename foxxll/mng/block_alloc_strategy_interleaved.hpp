@@ -1,7 +1,7 @@
 /***************************************************************************
- *  include/stxxl/bits/mng/block_alloc_strategy_interleaved.h
+ *  foxxll/mng/block_alloc_strategy_interleaved.hpp
  *
- *  include/stxxl/bits/mng/block_alloc_interleaved.h
+ *  include/foxxll/mng/block_alloc_interleaved.h
  *
  *  Part of the STXXL. See http://stxxl.org
  *
@@ -16,12 +16,12 @@
 #ifndef STXXL_MNG_BLOCK_ALLOC_STRATEGY_INTERLEAVED_HEADER
 #define STXXL_MNG_BLOCK_ALLOC_STRATEGY_INTERLEAVED_HEADER
 
-#include <stxxl/bits/mng/block_manager.h>
+#include <foxxll/mng/block_manager.hpp>
 
 #include <random>
 #include <vector>
 
-namespace stxxl {
+namespace foxxll {
 
 #define CHECK_RUN_BOUNDS(pos)
 
@@ -162,7 +162,7 @@ struct interleaved_alloc_traits<single_disk>
     using strategy = first_disk_only;
 };
 
-} // namespace stxxl
+} // namespace foxxll
 
 #endif // !STXXL_MNG_BLOCK_ALLOC_STRATEGY_INTERLEAVED_HEADER
 // vim: et:ts=4:sw=4

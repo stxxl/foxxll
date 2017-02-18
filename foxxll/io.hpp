@@ -1,5 +1,5 @@
 /***************************************************************************
- *  include/stxxl/bits/io/io.h
+ *  foxxll/io.hpp
  *
  *  Part of the STXXL. See http://stxxl.org
  *
@@ -14,23 +14,25 @@
 #ifndef STXXL_IO_IO_HEADER
 #define STXXL_IO_IO_HEADER
 
-#include <stxxl/bits/io/create_file.h>
-#include <stxxl/bits/io/disk_queues.h>
-#include <stxxl/bits/io/file.h>
-#include <stxxl/bits/io/fileperblock_file.h>
-#include <stxxl/bits/io/iostats.h>
-#include <stxxl/bits/io/linuxaio_file.h>
-#include <stxxl/bits/io/memory_file.h>
-#include <stxxl/bits/io/mmap_file.h>
-#include <stxxl/bits/io/syscall_file.h>
-#include <stxxl/bits/io/wincall_file.h>
-#include <stxxl/request>
+#include <foxxll/common/aligned_alloc.hpp>
+#include <foxxll/io/create_file.hpp>
+#include <foxxll/io/disk_queues.hpp>
+#include <foxxll/io/file.hpp>
+#include <foxxll/io/fileperblock_file.hpp>
+#include <foxxll/io/iostats.hpp>
+#include <foxxll/io/linuxaio_file.hpp>
+#include <foxxll/io/memory_file.hpp>
+#include <foxxll/io/mmap_file.hpp>
+#include <foxxll/io/request.hpp>
+#include <foxxll/io/request_operations.hpp>
+#include <foxxll/io/syscall_file.hpp>
+#include <foxxll/io/wincall_file.hpp>
 
 //! \c STXXL library namespace
-namespace stxxl {
+namespace foxxll {
 
 // ...
 
-} // namespace stxxl
+} // namespace foxxll
 
 #endif // !STXXL_IO_IO_HEADER
