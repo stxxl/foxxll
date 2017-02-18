@@ -42,7 +42,7 @@ namespace foxxll {
 //! \{
 
 //! \defgroup fileimpl File I/O Implementations
-//! Implementations of \c stxxl::file for various file access methods and
+//! Implementations of \c foxxll::file for various file access methods and
 //! operating systems.
 //! \{
 
@@ -176,7 +176,7 @@ public:
     {
         size_t nr = get_request_nref();
         if (nr != 0)
-            STXXL_ERRMSG("stxxl::file is being deleted while there are "
+            STXXL_ERRMSG("foxxll::file is being deleted while there are "
                          "still " << nr << " (unfinished) requests "
                          "referencing it");
     }

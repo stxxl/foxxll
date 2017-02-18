@@ -1,7 +1,7 @@
 /***************************************************************************
  *  tests/common/test_counting_ptr.cpp
  *
- *  Small test case for reference counting in stxxl::counting_ptr.
+ *  Small test case for reference counting in foxxll::counting_ptr.
  *
  *  Part of the STXXL. See http://stxxl.org
  *

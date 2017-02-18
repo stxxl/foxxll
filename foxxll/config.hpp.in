@@ -1,6 +1,6 @@
 // -*- mode: c++ -*-
 /***************************************************************************
- *  include/stxxl/bits/config.h.in
+ *  foxxll/config.hpp.in
  *
  *  Template file processed by cmake to set all define switches for this build
  *  according to the cmake build options.

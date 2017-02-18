@@ -59,7 +59,7 @@ public:
     filler_struct() { STXXL_VERBOSE_TYPED_BLOCK("[" << (void*)this << "] filler_struct<> is constructed"); }
 };
 
-//! Contains data elements for \c stxxl::typed_block , not intended for direct use.
+//! Contains data elements for \c foxxll::typed_block , not intended for direct use.
 template <typename Type, size_t Size>
 class element_block
 {
@@ -122,7 +122,7 @@ public:
     }
 };
 
-//! Contains BID references for \c stxxl::typed_block , not intended for direct use.
+//! Contains BID references for \c foxxll::typed_block , not intended for direct use.
 template <typename Type, size_t Size, size_t RawSize, size_t NBids = 0>
 class block_w_bids : public element_block<Type, Size>
 {
@@ -157,7 +157,7 @@ public:
     block_w_bids() { STXXL_VERBOSE_TYPED_BLOCK("[" << (void*)this << "] block_w_bids<> is constructed"); }
 };
 
-//! Contains per block information for \c stxxl::typed_block , not intended for direct use.
+//! Contains per block information for \c foxxll::typed_block , not intended for direct use.
 template <typename Type, size_t RawSize, size_t NBids, typename MetaInfoType = void>
 class block_w_info
     : public block_w_bids<Type, ((RawSize - sizeof(BID<RawSize>)* NBids - sizeof(MetaInfoType)) / sizeof(Type)), RawSize, NBids>
@@ -182,7 +182,7 @@ public:
     block_w_info() { STXXL_VERBOSE_TYPED_BLOCK("[" << (void*)this << "] block_w_info<> is constructed"); }
 };
 
-//! Contains per block filler for \c stxxl::typed_block , not intended for direct use.
+//! Contains per block filler for \c foxxll::typed_block , not intended for direct use.
 template <typename BaseType, size_t FillSize = 0>
 class add_filler : public BaseType
 {
@@ -218,9 +218,9 @@ class expand_struct : public add_filler<Type, RawSize - sizeof(Type)>
 //! \tparam NRef number of block references (BIDs) that can be stored in the block (default is 0)
 //! \tparam MetaInfoType type of per block information (default is no information - void)
 //!
-//! The data array of type Type is contained in the parent class \c stxxl::element_block, see related information there.
-//! The BID array of references is contained in the parent class \c stxxl::block_w_bids, see related information there.
-//! The "per block information" is contained in the parent class \c stxxl::block_w_info, see related information there.
+//! The data array of type Type is contained in the parent class \c foxxll::element_block, see related information there.
+//! The BID array of references is contained in the parent class \c foxxll::block_w_bids, see related information there.
+//! The "per block information" is contained in the parent class \c foxxll::block_w_info, see related information there.
 //!  \warning If \c RawSize > 2MB object(s) of this type can not be allocated on the stack (as a
 //! function variable for example), because Linux POSIX library limits the stack size for the
 //! main thread to (2MB - system page size)

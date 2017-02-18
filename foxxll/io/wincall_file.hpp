@@ -43,7 +43,7 @@ class wincall_file final : public wfs_file_base, public disk_queued_file
 public:
     //! Constructs file object.
     //! \param filename path of file
-    //! \param mode open mode, see \c stxxl::file::open_modes
+    //! \param mode open mode, see \c foxxll::file::open_modes
     //! \param queue_id disk queue identifier
     //! \param allocator_id linked disk_allocator
     //! \param device_id physical device identifier

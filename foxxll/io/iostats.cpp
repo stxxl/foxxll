@@ -132,7 +132,7 @@ void file_stats::read_finished()
 file_stats_data file_stats_data::operator + (const file_stats_data& a) const
 {
     STXXL_THROW_IF(device_id_ != a.device_id_, std::runtime_error,
-                   "stxxl::file_stats_data objects do not belong to the same file/disk");
+                   "foxxll::file_stats_data objects do not belong to the same file/disk");
 
     file_stats_data fsd;
     fsd.device_id_ = device_id_;
@@ -149,7 +149,7 @@ file_stats_data file_stats_data::operator + (const file_stats_data& a) const
 file_stats_data file_stats_data::operator - (const file_stats_data& a) const
 {
     STXXL_THROW_IF(device_id_ != a.device_id_, std::runtime_error,
-                   "stxxl::file_stats_data objects do not belong to the same file/disk");
+                   "foxxll::file_stats_data objects do not belong to the same file/disk");
 
     file_stats_data fsd;
     fsd.device_id_ = device_id_;
@@ -238,7 +238,7 @@ void stats::wait_finished(wait_op_type wait_op)
             p_wait_write_ += (acc_wait_write_--) ? diff2 : 0.0;
         }
 #ifdef STXXL_WAIT_LOG_ENABLED
-        std::ofstream* waitlog = stxxl::logger::get_instance()->waitlog_stream();
+        std::ofstream* waitlog = foxxll::logger::get_instance()->waitlog_stream();
         if (waitlog)
             *waitlog << (now - last_reset) << "\t"
                      << ((wait_op == WAIT_OP_READ) ? diff : 0.0) << "\t"

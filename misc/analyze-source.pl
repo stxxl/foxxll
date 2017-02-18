@@ -439,7 +439,7 @@ foreach my $arg (@ARGV) {
     }
 }
 
-@dirs_to_search = ("include", "foxxll", "misc", "tests", "tools") unless @dirs_to_search;
+@dirs_to_search = ("foxxll", "misc", "tests", "tools") unless @dirs_to_search;
 
 (-e "foxxll/io.hpp")
     or die("Please run this script in the STXXL source base directory.");

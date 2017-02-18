@@ -65,9 +65,9 @@ namespace foxxll {
                  STXXL_PRETTY_FUNCTION_NAME,        \
                  error_message)
 
-//! Throws stxxl::unreachable with "Error in file [file], line [line] : this code should never be reachable"
+//! Throws foxxll::unreachable with "Error in file [file], line [line] : this code should never be reachable"
 #define STXXL_THROW_UNREACHABLE()                              \
-    STXXL_THROW2(stxxl::unreachable,                           \
+    STXXL_THROW2(foxxll::unreachable,                          \
                  "file " << __FILE__ << ", line " << __LINE__, \
                  "this code should never be reachable")
 
@@ -117,13 +117,13 @@ namespace foxxll {
 
 ////////////////////////////////////////////////////////////////////////////
 
-//! Checks pthread call, if return != 0, throws stxxl::resource_error with "Error in [function] : [pthread_expr] : [errno message]
-#define STXXL_CHECK_PTHREAD_CALL(expr)                             \
-    do {                                                           \
-        int res = (expr);                                          \
-        if (res != 0) {                                            \
-            STXXL_THROW_ERRNO2(stxxl::resource_error, #expr, res); \
-        }                                                          \
+//! Checks pthread call, if return != 0, throws foxxll::resource_error with "Error in [function] : [pthread_expr] : [errno message]
+#define STXXL_CHECK_PTHREAD_CALL(expr)                              \
+    do {                                                            \
+        int res = (expr);                                           \
+        if (res != 0) {                                             \
+            STXXL_THROW_ERRNO2(foxxll::resource_error, #expr, res); \
+        }                                                           \
     } while (false)
 
 ////////////////////////////////////////////////////////////////////////////
