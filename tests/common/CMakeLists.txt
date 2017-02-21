@@ -11,12 +11,10 @@
 ############################################################################
 
 foxxll_build_test(test_cmdline)
-foxxll_build_test(test_counting_ptr)
 foxxll_build_test(test_log2)
 foxxll_build_test(test_uint_types)
 
 foxxll_test(test_cmdline)
-foxxll_test(test_counting_ptr)
 foxxll_test(test_log2)
 foxxll_test(test_uint_types)
 

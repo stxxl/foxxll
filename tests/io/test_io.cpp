@@ -49,12 +49,12 @@ int main(int argc, char** argv)
     memset(buffer, 0, size);
 
 #if STXXL_HAVE_MMAP_FILE
-    foxxll::file_ptr file1 = foxxll::make_counting<foxxll::mmap_file>(
+    foxxll::file_ptr file1 = tlx::make_counting<foxxll::mmap_file>(
         tempfilename[0], file::CREAT | file::RDWR | file::DIRECT, 0);
     file1->set_size(size * 1024);
 #endif
 
-    foxxll::file_ptr file2 = foxxll::make_counting<foxxll::syscall_file>(
+    foxxll::file_ptr file2 = tlx::make_counting<foxxll::syscall_file>(
         tempfilename[1], file::CREAT | file::RDWR | file::DIRECT, 1);
 
     foxxll::request_ptr req[16];

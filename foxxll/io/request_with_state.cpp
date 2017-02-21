@@ -27,7 +27,7 @@ namespace foxxll {
 
 request_with_state::~request_with_state()
 {
-    STXXL_VERBOSE3_THIS("request_with_state::~(), ref_cnt: " << get_reference_count());
+    STXXL_VERBOSE3_THIS("request_with_state::~(), ref_cnt: " << reference_count());
 
     assert(state_() == DONE || state_() == READY2DIE);
 

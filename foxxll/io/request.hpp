@@ -19,7 +19,7 @@
 #include <foxxll/io/request_interface.hpp>
 #include <foxxll/verbose.hpp>
 
-#include <foxxll/common/counting_ptr.hpp>
+#include <tlx/counting_ptr.hpp>
 
 #include <cassert>
 #include <functional>
@@ -37,15 +37,15 @@ class file;
 class request;
 
 //! A reference counting pointer for \c file.
-using file_ptr = counting_ptr<file>;
+using file_ptr = tlx::counting_ptr<file>;
 
 //! A reference counting pointer for \c request.
-using request_ptr = counting_ptr<request>;
+using request_ptr = tlx::counting_ptr<request>;
 
 using completion_handler = std::function<void(request* r, bool success)>;
 
 //! Request object encapsulating basic properties like file and offset.
-class request : virtual public request_interface, public reference_count
+class request : virtual public request_interface, public tlx::reference_counter
 {
     friend class linuxaio_queue;
 
@@ -103,7 +103,7 @@ public:
 protected:
     void check_nref(bool after = false)
     {
-        if (get_reference_count() < 2)
+        if (reference_count() < 2)
             check_nref_failed(after);
     }
 

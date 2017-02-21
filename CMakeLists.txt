@@ -454,6 +454,12 @@ if(USE_MALLOC_COUNT)
 endif()
 
 ###############################################################################
+# find tlx
+
+add_subdirectory(extlib/tlx)
+set(FOXXLL_EXTRA_LIBRARIES ${FOXXLL_EXTRA_LIBRARIES} tlx)
+
+###############################################################################
 # configure environment for building
 
 # create config.h with define switches _inside binary dir_!

@@ -26,13 +26,13 @@ request::request(
       file_(file), buffer_(buffer), offset_(offset), bytes_(bytes),
       op_(op)
 {
-    STXXL_VERBOSE3_THIS("request::(...), ref_cnt=" << get_reference_count());
+    STXXL_VERBOSE3_THIS("request::(...), ref_cnt=" << reference_count());
     file_->add_request_ref();
 }
 
 request::~request()
 {
-    STXXL_VERBOSE3_THIS("request::~request(), ref_cnt=" << get_reference_count());
+    STXXL_VERBOSE3_THIS("request::~request(), ref_cnt=" << reference_count());
 }
 
 void request::check_alignment() const
@@ -55,7 +55,7 @@ void request::check_nref_failed(bool after)
 {
     STXXL_ERRMSG("WARNING: serious error, reference to the request is lost " <<
                  (after ? "after" : "before") << " serve()" <<
-                 " nref=" << get_reference_count() <<
+                 " nref=" << reference_count() <<
                  " this=" << this <<
                  " offset=" << offset_ <<
                  " buffer=" << buffer_ <<

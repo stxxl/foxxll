@@ -26,7 +26,7 @@
 #include <foxxll/unused.hpp>
 #include <foxxll/verbose.hpp>
 
-#include <foxxll/common/counting_ptr.hpp>
+#include <tlx/counting_ptr.hpp>
 
 #if defined(__linux__)
  #define STXXL_CHECK_BLOCK_ALIGNING
@@ -50,7 +50,7 @@ namespace foxxll {
 //!
 //! It is a base class for different implementations that might
 //! base on various file systems or even remote storage interfaces
-class file : public reference_count
+class file : public tlx::reference_counter
 {
 public:
     //! the offset of a request, also the size of the file
@@ -209,7 +209,7 @@ public:
 
 protected:
     //! count the number of requests referencing this file
-    reference_count m_request_ref;
+    tlx::reference_counter m_request_ref;
 
 public:
     //! increment referenced requests
@@ -227,7 +227,7 @@ public:
     //! return number of referenced requests
     size_t get_request_nref()
     {
-        return m_request_ref.get_reference_count();
+        return m_request_ref.reference_count();
     }
 
 public:

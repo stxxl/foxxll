@@ -13,6 +13,8 @@
  *  http://www.boost.org/LICENSE_1_0.txt)
  **************************************************************************/
 
+#include <foxxll/io/create_file.hpp>
+
 #include <foxxll/common/error_handling.hpp>
 #include <foxxll/common/exceptions.hpp>
 #include <foxxll/io.hpp>
@@ -71,8 +73,8 @@ file_ptr create_file(disk_config& cfg, int mode, int disk_allocator_id)
 
     if (cfg.io_impl == "syscall")
     {
-        counting_ptr<ufs_file_base> result =
-            make_counting<syscall_file>(
+        tlx::counting_ptr<ufs_file_base> result =
+            tlx::make_counting<syscall_file>(
                 cfg.path, mode, cfg.queue, disk_allocator_id, cfg.device_id);
         result->lock();
 
@@ -98,16 +100,16 @@ file_ptr create_file(disk_config& cfg, int mode, int disk_allocator_id)
     }
     else if (cfg.io_impl == "fileperblock_syscall")
     {
-        counting_ptr<fileperblock_file<syscall_file> > result =
-            make_counting<fileperblock_file<syscall_file> >(
+        tlx::counting_ptr<fileperblock_file<syscall_file> > result =
+            tlx::make_counting<fileperblock_file<syscall_file> >(
                 cfg.path, mode, cfg.queue, disk_allocator_id, cfg.device_id);
         result->lock();
         return result;
     }
     else if (cfg.io_impl == "memory")
     {
-        counting_ptr<memory_file> result =
-            make_counting<memory_file>(
+        tlx::counting_ptr<memory_file> result =
+            tlx::make_counting<memory_file>(
                 cfg.queue, disk_allocator_id, cfg.device_id);
         result->lock();
         return result;
@@ -119,8 +121,8 @@ file_ptr create_file(disk_config& cfg, int mode, int disk_allocator_id)
         // linuxaio_queue is a singleton.
         cfg.queue = file::DEFAULT_LINUXAIO_QUEUE;
 
-        counting_ptr<ufs_file_base> result =
-            make_counting<linuxaio_file>(
+        tlx::counting_ptr<ufs_file_base> result =
+            tlx::make_counting<linuxaio_file>(
                 cfg.path, mode, cfg.queue, disk_allocator_id,
                 cfg.device_id, cfg.queue_length);
 
@@ -150,8 +152,8 @@ file_ptr create_file(disk_config& cfg, int mode, int disk_allocator_id)
 #if STXXL_HAVE_MMAP_FILE
     else if (cfg.io_impl == "mmap")
     {
-        counting_ptr<ufs_file_base> result =
-            make_counting<mmap_file>(
+        tlx::counting_ptr<ufs_file_base> result =
+            tlx::make_counting<mmap_file>(
                 cfg.path, mode, cfg.queue, disk_allocator_id, cfg.device_id);
         result->lock();
 
@@ -162,8 +164,8 @@ file_ptr create_file(disk_config& cfg, int mode, int disk_allocator_id)
     }
     else if (cfg.io_impl == "fileperblock_mmap")
     {
-        counting_ptr<fileperblock_file<mmap_file> > result =
-            make_counting<fileperblock_file<mmap_file> >(
+        tlx::counting_ptr<fileperblock_file<mmap_file> > result =
+            tlx::make_counting<fileperblock_file<mmap_file> >(
                 cfg.path, mode, cfg.queue, disk_allocator_id, cfg.device_id);
         result->lock();
         return result;
@@ -172,16 +174,16 @@ file_ptr create_file(disk_config& cfg, int mode, int disk_allocator_id)
 #if STXXL_HAVE_WINCALL_FILE
     else if (cfg.io_impl == "wincall")
     {
-        counting_ptr<wfs_file_base> result =
-            make_counting<wincall_file>(
+        tlx::counting_ptr<wfs_file_base> result =
+            tlx::make_counting<wincall_file>(
                 cfg.path, mode, cfg.queue, disk_allocator_id, cfg.device_id);
         result->lock();
         return result;
     }
     else if (cfg.io_impl == "fileperblock_wincall")
     {
-        counting_ptr<fileperblock_file<wincall_file> > result =
-            make_counting<fileperblock_file<wincall_file> >(
+        tlx::counting_ptr<fileperblock_file<wincall_file> > result =
+            tlx::make_counting<fileperblock_file<wincall_file> >(
                 cfg.path, mode, cfg.queue, disk_allocator_id, cfg.device_id);
         result->lock();
         return result;
