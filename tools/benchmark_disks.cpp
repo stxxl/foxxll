@@ -26,9 +26,9 @@
         "disk.log" using ($2/1024):($4)  w l title "write"
  */
 
-#include <foxxll/common/cmdline.hpp>
 #include <foxxll/io.hpp>
 #include <foxxll/mng.hpp>
+#include <tlx/cmdline_parser.hpp>
 
 #include <algorithm>
 #include <iomanip>
@@ -233,7 +233,7 @@ int benchmark_disks(int argc, char* argv[])
 {
     // parse command line
 
-    foxxll::cmdline_parser cp;
+    tlx::CmdlineParser cp;
 
     external_size_type length = 0, offset = 0;
     unsigned int batch_size = 0;
@@ -249,8 +249,8 @@ int benchmark_disks(int argc, char* argv[])
         "alloc", allocstr,
         "Block allocation strategy: random_cyclic, simple_random, fully_random, striping. (default: random_cyclic)");
 
-    cp.add_uint('b', "batch", batch_size,
-                "Number of blocks written/read in one batch (default: D * B)");
+    cp.add_unsigned('b', "batch", batch_size,
+                    "Number of blocks written/read in one batch (default: D * B)");
     cp.add_bytes('B', "block_size", block_size,
                  "Size of blocks written in one syscall. (default: B = 8MiB)");
     cp.add_bytes('o', "offset", offset,

@@ -23,10 +23,10 @@
  */
 
 #include <foxxll/common/aligned_alloc.hpp>
-#include <foxxll/common/cmdline.hpp>
 #include <foxxll/common/timer.hpp>
 #include <foxxll/io.hpp>
 #include <foxxll/version.hpp>
+#include <tlx/cmdline_parser.hpp>
 
 #include <algorithm>
 #include <cstring>
@@ -112,7 +112,7 @@ int benchmark_files(int argc, char* argv[])
 
     std::vector<std::string> files_arr;
 
-    foxxll::cmdline_parser cp;
+    tlx::CmdlineParser cp;
 
     cp.add_param_bytes("length", length,
                        "Length to write in file.");
@@ -123,22 +123,22 @@ int benchmark_files(int argc, char* argv[])
     cp.add_bytes('o', "offset", offset,
                  "Starting offset to write in file.");
 
-    cp.add_flag(0, "no-direct", no_direct_io,
+    cp.add_bool(0, "no-direct", no_direct_io,
                 "open files without O_DIRECT");
 
-    cp.add_flag(0, "sync", sync_io,
+    cp.add_bool(0, "sync", sync_io,
                 "open files with O_SYNC|O_DSYNC|O_RSYNC");
 
-    cp.add_flag(0, "resize", resize_after_open,
+    cp.add_bool(0, "resize", resize_after_open,
                 "resize the file size after opening, "
                 "needed e.g. for creating mmap files");
 
     cp.add_bytes(0, "block_size", block_size,
                  "block size for operations (default 8 MiB)");
 
-    cp.add_uint(0, "batch_size", batch_size,
-                "increase (default 1) to submit several I/Os at once "
-                "and report average rate");
+    cp.add_unsigned(0, "batch_size", batch_size,
+                    "increase (default 1) to submit several I/Os at once "
+                    "and report average rate");
 
     cp.add_string('f', "file-type", file_type,
                   "Method to open file (syscall|mmap|wincall|...) "
@@ -148,8 +148,8 @@ int benchmark_files(int argc, char* argv[])
                   "[w]rite pattern, [r]ead without verification, "
                   "read and [v]erify pattern (default: 'wv')");
 
-    cp.add_uint(0, "pattern", pattern,
-                "32-bit pattern to write (default: block index)");
+    cp.add_unsigned(0, "pattern", pattern,
+                    "32-bit pattern to write (default: block index)");
 
     cp.set_description(
         "Open a file using one of STXXL's file abstractions and perform "

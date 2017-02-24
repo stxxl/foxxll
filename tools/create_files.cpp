@@ -12,8 +12,8 @@
  **************************************************************************/
 
 #include <foxxll/common/aligned_alloc.hpp>
-#include <foxxll/common/cmdline.hpp>
 #include <foxxll/io.hpp>
+#include <tlx/cmdline_parser.hpp>
 
 #include <cstdio>
 #include <iomanip>
@@ -90,7 +90,7 @@ int create_files(int argc, char* argv[])
     std::vector<std::string> disks_arr;
     external_size_type offset = 0, length;
 
-    foxxll::cmdline_parser cp;
+    tlx::CmdlineParser cp;
     cp.add_param_bytes("filesize", length,
                        "Number of bytes to write to files.");
     cp.add_param_stringlist("filename", disks_arr,

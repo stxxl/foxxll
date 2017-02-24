@@ -14,7 +14,6 @@
 
 set(LIBFOXXLL_SOURCES
 
-  common/cmdline.cpp
   common/exithandler.cpp
   common/log.cpp
   common/utils.cpp

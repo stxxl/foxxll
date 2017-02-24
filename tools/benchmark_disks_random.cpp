@@ -21,9 +21,9 @@
         "disk.log" using ($2/1024):($4)  w l title "write"
  */
 
-#include <foxxll/common/cmdline.hpp>
 #include <foxxll/io.hpp>
 #include <foxxll/mng.hpp>
+#include <tlx/cmdline_parser.hpp>
 
 #include <algorithm>
 #include <ctime>
@@ -206,7 +206,7 @@ int benchmark_disks_random(int argc, char* argv[])
 {
     // parse command line
 
-    foxxll::cmdline_parser cp;
+    tlx::CmdlineParser cp;
 
     external_size_type span, worksize = 0;
     size_t block_size = 8 * MiB;
