@@ -18,143 +18,44 @@
 #define STXXL_COMMON_TMETA_HEADER
 
 #include <foxxll/common/types.hpp>
+#include <tlx/meta/if.hpp>
 
 namespace foxxll {
-
-//! IF template metaprogramming statement.
-//!
-//! If \c Flag is \c true then \c IF<>::result is of type Type1
-//! otherwise of \c IF<>::result is of type Type2
-template <bool Flag, class Type1, class Type2>
-struct IF
-{
-    using result = Type1;
-};
-
-template <class Type1, class Type2>
-struct IF<false, Type1, Type2>
-{
-    using result = Type2;
-};
-
-//! If \c Flag is \c true then \c IF<>::result is Num1
-//! otherwise of \c IF<>::result is Num2
-template <bool Flag, unsigned Num1, unsigned Num2>
-struct IF_N
-{
-    enum
-    {
-        result = Num1
-    };
-};
-
-template <unsigned Num1, unsigned Num2>
-struct IF_N<false, Num1, Num2>
-{
-    enum
-    {
-        result = Num2
-    };
-};
 
 const int DEFAULT = ~(~0u >> 1); // initialize with the smallest int
 
 struct NilCase { };
 
-template <int tag_, class Type_, class Next_ = NilCase>
+template <int Tag, class Type_, class Next_ = NilCase>
 struct CASE
 {
-    enum { tag = tag_ };
+    enum { tag = Tag };
     using Type = Type_;
     using Next = Next_;
 };
 
-template <int tag, class Case>
+template <int Tag, class Case>
 class SWITCH
 {
     using NextCase = typename Case::Next;
     enum
     {
         caseTag = Case::tag,
-        found = (caseTag == tag || caseTag == DEFAULT)
+        found = (caseTag == Tag || caseTag == DEFAULT)
     };
 
 public:
-    using result = typename IF<found,
+    using type = typename tlx::If<found,
                                typename Case::Type,
-                               typename SWITCH<tag, NextCase>::result
-                               >::result;
+                               typename SWITCH<Tag, NextCase>::type
+                               >::type;
 };
 
-template <int tag>
-class SWITCH<tag, NilCase>
+template <int Tag>
+class SWITCH<Tag, NilCase>
 {
 public:
-    using result = NilCase;
-};
-
-//! \internal, use LOG2 instead
-template <size_t Input>
-class LOG2_floor
-{
-public:
-    enum
-    {
-        value = LOG2_floor<Input / 2>::value + 1
-    };
-};
-
-template <>
-class LOG2_floor<1>
-{
-public:
-    enum
-    {
-        value = 0
-    };
-};
-
-template <>
-class LOG2_floor<0>
-{
-public:
-    enum
-    {
-        value = 0
-    };
-};
-
-template <size_t Input>
-class LOG2
-{
-public:
-    enum
-    {
-        floor = LOG2_floor<Input>::value,
-        ceil = LOG2_floor<Input - 1>::value + 1
-    };
-};
-
-template <>
-class LOG2<1>
-{
-public:
-    enum
-    {
-        floor = 0,
-        ceil = 0
-    };
-};
-
-template <>
-class LOG2<0>
-{
-public:
-    enum
-    {
-        floor = 0,
-        ceil = 0
-    };
+    using type = NilCase;
 };
 
 } // namespace foxxll
