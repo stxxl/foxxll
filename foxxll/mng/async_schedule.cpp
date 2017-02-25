@@ -120,7 +120,7 @@ size_t simulate_async_write(
 
         if (i > 0)
         {
-            size_t disk = get_disk(i-1, disks, D);
+            size_t disk = get_disk(i - 1, disks, D);
             if (disk_busy[disk])
             {
                 disk_queues[disk].push(--i);
@@ -135,7 +135,7 @@ size_t simulate_async_write(
                 }
                 else
                 {
-                    STXXL_VERBOSE1("a Block " << (i-1) << " scheduled for time " << cur.timestamp + 1);
+                    STXXL_VERBOSE1("a Block " << (i - 1) << " scheduled for time " << cur.timestamp + 1);
                     event_queue.push(sim_event(cur.timestamp + 1, --i));
                 }
                 disk_busy[disk] = true;

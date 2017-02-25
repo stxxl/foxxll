@@ -203,7 +203,7 @@ public:
 
             busy_write_blocks.push_back(ibuffer);
         }
-        for (auto it =  busy_write_blocks.begin(); it != busy_write_blocks.end(); it++)
+        for (auto it = busy_write_blocks.begin(); it != busy_write_blocks.end(); it++)
         {
             ibuffer = *it;
             write_reqs[ibuffer]->wait();

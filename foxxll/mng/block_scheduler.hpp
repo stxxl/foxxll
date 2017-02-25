@@ -393,7 +393,7 @@ public:
             }
         }
         if (int64_t nlost = static_cast<int64_t>(max_internal_blocks - remaining_internal_blocks)
-                             - static_cast<int64_t>(free_internal_blocks.size() + num_freed_internal_blocks)) {
+                            - static_cast<int64_t>(free_internal_blocks.size() + num_freed_internal_blocks)) {
             STXXL_ERRMSG(nlost << " internal_blocks are lost. They will get deallocated.");
         }
         while (! internal_blocks_blocks.empty())

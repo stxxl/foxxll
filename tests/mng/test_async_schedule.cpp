@@ -26,13 +26,13 @@ int main(int argc, char* argv[])
         STXXL_ERRMSG("Usage: " << argv[0] << " D L m seed");
         return -1;
     }
-    const size_t D = strtoul(argv[1], NULL, 0);
-    const size_t L = strtoul(argv[2], NULL, 0);
-    const size_t m = strtoul(argv[3], NULL, 0);
-    uint32_t seed  = strtoul(argv[4], NULL, 0);
-    size_t* disks  = new size_t[L];
+    const size_t D = strtoul(argv[1], nullptr, 0);
+    const size_t L = strtoul(argv[2], nullptr, 0);
+    const size_t m = strtoul(argv[3], nullptr, 0);
+    uint32_t seed = strtoul(argv[4], nullptr, 0);
+    size_t* disks = new size_t[L];
     size_t* prefetch_order = new size_t[L];
-    size_t* count  = new size_t[D];
+    size_t* count = new size_t[D];
 
     for (size_t i = 0; i < D; i++)
         count[i] = 0;

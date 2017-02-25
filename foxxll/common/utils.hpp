@@ -41,47 +41,6 @@ namespace foxxll {
 
 ////////////////////////////////////////////////////////////////////////////
 
-//! Split a string by given separator string. Returns a vector of strings with
-//! at least min_fields and at most limit_fields
-static inline std::vector<std::string>
-split(const std::string& str, const std::string& sep,
-      unsigned int min_fields = 0,
-      unsigned int limit_fields = std::numeric_limits<unsigned int>::max())
-{
-    std::vector<std::string> result;
-    if (str.empty()) {
-        result.resize(min_fields);
-        return result;
-    }
-
-    std::string::size_type CurPos(0), LastPos(0);
-    while (1)
-    {
-        if (result.size() + 1 == limit_fields)
-            break;
-
-        CurPos = str.find(sep, LastPos);
-        if (CurPos == std::string::npos)
-            break;
-
-        result.push_back(
-            str.substr(LastPos,
-                       std::string::size_type(CurPos - LastPos)));
-
-        LastPos = CurPos + sep.size();
-    }
-
-    std::string sub = str.substr(LastPos);
-    result.push_back(sub);
-
-    if (result.size() < min_fields)
-        result.resize(min_fields);
-
-    return result;
-}
-
-////////////////////////////////////////////////////////////////////////////
-
 //! Format any ostream-able type into a string
 template <typename Type>
 std::string to_str(const Type& t)

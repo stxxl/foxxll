@@ -19,6 +19,7 @@
 #include <foxxll/io/file.hpp>
 #include <foxxll/mng/config.hpp>
 #include <foxxll/version.hpp>
+#include <tlx/string/split.hpp>
 
 #include <fstream>
 
@@ -260,7 +261,7 @@ disk_config::disk_config(const std::string& line)
 void disk_config::parse_line(const std::string& line)
 {
     // split off disk= or flash=
-    std::vector<std::string> eqfield = split(line, "=", 2, 2);
+    std::vector<std::string> eqfield = tlx::split('=', line, 2, 2);
 
     if (eqfield[0] == "disk") {
         flash = false;
@@ -286,7 +287,7 @@ void disk_config::parse_line(const std::string& line)
     // *** Save Basic Options ***
 
     // split at commands, at least 3 fields
-    std::vector<std::string> cmfield = split(eqfield[1], ",", 3, 3);
+    std::vector<std::string> cmfield = tlx::split(',', eqfield[1], 3, 3);
 
     // path:
     path = cmfield[0];
@@ -337,13 +338,13 @@ void disk_config::parse_fileio()
     std::string paramstr = io_impl.substr(spacepos + 1);
     io_impl = io_impl.substr(0, spacepos);
 
-    std::vector<std::string> param = split(paramstr, " ");
+    std::vector<std::string> param = tlx::split(' ', paramstr);
 
     for (std::vector<std::string>::const_iterator p = param.begin();
          p != param.end(); ++p)
     {
         // split at equal sign
-        std::vector<std::string> eq = split(*p, "=", 2, 2);
+        std::vector<std::string> eq = tlx::split('=', *p, 2, 2);
 
         // *** PLEASE try to keep the elseifs sorted by parameter name!
         if (*p == "") {

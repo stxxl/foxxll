@@ -46,9 +46,9 @@ class SWITCH
 
 public:
     using type = typename tlx::If<found,
-                               typename Case::Type,
-                               typename SWITCH<Tag, NextCase>::type
-                               >::type;
+                                  typename Case::Type,
+                                  typename SWITCH<Tag, NextCase>::type
+                                  >::type;
 };
 
 template <int Tag>
