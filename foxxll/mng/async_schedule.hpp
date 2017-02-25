@@ -19,8 +19,8 @@
 // and queued writing on parallel disks, 2005
 // DOI: 10.1137/S0097539703431573
 
-#include <foxxll/common/simple_vector.hpp>
 #include <foxxll/common/types.hpp>
+#include <tlx/simple_vector.hpp>
 
 namespace foxxll {
 
@@ -49,7 +49,7 @@ void compute_prefetch_schedule(
     size_t D)
 {
     const size_t L = input.size();
-    simple_vector<size_t> disks(L);
+    tlx::simple_vector<size_t> disks(L);
     for (size_t i = 0; i < L; ++i)
         disks[i] = input[i].bid.storage->get_device_id();
     compute_prefetch_schedule(disks.begin(), disks.end(), out_first, m, D);
@@ -64,7 +64,7 @@ void compute_prefetch_schedule(
     size_t D)
 {
     const size_t L = input_end - input_begin;
-    simple_vector<size_t> disks(L);
+    tlx::simple_vector<size_t> disks(L);
     size_t i = 0;
     for (BidIteratorType it = input_begin; it != input_end; ++it, ++i)
         disks[i] = it->storage->get_device_id();

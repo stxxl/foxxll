@@ -16,12 +16,12 @@
 // and queued writing on parallel disks, 2005
 // DOI: 10.1137/S0097539703431573
 
-#include <foxxll/common/simple_vector.hpp>
 #include <foxxll/common/types.hpp>
 #include <foxxll/io/file.hpp>
 #include <foxxll/mng/async_schedule.hpp>
 #include <foxxll/unused.hpp>
 #include <foxxll/verbose.hpp>
+#include <tlx/simple_vector.hpp>
 
 #include <algorithm>
 #include <cassert>
@@ -77,13 +77,14 @@ size_t simulate_async_write(
     using event_queue_type = std::priority_queue<sim_event, std::vector<sim_event>, sim_event_cmp>;
     using disk_queue_type = std::queue<size_t>;
     assert(L >= D);
-    simple_vector<disk_queue_type> disk_queues(D + 1); // + sentinel for remapping NO_ALLOCATOR
+    // + sentinel for remapping NO_ALLOCATOR
+    tlx::simple_vector<disk_queue_type> disk_queues(D + 1);
     event_queue_type event_queue;
 
     size_t m = m_init;
     size_t i = L;
     size_t oldtime = 0;
-    simple_vector<bool> disk_busy(D + 1);
+    tlx::simple_vector<bool> disk_busy(D + 1);
 
     while (m && (i > 0))
     {

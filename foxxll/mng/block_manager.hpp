@@ -15,7 +15,6 @@
 #ifndef STXXL_MNG_BLOCK_MANAGER_HEADER
 #define STXXL_MNG_BLOCK_MANAGER_HEADER
 
-#include <foxxll/common/simple_vector.hpp>
 #include <foxxll/common/utils.hpp>
 #include <foxxll/config.hpp>
 #include <foxxll/defines.hpp>
@@ -28,6 +27,7 @@
 #include <foxxll/mng/config.hpp>
 #include <foxxll/mng/disk_block_allocator.hpp>
 #include <foxxll/singleton.hpp>
+#include <tlx/simple_vector.hpp>
 
 #include <algorithm>
 #include <cstdlib>
@@ -135,10 +135,10 @@ private:
     size_t ndisks_;
 
     //! vector of opened disk files
-    simple_vector<file_ptr> disk_files_;
+    tlx::simple_vector<file_ptr> disk_files_;
 
     //! one block allocator per disk
-    simple_vector<disk_block_allocator*> block_allocators_;
+    tlx::simple_vector<disk_block_allocator*> block_allocators_;
 
     //! total requested allocation in bytes
     uint64_t total_allocation_ = 0;
@@ -168,12 +168,12 @@ void block_manager::new_blocks(
 
     // choose disks for each block, sum up bytes allocated on a disk
 
-    simple_vector<size_t> disk_blocks(ndisks_);
-    simple_vector<uint64_t> disk_bytes(ndisks_);
+    tlx::simple_vector<size_t> disk_blocks(ndisks_);
+    tlx::simple_vector<uint64_t> disk_bytes(ndisks_);
     std::vector<std::vector<size_t> > disk_out(ndisks_);
 
-    disk_blocks.memzero();
-    disk_bytes.memzero();
+    disk_blocks.fill(0);
+    disk_bytes.fill(0);
 
     size_t bid_size = static_cast<size_t>(bid_end - bid_begin);
 
@@ -209,7 +209,7 @@ void block_manager::new_blocks(
 
     // allocate blocks on disks in sequence, then scatter blocks into output
 
-    simple_vector<BIDType> bids;
+    tlx::simple_vector<BIDType> bids;
 
     for (size_t d = 0; d < ndisks_; ++d)
     {

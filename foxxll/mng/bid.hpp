@@ -16,9 +16,9 @@
 #ifndef STXXL_MNG_BID_HEADER
 #define STXXL_MNG_BID_HEADER
 
-#include <foxxll/common/simple_vector.hpp>
 #include <foxxll/common/utils.hpp>
 #include <foxxll/io/file.hpp>
+#include <tlx/simple_vector.hpp>
 
 #include <cstring>
 #include <iomanip>
@@ -181,7 +181,7 @@ std::ostream& operator << (std::ostream& s, const BID<BlockSize>& bid)
 }
 
 template <size_t BlockSize>
-using BIDArray = simple_vector<BID<BlockSize> >;
+using BIDArray = tlx::simple_vector<BID<BlockSize> >;
 
 //! \}
 
