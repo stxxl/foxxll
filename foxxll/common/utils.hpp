@@ -52,22 +52,6 @@ std::string to_str(const Type& t)
 
 ////////////////////////////////////////////////////////////////////////////
 
-//! Parse a string like "343KB" or "44 GiB" into the corresponding size in
-//! bytes. Returns the number of bytes and sets ok = true if the string could
-//! be parsed correctly. If no units indicator is given, use def_unit in
-//! k/m/g/t/p (powers of ten) or in K/M/G/T/P (power of two).
-bool parse_SI_IEC_size(const std::string& str, uint64_t& size, char def_unit = 0);
-
-//! Format a byte size using SI (K, M, G, T) suffixes (powers of ten). Returns
-//! "123 M" or similar.
-std::string format_SI_size(uint64_t number);
-
-//! Format a byte size using IEC (Ki, Mi, Gi, Ti) suffixes (powers of
-//! two). Returns "123 Ki" or similar.
-std::string format_IEC_size(uint64_t number);
-
-////////////////////////////////////////////////////////////////////////////
-
 inline int64_t atoi64(const char* s)
 {
 #if STXXL_MSVC

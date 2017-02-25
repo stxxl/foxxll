@@ -16,7 +16,6 @@ set(LIBFOXXLL_SOURCES
 
   common/exithandler.cpp
   common/log.cpp
-  common/utils.cpp
   common/verbose.cpp
   common/version.cpp
 

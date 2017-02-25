@@ -86,7 +86,7 @@ void print_msg(const char* label, const std::string& msg, unsigned flags);
 
 // STXXL_MEMDUMP(x) prints the name of x together with its value as an amount of memory in IEC units.
 #if STXXL_VERBOSE_LEVEL > -10
- #define STXXL_MEMDUMP(x) _STXXL_PRINT("STXXL-MSG", #x " = " << ::foxxll::format_IEC_size(x) << "B", _STXXL_PRINT_FLAGS_DEFAULT)
+ #define STXXL_MEMDUMP(x) _STXXL_PRINT("STXXL-MSG", #x " = " << tlx::format_iec_units(x) << "B", _STXXL_PRINT_FLAGS_DEFAULT)
 #else
  #define STXXL_MEMDUMP(x) _STXXL_NOT_VERBOSE
 #endif

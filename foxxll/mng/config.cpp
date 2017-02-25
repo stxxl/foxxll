@@ -19,6 +19,7 @@
 #include <foxxll/io/file.hpp>
 #include <foxxll/mng/config.hpp>
 #include <foxxll/version.hpp>
+#include <tlx/string/parse_si_iec_units.hpp>
 #include <tlx/string/split.hpp>
 
 #include <fstream>
@@ -306,7 +307,7 @@ void disk_config::parse_line(const std::string& line)
     }
 
     // size: (default unit MiB)
-    if (!parse_SI_IEC_size(cmfield[1], size, 'M')) {
+    if (!tlx::parse_si_iec_units(cmfield[1], &size, 'M')) {
         STXXL_THROW(std::runtime_error,
                     "Invalid disk size '" << cmfield[1] << "' in disk configuration file.");
     }

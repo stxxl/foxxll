@@ -19,6 +19,7 @@
 #include <foxxll/common/utils.hpp>
 #include <foxxll/config.hpp>
 #include <foxxll/verbose.hpp>
+#include <tlx/string/format_si_iec_units.hpp>
 
 #include <chrono>
 #include <limits>
@@ -236,8 +237,8 @@ public:
             STXXL_MSG("Finished "
                       << m_message
                       << " after " << m_timer.seconds() << " seconds. "
-                      << "Processed " << format_IEC_size(m_bytes) << "B"
-                      << " @ " << format_IEC_size((uint64_t)bps) << "B/s");
+                      << "Processed " << tlx::format_iec_units(m_bytes) << "B"
+                      << " @ " << tlx::format_iec_units((uint64_t)bps) << "B/s");
         }
     }
 
