@@ -90,42 +90,6 @@ inline uint64_t atouint64(const char* s)
 
 ////////////////////////////////////////////////////////////////////////////
 
-//! calculate the log2 floor of an integral type using math.h
-template <typename Integral>
-inline Integral log2_ceil(Integral i)
-{
-    return Integral(ceil(log2(i)));
-}
-
-//! calculate the log2 ceiling of an integral type using math.h
-template <typename Integral>
-inline Integral log2_floor(Integral i)
-{
-    return Integral(log2(i));
-}
-
-////////////////////////////////////////////////////////////////////////////
-
-//! calculate the log2 floor of an integer type (by repeated bit shifts)
-template <typename IntegerType>
-unsigned int ilog2_floor(IntegerType i)
-{
-    unsigned int p = 0;
-    while (i >= 256) i >>= 8, p += 8;
-    while (i >>= 1) ++p;
-    return p;
-}
-
-//! calculate the log2 ceiling of an integer type (by repeated bit shifts)
-template <typename IntegerType>
-unsigned int ilog2_ceil(const IntegerType& i)
-{
-    if (i <= 1) return 0;
-    return ilog2_floor(i - 1) + 1;
-}
-
-////////////////////////////////////////////////////////////////////////////
-
 template <typename Integral, typename Integral2>
 inline
 typename std::remove_const<Integral>::type
@@ -183,16 +147,6 @@ inline void swap_1D_arrays(Type* a, Type* b, size_t size)
 }
 
 ////////////////////////////////////////////////////////////////////////////
-
-template <typename Integral>
-static inline Integral round_up_to_power_of_two(Integral n)
-{
-    --n;
-    for (int k = 1; k != 8 * sizeof(n); k <<= 1)
-        n |= n >> k;
-    ++n;
-    return n;
-}
 
 //! round n up to next larger multiple of 2^power. example: (48,4) = 64, (48,3) = 48.
 template <typename Integral>
