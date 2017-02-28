@@ -18,7 +18,6 @@
 #define STXXL_COMMON_TMETA_HEADER
 
 #include <foxxll/common/types.hpp>
-#include <tlx/meta/if.hpp>
 
 namespace foxxll {
 
