@@ -17,6 +17,8 @@
 #ifndef STXXL_COMMON_TMETA_HEADER
 #define STXXL_COMMON_TMETA_HEADER
 
+#include <type_traits>
+
 #include <foxxll/common/types.hpp>
 
 namespace foxxll {
@@ -44,7 +46,7 @@ class SWITCH
     };
 
 public:
-    using type = typename tlx::If<found,
+    using type = typename std::conditional<found,
                                   typename Case::Type,
                                   typename SWITCH<Tag, NextCase>::type
                                   >::type;
