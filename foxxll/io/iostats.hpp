@@ -7,6 +7,7 @@
  *  Copyright (C) 2008-2010 Andreas Beckmann <beckmann@cs.uni-frankfurt.de>
  *  Copyright (C) 2009, 2010 Johannes Singler <singler@kit.edu>
  *  Copyright (C) 2016 Alex Schickedanz <alex@ae.cs.uni-frankfurt.de>
+ *  Copyright (C) 2017 Manuel Penschuck <manuel@ae.cs.uni-frankfurt.de>
  *
  *  Distributed under the Boost Software License, Version 1.0.
  *  (See accompanying file LICENSE_1_0.txt or copy at
@@ -16,6 +17,15 @@
 #ifndef STXXL_IO_IOSTATS_HEADER
 #define STXXL_IO_IOSTATS_HEADER
 
+#include <algorithm>
+#include <iostream>
+#include <limits>
+#include <list>
+#include <mutex>
+#include <string>
+#include <utility>
+#include <vector>
+
 #include <foxxll/common/error_handling.hpp>
 #include <foxxll/common/timer.hpp>
 #include <foxxll/common/types.hpp>
@@ -23,14 +33,6 @@
 #include <foxxll/deprecated.hpp>
 #include <foxxll/singleton.hpp>
 #include <foxxll/unused.hpp>
-
-#include <algorithm>
-#include <iostream>
-#include <limits>
-#include <list>
-#include <mutex>
-#include <string>
-#include <vector>
 
 namespace foxxll {
 
@@ -59,7 +61,7 @@ class file_stats
 
 public:
     //! construct zero initialized
-    file_stats(unsigned int device_id);
+    explicit file_stats(unsigned int device_id);
 
     class scoped_read_write_timer
     {
@@ -71,8 +73,8 @@ public:
 
     public:
         explicit scoped_read_write_timer(
-            file_stats* file_stats, size_type size, bool is_write_ = false)
-            : file_stats_(*file_stats), is_write_(is_write_)
+            file_stats* file_stats, size_type size, bool is_write = false)
+            : file_stats_(*file_stats), is_write_(is_write)
         {
             start(size);
         }
@@ -230,11 +232,11 @@ public:
     }
 
     // for library use
-    void write_started(size_t size_, double now = 0.0);
-    void write_canceled(size_t size_);
+    void write_started(const size_t size_, double now = 0.0);
+    void write_canceled(const size_t size_);
     void write_finished();
-    void read_started(size_t size_, double now = 0.0);
-    void read_canceled(size_t size_);
+    void read_started(const size_t size_, double now = 0.0);
+    void read_canceled(const size_t size_);
     void read_finished();
 };
 
@@ -258,7 +260,7 @@ public:
     { }
 
     //! construct file_stats_data by taking current values from file_stats
-    file_stats_data(const file_stats& fs)
+    explicit file_stats_data(const file_stats& fs)
         : device_id_(fs.get_device_id()),
           read_count_(fs.get_read_count()),
           write_count_(fs.get_write_count()),
@@ -366,7 +368,7 @@ public:
 #endif
 
     public:
-        scoped_wait_timer(wait_op_type wait_op, bool measure_time = true)
+        explicit scoped_wait_timer(wait_op_type wait_op, bool measure_time = true)
 #ifndef STXXL_DO_NOT_COUNT_WAIT_TIME
             : wait_op_(wait_op)
 #endif
@@ -452,6 +454,8 @@ public:
     {
         return p_ios_;
     }
+
+    friend std::ostream& operator << (std::ostream& o, const stats& s);
 
     // for library use
 
@@ -604,7 +608,7 @@ public:
     //! Retruns elapsed_ time
     //! \remark If stats_data is not the difference between two other stats_data
     //! objects, then this value is measures the time since the first file object
-    //! was initilized.
+    //! was initialized.
     //! \return elapsed_ time
     double get_elapsed_time() const
     {
@@ -618,33 +622,101 @@ public:
     double get_wait_read_time() const;
 
     double get_wait_write_time() const;
+
+    void to_ostream(std::ostream& o, const std::string line_prefix = "") const;
+
+    friend std::ostream& operator << (std::ostream& o, const stats_data& s)
+    {
+        s.to_ostream(o);
+        return o;
+    }
 };
 
-std::ostream& operator << (std::ostream& o, const stats_data& s);
-
-static inline
-std::ostream& operator << (std::ostream& o, const stats& s)
-{
-    o << stats_data(s);
-    return o;
-}
-
 std::string format_with_SI_IEC_unit_multiplier(
-    external_size_type number, const char* unit = "", int multiplier = 1000);
+    const external_size_type number, const std::string& unit = "", const int multiplier = 1000);
 
 static inline
 std::string add_IEC_binary_multiplier(
-    external_size_type number, const char* unit = "")
+    const external_size_type number, const std::string& unit = "")
 {
     return format_with_SI_IEC_unit_multiplier(number, unit, 1024);
 }
 
 static inline
 std::string add_SI_multiplier(
-    external_size_type number, const char* unit = "")
+    external_size_type number, const std::string& unit = "")
 {
     return format_with_SI_IEC_unit_multiplier(number, unit, 1000);
 }
+
+/*!
+ * Simple scoped iostats reporter which takes a message and reports the relative IO performance on destruction
+ */
+class scoped_print_iostats
+{
+protected:
+    //! message
+    std::string m_message;
+    std::string m_key;
+
+    //! initial io-stats
+    foxxll::stats_data m_begin;
+
+    //! bytes processed
+    uint64_t m_bytes;
+
+    //! report on destruction
+    bool m_report_on_destruction;
+
+public:
+    /*!
+     * Start time and configure report-style
+     *
+     * \param message  Description displayed on the first line of the report
+     * \param key      Line prefix displayed at the beginning of every line but the first
+     * \param bytes    Used to compute MB/s as an initial overview
+     */
+    scoped_print_iostats(const std::string& message, const std::string key, uint64_t bytes)
+        : m_message(message),
+          m_key(key),
+          m_begin(*foxxll::stats::get_instance()),
+          m_bytes(bytes),
+          m_report_on_destruction(true)
+    {
+        STXXL_MSG("Starting " << message);
+    }
+
+    explicit scoped_print_iostats(const std::string& message, uint64_t bytes = 0)
+        : scoped_print_iostats(message, "", bytes)
+    { }
+
+    explicit scoped_print_iostats(uint64_t bytes = 0)
+        : scoped_print_iostats("", bytes)
+    { }
+
+    //! stats at initialization
+    const foxxll::stats_data & initial_stats() const
+    {
+        return m_begin;
+    }
+
+    //! print out relative stats via STXXL_MSG
+    void report() const;
+
+    //! Same as report() but disables reporting on destruction
+    void final_report()
+    {
+        m_report_on_destruction = false;
+        report();
+    }
+
+    //! on destruction: report stats
+    ~scoped_print_iostats()
+    {
+        if (m_report_on_destruction)
+            report();
+    }
+};
 
 //! \}
 
