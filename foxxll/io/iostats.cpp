@@ -83,6 +83,14 @@ void file_stats::write_finished()
     stats::get_instance()->p_write_finished(now);
 }
 
+void file_stats::write_op_finished(const size_t size, double duration) {
+    std::unique_lock<std::mutex> write_lock(write_mutex_);
+
+    ++write_count_;
+    write_time_ += duration;
+    write_bytes_ += size;
+}
+
 void file_stats::read_started(const size_t size, double now)
 {
     if (now == 0.0)
@@ -126,6 +134,15 @@ void file_stats::read_finished()
 
     stats::get_instance()->p_read_finished(now);
 }
+
+void file_stats::read_op_finished(const size_t size, double duration) {
+    std::unique_lock<std::mutex> write_lock(read_mutex_);
+
+    ++read_count_;
+    read_time_ += duration;
+    read_bytes_ += size;
+}
+
 
 /******************************************************************************/
 // file_stats_data

@@ -235,9 +235,12 @@ public:
     void write_started(const size_t size_, double now = 0.0);
     void write_canceled(const size_t size_);
     void write_finished();
+    void write_op_finished(const size_t size_, double duration);
+
     void read_started(const size_t size_, double now = 0.0);
     void read_canceled(const size_t size_);
     void read_finished();
+    void read_op_finished(const size_t size_, double duration);
 };
 
 class file_stats_data
