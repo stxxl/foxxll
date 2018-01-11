@@ -28,20 +28,26 @@ void linuxaio_request::completed(bool posted, bool canceled)
 {
     STXXL_VERBOSE_LINUXAIO("linuxaio_request[" << this << "] completed(" <<
                            posted << "," << canceled << ")");
+
+    auto* stats = file_->get_file_stats();
+    const double duration = timestamp() - time_posted_;
+
     if (!canceled)
     {
-        if (op_ == READ)
-            file_->get_file_stats()->read_finished();
-        else
-            file_->get_file_stats()->write_finished();
+        if (op_ == READ) {
+            stats->read_op_finished(bytes_, duration);
+        } else {
+            stats->write_op_finished(bytes_, duration);
+        }
     }
     else if (posted)
     {
         if (op_ == READ)
-            file_->get_file_stats()->read_canceled(bytes_);
+            stats->read_canceled(bytes_);
         else
-            file_->get_file_stats()->write_canceled(bytes_);
+            stats->write_canceled(bytes_);
     }
+
     request_with_state::completed(canceled);
 }
 
@@ -65,23 +71,20 @@ void linuxaio_request::fill_control_block()
 bool linuxaio_request::post()
 {
     STXXL_VERBOSE_LINUXAIO("linuxaio_request[" << this << "] post()");
-
+ 
     fill_control_block();
     iocb* cb_pointer = &cb_;
     // io_submit might considerable time, so we have to remember the current
     // time before the call.
-    double now = timestamp();
+    time_posted_ = timestamp();
     linuxaio_queue* queue = dynamic_cast<linuxaio_queue*>(
         disk_queues::get_instance()->get_queue(file_->get_queue_id()));
+
     long success = syscall(SYS_io_submit, queue->get_io_context(), 1, &cb_pointer);
-    if (success == 1)
-    {
-        if (op_ == READ)
-            file_->get_file_stats()->read_started(bytes_, now);
-        else
-            file_->get_file_stats()->write_started(bytes_, now);
-    }
-    else if (success == -1 && errno != EAGAIN)
+    // At this point another thread may have already called complete(),
+    // so consider most values as invalidated!
+
+    if (success == -1 && errno != EAGAIN)
         STXXL_THROW_ERRNO(io_error, "linuxaio_request::post"
                           " io_submit()");
 

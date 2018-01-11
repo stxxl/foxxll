@@ -36,6 +36,7 @@ class linuxaio_request : public request_with_state
 
     //! control block of async request
     iocb cb_;
+    double time_posted_;
 
     void fill_control_block();
 
