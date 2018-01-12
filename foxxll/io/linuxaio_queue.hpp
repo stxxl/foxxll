@@ -48,8 +48,8 @@ private:
 
     // "waiting" request have submitted to this queue, but not yet to the OS,
     // those are "posted"
-    std::mutex waiting_mtx_, posted_mtx_;
-    queue_type waiting_requests_, posted_requests_;
+    std::mutex waiting_mtx_;
+    queue_type waiting_requests_;
 
     //! max number of OS requests
     int max_events_;

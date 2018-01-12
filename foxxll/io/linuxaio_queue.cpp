@@ -115,30 +115,6 @@ bool linuxaio_queue::cancel_request(request_ptr& req)
         }
     }
 
-    std::unique_lock<std::mutex> lock(posted_mtx_);
-
-    pos = std::find(posted_requests_.begin(), posted_requests_.end(), req);
-    if (pos != posted_requests_.end())
-    {
-        // polymorphic_downcast to linuxaio_request,
-        bool canceled_io_operation =
-            (dynamic_cast<linuxaio_request*>(req.get()))->cancel_aio();
-
-        if (canceled_io_operation)
-        {
-            posted_requests_.erase(pos);
-
-            // polymorphic_downcast to linuxaio_request,
-
-            // request is canceled, already posted
-            dynamic_cast<linuxaio_request*>(req.get())->completed(true, true);
-
-            num_free_events_.signal();
-            num_posted_requests_.wait(); // will never block
-            return true;
-        }
-    }
-
     return false;
 }
 
@@ -183,12 +159,7 @@ void linuxaio_queue::post_requests()
             }
 
             // request is finally posted
-
-            {
-                std::unique_lock<std::mutex> lock(posted_mtx_);
-                posted_requests_.push_back(req);
-                num_posted_requests_.signal();
-            }
+            num_posted_requests_.signal();
         }
         else
         {
