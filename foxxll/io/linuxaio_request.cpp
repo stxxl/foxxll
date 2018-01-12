@@ -53,11 +53,17 @@ void linuxaio_request::completed(bool posted, bool canceled)
 
 void linuxaio_request::fill_control_block()
 {
+    const auto ptr_before = cb_.aio_data;
+
     linuxaio_file* af = dynamic_cast<linuxaio_file*>(file_);
 
     memset(&cb_, 0, sizeof(cb_));
     // indirection, so the I/O system retains a counting_ptr reference
-    cb_.aio_data = reinterpret_cast<__u64>(new request_ptr(this));
+    // in case the requests gets posted multiple times (i.e. ptr_before != nullptr)
+    // we do not increment the reference counter
+    cb_.aio_data = ptr_before
+                   ? ptr_before
+                   : reinterpret_cast<__u64>(new request_ptr(this));
     cb_.aio_fildes = af->file_des_;
     cb_.aio_lio_opcode = (op_ == READ) ? IOCB_CMD_PREAD : IOCB_CMD_PWRITE;
     cb_.aio_reqprio = 0;

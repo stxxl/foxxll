@@ -54,6 +54,8 @@ public:
                 "(file=" << file << " buffer=" << buffer <<
                 " offset=" << offset << " bytes=" << bytes <<
                 " op=" << op << ")");
+
+        cb_.aio_data = reinterpret_cast<__u64>(nullptr);
     }
 
     bool post();
