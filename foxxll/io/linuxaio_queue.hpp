@@ -18,12 +18,17 @@
 
 #if STXXL_HAVE_LINUXAIO_FILE
 
+#include <tlx/ring_buffer.hpp>
+#include <foxxll/io/request_target.hpp>
 #include <foxxll/io/request_queue_impl_worker.hpp>
 
 #include <linux/aio_abi.h>
 
+#include <atomic>
 #include <list>
 #include <mutex>
+
+#define FOXXLL_LINUXAIO_QUEUE_STATS 1
 
 namespace foxxll {
 
@@ -47,9 +52,15 @@ private:
     using queue_type = std::list<request_ptr>;
 
     // "waiting" request have submitted to this queue, but not yet to the OS,
-    // those are "posted"
+    // those are "posted" or "delayed" in case a conflicting request was posted
     std::mutex waiting_mtx_;
     queue_type waiting_requests_;
+
+    std::mutex posted_mtx_;
+    queue_type posted_requests_;
+    queue_type delayed_requests_;
+    queue_type local_queue;
+
 
     //! max number of OS requests
     int max_events_;
@@ -79,6 +90,16 @@ private:
 
     // needed by linuxaio_request
     aio_context_t get_io_context() { return context_; }
+
+#if FOXXLL_LINUXAIO_QUEUE_STATS
+    std::atomic_int64_t stat_requests_added_ {0};
+    std::atomic_int64_t stat_requests_delayed_ {0};
+    std::atomic_int64_t stat_syscall_submit_ {0};
+    std::atomic_int64_t stat_syscall_submit_repeat_ {0};
+    std::atomic_int64_t stat_syscall_failed_post_ {0};
+    std::atomic_int64_t stat_syscall_getevents_ {0};
+    std::atomic_int64_t stat_syscall_cancel_ {0};
+#endif
 
 public:
     //! Construct queue. Requests max number of requests simultaneously
