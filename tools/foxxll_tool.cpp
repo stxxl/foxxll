@@ -11,13 +11,13 @@
  *  http://www.boost.org/LICENSE_1_0.txt)
  **************************************************************************/
 
+#include <algorithm>
+
 #include <foxxll/common/utils.hpp>
 #include <foxxll/io.hpp>
 #include <foxxll/mng.hpp>
 #include <foxxll/version.hpp>
 #include <tlx/cmdline_parser.hpp>
-
-#include <algorithm>
 
 int stxxl_info(int, char**)
 {

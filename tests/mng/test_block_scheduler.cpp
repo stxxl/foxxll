@@ -11,11 +11,11 @@
  *  http://www.boost.org/LICENSE_1_0.txt)
  **************************************************************************/
 
-#include <foxxll/mng/block_scheduler.hpp>
-#include <tlx/cmdline_parser.hpp>
-
 #include <iostream>
 #include <limits>
+
+#include <foxxll/mng/block_scheduler.hpp>
+#include <tlx/cmdline_parser.hpp>
 
 using foxxll::external_size_type;
 
@@ -227,19 +227,19 @@ void test2()
 {
     // ---------- force swapping ---------------------
     STXXL_MSG("next test: force swapping");
-    const size_t num_sb = 5;
+    constexpr size_t kNumSB = 5;
 
     // only 3 internal_blocks allowed
     block_scheduler_type* bs_ptr = new block_scheduler_type(block_size * sizeof(value_type) * 3);
     block_scheduler_type& bs = *bs_ptr;
 
     // allocate blocks
-    swappable_block_identifier_type sbi[num_sb];
-    for (size_t i = 0; i < num_sb; ++i)
+    swappable_block_identifier_type sbi[kNumSB];
+    for (size_t i = 0; i < kNumSB; ++i)
         sbi[i] = bs.allocate_swappable_block();
 
     // fill 3 blocks
-    internal_block_type* ib[num_sb];
+    internal_block_type* ib[kNumSB];
     ib[0] = &bs.acquire(sbi[0]);
     ib[1] = &bs.acquire(sbi[1]);
     ib[2] = &bs.acquire(sbi[2]);
@@ -270,7 +270,7 @@ void test2()
     bs.release(sbi[3], false);
 
     // free blocks
-    for (size_t i = 0; i < num_sb; ++i)
+    for (size_t i = 0; i < kNumSB; ++i)
         bs.free_swappable_block(sbi[i]);
 
     delete bs_ptr;

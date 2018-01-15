@@ -16,13 +16,13 @@
 #ifndef STXXL_MNG_BID_HEADER
 #define STXXL_MNG_BID_HEADER
 
-#include <foxxll/common/utils.hpp>
-#include <foxxll/io/file.hpp>
-#include <tlx/simple_vector.hpp>
-
 #include <cstring>
 #include <iomanip>
 #include <ostream>
+
+#include <foxxll/common/utils.hpp>
+#include <foxxll/io/file.hpp>
+#include <tlx/simple_vector.hpp>
 
 #ifndef STXXL_VERBOSE_BLOCK_LIFE_CYCLE
 #define STXXL_VERBOSE_BLOCK_LIFE_CYCLE STXXL_VERBOSE2

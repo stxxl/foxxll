@@ -13,6 +13,10 @@
  *  http://www.boost.org/LICENSE_1_0.txt)
  **************************************************************************/
 
+#include <cassert>
+#include <cstddef>
+#include <thread>
+
 #include <foxxll/common/error_handling.hpp>
 #include <foxxll/common/semaphore.hpp>
 #include <foxxll/common/shared_state.hpp>
@@ -22,10 +26,6 @@
 #if STXXL_MSVC >= 1700
  #include <windows.hpp>
 #endif
-
-#include <cassert>
-#include <cstddef>
-#include <thread>
 
 namespace foxxll {
 

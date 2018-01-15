@@ -14,10 +14,10 @@
 #define STXXL_VERBOSE_ALIGNED_ALLOC STXXL_VERBOSE0
 #define STXXL_VERBOSE_TYPED_BLOCK STXXL_VERBOSE0
 
-#include <foxxll/mng.hpp>
-
 #include <iostream>
 #include <vector>
+
+#include <foxxll/mng.hpp>
 
 #define BLOCK_SIZE (512 * 1024)
 

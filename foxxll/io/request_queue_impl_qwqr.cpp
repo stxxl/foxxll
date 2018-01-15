@@ -13,6 +13,9 @@
  *  http://www.boost.org/LICENSE_1_0.txt)
  **************************************************************************/
 
+#include <algorithm>
+#include <functional>
+
 #include <foxxll/common/error_handling.hpp>
 #include <foxxll/io/request_queue_impl_qwqr.hpp>
 #include <foxxll/io/serving_request.hpp>
@@ -20,8 +23,6 @@
 #if STXXL_MSVC >= 1700
  #include <windows.hpp>
 #endif
-
-#include <algorithm>
 
 #ifndef STXXL_CHECK_FOR_PENDING_REQUESTS_ON_SUBMISSION
 #define STXXL_CHECK_FOR_PENDING_REQUESTS_ON_SUBMISSION 1

@@ -21,10 +21,10 @@
 
 #if STXXL_WINDOWS
 
+#include <string>
+
 #include <foxxll/io/file.hpp>
 #include <foxxll/io/request.hpp>
-
-#include <string>
 
 namespace foxxll {
 

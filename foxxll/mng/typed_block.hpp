@@ -60,7 +60,7 @@ public:
 };
 
 //! Contains data elements for \c foxxll::typed_block , not intended for direct use.
-template <typename Type, size_t Size>
+template <typename Type, size_t kSize>
 class element_block
 {
 public:
@@ -72,10 +72,10 @@ public:
     using iterator = pointer;
     using const_iterator = const type *;
 
-    static constexpr size_t size = Size; //!< number of elements in the block
+    static constexpr size_t size = kSize; //!< number of elements in the block
 
     //! Array of elements of type Type
-    value_type elem[size];
+    value_type elem[kSize];
 
     element_block() { STXXL_VERBOSE_TYPED_BLOCK("[" << (void*)this << "] element_block is constructed"); }
 

@@ -13,9 +13,9 @@
 #ifndef STXXL_IO_FILEPERBLOCK_FILE_HEADER
 #define STXXL_IO_FILEPERBLOCK_FILE_HEADER
 
-#include <foxxll/io/disk_queued_file.hpp>
-
 #include <string>
+
+#include <foxxll/io/disk_queued_file.hpp>
 
 namespace foxxll {
 

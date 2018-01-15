@@ -13,6 +13,8 @@
  *  http://www.boost.org/LICENSE_1_0.txt)
  **************************************************************************/
 
+#include <fstream>
+
 #include <foxxll/common/error_handling.hpp>
 #include <foxxll/common/utils.hpp>
 #include <foxxll/config.hpp>
@@ -21,8 +23,6 @@
 #include <foxxll/version.hpp>
 #include <tlx/string/parse_si_iec_units.hpp>
 #include <tlx/string/split.hpp>
-
-#include <fstream>
 
 #if STXXL_WINDOWS
    #ifndef NOMINMAX
@@ -466,31 +466,41 @@ std::string disk_config::fileio_string() const
 
     // tristate direct variable: OFF, TRY, ON
     if (direct == DIRECT_OFF)
+    {
         oss << " direct=off";
+    }
     else if (direct == DIRECT_TRY)
-        ; // silenced: oss << " direct=try";
+    { } // silenced: oss << " direct=try";
     else if (direct == DIRECT_ON)
+    {
         oss << " direct=on";
+    }
     else
         STXXL_THROW(std::runtime_error, "Invalid setting for 'direct' option.");
 
-    if (flash)
+    if (flash) {
         oss << " flash";
+    }
 
-    if (queue != file::DEFAULT_QUEUE && queue != file::DEFAULT_LINUXAIO_QUEUE)
+    if (queue != file::DEFAULT_QUEUE && queue != file::DEFAULT_LINUXAIO_QUEUE) {
         oss << " queue=" << queue;
+    }
 
-    if (device_id != file::DEFAULT_DEVICE_ID)
+    if (device_id != file::DEFAULT_DEVICE_ID) {
         oss << " devid=" << device_id;
+    }
 
-    if (raw_device)
+    if (raw_device) {
         oss << " raw_device";
+    }
 
-    if (unlink_on_open)
+    if (unlink_on_open) {
         oss << " unlink_on_open";
+    }
 
-    if (queue_length != 0)
+    if (queue_length != 0) {
         oss << " queue_length=" << queue_length;
+    }
 
     return oss.str();
 }

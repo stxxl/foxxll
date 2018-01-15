@@ -10,9 +10,9 @@
  *  http://www.boost.org/LICENSE_1_0.txt)
  **************************************************************************/
 
-#include <foxxll/mng.hpp>
-
 #include <iostream>
+
+#include <foxxll/mng.hpp>
 
 #define BLOCK_SIZE (1024 * 1024 * 32)
 

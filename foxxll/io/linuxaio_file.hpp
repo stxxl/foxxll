@@ -18,11 +18,11 @@
 
 #if STXXL_HAVE_LINUXAIO_FILE
 
+#include <string>
+
 #include <foxxll/io/disk_queued_file.hpp>
 #include <foxxll/io/linuxaio_queue.hpp>
 #include <foxxll/io/ufs_file_base.hpp>
-
-#include <string>
 
 namespace foxxll {
 

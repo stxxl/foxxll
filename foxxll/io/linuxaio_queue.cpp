@@ -15,16 +15,15 @@
 
 #if STXXL_HAVE_LINUXAIO_FILE
 
-#include <foxxll/common/error_handling.hpp>
-#include <foxxll/io/linuxaio_queue.hpp>
-#include <foxxll/io/linuxaio_request.hpp>
-#include <foxxll/mng/block_manager.hpp>
-#include <foxxll/verbose.hpp>
+#include <sys/syscall.h>
+#include <unistd.h>
 
 #include <algorithm>
 
-#include <sys/syscall.h>
-#include <unistd.h>
+#include <foxxll/common/error_handling.hpp>
+#include <foxxll/io/linuxaio_request.hpp>
+#include <foxxll/mng/block_manager.hpp>
+#include <foxxll/verbose.hpp>
 
 #ifndef STXXL_CHECK_FOR_PENDING_REQUESTS_ON_SUBMISSION
 #define STXXL_CHECK_FOR_PENDING_REQUESTS_ON_SUBMISSION 1

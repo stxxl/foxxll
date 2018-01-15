@@ -12,14 +12,14 @@
  *  http://www.boost.org/LICENSE_1_0.txt)
  **************************************************************************/
 
+#include <iostream>
+
 #include <foxxll/io/request_operations.hpp>
 #include <foxxll/mng/block_manager.hpp>
 #include <foxxll/mng/buf_istream.hpp>
 #include <foxxll/mng/buf_ostream.hpp>
 #include <foxxll/mng/prefetch_pool.hpp>
 #include <foxxll/mng/typed_block.hpp>
-
-#include <iostream>
 
 #define BLOCK_SIZE (1024 * 512)
 

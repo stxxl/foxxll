@@ -11,13 +11,13 @@
  *  http://www.boost.org/LICENSE_1_0.txt)
  **************************************************************************/
 
-#include <foxxll/common/aligned_alloc.hpp>
-#include <foxxll/io.hpp>
-#include <tlx/cmdline_parser.hpp>
-
 #include <cstdio>
 #include <iomanip>
 #include <vector>
+
+#include <foxxll/common/aligned_alloc.hpp>
+#include <foxxll/io.hpp>
+#include <tlx/cmdline_parser.hpp>
 
 #if !STXXL_WINDOWS
  #include <unistd.h>

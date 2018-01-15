@@ -22,16 +22,16 @@
         "file.log" using ($3/1024):($7)  w l title "write"
  */
 
+#include <algorithm>
+#include <cstring>
+#include <iomanip>
+#include <vector>
+
 #include <foxxll/common/aligned_alloc.hpp>
 #include <foxxll/common/timer.hpp>
 #include <foxxll/io.hpp>
 #include <foxxll/version.hpp>
 #include <tlx/cmdline_parser.hpp>
-
-#include <algorithm>
-#include <cstring>
-#include <iomanip>
-#include <vector>
 
 using foxxll::request_ptr;
 using foxxll::file;

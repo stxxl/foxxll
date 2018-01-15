@@ -15,12 +15,12 @@
 
 #if STXXL_HAVE_LINUXAIO_FILE
 
+#include <sys/syscall.h>
+#include <unistd.h>
+
 #include <foxxll/common/error_handling.hpp>
 #include <foxxll/io/disk_queues.hpp>
 #include <foxxll/verbose.hpp>
-
-#include <sys/syscall.h>
-#include <unistd.h>
 
 namespace foxxll {
 
@@ -36,7 +36,8 @@ void linuxaio_request::completed(bool posted, bool canceled)
     {
         if (op_ == READ) {
             stats->read_op_finished(bytes_, duration);
-        } else {
+        }
+        else {
             stats->write_op_finished(bytes_, duration);
         }
     }
@@ -71,7 +72,7 @@ void linuxaio_request::fill_control_block()
 bool linuxaio_request::post()
 {
     STXXL_VERBOSE_LINUXAIO("linuxaio_request[" << this << "] post()");
- 
+
     fill_control_block();
     iocb* cb_pointer = &cb_;
     // io_submit might considerable time, so we have to remember the current

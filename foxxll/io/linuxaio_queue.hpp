@@ -18,12 +18,12 @@
 
 #if STXXL_HAVE_LINUXAIO_FILE
 
-#include <foxxll/io/request_queue_impl_worker.hpp>
-
 #include <linux/aio_abi.h>
 
 #include <list>
 #include <mutex>
+
+#include <foxxll/io/request_queue_impl_worker.hpp>
 
 namespace foxxll {
 

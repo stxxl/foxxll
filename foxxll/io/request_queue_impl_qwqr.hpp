@@ -16,10 +16,10 @@
 #ifndef STXXL_IO_REQUEST_QUEUE_IMPL_QWQR_HEADER
 #define STXXL_IO_REQUEST_QUEUE_IMPL_QWQR_HEADER
 
-#include <foxxll/io/request_queue_impl_worker.hpp>
-
 #include <list>
 #include <mutex>
+
+#include <foxxll/io/request_queue_impl_worker.hpp>
 
 namespace foxxll {
 

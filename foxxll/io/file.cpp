@@ -10,8 +10,8 @@
  *  http://www.boost.org/LICENSE_1_0.txt)
  **************************************************************************/
 
-#include "ufs_platform.hpp"
 #include <foxxll/io/file.hpp>
+#include <foxxll/io/ufs_platform.hpp>
 
 namespace foxxll {
 

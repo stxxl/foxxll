@@ -14,11 +14,11 @@
 #ifndef STXXL_COMMON_TYPES_HEADER
 #define STXXL_COMMON_TYPES_HEADER
 
-#include <foxxll/config.hpp>
-
 #include <cstddef>
 #include <cstdint>
 #include <type_traits>
+
+#include <foxxll/config.hpp>
 
 namespace foxxll {
 

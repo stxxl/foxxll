@@ -14,11 +14,11 @@
 #ifndef STXXL_COMMON_ALIGNED_ALLOC_HEADER
 #define STXXL_COMMON_ALIGNED_ALLOC_HEADER
 
-#include <foxxll/common/utils.hpp>
-#include <foxxll/verbose.hpp>
-
 #include <cassert>
 #include <cstdlib>
+
+#include <foxxll/common/utils.hpp>
+#include <foxxll/verbose.hpp>
 
 #ifndef STXXL_VERBOSE_ALIGNED_ALLOC
 #define STXXL_VERBOSE_ALIGNED_ALLOC STXXL_VERBOSE2

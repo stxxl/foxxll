@@ -11,12 +11,12 @@
  *  http://www.boost.org/LICENSE_1_0.txt)
  **************************************************************************/
 
-#include <foxxll/io/iostats.hpp>
-#include <foxxll/io/memory_file.hpp>
-
 #include <cassert>
 #include <cstring>
 #include <limits>
+
+#include <foxxll/io/iostats.hpp>
+#include <foxxll/io/memory_file.hpp>
 
 namespace foxxll {
 

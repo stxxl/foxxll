@@ -15,15 +15,15 @@
 #ifndef STXXL_MNG_CONFIG_HEADER
 #define STXXL_MNG_CONFIG_HEADER
 
-#include <foxxll/common/log.hpp>
-#include <foxxll/singleton.hpp>
-#include <foxxll/version.hpp>
-
 #include <cassert>
 #include <cstdlib>
 #include <string>
 #include <utility>
 #include <vector>
+
+#include <foxxll/common/log.hpp>
+#include <foxxll/singleton.hpp>
+#include <foxxll/version.hpp>
 
 namespace foxxll {
 

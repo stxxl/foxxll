@@ -13,12 +13,13 @@
  *  http://www.boost.org/LICENSE_1_0.txt)
  **************************************************************************/
 
+#include <algorithm>
+#include <functional>
+
 #include <foxxll/common/error_handling.hpp>
 #include <foxxll/config.hpp>
 #include <foxxll/io/request_queue_impl_1q.hpp>
 #include <foxxll/io/serving_request.hpp>
-
-#include <algorithm>
 
 #if STXXL_MSVC >= 1700
  #include <windows.hpp>

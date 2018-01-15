@@ -18,10 +18,10 @@
 #ifndef STXXL_IO_UFS_FILE_BASE_HEADER
 #define STXXL_IO_UFS_FILE_BASE_HEADER
 
-#include <foxxll/io/file.hpp>
-
 #include <mutex>
 #include <string>
+
+#include <foxxll/io/file.hpp>
 
 namespace foxxll {
 

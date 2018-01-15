@@ -16,6 +16,8 @@
 #ifndef STXXL_IO_DISK_QUEUES_HEADER
 #define STXXL_IO_DISK_QUEUES_HEADER
 
+#include <map>
+
 #include <foxxll/io/iostats.hpp>
 #include <foxxll/io/linuxaio_queue.hpp>
 #include <foxxll/io/linuxaio_request.hpp>
@@ -23,8 +25,6 @@
 #include <foxxll/io/request_queue_impl_qwqr.hpp>
 #include <foxxll/io/serving_request.hpp>
 #include <foxxll/singleton.hpp>
-
-#include <map>
 
 namespace foxxll {
 

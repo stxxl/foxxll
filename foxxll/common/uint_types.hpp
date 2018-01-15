@@ -16,13 +16,13 @@
 #ifndef STXXL_COMMON_UINT_TYPES_HEADER
 #define STXXL_COMMON_UINT_TYPES_HEADER
 
-#include <foxxll/common/types.hpp>
-#include <foxxll/common/utils.hpp>
-#include <foxxll/config.hpp>
-
 #include <cassert>
 #include <limits>
 #include <ostream>
+
+#include <foxxll/common/types.hpp>
+#include <foxxll/common/utils.hpp>
+#include <foxxll/config.hpp>
 
 namespace foxxll {
 

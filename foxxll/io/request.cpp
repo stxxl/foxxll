@@ -11,10 +11,10 @@
  *  http://www.boost.org/LICENSE_1_0.txt)
  **************************************************************************/
 
+#include <ostream>
+
 #include <foxxll/io/file.hpp>
 #include <foxxll/io/request.hpp>
-
-#include <ostream>
 
 namespace foxxll {
 
@@ -62,8 +62,7 @@ void request::check_nref_failed(bool after)
                  " bytes=" << bytes_ <<
                  " op=" << ((op_ == READ) ? "READ" : "WRITE") <<
                  " file=" << file_ <<
-                 " iotype=" << file_->io_type()
-                 );
+                 " iotype=" << file_->io_type());
 }
 
 const char* request::io_type() const

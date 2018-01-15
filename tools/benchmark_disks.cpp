@@ -26,15 +26,15 @@
         "disk.log" using ($2/1024):($4)  w l title "write"
  */
 
-#include <foxxll/io.hpp>
-#include <foxxll/mng.hpp>
-#include <tlx/cmdline_parser.hpp>
-
 #include <algorithm>
 #include <iomanip>
 #include <limits>
 #include <string>
 #include <vector>
+
+#include <foxxll/io.hpp>
+#include <foxxll/mng.hpp>
+#include <tlx/cmdline_parser.hpp>
 
 using foxxll::timestamp;
 using foxxll::external_size_type;

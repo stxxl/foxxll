@@ -14,13 +14,13 @@
 #ifndef STXXL_MNG_WRITE_POOL_HEADER
 #define STXXL_MNG_WRITE_POOL_HEADER
 
-#include <foxxll/config.hpp>
-#include <foxxll/deprecated.hpp>
-#include <foxxll/io/request_operations.hpp>
-
 #include <algorithm>
 #include <list>
 #include <utility>
+
+#include <foxxll/config.hpp>
+#include <foxxll/deprecated.hpp>
+#include <foxxll/io/request_operations.hpp>
 
 #define STXXL_VERBOSE_WPOOL(msg) STXXL_VERBOSE1("write_pool[" << static_cast<void*>(this) << "]" << msg)
 

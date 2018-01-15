@@ -16,6 +16,13 @@
 #ifndef STXXL_MNG_DISK_BLOCK_ALLOCATOR_HEADER
 #define STXXL_MNG_DISK_BLOCK_ALLOCATOR_HEADER
 
+#include <algorithm>
+#include <cassert>
+#include <map>
+#include <mutex>
+#include <ostream>
+#include <utility>
+
 #include <foxxll/common/error_handling.hpp>
 #include <foxxll/common/exceptions.hpp>
 #include <foxxll/common/types.hpp>
@@ -23,13 +30,6 @@
 #include <foxxll/mng/bid.hpp>
 #include <foxxll/mng/config.hpp>
 #include <foxxll/verbose.hpp>
-
-#include <algorithm>
-#include <cassert>
-#include <map>
-#include <mutex>
-#include <ostream>
-#include <utility>
 
 namespace foxxll {
 

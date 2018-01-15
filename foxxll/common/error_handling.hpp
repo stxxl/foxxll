@@ -18,12 +18,12 @@
  * Macros for convenient error checking and reporting via exception.
  */
 
-#include <foxxll/common/exceptions.hpp>
-#include <foxxll/config.hpp>
-
 #include <cerrno>
 #include <cstring>
 #include <sstream>
+
+#include <foxxll/common/exceptions.hpp>
+#include <foxxll/config.hpp>
 
 namespace foxxll {
 

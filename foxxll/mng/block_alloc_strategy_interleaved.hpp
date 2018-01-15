@@ -16,10 +16,10 @@
 #ifndef STXXL_MNG_BLOCK_ALLOC_STRATEGY_INTERLEAVED_HEADER
 #define STXXL_MNG_BLOCK_ALLOC_STRATEGY_INTERLEAVED_HEADER
 
-#include <foxxll/mng/block_manager.hpp>
-
 #include <random>
 #include <vector>
+
+#include <foxxll/mng/block_manager.hpp>
 
 namespace foxxll {
 

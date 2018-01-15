@@ -12,6 +12,9 @@
  *  http://www.boost.org/LICENSE_1_0.txt)
  **************************************************************************/
 
+#include <cstddef>
+#include <string>
+
 #include <foxxll/mng/block_manager.hpp>
 
 #include <foxxll/common/types.hpp>
@@ -21,9 +24,6 @@
 #include <foxxll/mng/config.hpp>
 #include <foxxll/mng/disk_block_allocator.hpp>
 #include <foxxll/verbose.hpp>
-
-#include <cstddef>
-#include <string>
 
 namespace foxxll {
 

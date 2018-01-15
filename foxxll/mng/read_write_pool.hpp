@@ -13,10 +13,11 @@
 #ifndef STXXL_MNG_READ_WRITE_POOL_HEADER
 #define STXXL_MNG_READ_WRITE_POOL_HEADER
 
+#include <algorithm>
+#include <utility>
+
 #include <foxxll/mng/prefetch_pool.hpp>
 #include <foxxll/mng/write_pool.hpp>
-
-#include <algorithm>
 
 namespace foxxll {
 

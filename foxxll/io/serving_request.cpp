@@ -11,6 +11,8 @@
  *  http://www.boost.org/LICENSE_1_0.txt)
  **************************************************************************/
 
+#include <iomanip>
+
 #include <foxxll/common/exceptions.hpp>
 #include <foxxll/common/shared_state.hpp>
 #include <foxxll/io/file.hpp>
@@ -18,8 +20,6 @@
 #include <foxxll/io/request_with_state.hpp>
 #include <foxxll/io/serving_request.hpp>
 #include <foxxll/verbose.hpp>
-
-#include <iomanip>
 
 namespace foxxll {
 

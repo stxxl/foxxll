@@ -15,13 +15,15 @@
 
 #if STXXL_HAVE_WINCALL_FILE
 
-#include <foxxll/common/error_handling.hpp>
-#include <foxxll/io/iostats.hpp>
+#include <limits>
 
 #ifndef NOMINMAX
   #define NOMINMAX
 #endif
 #include <windows.hpp>
+
+#include <foxxll/common/error_handling.hpp>
+#include <foxxll/io/iostats.hpp>
 
 namespace foxxll {
 

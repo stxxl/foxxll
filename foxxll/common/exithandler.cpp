@@ -10,6 +10,8 @@
  *  http://www.boost.org/LICENSE_1_0.txt)
  **************************************************************************/
 
+#include <cstdlib>
+
 #include <foxxll/common/exithandler.hpp>
 
 // 1. do nothing for default handler
@@ -18,8 +20,6 @@
 
 #ifndef STXXL_EXTERNAL_EXIT_HANDLER
 #ifndef STXXL_NON_DEFAULT_EXIT_HANDLER
-
-#include <cstdlib>
 
 namespace foxxll {
 

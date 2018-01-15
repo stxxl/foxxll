@@ -15,10 +15,10 @@
 #ifndef STXXL_IO_MEMORY_FILE_HEADER
 #define STXXL_IO_MEMORY_FILE_HEADER
 
+#include <mutex>
+
 #include <foxxll/io/disk_queued_file.hpp>
 #include <foxxll/io/request.hpp>
-
-#include <mutex>
 
 namespace foxxll {
 

@@ -14,9 +14,9 @@
 #ifndef STXXL_IO_CREATE_FILE_HEADER
 #define STXXL_IO_CREATE_FILE_HEADER
 
-#include <foxxll/io/file.hpp>
-
 #include <string>
+
+#include <foxxll/io/file.hpp>
 
 namespace foxxll {
 

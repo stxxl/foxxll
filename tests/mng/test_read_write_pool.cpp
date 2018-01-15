@@ -12,10 +12,10 @@
 
 //! \example mng/test_read_write_pool.cpp
 
+#include <iostream>
+
 #include <foxxll/mng.hpp>
 #include <foxxll/mng/read_write_pool.hpp>
-
-#include <iostream>
 
 #define BLOCK_SIZE (1024 * 512)
 

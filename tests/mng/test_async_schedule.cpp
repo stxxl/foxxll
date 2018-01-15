@@ -11,11 +11,11 @@
  *  http://www.boost.org/LICENSE_1_0.txt)
  **************************************************************************/
 
-#include <foxxll/mng/async_schedule.hpp>
-#include <foxxll/verbose.hpp>
-
 #include <cstdlib>
 #include <random>
+
+#include <foxxll/mng/async_schedule.hpp>
+#include <foxxll/verbose.hpp>
 
 // Test async schedule algorithm
 

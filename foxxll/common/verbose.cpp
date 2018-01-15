@@ -10,16 +10,16 @@
  *  http://www.boost.org/LICENSE_1_0.txt)
  **************************************************************************/
 
-#include <foxxll/common/log.hpp>
-#include <foxxll/common/timer.hpp>
-#include <foxxll/msvc_compatibility.hpp>
-#include <foxxll/verbose.hpp>
-
 #include <cmath>
 #include <cstdio>
 #include <iostream>
 #include <sstream>
 #include <thread>
+
+#include <foxxll/common/log.hpp>
+#include <foxxll/common/timer.hpp>
+#include <foxxll/msvc_compatibility.hpp>
+#include <foxxll/verbose.hpp>
 
 namespace foxxll {
 

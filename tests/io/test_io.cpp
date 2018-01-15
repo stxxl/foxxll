@@ -11,11 +11,11 @@
  *  http://www.boost.org/LICENSE_1_0.txt)
  **************************************************************************/
 
-#include <foxxll/common/aligned_alloc.hpp>
-#include <foxxll/io.hpp>
-
 #include <cstring>
 #include <limits>
+
+#include <foxxll/common/aligned_alloc.hpp>
+#include <foxxll/io.hpp>
 
 //! \example io/test_io.cpp
 //! This is an example of use of \c \<foxxll\> files, requests, and

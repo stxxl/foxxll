@@ -13,12 +13,12 @@
 //! \example mng/test_buf_streams.cpp
 //! This is an example of use of \c foxxll::buf_istream and \c foxxll::buf_ostream
 
+#include <iostream>
+
 #include <foxxll/mng.hpp>
 #include <foxxll/mng/buf_istream.hpp>
 #include <foxxll/mng/buf_istream_reverse.hpp>
 #include <foxxll/mng/buf_ostream.hpp>
-
-#include <iostream>
 
 #define BLOCK_SIZE (1024 * 512)
 

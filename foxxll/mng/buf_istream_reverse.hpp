@@ -14,12 +14,12 @@
 #ifndef STXXL_MNG_BUF_ISTREAM_REVERSE_HEADER
 #define STXXL_MNG_BUF_ISTREAM_REVERSE_HEADER
 
+#include <algorithm>
+
 #include <foxxll/mng/async_schedule.hpp>
 #include <foxxll/mng/bid.hpp>
 #include <foxxll/mng/block_prefetcher.hpp>
 #include <foxxll/mng/config.hpp>
-
-#include <algorithm>
 
 namespace foxxll {
 

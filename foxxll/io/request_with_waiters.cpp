@@ -11,12 +11,12 @@
  *  http://www.boost.org/LICENSE_1_0.txt)
  **************************************************************************/
 
-#include <foxxll/common/onoff_switch.hpp>
-#include <foxxll/io/request_with_waiters.hpp>
-
 #include <algorithm>
 #include <functional>
 #include <mutex>
+
+#include <foxxll/common/onoff_switch.hpp>
+#include <foxxll/io/request_with_waiters.hpp>
 
 namespace foxxll {
 

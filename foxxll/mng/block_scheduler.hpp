@@ -13,11 +13,6 @@
 #ifndef STXXL_MNG_BLOCK_SCHEDULER_HEADER
 #define STXXL_MNG_BLOCK_SCHEDULER_HEADER
 
-#include <foxxll/mng/block_manager.hpp>
-#include <foxxll/mng/typed_block.hpp>
-
-#include <foxxll/common/addressable_queues.hpp>
-
 #include <algorithm>
 #include <deque>
 #include <functional>
@@ -30,6 +25,11 @@
 #include <string>
 #include <utility>
 #include <vector>
+
+#include <foxxll/mng/block_manager.hpp>
+#include <foxxll/mng/typed_block.hpp>
+
+#include <foxxll/common/addressable_queues.hpp>
 
 namespace foxxll {
 

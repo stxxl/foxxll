@@ -39,13 +39,11 @@ void test1()
 
     STXXL_CHECK_THROW(
         cfg.parse_line("disk=/var/tmp/foxxll.tmp, 100 GiB, wincall_fileperblock unlink direct=on"),
-        std::runtime_error
-        );
+        std::runtime_error);
 
     STXXL_CHECK_THROW(
         cfg.parse_line("disk=/var/tmp/foxxll.tmp,0x,syscall"),
-        std::runtime_error
-        );
+        std::runtime_error);
 }
 
 void test2()

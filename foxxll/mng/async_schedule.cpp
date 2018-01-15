@@ -16,19 +16,19 @@
 // and queued writing on parallel disks, 2005
 // DOI: 10.1137/S0097539703431573
 
-#include <foxxll/common/types.hpp>
-#include <foxxll/io/file.hpp>
-#include <foxxll/mng/async_schedule.hpp>
-#include <foxxll/unused.hpp>
-#include <foxxll/verbose.hpp>
-#include <tlx/simple_vector.hpp>
-
 #include <algorithm>
 #include <cassert>
 #include <functional>
 #include <queue>
 #include <utility>
 #include <vector>
+
+#include <foxxll/common/types.hpp>
+#include <foxxll/io/file.hpp>
+#include <foxxll/mng/async_schedule.hpp>
+#include <foxxll/unused.hpp>
+#include <foxxll/verbose.hpp>
+#include <tlx/simple_vector.hpp>
 
 namespace foxxll {
 namespace async_schedule_local {

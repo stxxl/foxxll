@@ -12,6 +12,8 @@
  *  http://www.boost.org/LICENSE_1_0.txt)
  **************************************************************************/
 
+#include <cassert>
+
 #include <foxxll/common/shared_state.hpp>
 #include <foxxll/io/disk_queues.hpp>
 #include <foxxll/io/file.hpp>
@@ -20,8 +22,6 @@
 #include <foxxll/io/request_with_state.hpp>
 #include <foxxll/singleton.hpp>
 #include <foxxll/verbose.hpp>
-
-#include <cassert>
 
 namespace foxxll {
 

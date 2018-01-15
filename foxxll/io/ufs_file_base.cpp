@@ -14,12 +14,12 @@
  *  http://www.boost.org/LICENSE_1_0.txt)
  **************************************************************************/
 
-#include "ufs_platform.hpp"
 #include <foxxll/common/error_handling.hpp>
 #include <foxxll/common/exceptions.hpp>
 #include <foxxll/config.hpp>
 #include <foxxll/io/file.hpp>
 #include <foxxll/io/ufs_file_base.hpp>
+#include <foxxll/io/ufs_platform.hpp>
 #include <foxxll/verbose.hpp>
 
 namespace foxxll {

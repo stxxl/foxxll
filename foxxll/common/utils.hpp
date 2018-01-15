@@ -16,10 +16,6 @@
 #ifndef STXXL_COMMON_UTILS_HEADER
 #define STXXL_COMMON_UTILS_HEADER
 
-#include <foxxll/common/types.hpp>
-#include <foxxll/config.hpp>
-#include <foxxll/msvc_compatibility.hpp>
-
 #include <algorithm>
 #include <cmath>
 #include <cstdlib>
@@ -27,7 +23,12 @@
 #include <sstream>
 #include <string>
 #include <type_traits>
+#include <utility>
 #include <vector>
+
+#include <foxxll/common/types.hpp>
+#include <foxxll/config.hpp>
+#include <foxxll/msvc_compatibility.hpp>
 
 namespace foxxll {
 

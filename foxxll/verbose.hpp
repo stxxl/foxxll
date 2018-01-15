@@ -15,12 +15,12 @@
 #ifndef STXXL_VERBOSE_HEADER
 #define STXXL_VERBOSE_HEADER
 
-#include <foxxll/unused.hpp>
-
 #include <cstdlib>
 #include <iostream>
 #include <sstream>
 #include <string>
+
+#include <foxxll/unused.hpp>
 
 #define _STXXL_PRNT_COUT        (1 << 0)
 #define _STXXL_PRNT_CERR        (1 << 1)

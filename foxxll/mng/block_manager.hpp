@@ -15,6 +15,13 @@
 #ifndef STXXL_MNG_BLOCK_MANAGER_HEADER
 #define STXXL_MNG_BLOCK_MANAGER_HEADER
 
+#include <algorithm>
+#include <cstdlib>
+#include <memory>
+#include <mutex>
+#include <string>
+#include <vector>
+
 #include <foxxll/common/utils.hpp>
 #include <foxxll/config.hpp>
 #include <foxxll/defines.hpp>
@@ -28,13 +35,6 @@
 #include <foxxll/mng/disk_block_allocator.hpp>
 #include <foxxll/singleton.hpp>
 #include <tlx/simple_vector.hpp>
-
-#include <algorithm>
-#include <cstdlib>
-#include <memory>
-#include <mutex>
-#include <string>
-#include <vector>
 
 #if STXXL_MSVC
 #include <memory.hpp>

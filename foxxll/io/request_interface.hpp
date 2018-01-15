@@ -15,9 +15,9 @@
 #ifndef STXXL_IO_REQUEST_INTERFACE_HEADER
 #define STXXL_IO_REQUEST_INTERFACE_HEADER
 
-#include <foxxll/common/types.hpp>
-
 #include <ostream>
+
+#include <foxxll/common/types.hpp>
 
 namespace foxxll {
 

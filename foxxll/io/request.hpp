@@ -15,16 +15,16 @@
 #ifndef STXXL_IO_REQUEST_HEADER
 #define STXXL_IO_REQUEST_HEADER
 
-#include <foxxll/common/exceptions.hpp>
-#include <foxxll/io/request_interface.hpp>
-#include <foxxll/verbose.hpp>
-
-#include <tlx/counting_ptr.hpp>
-
 #include <cassert>
 #include <functional>
 #include <memory>
 #include <string>
+
+#include <tlx/counting_ptr.hpp>
+
+#include <foxxll/common/exceptions.hpp>
+#include <foxxll/io/request_interface.hpp>
+#include <foxxll/verbose.hpp>
 
 namespace foxxll {
 

@@ -13,11 +13,11 @@
 #ifndef STXXL_MNG_BUF_WRITER_HEADER
 #define STXXL_MNG_BUF_WRITER_HEADER
 
-#include <foxxll/io/disk_queues.hpp>
-#include <foxxll/io/request_operations.hpp>
-
 #include <queue>
 #include <vector>
+
+#include <foxxll/io/disk_queues.hpp>
+#include <foxxll/io/request_operations.hpp>
 
 namespace foxxll {
 

@@ -16,12 +16,12 @@
 #ifndef STXXL_IO_REQUEST_QUEUE_IMPL_WORKER_HEADER
 #define STXXL_IO_REQUEST_QUEUE_IMPL_WORKER_HEADER
 
+#include <thread>
+
 #include <foxxll/common/semaphore.hpp>
 #include <foxxll/common/shared_state.hpp>
 #include <foxxll/config.hpp>
 #include <foxxll/io/request_queue.hpp>
-
-#include <thread>
 
 namespace foxxll {
 

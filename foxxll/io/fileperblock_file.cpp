@@ -11,6 +11,14 @@
  *  http://www.boost.org/LICENSE_1_0.txt)
  **************************************************************************/
 
+#include <cassert>
+#include <cstdio>
+#include <iomanip>
+#include <sstream>
+#include <string>
+
+#include <tlx/counting_ptr.hpp>
+
 #include <foxxll/common/aligned_alloc.hpp>
 #include <foxxll/common/error_handling.hpp>
 #include <foxxll/common/exceptions.hpp>
@@ -22,20 +30,10 @@
 #include <foxxll/io/request.hpp>
 #include <foxxll/io/serving_request.hpp>
 #include <foxxll/io/syscall_file.hpp>
-#include <foxxll/io/wincall_file.hpp>
+#include <foxxll/io/ufs_platform.hpp>
 #include <foxxll/io/wincall_file.hpp>
 #include <foxxll/unused.hpp>
 #include <foxxll/verbose.hpp>
-
-#include <tlx/counting_ptr.hpp>
-
-#include "ufs_platform.hpp"
-
-#include <cassert>
-#include <cstdio>
-#include <iomanip>
-#include <sstream>
-#include <string>
 
 namespace foxxll {
 

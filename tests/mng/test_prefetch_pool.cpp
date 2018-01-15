@@ -13,10 +13,10 @@
 
 //! \example mng/test_prefetch_pool.cpp
 
+#include <iostream>
+
 #include <foxxll/mng.hpp>
 #include <foxxll/mng/prefetch_pool.hpp>
-
-#include <iostream>
 
 #define BLOCK_SIZE (1024 * 512)
 

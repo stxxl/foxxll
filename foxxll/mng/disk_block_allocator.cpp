@@ -11,16 +11,16 @@
  *  http://www.boost.org/LICENSE_1_0.txt)
  **************************************************************************/
 
+#include <cassert>
+#include <map>
+#include <ostream>
+#include <utility>
+
 #include <foxxll/common/error_handling.hpp>
 #include <foxxll/common/exceptions.hpp>
 #include <foxxll/common/types.hpp>
 #include <foxxll/mng/disk_block_allocator.hpp>
 #include <foxxll/verbose.hpp>
-
-#include <cassert>
-#include <map>
-#include <ostream>
-#include <utility>
 
 namespace foxxll {
 

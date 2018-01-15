@@ -14,11 +14,11 @@
 #ifndef STXXL_IO_REQUEST_WITH_WAITERS_HEADER
 #define STXXL_IO_REQUEST_WITH_WAITERS_HEADER
 
-#include <foxxll/common/onoff_switch.hpp>
-#include <foxxll/io/request.hpp>
-
 #include <mutex>
 #include <set>
+
+#include <foxxll/common/onoff_switch.hpp>
+#include <foxxll/io/request.hpp>
 
 namespace foxxll {
 

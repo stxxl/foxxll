@@ -14,12 +14,12 @@
 #ifndef STXXL_MNG_BLOCK_ALLOC_STRATEGY_HEADER
 #define STXXL_MNG_BLOCK_ALLOC_STRATEGY_HEADER
 
-#include <foxxll/mng/block_manager.hpp>
-#include <foxxll/mng/config.hpp>
-
 #include <algorithm>
 #include <random>
 #include <vector>
+
+#include <foxxll/mng/block_manager.hpp>
+#include <foxxll/mng/config.hpp>
 
 namespace foxxll {
 

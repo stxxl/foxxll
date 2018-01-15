@@ -16,14 +16,14 @@
 #ifndef STXXL_COMMON_TIMER_HEADER
 #define STXXL_COMMON_TIMER_HEADER
 
+#include <chrono>
+#include <limits>
+#include <string>
+
 #include <foxxll/common/utils.hpp>
 #include <foxxll/config.hpp>
 #include <foxxll/verbose.hpp>
 #include <tlx/string/format_si_iec_units.hpp>
-
-#include <chrono>
-#include <limits>
-#include <string>
 
 namespace foxxll {
 

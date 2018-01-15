@@ -21,14 +21,14 @@
         "disk.log" using ($2/1024):($4)  w l title "write"
  */
 
-#include <foxxll/io.hpp>
-#include <foxxll/mng.hpp>
-#include <tlx/cmdline_parser.hpp>
-
 #include <algorithm>
 #include <ctime>
 #include <iomanip>
 #include <vector>
+
+#include <foxxll/io.hpp>
+#include <foxxll/mng.hpp>
+#include <tlx/cmdline_parser.hpp>
 
 using foxxll::request_ptr;
 using foxxll::timestamp;
@@ -43,10 +43,7 @@ struct print_number
 
     explicit print_number(size_t n) : n(n) { }
 
-    void operator () (foxxll::request*, bool /* success */)
-    {
-        //std::cout << n << " " << std::flush;
-    }
+    void operator () (foxxll::request*, bool /* success */) { }
 };
 
 template <size_t BlockSize, typename AllocStrategy>
@@ -233,8 +230,7 @@ int benchmark_disks_random(int argc, char* argv[])
         "configured by the standard .foxxll disk configuration files mechanism. "
         "Available block sizes are power of two from 4 KiB to 128 MiB. "
         "A set of three operations can be performed: sequential initialization, "
-        "random reading and random writing."
-        );
+        "random reading and random writing.");
 
     if (!cp.process(argc, argv))
         return -1;

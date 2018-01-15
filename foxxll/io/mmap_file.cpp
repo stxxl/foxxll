@@ -15,11 +15,11 @@
 
 #if STXXL_HAVE_MMAP_FILE
 
-#include "ufs_platform.hpp"
+#include <sys/mman.h>
+
 #include <foxxll/common/error_handling.hpp>
 #include <foxxll/io/iostats.hpp>
-
-#include <sys/mman.h>
+#include <foxxll/io/ufs_platform.hpp>
 
 namespace foxxll {
 

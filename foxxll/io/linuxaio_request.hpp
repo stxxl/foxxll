@@ -18,8 +18,9 @@
 
 #if STXXL_HAVE_LINUXAIO_FILE
 
-#include <foxxll/io/request_with_state.hpp>
 #include <linux/aio_abi.h>
+
+#include <foxxll/io/request_with_state.hpp>
 
 #define STXXL_VERBOSE_LINUXAIO(msg) STXXL_VERBOSE2(msg)
 

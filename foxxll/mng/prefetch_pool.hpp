@@ -14,13 +14,13 @@
 #ifndef STXXL_MNG_PREFETCH_POOL_HEADER
 #define STXXL_MNG_PREFETCH_POOL_HEADER
 
-#include <foxxll/config.hpp>
-#include <foxxll/mng/write_pool.hpp>
-
 #include <algorithm>
 #include <list>
 #include <unordered_map>
 #include <utility>
+
+#include <foxxll/config.hpp>
+#include <foxxll/mng/write_pool.hpp>
 
 namespace foxxll {
 

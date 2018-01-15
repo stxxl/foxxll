@@ -13,11 +13,11 @@
 #ifndef STXXL_SINGLETON_HEADER
 #define STXXL_SINGLETON_HEADER
 
-#include <foxxll/common/exithandler.hpp>
-#include <foxxll/common/types.hpp>
-
 #include <cstdlib>
 #include <mutex>
+
+#include <foxxll/common/exithandler.hpp>
+#include <foxxll/common/types.hpp>
 
 namespace foxxll {
 

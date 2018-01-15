@@ -16,6 +16,10 @@
 #ifndef STXXL_IO_FILE_HEADER
 #define STXXL_IO_FILE_HEADER
 
+#include <cassert>
+#include <ostream>
+#include <string>
+
 #include <foxxll/common/exceptions.hpp>
 #include <foxxll/common/types.hpp>
 #include <foxxll/config.hpp>
@@ -31,10 +35,6 @@
 #if defined(__linux__)
  #define STXXL_CHECK_BLOCK_ALIGNING
 #endif
-
-#include <cassert>
-#include <ostream>
-#include <string>
 
 namespace foxxll {
 

@@ -15,13 +15,13 @@
 #ifndef STXXL_MNG_BLOCK_PREFETCHER_HEADER
 #define STXXL_MNG_BLOCK_PREFETCHER_HEADER
 
-#include <foxxll/common/onoff_switch.hpp>
-#include <foxxll/io/iostats.hpp>
-#include <foxxll/io/request.hpp>
-
 #include <algorithm>
 #include <queue>
 #include <vector>
+
+#include <foxxll/common/onoff_switch.hpp>
+#include <foxxll/io/iostats.hpp>
+#include <foxxll/io/request.hpp>
 
 namespace foxxll {
 

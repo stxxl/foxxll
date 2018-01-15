@@ -15,14 +15,14 @@
 
 #include <foxxll/io/create_file.hpp>
 
+#include <ostream>
+#include <stdexcept>
+#include <string>
+
 #include <foxxll/common/error_handling.hpp>
 #include <foxxll/common/exceptions.hpp>
 #include <foxxll/io.hpp>
 #include <foxxll/mng/config.hpp>
-
-#include <ostream>
-#include <stdexcept>
-#include <string>
 
 namespace foxxll {
 

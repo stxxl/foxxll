@@ -15,10 +15,10 @@
 #ifndef STXXL_IO_REQUEST_QUEUE_IMPL_1Q_HEADER
 #define STXXL_IO_REQUEST_QUEUE_IMPL_1Q_HEADER
 
-#include <foxxll/io/request_queue_impl_worker.hpp>
-
 #include <list>
 #include <mutex>
+
+#include <foxxll/io/request_queue_impl_worker.hpp>
 
 namespace foxxll {
 
