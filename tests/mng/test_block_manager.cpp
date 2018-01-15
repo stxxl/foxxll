@@ -4,7 +4,7 @@
  *  Part of the STXXL. See http://stxxl.org
  *
  *  Copyright (C) 2002 Roman Dementiev <dementiev@mpi-sb.mpg.de>
- *  Copyright (C) 2018 Manuel Penschuck <manuel@ae.cs.uni-frankfurt.de>
+ *  Copyright (C) 2018 Manuel Penschuck <foxxll@manuel.jetzt>
  *
  *  Distributed under the Boost Software License, Version 1.0.
  *  (See accompanying file LICENSE_1_0.txt or copy at
@@ -61,7 +61,7 @@ int main()
     STXXL_MSG("Allocated block address + 1: " << (size_t)(block.get() + 1));
     STXXL_MSG(std::dec);
 
-    for(size_t i = 0; i < nblocks; i++) {
+    for (size_t i = 0; i < nblocks; i++) {
         for (size_t j = 0; j < block_type::size; ++j) {
             block[i].elem[j].integer = i + j;
         }
@@ -73,7 +73,7 @@ int main()
     std::cout << "Waiting " << std::endl;
     foxxll::wait_all(reqs.get(), nblocks);
 
-    for(size_t i = 0; i < nblocks; i++) {
+    for (size_t i = 0; i < nblocks; i++) {
         for (size_t j = 0; j < block_type::size; ++j) {
             block[i].elem[j].integer = 0xdeadbeaf;
         }

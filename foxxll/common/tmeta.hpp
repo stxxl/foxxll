@@ -47,9 +47,9 @@ class SWITCH
 
 public:
     using type = typename std::conditional<found,
-                                  typename Case::Type,
-                                  typename SWITCH<Tag, NextCase>::type
-                                  >::type;
+                                           typename Case::Type,
+                                           typename SWITCH<Tag, NextCase>::type
+                                           >::type;
 };
 
 template <int Tag>

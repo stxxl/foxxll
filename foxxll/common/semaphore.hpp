@@ -59,8 +59,7 @@ public:
     size_t wait()
     {
         std::unique_lock<std::mutex> lock(mutex_);
-        while (value_ <= 0)
-            cv_.wait(lock);
+        cv_.wait(lock, [this]() { return value_; });
         return --value_;
     }
 
