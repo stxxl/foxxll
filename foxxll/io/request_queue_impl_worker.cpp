@@ -30,20 +30,21 @@
 namespace foxxll {
 
 void request_queue_impl_worker::start_thread(
-    void* (*worker)(void*), void* arg, std::thread& t,
-    shared_state<thread_state>& s)
+    std::function<void*(void*)> worker, void* arg,
+    std::thread& t, shared_state<thread_state>& s)
 {
     assert(s() == NOT_RUNNING);
     t = std::thread(worker, arg);
     s.set_to(RUNNING);
 }
 
-void request_queue_impl_worker::stop_thread(
-    std::thread& t, shared_state<thread_state>& s, semaphore& sem)
+void request_queue_impl_worker::stop_thread_with_callback
+    (std::thread &t, shared_state<thread_state> &s,
+    std::function<void()> f)
 {
     assert(s() == RUNNING);
     s.set_to(TERMINATING);
-    sem.signal();
+    f();
 #if STXXL_MSVC >= 1700
     // In the Visual C++ Runtime 2012 and 2013, there is a deadlock bug, which
     // occurs when threads are joined after main() exits. Apparently, Microsoft
@@ -62,6 +63,13 @@ void request_queue_impl_worker::stop_thread(
 #endif
     assert(s() == TERMINATED);
     s.set_to(NOT_RUNNING);
+}
+
+void request_queue_impl_worker::stop_thread(
+    std::thread& t, shared_state<thread_state>& s, semaphore& sem) {
+
+    auto semptr = &sem;
+    stop_thread_with_callback(t, s, [=](){semptr->signal();});
 }
 
 } // namespace foxxll
