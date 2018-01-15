@@ -45,52 +45,76 @@ class linuxaio_queue : public request_queue_impl_worker
     using self_type = linuxaio_queue;
 
 private:
-    //! OS context_
+    //! \defgroup OS related
+    //! \{
+
+    //! OS context
     aio_context_t context_;
+
+    //! used by our friend linuxaio_request
+    aio_context_t get_io_context() { return context_; }
+
+    //! max number of OS requests
+    const size_t os_queue_length_;
+
+    //! Negotiates with OS the queue length and sets up the context
+    //! \return length of OS's request queue
+    size_t setup_context(size_t requeted);
+
+    //! \}
+
+private:
+    //! \defgroup Queue Handling
+    //! \{
 
     //! storing linuxaio_request* would drop ownership
     using queue_type = std::list<request_ptr>;
 
-    // "waiting" request have submitted to this queue, but not yet to the OS,
-    // those are "posted" or "delayed" in case a conflicting request was posted
+    // "waiting" request have been submitted to this queue, but not yet to the OS
     std::mutex waiting_mtx_;
     queue_type waiting_requests_;
 
+    // "posted" requests have been submitted to the OS and may already be completed
     std::mutex posted_mtx_;
     queue_type posted_requests_;
+
+    // In the rare event that two requests added in fast succession target the
+    // same EM data, we delay the second request to avoid reordering by the kernel.
     queue_type delayed_requests_;
-    queue_type local_queue;
 
+    //! Number of requests posted to the kernel and not yet completed
+    std::atomic_int64_t no_requests_posted_ {0};
 
-    //! max number of OS requests
-    int max_events_;
-    //! number of requests in waitings_requests
-    semaphore num_waiting_requests_, num_free_events_, num_posted_requests_;
+    //! \}
 
-    // two threads, one for posting, one for waiting
-    std::thread post_thread_, wait_thread_;
-    shared_state<thread_state> post_thread_state_, wait_thread_state_;
+private:
+    //! \defgroup Workers and thread handling
+    //! \{
 
-    // Why do we need two threads, one for posting, and one for waiting?  Is
-    // one not enough?
-    // 1. User call cannot io_submit directly, since this tends to take
-    //    considerable time sometimes
-    // 2. A single thread cannot wait for the user program to post requests
-    //    and the OS to produce I/O completion events at the same time
-    //    (IOCB_CMD_NOOP does not seem to help here either)
-
-    static const priority_op priority_op_ = WRITE;
-
-    static void * post_async(void* arg);   // thread start callback
-    static void * wait_async(void* arg);   // thread start callback
+    // The posting thread submits waiting requests to the OS (and may handle
+    // the completion of requests)
+    std::thread post_thread_;
+    shared_state<thread_state> post_thread_state_{NOT_RUNNING};
+    std::condition_variable post_thread_cv_;
     void post_requests();
-    void handle_events(io_event* events, long num_events, bool canceled);
+
+    // The wait thread uses syscall(getevents) to handle the completion of requests
+    std::thread wait_thread_;
+    shared_state<thread_state> wait_thread_state_{NOT_RUNNING};
+    std::condition_variable wait_thread_cv_;
     void wait_requests();
-    void suspend();
 
-    // needed by linuxaio_request
-    aio_context_t get_io_context() { return context_; }
+    void handle_events(io_event* events, long num_events, bool canceled);
 
+    //! \}
+
+private:
+    //! \defgroup Statistics
+    //! \{
+
+    // Some statistics, in case we want it. This code is rather experimental and
+    // it is unclear whether we want it in production builds; for the moment its
+    // the easiest solution
 #if FOXXLL_LINUXAIO_QUEUE_STATS
     std::atomic_int64_t stat_requests_added_ {0};
     std::atomic_int64_t stat_requests_delayed_ {0};
@@ -100,15 +124,16 @@ private:
     std::atomic_int64_t stat_syscall_getevents_ {0};
     std::atomic_int64_t stat_syscall_cancel_ {0};
 #endif
+    //! \}
 
 public:
     //! Construct queue. Requests max number of requests simultaneously
     //! submitted to disk, 0 means as many as possible
-    explicit linuxaio_queue(int desired_queue_length = 0);
+    explicit linuxaio_queue(size_t desired_queue_length = 0);
 
     void add_request(request_ptr& req) final;
     bool cancel_request(request_ptr& req) final;
-    void complete_request(request_ptr& req);
+
     ~linuxaio_queue();
 };
 
