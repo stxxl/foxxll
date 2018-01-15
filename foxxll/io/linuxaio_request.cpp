@@ -36,7 +36,8 @@ void linuxaio_request::completed(bool posted, bool canceled)
     {
         if (op_ == READ) {
             stats->read_op_finished(bytes_, duration);
-        } else {
+        }
+        else {
             stats->write_op_finished(bytes_, duration);
         }
     }

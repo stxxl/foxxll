@@ -18,15 +18,15 @@
 
 #if STXXL_HAVE_LINUXAIO_FILE
 
-#include <tlx/ring_buffer.hpp>
-#include <foxxll/io/request_target.hpp>
-#include <foxxll/io/request_queue_impl_worker.hpp>
-
-#include <linux/aio_abi.h>
-
 #include <atomic>
 #include <list>
 #include <mutex>
+
+#include <foxxll/io/request_queue_impl_worker.hpp>
+#include <foxxll/io/request_target.hpp>
+#include <tlx/ring_buffer.hpp>
+
+#include <linux/aio_abi.h>
 
 #define FOXXLL_LINUXAIO_QUEUE_STATS 1
 
@@ -83,7 +83,7 @@ private:
     queue_type delayed_requests_;
 
     //! Number of requests posted to the kernel and not yet completed
-    std::atomic_int64_t no_requests_posted_ {0};
+    std::atomic_int64_t no_requests_posted_ { 0 };
 
     //! \}
 
@@ -94,13 +94,13 @@ private:
     // The posting thread submits waiting requests to the OS (and may handle
     // the completion of requests)
     std::thread post_thread_;
-    shared_state<thread_state> post_thread_state_{NOT_RUNNING};
+    shared_state<thread_state> post_thread_state_ { NOT_RUNNING };
     std::condition_variable post_thread_cv_;
     void post_requests();
 
     // The wait thread uses syscall(getevents) to handle the completion of requests
     std::thread wait_thread_;
-    shared_state<thread_state> wait_thread_state_{NOT_RUNNING};
+    shared_state<thread_state> wait_thread_state_ { NOT_RUNNING };
     std::condition_variable wait_thread_cv_;
     void wait_requests();
 
@@ -116,13 +116,13 @@ private:
     // it is unclear whether we want it in production builds; for the moment its
     // the easiest solution
 #if FOXXLL_LINUXAIO_QUEUE_STATS
-    std::atomic_int64_t stat_requests_added_ {0};
-    std::atomic_int64_t stat_requests_delayed_ {0};
-    std::atomic_int64_t stat_syscall_submit_ {0};
-    std::atomic_int64_t stat_syscall_submit_repeat_ {0};
-    std::atomic_int64_t stat_syscall_failed_post_ {0};
-    std::atomic_int64_t stat_syscall_getevents_ {0};
-    std::atomic_int64_t stat_syscall_cancel_ {0};
+    std::atomic<std::int64_t> stat_requests_added_ { 0 };
+    std::atomic<std::int64_t> stat_requests_delayed_ { 0 };
+    std::atomic<std::int64_t> stat_syscall_submit_ { 0 };
+    std::atomic<std::int64_t> stat_syscall_submit_repeat_ { 0 };
+    std::atomic<std::int64_t> stat_syscall_failed_post_ { 0 };
+    std::atomic<std::int64_t> stat_syscall_getevents_ { 0 };
+    std::atomic<std::int64_t> stat_syscall_cancel_ { 0 };
 #endif
     //! \}
 

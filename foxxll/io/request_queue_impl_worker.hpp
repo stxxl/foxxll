@@ -46,7 +46,6 @@ protected:
 
     void stop_thread(
         std::thread& t, shared_state<thread_state>& s, semaphore& sem);
-
 };
 
 //! \}

@@ -98,13 +98,15 @@ public:
             throw *(error_.get());
     }
 
-    bool overlaps_with(const request& o) const {
+    bool overlaps_with(const request& o) const
+    {
         return (file_ == o.file_) && (
             ((offset_ <= o.offset_) && (o.offset_ < (offset_ + bytes_)))
             || ((o.offset_ <= offset_) && (offset_ < (o.offset_ + o.bytes_))));
     }
 
-    bool contains(const request& o) const {
+    bool contains(const request& o) const
+    {
         return (file_ == o.file_)
                && (offset_ <= o.offset_)
                && ((offset_ + bytes_) >= (o.offset_ + o.bytes_));

@@ -39,7 +39,7 @@ void request_queue_impl_worker::start_thread(
 }
 
 void request_queue_impl_worker::stop_thread_with_callback
-    (std::thread &t, shared_state<thread_state> &s,
+    (std::thread& t, shared_state<thread_state>& s,
     std::function<void()> f)
 {
     assert(s() == RUNNING);
@@ -66,10 +66,10 @@ void request_queue_impl_worker::stop_thread_with_callback
 }
 
 void request_queue_impl_worker::stop_thread(
-    std::thread& t, shared_state<thread_state>& s, semaphore& sem) {
-
+    std::thread& t, shared_state<thread_state>& s, semaphore& sem)
+{
     auto semptr = &sem;
-    stop_thread_with_callback(t, s, [=](){semptr->signal();});
+    stop_thread_with_callback(t, s, [=]() { semptr->signal(); });
 }
 
 } // namespace foxxll

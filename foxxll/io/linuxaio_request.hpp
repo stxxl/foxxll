@@ -62,7 +62,7 @@ public:
     void completed(bool posted, bool canceled);
     void completed(bool canceled) { completed(true, canceled); }
 
-    iocb& control_block() {return cb_;}
+    iocb & control_block() { return cb_; }
 };
 
 //! \}

@@ -23,19 +23,18 @@
 
 #include <algorithm>
 
+#include <cstring>
 #include <sys/syscall.h>
 #include <unistd.h>
-#include <cstring>
 
 #ifndef STXXL_CHECK_FOR_PENDING_REQUESTS_ON_SUBMISSION
 #define STXXL_CHECK_FOR_PENDING_REQUESTS_ON_SUBMISSION 1
 #endif
 
-
 #if FOXXLL_LINUXAIO_QUEUE_STATS
 #define FOXXLL_LINUXAIO_IF_STAT(X) X
 #else
-#define FOXXLL_LINUXAIO_IF_STAT(X) {};
+#define FOXXLL_LINUXAIO_IF_STAT(X) { };
 #endif
 
 namespace foxxll {
@@ -47,37 +46,38 @@ linuxaio_queue::linuxaio_queue(size_t desired_queue_length)
 
     // Workaround for deadlock bug in Visual C++ Runtime 2012 and 2013, see
     // request_queue_impl_worker.cpp. -tb
-    auto graceful_thread_death = [] () {
+    auto graceful_thread_death =
+        []() {
 #if STXXL_MSVC >= 1700
-        ExitThread(nullptr);
+            ExitThread(nullptr);
 #endif
-        return nullptr;
-    };
+            return nullptr;
+        };
 
-    start_thread([&] (void*) -> void* {
-        post_requests();
-        post_thread_state_.set_to(TERMINATED);
-        return graceful_thread_death();
-    }, nullptr, post_thread_, post_thread_state_);
+    start_thread([&](void*) -> void* {
+                     post_requests();
+                     post_thread_state_.set_to(TERMINATED);
+                     return graceful_thread_death();
+                 }, nullptr, post_thread_, post_thread_state_);
 
-    start_thread([&] (void*) -> void* {
-        wait_requests();
-        wait_thread_state_.set_to(TERMINATED);
-        return graceful_thread_death();
-    }, nullptr, wait_thread_, wait_thread_state_);
+    start_thread([&](void*) -> void* {
+                     wait_requests();
+                     wait_thread_state_.set_to(TERMINATED);
+                     return graceful_thread_death();
+                 }, nullptr, wait_thread_, wait_thread_state_);
 }
 
 linuxaio_queue::~linuxaio_queue()
 {
-    stop_thread_with_callback(post_thread_, post_thread_state_, [this] () {
-        std::unique_lock<std::mutex> lock_wait(waiting_mtx_);
-        post_thread_cv_.notify_one();
-    });
+    stop_thread_with_callback(post_thread_, post_thread_state_, [this]() {
+                                  std::unique_lock<std::mutex> lock_wait(waiting_mtx_);
+                                  post_thread_cv_.notify_one();
+                              });
 
-    stop_thread_with_callback(wait_thread_, wait_thread_state_, [this] () {
-        std::unique_lock<std::mutex> lock_post(posted_mtx_);
-        wait_thread_cv_.notify_one();
-    });
+    stop_thread_with_callback(wait_thread_, wait_thread_state_, [this]() {
+                                  std::unique_lock<std::mutex> lock_post(posted_mtx_);
+                                  wait_thread_cv_.notify_one();
+                              });
 
     syscall(SYS_io_destroy, context_);
 
@@ -85,18 +85,19 @@ linuxaio_queue::~linuxaio_queue()
     STXXL_MSG(
         "linuxaio stats:\n"
         " requests:         " << stat_requests_added_ << "\n"
-        " submit:           " << stat_syscall_submit_ << "\n"
-        " reqs/submit:      " << (static_cast<double>(stat_requests_added_) / stat_syscall_submit_) << "\n"
-        " delayed:          " << stat_requests_delayed_ << "\n"
-        " submit(repeated): " << stat_syscall_submit_repeat_ << "\n"
-        " submit(empty)   : " << stat_syscall_failed_post_ << "\n"
-        " getevents:        " << stat_syscall_getevents_ << "\n"
-        " cancel:           " << stat_syscall_cancel_ << "\n"
-    );
+            " submit:           " << stat_syscall_submit_ << "\n"
+            " reqs/submit:      " << (static_cast<double>(stat_requests_added_) / stat_syscall_submit_) << "\n"
+            " delayed:          " << stat_requests_delayed_ << "\n"
+            " submit(repeated): " << stat_syscall_submit_repeat_ << "\n"
+            " submit(empty)   : " << stat_syscall_failed_post_ << "\n"
+            " getevents:        " << stat_syscall_getevents_ << "\n"
+            " cancel:           " << stat_syscall_cancel_ << "\n"
+        );
 #endif
 }
 
-size_t linuxaio_queue::setup_context(size_t requested) {
+size_t linuxaio_queue::setup_context(size_t requested)
+{
     size_t queue_length = requested ? requested : 64;
     if (queue_length > std::numeric_limits<unsigned>::max())
         queue_length = std::numeric_limits<unsigned>::max();
@@ -104,7 +105,7 @@ size_t linuxaio_queue::setup_context(size_t requested) {
     context_ = 0;
 
     // negotiate maximum number of simultaneous events with the OS
-    while(true) {
+    while (true) {
         long result = syscall(SYS_io_setup, queue_length, &context_);
 
         if (result == 0) {
@@ -118,7 +119,7 @@ size_t linuxaio_queue::setup_context(size_t requested) {
         }
 
         STXXL_THROW_ERRNO(io_error, "linuxaio_queue::linuxaio_queue"
-            " io_setup() nr_events=" << queue_length);
+                          " io_setup() nr_events=" << queue_length);
     }
 }
 
@@ -146,7 +147,7 @@ bool linuxaio_queue::cancel_request(request_ptr& req)
     if (post_thread_state_() != RUNNING)
         STXXL_ERRMSG("Request canceled in stopped queue.");
 
-    auto* aio_req = dynamic_cast<linuxaio_request *>(req.get());
+    auto* aio_req = dynamic_cast<linuxaio_request*>(req.get());
     if (!aio_req)
         STXXL_ERRMSG("Non-LinuxAIO request submitted to LinuxAIO queue.");
 
@@ -191,7 +192,8 @@ bool linuxaio_queue::cancel_request(request_ptr& req)
                 if (result == 0) {
                     //successfully canceled
                     handle_events(&event, 1, true);
-                } else {
+                }
+                else {
                     return false;
                 }
             }
@@ -207,16 +209,15 @@ void linuxaio_queue::post_requests()
     queue_type local_queue;
 
     std::unique_ptr<io_event[]> events(new io_event[os_queue_length_]);
-    std::unique_ptr<iocb*[]>    cbps(new iocb*[os_queue_length_]);
+    std::unique_ptr<iocb*[]> cbps(new iocb*[os_queue_length_]);
 
     for ( ; ; ) // as long as thread is running
     {
         std::unique_lock<std::mutex> lock_wait(waiting_mtx_);
-        post_thread_cv_.wait(lock_wait, [this] () {
-            return
-                ((!waiting_requests_.empty() || !delayed_requests_.empty()) && no_requests_posted_ < static_cast<int64_t>(os_queue_length_))
-                || (post_thread_state_() == TERMINATING);
-        });
+        post_thread_cv_.wait(lock_wait, [this]() {
+                                 return ((!waiting_requests_.empty() || !delayed_requests_.empty()) && no_requests_posted_ < static_cast<int64_t>(os_queue_length_))
+                                 || (post_thread_state_() == TERMINATING);
+                             });
 
         // terminate if termination has been requested
         if (post_thread_state_() == TERMINATING
@@ -230,25 +231,27 @@ void linuxaio_queue::post_requests()
             std::unique_lock<std::mutex> lock_post(posted_mtx_);
 
             // first of all: remove all completed requests from posted -- the queue does not need them anymore
-            posted_requests_.remove_if([] (const auto& x) {return x.get()->poll();});
+            posted_requests_.remove_if([](const auto& x) { return x.get()->poll(); });
 
             // we have a conflict if two requests target the same range and at least one is a write
-            auto is_conflicting = [](const queue_type &queue, const request &req) {
-                auto in_conflict = [&req](const request_ptr& o) {
-                    return req.overlaps_with(*(o.get()))
-                           && !(req.get_op() == request::READ && o.get()->get_op() == request::READ );};
+            auto is_conflicting =
+                [](const queue_type& queue, const request& req) {
+                    auto in_conflict = [&req](const request_ptr& o) {
+                                           return req.overlaps_with(*(o.get()))
+                                                  && !(req.get_op() == request::READ && o.get()->get_op() == request::READ);
+                                       };
 
-                auto it = std::find_if(queue.cbegin(), queue.cend(), in_conflict);
-                return it != queue.cend();
-            };
+                    auto it = std::find_if(queue.cbegin(), queue.cend(), in_conflict);
+                    return it != queue.cend();
+                };
 
-            auto local_queue_at_max_size = [&] () {
-                return static_cast<int64_t>(local_queue.size()) + no_requests_posted_ >= static_cast<int64_t>(os_queue_length_);
-            };
+            auto local_queue_at_max_size = [&]() {
+                                               return static_cast<int64_t>(local_queue.size()) + no_requests_posted_ >= static_cast<int64_t>(os_queue_length_);
+                                           };
 
             // at first we cherry-pick all delayed requests that are not conflicting anymore
-            for (auto it = delayed_requests_.begin(); it != delayed_requests_.cend() && !local_queue_at_max_size();) {
-                const request &req = *(it->get());
+            for (auto it = delayed_requests_.begin(); it != delayed_requests_.cend() && !local_queue_at_max_size(); ) {
+                const request& req = *(it->get());
 
                 if (is_conflicting(posted_requests_, req)) {
                     std::advance(it, 1);
@@ -262,7 +265,7 @@ void linuxaio_queue::post_requests()
 
             // now we fill the remaining slots with waiting requests (or move them to delayed if they are conflicting)
             while (!local_queue_at_max_size() && !waiting_requests_.empty()) {
-                const request &req = *(waiting_requests_.front().get());
+                const request& req = *(waiting_requests_.front().get());
 
                 if (is_conflicting(posted_requests_, req) ||
                     is_conflicting(local_queue, req)) {
@@ -286,8 +289,8 @@ void linuxaio_queue::post_requests()
         // and the cbps data structure pointing to those
         {
             size_t i = 0;
-            for (request_ptr &ptr : local_queue) {
-                auto &req = *dynamic_cast<linuxaio_request *>(ptr.get());
+            for (request_ptr& ptr : local_queue) {
+                auto& req = *dynamic_cast<linuxaio_request*>(ptr.get());
                 req.prepare_post();
                 cbps[i++] = &req.control_block();
             }
@@ -298,9 +301,9 @@ void linuxaio_queue::post_requests()
         size_t already_posted = 0;
         while (!local_queue.empty()) {
             long result = syscall(SYS_io_submit, context_,
-                                  local_queue.size(), // number of requests to post
+                                  local_queue.size(),           // number of requests to post
                                   (cbps.get() + already_posted) // pointer to their control blocks
-            );
+                                  );
             FOXXLL_LINUXAIO_IF_STAT(stat_syscall_submit_++);
             STXXL_VERBOSE_LINUXAIO("Posted " << local_queue.size() << " requests; result=" << result);
 
@@ -336,7 +339,7 @@ void linuxaio_queue::post_requests()
             FOXXLL_LINUXAIO_IF_STAT(stat_syscall_getevents_++);
             if (num_events < 0) {
                 STXXL_THROW_ERRNO(io_error, "linuxaio_queue::post_requests"
-                    " io_getevents() nr_events=" << num_events);
+                                  " io_getevents() nr_events=" << num_events);
             }
 
             handle_events(events.get(), num_events, false);
@@ -369,15 +372,14 @@ void linuxaio_queue::wait_requests()
         {
             std::unique_lock<std::mutex> lock_post(posted_mtx_);
             wait_thread_cv_.wait(lock_post, [this]() {
-                return (no_requests_posted_ > 0) || (wait_thread_state_() == TERMINATING);
-            });
+                                     return (no_requests_posted_ > 0) || (wait_thread_state_() == TERMINATING);
+                                 });
         }
 
         // terminate if termination has been requested
         // TODO: Also check that no requests are waiting
         if (wait_thread_state_() == TERMINATING && no_requests_posted_ == 0)
             break;
-
 
         long num_events = syscall(SYS_io_getevents, context_, 1, os_queue_length_, events.get(), nullptr);
         FOXXLL_LINUXAIO_IF_STAT(stat_syscall_getevents_++);
@@ -388,7 +390,7 @@ void linuxaio_queue::wait_requests()
             // We hence just poll again; otherwise report the error to the user
             if (errno != EINTR) {
                 STXXL_THROW_ERRNO(io_error, "linuxaio_queue::wait_requests"
-                    " io_getevents() nr_events=" << os_queue_length_);
+                                  " io_getevents() nr_events=" << os_queue_length_);
             }
 
             continue;
