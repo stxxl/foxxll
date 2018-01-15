@@ -22,8 +22,8 @@
 
 namespace foxxll {
 
-typedef uint64_t external_size_type;       // may require external memory
-typedef int64_t external_diff_type;        // may require external memory
+using external_size_type = uint64_t;       // may require external memory
+using external_diff_type = int64_t;        // may require external memory
 
 //! Return the given value casted to the corresponding unsigned type
 template <typename Integral>
