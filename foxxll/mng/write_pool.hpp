@@ -11,8 +11,8 @@
  *  http://www.boost.org/LICENSE_1_0.txt)
  **************************************************************************/
 
-#ifndef STXXL_MNG_WRITE_POOL_HEADER
-#define STXXL_MNG_WRITE_POOL_HEADER
+#ifndef FOXXLL_MNG_WRITE_POOL_HEADER
+#define FOXXLL_MNG_WRITE_POOL_HEADER
 
 #include <algorithm>
 #include <list>
@@ -292,5 +292,5 @@ void swap(foxxll::write_pool<BlockType>& a,
 
 } // namespace std
 
-#endif // !STXXL_MNG_WRITE_POOL_HEADER
+#endif // !FOXXLL_MNG_WRITE_POOL_HEADER
 // vim: et:ts=4:sw=4

@@ -12,8 +12,8 @@
  *  http://www.boost.org/LICENSE_1_0.txt)
  **************************************************************************/
 
-#ifndef STXXL_IO_REQUEST_HEADER
-#define STXXL_IO_REQUEST_HEADER
+#ifndef FOXXLL_IO_REQUEST_HEADER
+#define FOXXLL_IO_REQUEST_HEADER
 
 #include <cassert>
 #include <functional>
@@ -117,5 +117,5 @@ std::ostream& operator << (std::ostream& out, const request& req);
 
 } // namespace foxxll
 
-#endif // !STXXL_IO_REQUEST_HEADER
+#endif // !FOXXLL_IO_REQUEST_HEADER
 // vim: et:ts=4:sw=4

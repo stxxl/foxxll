@@ -11,8 +11,8 @@
  *  http://www.boost.org/LICENSE_1_0.txt)
  **************************************************************************/
 
-#ifndef STXXL_MNG_PREFETCH_POOL_HEADER
-#define STXXL_MNG_PREFETCH_POOL_HEADER
+#ifndef FOXXLL_MNG_PREFETCH_POOL_HEADER
+#define FOXXLL_MNG_PREFETCH_POOL_HEADER
 
 #include <algorithm>
 #include <list>
@@ -390,5 +390,5 @@ void swap(foxxll::prefetch_pool<BlockType>& a,
 
 } // namespace std
 
-#endif // !STXXL_MNG_PREFETCH_POOL_HEADER
+#endif // !FOXXLL_MNG_PREFETCH_POOL_HEADER
 // vim: et:ts=4:sw=4

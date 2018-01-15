@@ -11,8 +11,8 @@
  *  http://www.boost.org/LICENSE_1_0.txt)
  **************************************************************************/
 
-#ifndef STXXL_IO_IO_HEADER
-#define STXXL_IO_IO_HEADER
+#ifndef FOXXLL_IO_HEADER
+#define FOXXLL_IO_HEADER
 
 #include <foxxll/common/aligned_alloc.hpp>
 #include <foxxll/io/create_file.hpp>
@@ -35,4 +35,4 @@ namespace foxxll {
 
 } // namespace foxxll
 
-#endif // !STXXL_IO_IO_HEADER
+#endif // !FOXXLL_IO_HEADER

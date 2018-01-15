@@ -10,8 +10,8 @@
  *  http://www.boost.org/LICENSE_1_0.txt)
  **************************************************************************/
 
-#ifndef STXXL_LIBSTXXL_HEADER
-#define STXXL_LIBSTXXL_HEADER
+#ifndef FOXXLL_LIBSTXXL_HEADER
+#define FOXXLL_LIBSTXXL_HEADER
 
 #include <foxxll/config.hpp>
 
@@ -22,4 +22,4 @@
 //-tb #pragma comment (lib, "lib" STXXL_LIBNAME ".lib")
 #endif
 
-#endif // !STXXL_LIBSTXXL_HEADER
+#endif // !FOXXLL_LIBSTXXL_HEADER

@@ -10,8 +10,8 @@
  *  http://www.boost.org/LICENSE_1_0.txt)
  **************************************************************************/
 
-#ifndef STXXL_COMMON_ADDRESSABLE_QUEUES_HEADER
-#define STXXL_COMMON_ADDRESSABLE_QUEUES_HEADER
+#ifndef FOXXLL_COMMON_ADDRESSABLE_QUEUES_HEADER
+#define FOXXLL_COMMON_ADDRESSABLE_QUEUES_HEADER
 
 #include <cassert>
 #include <functional>
@@ -201,4 +201,4 @@ public:
 
 } // namespace foxxll
 
-#endif // !STXXL_COMMON_ADDRESSABLE_QUEUES_HEADER
+#endif // !FOXXLL_COMMON_ADDRESSABLE_QUEUES_HEADER

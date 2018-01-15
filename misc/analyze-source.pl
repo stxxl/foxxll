@@ -272,17 +272,16 @@ sub process_cpp {
     expect($path, $i, @data, " ".('*'x74)."/\n"); ++$i;
 
     # check include guard name
-    if ($path =~ m!^include/stxxl/bits/.*\.(h|h.in)$!)
+    if ($path =~ m!^foxxll/.*\.(hpp|hpp.in)$!)
     {
         expect($path, $i, @data, "\n"); ++$i;
 
-        # construct include guard macro name: STXXL_FILE_NAME_HEADER
+        # construct include guard macro name: FOXXLL_FILE_NAME_HEADER
         my $guard = $path;
-        $guard =~ s!include/stxxl/bits/!stxxl/!;
         $guard =~ tr!/!_!;
-        $guard =~ s!\.h(\.in)?$!!;
+        $guard =~ s!\.hpp(\.in)?$!!;
         $guard = uc($guard)."_HEADER";
-        #print $guard."\n";
+        print $guard."\n";
 
         expectr($path, $i, @data, "#ifndef $guard\n", qr/^#ifndef /); ++$i;
         expectr($path, $i, @data, "#define $guard\n", qr/^#define /); ++$i;

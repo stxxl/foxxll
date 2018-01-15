@@ -15,8 +15,8 @@
  *  http://www.boost.org/LICENSE_1_0.txt)
  **************************************************************************/
 
-#ifndef STXXL_MNG_TYPED_BLOCK_HEADER
-#define STXXL_MNG_TYPED_BLOCK_HEADER
+#ifndef FOXXLL_MNG_TYPED_BLOCK_HEADER
+#define FOXXLL_MNG_TYPED_BLOCK_HEADER
 
 #include <foxxll/common/aligned_alloc.hpp>
 #include <foxxll/config.hpp>
@@ -386,5 +386,5 @@ public:
 
 } // namespace foxxll
 
-#endif // !STXXL_MNG_TYPED_BLOCK_HEADER
+#endif // !FOXXLL_MNG_TYPED_BLOCK_HEADER
 // vim: et:ts=4:sw=4

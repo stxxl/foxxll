@@ -12,8 +12,8 @@
  *  http://www.boost.org/LICENSE_1_0.txt)
  **************************************************************************/
 
-#ifndef STXXL_DEFINES_HEADER
-#define STXXL_DEFINES_HEADER
+#ifndef FOXXLL_DEFINES_HEADER
+#define FOXXLL_DEFINES_HEADER
 
 //#define STXXL_HAVE_MMAP_FILE 0/1
 //#define STXXL_HAVE_WINCALL_FILE 0/1
@@ -85,4 +85,4 @@
 // used in deprecated.h
 // turns off deprecated warnings for some forced template instantiations
 
-#endif // !STXXL_DEFINES_HEADER
+#endif // !FOXXLL_DEFINES_HEADER

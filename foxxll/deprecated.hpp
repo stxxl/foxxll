@@ -11,8 +11,8 @@
  *  http://www.boost.org/LICENSE_1_0.txt)
  **************************************************************************/
 
-#ifndef STXXL_DEPRECATED_HEADER
-#define STXXL_DEPRECATED_HEADER
+#ifndef FOXXLL_DEPRECATED_HEADER
+#define FOXXLL_DEPRECATED_HEADER
 
 #include <foxxll/config.hpp>
 
@@ -30,5 +30,5 @@
   #define STXXL_DEPRECATED(x) x __attribute__ ((__deprecated__))
 #endif
 
-#endif // !STXXL_DEPRECATED_HEADER
+#endif // !FOXXLL_DEPRECATED_HEADER
 // vim: et:ts=4:sw=4

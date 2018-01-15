@@ -11,8 +11,8 @@
  *  http://www.boost.org/LICENSE_1_0.txt)
  **************************************************************************/
 
-#ifndef STXXL_COMMON_SEMAPHORE_HEADER
-#define STXXL_COMMON_SEMAPHORE_HEADER
+#ifndef FOXXLL_COMMON_SEMAPHORE_HEADER
+#define FOXXLL_COMMON_SEMAPHORE_HEADER
 
 #include <condition_variable>
 #include <mutex>
@@ -79,4 +79,4 @@ private:
 
 } // namespace foxxll
 
-#endif // !STXXL_COMMON_SEMAPHORE_HEADER
+#endif // !FOXXLL_COMMON_SEMAPHORE_HEADER

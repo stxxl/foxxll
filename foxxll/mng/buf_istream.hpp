@@ -10,8 +10,8 @@
  *  http://www.boost.org/LICENSE_1_0.txt)
  **************************************************************************/
 
-#ifndef STXXL_MNG_BUF_ISTREAM_HEADER
-#define STXXL_MNG_BUF_ISTREAM_HEADER
+#ifndef FOXXLL_MNG_BUF_ISTREAM_HEADER
+#define FOXXLL_MNG_BUF_ISTREAM_HEADER
 
 #include <algorithm>
 
@@ -160,4 +160,4 @@ public:
 
 } // namespace foxxll
 
-#endif // !STXXL_MNG_BUF_ISTREAM_HEADER
+#endif // !FOXXLL_MNG_BUF_ISTREAM_HEADER

@@ -10,8 +10,8 @@
  *  http://www.boost.org/LICENSE_1_0.txt)
  **************************************************************************/
 
-#ifndef STXXL_MNG_BUF_OSTREAM_HEADER
-#define STXXL_MNG_BUF_OSTREAM_HEADER
+#ifndef FOXXLL_MNG_BUF_OSTREAM_HEADER
+#define FOXXLL_MNG_BUF_OSTREAM_HEADER
 
 #include <foxxll/mng/buf_writer.hpp>
 
@@ -128,4 +128,4 @@ public:
 
 } // namespace foxxll
 
-#endif // !STXXL_MNG_BUF_OSTREAM_HEADER
+#endif // !FOXXLL_MNG_BUF_OSTREAM_HEADER

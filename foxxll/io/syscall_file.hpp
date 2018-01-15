@@ -13,8 +13,8 @@
  *  http://www.boost.org/LICENSE_1_0.txt)
  **************************************************************************/
 
-#ifndef STXXL_IO_SYSCALL_FILE_HEADER
-#define STXXL_IO_SYSCALL_FILE_HEADER
+#ifndef FOXXLL_IO_SYSCALL_FILE_HEADER
+#define FOXXLL_IO_SYSCALL_FILE_HEADER
 
 #include <string>
 
@@ -58,4 +58,4 @@ public:
 
 } // namespace foxxll
 
-#endif // !STXXL_IO_SYSCALL_FILE_HEADER
+#endif // !FOXXLL_IO_SYSCALL_FILE_HEADER

@@ -10,8 +10,8 @@
  *  http://www.boost.org/LICENSE_1_0.txt)
  **************************************************************************/
 
-#ifndef STXXL_MNG_BLOCK_SCHEDULER_HEADER
-#define STXXL_MNG_BLOCK_SCHEDULER_HEADER
+#ifndef FOXXLL_MNG_BLOCK_SCHEDULER_HEADER
+#define FOXXLL_MNG_BLOCK_SCHEDULER_HEADER
 
 #include <algorithm>
 #include <deque>
@@ -1858,4 +1858,4 @@ public:
 
 } // namespace foxxll
 
-#endif // !STXXL_MNG_BLOCK_SCHEDULER_HEADER
+#endif // !FOXXLL_MNG_BLOCK_SCHEDULER_HEADER

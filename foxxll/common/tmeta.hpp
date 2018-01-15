@@ -14,8 +14,8 @@
  *  http://www.boost.org/LICENSE_1_0.txt)
  **************************************************************************/
 
-#ifndef STXXL_COMMON_TMETA_HEADER
-#define STXXL_COMMON_TMETA_HEADER
+#ifndef FOXXLL_COMMON_TMETA_HEADER
+#define FOXXLL_COMMON_TMETA_HEADER
 
 #include <type_traits>
 
@@ -61,4 +61,4 @@ public:
 
 } // namespace foxxll
 
-#endif // !STXXL_COMMON_TMETA_HEADER
+#endif // !FOXXLL_COMMON_TMETA_HEADER

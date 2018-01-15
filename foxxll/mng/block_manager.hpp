@@ -12,8 +12,8 @@
  *  http://www.boost.org/LICENSE_1_0.txt)
  **************************************************************************/
 
-#ifndef STXXL_MNG_BLOCK_MANAGER_HEADER
-#define STXXL_MNG_BLOCK_MANAGER_HEADER
+#ifndef FOXXLL_MNG_BLOCK_MANAGER_HEADER
+#define FOXXLL_MNG_BLOCK_MANAGER_HEADER
 
 #include <algorithm>
 #include <cstdlib>
@@ -285,5 +285,5 @@ struct dummy_default_block_size
 
 } // namespace foxxll
 
-#endif // !STXXL_MNG_BLOCK_MANAGER_HEADER
+#endif // !FOXXLL_MNG_BLOCK_MANAGER_HEADER
 // vim: et:ts=4:sw=4

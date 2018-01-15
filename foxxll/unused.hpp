@@ -11,8 +11,8 @@
  *  http://www.boost.org/LICENSE_1_0.txt)
  **************************************************************************/
 
-#ifndef STXXL_UNUSED_HEADER
-#define STXXL_UNUSED_HEADER
+#ifndef FOXXLL_UNUSED_HEADER
+#define FOXXLL_UNUSED_HEADER
 
 namespace foxxll {
 
@@ -22,5 +22,5 @@ inline void STXXL_UNUSED(const U&)
 
 } // namespace foxxll
 
-#endif // !STXXL_UNUSED_HEADER
+#endif // !FOXXLL_UNUSED_HEADER
 // vim: et:ts=4:sw=4

@@ -10,8 +10,8 @@
  *  http://www.boost.org/LICENSE_1_0.txt)
  **************************************************************************/
 
-#ifndef STXXL_SINGLETON_HEADER
-#define STXXL_SINGLETON_HEADER
+#ifndef FOXXLL_SINGLETON_HEADER
+#define FOXXLL_SINGLETON_HEADER
 
 #include <cstdlib>
 #include <mutex>
@@ -78,4 +78,4 @@ singleton<INSTANCE, destroy_on_exit>::instance = nullptr;
 
 } // namespace foxxll
 
-#endif // !STXXL_SINGLETON_HEADER
+#endif // !FOXXLL_SINGLETON_HEADER

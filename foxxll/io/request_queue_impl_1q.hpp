@@ -12,8 +12,8 @@
  *  http://www.boost.org/LICENSE_1_0.txt)
  **************************************************************************/
 
-#ifndef STXXL_IO_REQUEST_QUEUE_IMPL_1Q_HEADER
-#define STXXL_IO_REQUEST_QUEUE_IMPL_1Q_HEADER
+#ifndef FOXXLL_IO_REQUEST_QUEUE_IMPL_1Q_HEADER
+#define FOXXLL_IO_REQUEST_QUEUE_IMPL_1Q_HEADER
 
 #include <list>
 #include <mutex>
@@ -67,5 +67,5 @@ public:
 
 } // namespace foxxll
 
-#endif // !STXXL_IO_REQUEST_QUEUE_IMPL_1Q_HEADER
+#endif // !FOXXLL_IO_REQUEST_QUEUE_IMPL_1Q_HEADER
 // vim: et:ts=4:sw=4

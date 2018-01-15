@@ -11,8 +11,8 @@
  *  http://www.boost.org/LICENSE_1_0.txt)
  **************************************************************************/
 
-#ifndef STXXL_COMMON_EXCEPTIONS_HEADER
-#define STXXL_COMMON_EXCEPTIONS_HEADER
+#ifndef FOXXLL_COMMON_EXCEPTIONS_HEADER
+#define FOXXLL_COMMON_EXCEPTIONS_HEADER
 
 #include <iostream>
 #include <stdexcept>
@@ -82,5 +82,5 @@ public:
 
 } // namespace foxxll
 
-#endif // !STXXL_COMMON_EXCEPTIONS_HEADER
+#endif // !FOXXLL_COMMON_EXCEPTIONS_HEADER
 // vim: et:ts=4:sw=4

@@ -14,8 +14,8 @@
  *  http://www.boost.org/LICENSE_1_0.txt)
  **************************************************************************/
 
-#ifndef STXXL_IO_WFS_FILE_BASE_HEADER
-#define STXXL_IO_WFS_FILE_BASE_HEADER
+#ifndef FOXXLL_IO_WFS_FILE_BASE_HEADER
+#define FOXXLL_IO_WFS_FILE_BASE_HEADER
 
 #include <foxxll/config.hpp>
 
@@ -62,4 +62,4 @@ public:
 
 #endif // STXXL_WINDOWS
 
-#endif // !STXXL_IO_WFS_FILE_BASE_HEADER
+#endif // !FOXXLL_IO_WFS_FILE_BASE_HEADER

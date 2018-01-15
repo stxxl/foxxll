@@ -13,8 +13,8 @@
  *  http://www.boost.org/LICENSE_1_0.txt)
  **************************************************************************/
 
-#ifndef STXXL_COMMON_UTILS_HEADER
-#define STXXL_COMMON_UTILS_HEADER
+#ifndef FOXXLL_COMMON_UTILS_HEADER
+#define FOXXLL_COMMON_UTILS_HEADER
 
 #include <algorithm>
 #include <cmath>
@@ -183,5 +183,5 @@ inline typename Container::value_type pop_begin(Container& c)
 
 } // namespace foxxll
 
-#endif // !STXXL_COMMON_UTILS_HEADER
+#endif // !FOXXLL_COMMON_UTILS_HEADER
 // vim: et:ts=4:sw=4

@@ -11,8 +11,8 @@
  *  http://www.boost.org/LICENSE_1_0.txt)
  **************************************************************************/
 
-#ifndef STXXL_COMMON_TYPES_HEADER
-#define STXXL_COMMON_TYPES_HEADER
+#ifndef FOXXLL_COMMON_TYPES_HEADER
+#define FOXXLL_COMMON_TYPES_HEADER
 
 #include <cstddef>
 #include <cstdint>
@@ -41,4 +41,4 @@ typename std::make_signed<Integral>::type as_signed(Integral value)
 
 } // namespace foxxll
 
-#endif // !STXXL_COMMON_TYPES_HEADER
+#endif // !FOXXLL_COMMON_TYPES_HEADER

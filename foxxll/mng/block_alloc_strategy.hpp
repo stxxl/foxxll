@@ -11,8 +11,8 @@
  *  http://www.boost.org/LICENSE_1_0.txt)
  **************************************************************************/
 
-#ifndef STXXL_MNG_BLOCK_ALLOC_STRATEGY_HEADER
-#define STXXL_MNG_BLOCK_ALLOC_STRATEGY_HEADER
+#ifndef FOXXLL_MNG_BLOCK_ALLOC_STRATEGY_HEADER
+#define FOXXLL_MNG_BLOCK_ALLOC_STRATEGY_HEADER
 
 #include <algorithm>
 #include <random>
@@ -258,5 +258,5 @@ struct offset_allocator
 
 } // namespace foxxll
 
-#endif // !STXXL_MNG_BLOCK_ALLOC_STRATEGY_HEADER
+#endif // !FOXXLL_MNG_BLOCK_ALLOC_STRATEGY_HEADER
 // vim: et:ts=4:sw=4

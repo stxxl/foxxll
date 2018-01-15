@@ -13,8 +13,8 @@
  *  http://www.boost.org/LICENSE_1_0.txt)
  **************************************************************************/
 
-#ifndef STXXL_MNG_DISK_BLOCK_ALLOCATOR_HEADER
-#define STXXL_MNG_DISK_BLOCK_ALLOCATOR_HEADER
+#ifndef FOXXLL_MNG_DISK_BLOCK_ALLOCATOR_HEADER
+#define FOXXLL_MNG_DISK_BLOCK_ALLOCATOR_HEADER
 
 #include <algorithm>
 #include <cassert>
@@ -253,5 +253,5 @@ void disk_block_allocator::new_blocks(BIDIterator begin, BIDIterator end)
 
 } // namespace foxxll
 
-#endif // !STXXL_MNG_DISK_BLOCK_ALLOCATOR_HEADER
+#endif // !FOXXLL_MNG_DISK_BLOCK_ALLOCATOR_HEADER
 // vim: et:ts=4:sw=4

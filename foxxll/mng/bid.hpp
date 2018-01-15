@@ -13,8 +13,8 @@
  *  http://www.boost.org/LICENSE_1_0.txt)
  **************************************************************************/
 
-#ifndef STXXL_MNG_BID_HEADER
-#define STXXL_MNG_BID_HEADER
+#ifndef FOXXLL_MNG_BID_HEADER
+#define FOXXLL_MNG_BID_HEADER
 
 #include <cstring>
 #include <iomanip>
@@ -187,5 +187,5 @@ using BIDArray = tlx::simple_vector<BID<BlockSize> >;
 
 } // namespace foxxll
 
-#endif // !STXXL_MNG_BID_HEADER
+#endif // !FOXXLL_MNG_BID_HEADER
 // vim: et:ts=4:sw=4

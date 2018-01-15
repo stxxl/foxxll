@@ -11,8 +11,8 @@
  *  http://www.boost.org/LICENSE_1_0.txt)
  **************************************************************************/
 
-#ifndef STXXL_IO_REQUEST_WITH_STATE_HEADER
-#define STXXL_IO_REQUEST_WITH_STATE_HEADER
+#ifndef FOXXLL_IO_REQUEST_WITH_STATE_HEADER
+#define FOXXLL_IO_REQUEST_WITH_STATE_HEADER
 
 #include <foxxll/common/shared_state.hpp>
 #include <foxxll/io/request.hpp>
@@ -56,5 +56,5 @@ protected:
 
 } // namespace foxxll
 
-#endif // !STXXL_IO_REQUEST_WITH_STATE_HEADER
+#endif // !FOXXLL_IO_REQUEST_WITH_STATE_HEADER
 // vim: et:ts=4:sw=4

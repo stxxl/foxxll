@@ -13,8 +13,8 @@
  *  http://www.boost.org/LICENSE_1_0.txt)
  **************************************************************************/
 
-#ifndef STXXL_MNG_BLOCK_ALLOC_STRATEGY_INTERLEAVED_HEADER
-#define STXXL_MNG_BLOCK_ALLOC_STRATEGY_INTERLEAVED_HEADER
+#ifndef FOXXLL_MNG_BLOCK_ALLOC_STRATEGY_INTERLEAVED_HEADER
+#define FOXXLL_MNG_BLOCK_ALLOC_STRATEGY_INTERLEAVED_HEADER
 
 #include <random>
 #include <vector>
@@ -164,5 +164,5 @@ struct interleaved_alloc_traits<single_disk>
 
 } // namespace foxxll
 
-#endif // !STXXL_MNG_BLOCK_ALLOC_STRATEGY_INTERLEAVED_HEADER
+#endif // !FOXXLL_MNG_BLOCK_ALLOC_STRATEGY_INTERLEAVED_HEADER
 // vim: et:ts=4:sw=4

@@ -10,8 +10,8 @@
  *  http://www.boost.org/LICENSE_1_0.txt)
  **************************************************************************/
 
-#ifndef STXXL_MNG_BUF_WRITER_HEADER
-#define STXXL_MNG_BUF_WRITER_HEADER
+#ifndef FOXXLL_MNG_BUF_WRITER_HEADER
+#define FOXXLL_MNG_BUF_WRITER_HEADER
 
 #include <queue>
 #include <vector>
@@ -219,4 +219,4 @@ public:
 
 } // namespace foxxll
 
-#endif // !STXXL_MNG_BUF_WRITER_HEADER
+#endif // !FOXXLL_MNG_BUF_WRITER_HEADER

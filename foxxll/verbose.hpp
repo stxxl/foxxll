@@ -12,8 +12,8 @@
  *  http://www.boost.org/LICENSE_1_0.txt)
  **************************************************************************/
 
-#ifndef STXXL_VERBOSE_HEADER
-#define STXXL_VERBOSE_HEADER
+#ifndef FOXXLL_VERBOSE_HEADER
+#define FOXXLL_VERBOSE_HEADER
 
 #include <cstdlib>
 #include <iostream>
@@ -277,5 +277,5 @@ void print_msg(const char* label, const std::string& msg, unsigned flags);
 
 ////////////////////////////////////////////////////////////////////////////
 
-#endif // !STXXL_VERBOSE_HEADER
+#endif // !FOXXLL_VERBOSE_HEADER
 // vim: et:ts=4:sw=4

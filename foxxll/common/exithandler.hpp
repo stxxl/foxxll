@@ -10,8 +10,8 @@
  *  http://www.boost.org/LICENSE_1_0.txt)
  **************************************************************************/
 
-#ifndef STXXL_COMMON_EXITHANDLER_HEADER
-#define STXXL_COMMON_EXITHANDLER_HEADER
+#ifndef FOXXLL_COMMON_EXITHANDLER_HEADER
+#define FOXXLL_COMMON_EXITHANDLER_HEADER
 
 namespace foxxll {
 
@@ -32,5 +32,5 @@ void run_exit_handlers();
 
 } // namespace foxxll
 
-#endif // !STXXL_COMMON_EXITHANDLER_HEADER
+#endif // !FOXXLL_COMMON_EXITHANDLER_HEADER
 // vim: et:ts=4:sw=4

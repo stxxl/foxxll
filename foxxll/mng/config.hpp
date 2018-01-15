@@ -12,8 +12,8 @@
  *  http://www.boost.org/LICENSE_1_0.txt)
  **************************************************************************/
 
-#ifndef STXXL_MNG_CONFIG_HEADER
-#define STXXL_MNG_CONFIG_HEADER
+#ifndef FOXXLL_MNG_CONFIG_HEADER
+#define FOXXLL_MNG_CONFIG_HEADER
 
 #include <cassert>
 #include <cstdlib>
@@ -273,5 +273,5 @@ public:
 
 } // namespace foxxll
 
-#endif // !STXXL_MNG_CONFIG_HEADER
+#endif // !FOXXLL_MNG_CONFIG_HEADER
 // vim: et:ts=4:sw=4

@@ -13,8 +13,8 @@
  *  http://www.boost.org/LICENSE_1_0.txt)
  **************************************************************************/
 
-#ifndef STXXL_IO_DISK_QUEUES_HEADER
-#define STXXL_IO_DISK_QUEUES_HEADER
+#ifndef FOXXLL_IO_DISK_QUEUES_HEADER
+#define FOXXLL_IO_DISK_QUEUES_HEADER
 
 #include <map>
 
@@ -142,5 +142,5 @@ public:
 
 } // namespace foxxll
 
-#endif // !STXXL_IO_DISK_QUEUES_HEADER
+#endif // !FOXXLL_IO_DISK_QUEUES_HEADER
 // vim: et:ts=4:sw=4

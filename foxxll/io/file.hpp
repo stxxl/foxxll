@@ -13,8 +13,8 @@
  *  http://www.boost.org/LICENSE_1_0.txt)
  **************************************************************************/
 
-#ifndef STXXL_IO_FILE_HEADER
-#define STXXL_IO_FILE_HEADER
+#ifndef FOXXLL_IO_FILE_HEADER
+#define FOXXLL_IO_FILE_HEADER
 
 #include <cassert>
 #include <ostream>
@@ -256,5 +256,5 @@ public:
 
 } // namespace foxxll
 
-#endif // !STXXL_IO_FILE_HEADER
+#endif // !FOXXLL_IO_FILE_HEADER
 // vim: et:ts=4:sw=4

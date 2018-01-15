@@ -14,8 +14,8 @@
  *  http://www.boost.org/LICENSE_1_0.txt)
  **************************************************************************/
 
-#ifndef STXXL_IO_UFS_PLATFORM_HEADER
-#define STXXL_IO_UFS_PLATFORM_HEADER
+#ifndef FOXXLL_IO_UFS_PLATFORM_HEADER
+#define FOXXLL_IO_UFS_PLATFORM_HEADER
 
 #if STXXL_WINDOWS || defined(__MINGW32__)
   #ifndef NOMINMAX
@@ -76,4 +76,4 @@
   #endif
 #endif
 
-#endif // !STXXL_IO_UFS_PLATFORM_HEADER
+#endif // !FOXXLL_IO_UFS_PLATFORM_HEADER

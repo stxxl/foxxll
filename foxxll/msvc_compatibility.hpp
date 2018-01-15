@@ -10,8 +10,8 @@
  *  http://www.boost.org/LICENSE_1_0.txt)
  **************************************************************************/
 
-#ifndef STXXL_MSVC_COMPATIBILITY_HEADER
-#define STXXL_MSVC_COMPATIBILITY_HEADER
+#ifndef FOXXLL_MSVC_COMPATIBILITY_HEADER
+#define FOXXLL_MSVC_COMPATIBILITY_HEADER
 
 #include <foxxll/config.hpp>
 
@@ -35,5 +35,5 @@ inline double log2(double x)
 
 #endif // STXXL_MSVC
 
-#endif // !STXXL_MSVC_COMPATIBILITY_HEADER
+#endif // !FOXXLL_MSVC_COMPATIBILITY_HEADER
 // vim: et:ts=4:sw=4

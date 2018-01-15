@@ -12,8 +12,8 @@
  *  http://www.boost.org/LICENSE_1_0.txt)
  **************************************************************************/
 
-#ifndef STXXL_MNG_BLOCK_PREFETCHER_HEADER
-#define STXXL_MNG_BLOCK_PREFETCHER_HEADER
+#ifndef FOXXLL_MNG_BLOCK_PREFETCHER_HEADER
+#define FOXXLL_MNG_BLOCK_PREFETCHER_HEADER
 
 #include <algorithm>
 #include <queue>
@@ -231,4 +231,4 @@ public:
 
 } // namespace foxxll
 
-#endif // !STXXL_MNG_BLOCK_PREFETCHER_HEADER
+#endif // !FOXXLL_MNG_BLOCK_PREFETCHER_HEADER

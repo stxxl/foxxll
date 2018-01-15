@@ -11,8 +11,8 @@
  *  http://www.boost.org/LICENSE_1_0.txt)
  **************************************************************************/
 
-#ifndef STXXL_COMMON_NEW_ALLOC_HEADER
-#define STXXL_COMMON_NEW_ALLOC_HEADER
+#ifndef FOXXLL_COMMON_NEW_ALLOC_HEADER
+#define FOXXLL_COMMON_NEW_ALLOC_HEADER
 
 #include <limits>
 #include <memory>
@@ -136,5 +136,5 @@ inline bool operator != (
 
 } // namespace foxxll
 
-#endif // !STXXL_COMMON_NEW_ALLOC_HEADER
+#endif // !FOXXLL_COMMON_NEW_ALLOC_HEADER
 // vim: et:ts=4:sw=4

@@ -13,8 +13,8 @@
  *  http://www.boost.org/LICENSE_1_0.txt)
  **************************************************************************/
 
-#ifndef STXXL_COMMON_TIMER_HEADER
-#define STXXL_COMMON_TIMER_HEADER
+#ifndef FOXXLL_COMMON_TIMER_HEADER
+#define FOXXLL_COMMON_TIMER_HEADER
 
 #include <chrono>
 #include <limits>
@@ -253,5 +253,5 @@ public:
 
 } // namespace foxxll
 
-#endif // !STXXL_COMMON_TIMER_HEADER
+#endif // !FOXXLL_COMMON_TIMER_HEADER
 // vim: et:ts=4:sw=4

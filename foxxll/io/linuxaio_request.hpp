@@ -11,8 +11,8 @@
  *  http://www.boost.org/LICENSE_1_0.txt)
  **************************************************************************/
 
-#ifndef STXXL_IO_LINUXAIO_REQUEST_HEADER
-#define STXXL_IO_LINUXAIO_REQUEST_HEADER
+#ifndef FOXXLL_IO_LINUXAIO_REQUEST_HEADER
+#define FOXXLL_IO_LINUXAIO_REQUEST_HEADER
 
 #include <foxxll/io/linuxaio_file.hpp>
 
@@ -70,5 +70,5 @@ public:
 
 #endif // #if STXXL_HAVE_LINUXAIO_FILE
 
-#endif // !STXXL_IO_LINUXAIO_REQUEST_HEADER
+#endif // !FOXXLL_IO_LINUXAIO_REQUEST_HEADER
 // vim: et:ts=4:sw=4

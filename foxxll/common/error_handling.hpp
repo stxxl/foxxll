@@ -11,8 +11,8 @@
  *  http://www.boost.org/LICENSE_1_0.txt)
  **************************************************************************/
 
-#ifndef STXXL_COMMON_ERROR_HANDLING_HEADER
-#define STXXL_COMMON_ERROR_HANDLING_HEADER
+#ifndef FOXXLL_COMMON_ERROR_HANDLING_HEADER
+#define FOXXLL_COMMON_ERROR_HANDLING_HEADER
 
 /** \file error_handling.h
  * Macros for convenient error checking and reporting via exception.
@@ -155,4 +155,4 @@ namespace foxxll {
 
 } // namespace foxxll
 
-#endif // !STXXL_COMMON_ERROR_HANDLING_HEADER
+#endif // !FOXXLL_COMMON_ERROR_HANDLING_HEADER

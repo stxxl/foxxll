@@ -14,8 +14,8 @@
  *  http://www.boost.org/LICENSE_1_0.txt)
  **************************************************************************/
 
-#ifndef STXXL_COMMON_ONOFF_SWITCH_HEADER
-#define STXXL_COMMON_ONOFF_SWITCH_HEADER
+#ifndef FOXXLL_COMMON_ONOFF_SWITCH_HEADER
+#define FOXXLL_COMMON_ONOFF_SWITCH_HEADER
 
 #include <condition_variable>
 #include <mutex>
@@ -86,4 +86,4 @@ public:
 
 } // namespace foxxll
 
-#endif // !STXXL_COMMON_ONOFF_SWITCH_HEADER
+#endif // !FOXXLL_COMMON_ONOFF_SWITCH_HEADER

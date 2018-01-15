@@ -11,8 +11,8 @@
  *  http://www.boost.org/LICENSE_1_0.txt)
  **************************************************************************/
 
-#ifndef STXXL_COMMON_LOG_HEADER
-#define STXXL_COMMON_LOG_HEADER
+#ifndef FOXXLL_COMMON_LOG_HEADER
+#define FOXXLL_COMMON_LOG_HEADER
 
 #include <fstream>
 
@@ -50,4 +50,4 @@ public:
 
 } // namespace foxxll
 
-#endif // !STXXL_COMMON_LOG_HEADER
+#endif // !FOXXLL_COMMON_LOG_HEADER
