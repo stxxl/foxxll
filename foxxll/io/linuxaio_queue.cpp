@@ -5,6 +5,7 @@
  *
  *  Copyright (C) 2011 Johannes Singler <singler@kit.edu>
  *  Copyright (C) 2014 Timo Bingmann <tb@panthema.net>
+ *  Copyright (C) 2018 Manuel Penschuck <foxxll@manuel.jetzt>
  *
  *  Distributed under the Boost Software License, Version 1.0.
  *  (See accompanying file LICENSE_1_0.txt or copy at
