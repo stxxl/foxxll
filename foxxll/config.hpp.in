@@ -29,35 +29,30 @@
 #cmakedefine FOXXLL_VERSION_GIT_REFSPEC "${FOXXLL_VERSION_GIT_REFSPEC}"
 #cmakedefine FOXXLL_VERSION_GIT_SHA1 "${FOXXLL_VERSION_GIT_SHA1}"
 
-#cmakedefine STXXL_DIRECT_IO_OFF ${STXXL_DIRECT_IO_OFF}
+#cmakedefine FOXXLL_DIRECT_IO_OFF ${FOXXLL_DIRECT_IO_OFF}
 // default: 0/1 (platform dependent)
 // cmake:   detection of platform and flag
 // effect:  disables use of O_DIRECT flag on unsupported platforms
 
-#cmakedefine STXXL_HAVE_MMAP_FILE ${STXXL_HAVE_MMAP_FILE}
+#cmakedefine FOXXLL_HAVE_MMAP_FILE ${FOXXLL_HAVE_MMAP_FILE}
 // default: 0/1 (platform dependent)
 // used in: io/mmap_file.h/cpp
 // effect:  enables/disables memory mapped file implementation
 
-#cmakedefine STXXL_HAVE_LINUXAIO_FILE ${STXXL_HAVE_LINUXAIO_FILE}
+#cmakedefine FOXXLL_HAVE_LINUXAIO_FILE ${FOXXLL_HAVE_LINUXAIO_FILE}
 // default: 0/1 (platform dependent)
 // used in: io/linuxaio_file.h/cpp
 // effect:  enables/disables Linux AIO file implementation
 
-#cmakedefine STXXL_WINDOWS ${STXXL_WINDOWS}
+#cmakedefine FOXXLL_WINDOWS ${FOXXLL_WINDOWS}
 // default: off
 // cmake:   detection of ms windows platform (32- or 64-bit)
 // effect:  enables windows-specific api calls (mingw or msvc)
 
-#cmakedefine STXXL_MSVC ${STXXL_MSVC}
+#cmakedefine FOXXLL_MSVC ${FOXXLL_MSVC}
 // default: off
 // cmake:   detection of ms visual c++ via CMake (contains version number)
 // effect:  enables msvc-specific headers and macros
-
-#cmakedefine STXXL_PARALLEL ${STXXL_PARALLEL}
-// default: on/off (depends on compiler and platform)
-// cmake:   -DUSE_PARALLEL=ON
-// effect:  enable parallelized algorithms using OpenMP like multiway_merge and sort
 
 #cmakedefine STXXL_STD_RANDOM ${STXXL_STD_RANDOM}
 // default: off

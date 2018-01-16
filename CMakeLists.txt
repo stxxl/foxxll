@@ -378,7 +378,6 @@ if(USE_OPENMP)
   if(NOT OPENMP_FOUND)
     message(STATUS "OpenMP not found. Continuing without parallel algorithm support.")
   else()
-    set(STXXL_PARALLEL 1)
     message(STATUS "OpenMP found, enabling built-in parallel algorithms.")
 
     set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${OpenMP_C_FLAGS}")
@@ -387,10 +386,7 @@ if(USE_OPENMP)
   endif()
 
 else()
-
   message(STATUS "OpenMP disabled in FOXXLL (no parallelism is used).")
-  set(STXXL_PARALLEL 0)
-
 endif(USE_OPENMP)
 
 ###############################################################################

@@ -46,9 +46,6 @@ inline std::string get_version_string_long()
 #ifdef FOXXLL_VERSION_GIT_SHA1
            " (git " FOXXLL_VERSION_GIT_SHA1 ")"
 #endif // FOXXLL_VERSION_GIT_SHA1
-#if STXXL_PARALLEL
-           " + gnu parallel(" stringify(__GLIBCXX__) ")"
-#endif // STXXL_PARALLEL
     ;     // NOLINT
 }
 
