@@ -24,7 +24,6 @@
 #include <mutex>
 
 #include <foxxll/io/request_queue_impl_worker.hpp>
-#include <foxxll/io/request_target.hpp>
 
 #include <linux/aio_abi.h>
 
