@@ -36,7 +36,7 @@ namespace foxxll {
 ////////////////////////////////////////////////////////////////////////////
 
 //! Throws exception_type with "Error in [location] : [error_message]"
-#define STXXL_THROW2(exception_type, location, error_message)     \
+#define FOXXLL_THROW2(exception_type, location, error_message)     \
     do {                                                          \
         std::ostringstream msg;                                   \
         msg << "Error in " << location << " : " << error_message; \
@@ -44,76 +44,76 @@ namespace foxxll {
     } while (false)
 
 //! Throws exception_type with "Error in [function] : [error_message]"
-#define STXXL_THROW(exception_type, error_message) \
-    STXXL_THROW2(exception_type,                   \
+#define FOXXLL_THROW(exception_type, error_message) \
+    FOXXLL_THROW2(exception_type,                   \
                  STXXL_PRETTY_FUNCTION_NAME,       \
                  error_message)
 
 //! Throws exception_type with "Error in [function] : [error_message] : [errno_value message]"
-#define STXXL_THROW_ERRNO2(exception_type, error_message, errno_value) \
-    STXXL_THROW2(exception_type,                                       \
+#define FOXXLL_THROW_ERRNO2(exception_type, error_message, errno_value) \
+    FOXXLL_THROW2(exception_type,                                       \
                  STXXL_PRETTY_FUNCTION_NAME,                           \
                  error_message << " : " << strerror(errno_value))
 
 //! Throws exception_type with "Error in [function] : [error_message] : [errno message]"
-#define STXXL_THROW_ERRNO(exception_type, error_message) \
-    STXXL_THROW_ERRNO2(exception_type, error_message, errno)
+#define FOXXLL_THROW_ERRNO(exception_type, error_message) \
+    FOXXLL_THROW_ERRNO2(exception_type, error_message, errno)
 
 //! Throws std::invalid_argument with "Error in [function] : [error_message]"
-#define STXXL_THROW_INVALID_ARGUMENT(error_message) \
-    STXXL_THROW2(std::invalid_argument,             \
+#define FOXXLL_THROW_INVALID_ARGUMENT(error_message) \
+    FOXXLL_THROW2(std::invalid_argument,             \
                  STXXL_PRETTY_FUNCTION_NAME,        \
                  error_message)
 
 //! Throws foxxll::unreachable with "Error in file [file], line [line] : this code should never be reachable"
-#define STXXL_THROW_UNREACHABLE()                              \
-    STXXL_THROW2(foxxll::unreachable,                          \
+#define FOXXLL_THROW_UNREACHABLE()                              \
+    FOXXLL_THROW2(foxxll::unreachable,                          \
                  "file " << __FILE__ << ", line " << __LINE__, \
                  "this code should never be reachable")
 
 ////////////////////////////////////////////////////////////////////////////
 
 //! Throws exception_type if (expr) with "Error in [function] : [error_message]"
-#define STXXL_THROW_IF(expr, exception_type, error_message) \
+#define FOXXLL_THROW_IF(expr, exception_type, error_message) \
     do {                                                    \
         if (expr) {                                         \
-            STXXL_THROW(exception_type, error_message);     \
+            FOXXLL_THROW(exception_type, error_message);     \
         }                                                   \
     } while (false)
 
 //! Throws exception_type if (expr != 0) with "Error in [function] : [error_message]"
-#define STXXL_THROW_NE_0(expr, exception_type, error_message) \
-    STXXL_THROW_IF((expr) != 0, exception_type, error_message)
+#define FOXXLL_THROW_NE_0(expr, exception_type, error_message) \
+    FOXXLL_THROW_IF((expr) != 0, exception_type, error_message)
 
 //! Throws exception_type if (expr == 0) with "Error in [function] : [error_message]"
-#define STXXL_THROW_EQ_0(expr, exception_type, error_message) \
-    STXXL_THROW_IF((expr) == 0, exception_type, error_message)
+#define FOXXLL_THROW_EQ_0(expr, exception_type, error_message) \
+    FOXXLL_THROW_IF((expr) == 0, exception_type, error_message)
 
 //! Throws exception_type if (expr < 0) with "Error in [function] : [error_message]"
-#define STXXL_THROW_LT_0(expr, exception_type, error_message) \
-    STXXL_THROW_IF((expr) < 0, exception_type, error_message)
+#define FOXXLL_THROW_LT_0(expr, exception_type, error_message) \
+    FOXXLL_THROW_IF((expr) < 0, exception_type, error_message)
 
 ////////////////////////////////////////////////////////////////////////////
 
 //! Throws exception_type if (expr) with "Error in [function] : [error_message] : [errno message]"
-#define STXXL_THROW_ERRNO_IF(expr, exception_type, error_message) \
+#define FOXXLL_THROW_ERRNO_IF(expr, exception_type, error_message) \
     do {                                                          \
         if (expr) {                                               \
-            STXXL_THROW_ERRNO(exception_type, error_message);     \
+            FOXXLL_THROW_ERRNO(exception_type, error_message);     \
         }                                                         \
     } while (false)
 
 //! Throws exception_type if (expr != 0) with "Error in [function] : [error_message] : [errno message]"
-#define STXXL_THROW_ERRNO_NE_0(expr, exception_type, error_message) \
-    STXXL_THROW_ERRNO_IF((expr) != 0, exception_type, error_message)
+#define FOXXLL_THROW_ERRNO_NE_0(expr, exception_type, error_message) \
+    FOXXLL_THROW_ERRNO_IF((expr) != 0, exception_type, error_message)
 
 //! Throws exception_type if (expr == 0) with "Error in [function] : [error_message] : [errno message]"
-#define STXXL_THROW_ERRNO_EQ_0(expr, exception_type, error_message) \
-    STXXL_THROW_ERRNO_IF((expr) == 0, exception_type, error_message)
+#define FOXXLL_THROW_ERRNO_EQ_0(expr, exception_type, error_message) \
+    FOXXLL_THROW_ERRNO_IF((expr) == 0, exception_type, error_message)
 
 //! Throws exception_type if (expr < 0) with "Error in [function] : [error_message] : [errno message]"
-#define STXXL_THROW_ERRNO_LT_0(expr, exception_type, error_message) \
-    STXXL_THROW_ERRNO_IF((expr) < 0, exception_type, error_message)
+#define FOXXLL_THROW_ERRNO_LT_0(expr, exception_type, error_message) \
+    FOXXLL_THROW_ERRNO_IF((expr) < 0, exception_type, error_message)
 
 ////////////////////////////////////////////////////////////////////////////
 
@@ -122,7 +122,7 @@ namespace foxxll {
     do {                                                            \
         int res = (expr);                                           \
         if (res != 0) {                                             \
-            STXXL_THROW_ERRNO2(foxxll::resource_error, #expr, res); \
+            FOXXLL_THROW_ERRNO2(foxxll::resource_error, #expr, res); \
         }                                                           \
     } while (false)
 
@@ -131,7 +131,7 @@ namespace foxxll {
 #if STXXL_WINDOWS || defined(__MINGW32__)
 
 //! Throws exception_type with "Error in [function] : [error_message] : [formatted GetLastError()]"
-#define STXXL_THROW_WIN_LASTERROR(exception_type, error_message)         \
+#define FOXXLL_THROW_WIN_LASTERROR(exception_type, error_message)         \
     do {                                                                 \
         LPVOID lpMsgBuf;                                                 \
         DWORD dw = GetLastError();                                       \

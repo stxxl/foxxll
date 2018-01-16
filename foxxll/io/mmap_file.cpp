@@ -39,7 +39,7 @@ void mmap_file::serve(void* buffer, offset_type offset, size_type bytes,
     // STXXL_MSG("Mmaped to "<<mem<<" , buffer suggested at "<<buffer);
     if (mem == MAP_FAILED)
     {
-        STXXL_THROW_ERRNO(io_error,
+        FOXXLL_THROW_ERRNO(io_error,
                           " mmap() failed." <<
                           " path=" << filename_ <<
                           " bytes=" << bytes <<
@@ -48,7 +48,7 @@ void mmap_file::serve(void* buffer, offset_type offset, size_type bytes,
     }
     else if (mem == 0)
     {
-        STXXL_THROW_ERRNO(io_error, "mmap() returned nullptr");
+        FOXXLL_THROW_ERRNO(io_error, "mmap() returned nullptr");
     }
     else
     {
@@ -60,7 +60,7 @@ void mmap_file::serve(void* buffer, offset_type offset, size_type bytes,
         {
             memcpy(mem, buffer, bytes);
         }
-        STXXL_THROW_ERRNO_NE_0(munmap(mem, bytes), io_error,
+        FOXXLL_THROW_ERRNO_NE_0(munmap(mem, bytes), io_error,
                                "munmap() failed");
     }
 }

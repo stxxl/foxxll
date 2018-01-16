@@ -81,7 +81,7 @@ file_ptr create_file(disk_config& cfg, int mode, int disk_allocator_id)
         // if marked as device but file is not -> throw!
         if (cfg.raw_device && !result->is_device())
         {
-            STXXL_THROW(io_error, "Disk " << cfg.path << " was expected to be "
+            FOXXLL_THROW(io_error, "Disk " << cfg.path << " was expected to be "
                         "a raw block device, but it is a normal file!");
         }
 
@@ -131,7 +131,7 @@ file_ptr create_file(disk_config& cfg, int mode, int disk_allocator_id)
         // if marked as device but file is not -> throw!
         if (cfg.raw_device && !result->is_device())
         {
-            STXXL_THROW(io_error, "Disk " << cfg.path << " was expected to be "
+            FOXXLL_THROW(io_error, "Disk " << cfg.path << " was expected to be "
                         "a raw block device, but it is a normal file!");
         }
 
@@ -190,7 +190,7 @@ file_ptr create_file(disk_config& cfg, int mode, int disk_allocator_id)
     }
 #endif
 
-    STXXL_THROW(std::runtime_error,
+    FOXXLL_THROW(std::runtime_error,
                 "Unsupported disk I/O implementation '" << cfg.io_impl << "'.");
 }
 

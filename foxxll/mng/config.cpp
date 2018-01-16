@@ -140,7 +140,7 @@ void config::load_default_config()
 
     char* tmpstr = new char[255];
     if (GetTempPathA(255, tmpstr) == 0)
-        STXXL_THROW_WIN_LASTERROR(resource_error, "GetTempPathA()");
+        FOXXLL_THROW_WIN_LASTERROR(resource_error, "GetTempPathA()");
     entry1.path = tmpstr;
     entry1.path += "stxxl.tmp";
     delete[] tmpstr;
@@ -181,7 +181,7 @@ void config::load_config_file(const std::string& config_path)
     disks_list.insert(disks_list.end(), flash_list.begin(), flash_list.end());
 
     if (disks_list.empty()) {
-        STXXL_THROW(std::runtime_error,
+        FOXXLL_THROW(std::runtime_error,
                     "No disks found in '" << config_path << "'.");
     }
 }
@@ -319,7 +319,7 @@ void disk_config::parse_line(const std::string& line)
         flash = true;
     }
     else {
-        STXXL_THROW(std::runtime_error,
+        FOXXLL_THROW(std::runtime_error,
                     "Unknown configuration token " << eqfield[0]);
     }
 
@@ -356,7 +356,7 @@ void disk_config::parse_line(const std::string& line)
 
     // size: (default unit MiB)
     if (!tlx::parse_si_iec_units(cmfield[1], &size, 'M')) {
-        STXXL_THROW(std::runtime_error,
+        FOXXLL_THROW(std::runtime_error,
                     "Invalid disk size '" << cmfield[1] << "' in disk configuration file.");
     }
 
@@ -411,7 +411,7 @@ void disk_config::parse_fileio()
             else if (eq[1] == "yes") autogrow = true;
             else
             {
-                STXXL_THROW(std::runtime_error,
+                FOXXLL_THROW(std::runtime_error,
                             "Invalid parameter '" << *p << "' in disk configuration file.");
             }
         }
@@ -433,27 +433,27 @@ void disk_config::parse_fileio()
             else if (eq[1] == "yes") direct = DIRECT_ON;
             else
             {
-                STXXL_THROW(std::runtime_error,
+                FOXXLL_THROW(std::runtime_error,
                             "Invalid parameter '" << *p << "' in disk configuration file.");
             }
         }
         else if (eq[0] == "queue")
         {
             if (io_impl == "linuxaio") {
-                STXXL_THROW(std::runtime_error, "Parameter '" << *p << "' invalid for fileio '" << io_impl << "' in disk configuration file.");
+                FOXXLL_THROW(std::runtime_error, "Parameter '" << *p << "' invalid for fileio '" << io_impl << "' in disk configuration file.");
             }
 
             char* endp;
             queue = (int)strtoul(eq[1].c_str(), &endp, 10);
             if (endp && *endp != 0) {
-                STXXL_THROW(std::runtime_error,
+                FOXXLL_THROW(std::runtime_error,
                             "Invalid parameter '" << *p << "' in disk configuration file.");
             }
         }
         else if (eq[0] == "queue_length")
         {
             if (io_impl != "linuxaio") {
-                STXXL_THROW(std::runtime_error, "Parameter '" << *p << "' "
+                FOXXLL_THROW(std::runtime_error, "Parameter '" << *p << "' "
                             "is only valid for fileio linuxaio "
                             "in disk configuration file.");
             }
@@ -461,7 +461,7 @@ void disk_config::parse_fileio()
             char* endp;
             queue_length = (int)strtoul(eq[1].c_str(), &endp, 10);
             if (endp && *endp != 0) {
-                STXXL_THROW(std::runtime_error,
+                FOXXLL_THROW(std::runtime_error,
                             "Invalid parameter '" << *p << "' in disk configuration file.");
             }
         }
@@ -470,14 +470,14 @@ void disk_config::parse_fileio()
             char* endp;
             device_id = (int)strtoul(eq[1].c_str(), &endp, 10);
             if (endp && *endp != 0) {
-                STXXL_THROW(std::runtime_error,
+                FOXXLL_THROW(std::runtime_error,
                             "Invalid parameter '" << *p << "' in disk configuration file.");
             }
         }
         else if (*p == "raw_device")
         {
             if (!(io_impl == "syscall")) {
-                STXXL_THROW(std::runtime_error, "Parameter '" << *p << "' invalid for fileio '" << io_impl << "' in disk configuration file.");
+                FOXXLL_THROW(std::runtime_error, "Parameter '" << *p << "' invalid for fileio '" << io_impl << "' in disk configuration file.");
             }
 
             raw_device = true;
@@ -487,14 +487,14 @@ void disk_config::parse_fileio()
             if (!(io_impl == "syscall" || io_impl == "linuxaio" ||
                   io_impl == "mmap"))
             {
-                STXXL_THROW(std::runtime_error, "Parameter '" << *p << "' invalid for fileio '" << io_impl << "' in disk configuration file.");
+                FOXXLL_THROW(std::runtime_error, "Parameter '" << *p << "' invalid for fileio '" << io_impl << "' in disk configuration file.");
             }
 
             unlink_on_open = true;
         }
         else
         {
-            STXXL_THROW(std::runtime_error,
+            FOXXLL_THROW(std::runtime_error,
                         "Invalid optional parameter '" << *p << "' in disk configuration file.");
         }
     }
@@ -524,7 +524,7 @@ std::string disk_config::fileio_string() const
         oss << " direct=on";
     }
     else
-        STXXL_THROW(std::runtime_error, "Invalid setting for 'direct' option.");
+        FOXXLL_THROW(std::runtime_error, "Invalid setting for 'direct' option.");
 
     if (flash) {
         oss << " flash";

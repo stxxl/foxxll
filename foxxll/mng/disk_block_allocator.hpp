@@ -173,7 +173,7 @@ void disk_block_allocator::new_blocks(BIDIterator begin, BIDIterator end)
     if (free_bytes_ < requested_size)
     {
         if (!autogrow_) {
-            STXXL_THROW(bad_ext_alloc,
+            FOXXLL_THROW(bad_ext_alloc,
                         "Out of external memory error: " << requested_size <<
                         " requested, " << free_bytes_ << " bytes free. "
                         "Maybe enable autogrow_ flags?");

@@ -59,9 +59,9 @@ void request_queue_impl_qwqr::set_priority_op(const priority_op& op)
 void request_queue_impl_qwqr::add_request(request_ptr& req)
 {
     if (req.empty())
-        STXXL_THROW_INVALID_ARGUMENT("Empty request submitted to disk_queue.");
+        FOXXLL_THROW_INVALID_ARGUMENT("Empty request submitted to disk_queue.");
     if (thread_state_() != RUNNING)
-        STXXL_THROW_INVALID_ARGUMENT("Request submitted to not running queue.");
+        FOXXLL_THROW_INVALID_ARGUMENT("Request submitted to not running queue.");
     if (!dynamic_cast<serving_request*>(req.get()))
         STXXL_ERRMSG("Incompatible request submitted to running queue.");
 
@@ -104,9 +104,9 @@ void request_queue_impl_qwqr::add_request(request_ptr& req)
 bool request_queue_impl_qwqr::cancel_request(request_ptr& req)
 {
     if (req.empty())
-        STXXL_THROW_INVALID_ARGUMENT("Empty request canceled disk_queue.");
+        FOXXLL_THROW_INVALID_ARGUMENT("Empty request canceled disk_queue.");
     if (thread_state_() != RUNNING)
-        STXXL_THROW_INVALID_ARGUMENT("Request canceled to not running queue.");
+        FOXXLL_THROW_INVALID_ARGUMENT("Request canceled to not running queue.");
     if (!dynamic_cast<serving_request*>(req.get()))
         STXXL_ERRMSG("Incompatible request submitted to running queue.");
 

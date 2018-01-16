@@ -117,7 +117,7 @@ ufs_file_base::ufs_file_base(const std::string& filename, int mode)
     }
 #endif
 
-    STXXL_THROW_ERRNO(io_error, "open() rc=" << file_des_
+    FOXXLL_THROW_ERRNO(io_error, "open() rc=" << file_des_
                                              << " path=" << filename_ << " flags=" << flags);
 }
 
@@ -131,20 +131,20 @@ void ufs_file_base::_after_open()
     // stat file type
 #if STXXL_WINDOWS || defined(__MINGW32__)
     struct _stat64 st;
-    STXXL_THROW_ERRNO_NE_0(::_fstat64(file_des_, &st), io_error,
+    FOXXLL_THROW_ERRNO_NE_0(::_fstat64(file_des_, &st), io_error,
                            "_fstat64() path=" << filename_ << " fd=" << file_des_);
 #else
     struct stat st;
-    STXXL_THROW_ERRNO_NE_0(::fstat(file_des_, &st), io_error,
+    FOXXLL_THROW_ERRNO_NE_0(::fstat(file_des_, &st), io_error,
                            "fstat() path=" << filename_ << " fd=" << file_des_);
 #endif
     is_device_ = S_ISBLK(st.st_mode) ? true : false;
 
 #ifdef __APPLE__
     if (mode_ & REQUIRE_DIRECT) {
-        STXXL_THROW_ERRNO_NE_0(fcntl(file_des_, F_NOCACHE, 1), io_error,
+        FOXXLL_THROW_ERRNO_NE_0(fcntl(file_des_, F_NOCACHE, 1), io_error,
                                "fcntl() path=" << filename_ << " fd=" << file_des_);
-        STXXL_THROW_ERRNO_NE_0(fcntl(file_des_, F_RDAHEAD, 0), io_error,
+        FOXXLL_THROW_ERRNO_NE_0(fcntl(file_des_, F_RDAHEAD, 0), io_error,
                                "fcntl() path=" << filename_ << " fd=" << file_des_);
     }
     else if (mode_ & DIRECT) {
@@ -172,7 +172,7 @@ void ufs_file_base::close()
         return;
 
     if (::close(file_des_) < 0)
-        STXXL_THROW_ERRNO(io_error, "close() fd=" << file_des_);
+        FOXXLL_THROW_ERRNO(io_error, "close() fd=" << file_des_);
 
     file_des_ = -1;
 }
@@ -189,7 +189,7 @@ void ufs_file_base::lock()
     lock_struct.l_start = 0;
     lock_struct.l_len = 0; // lock all bytes
     if ((::fcntl(file_des_, F_SETLK, &lock_struct)) < 0)
-        STXXL_THROW_ERRNO(io_error, "fcntl(,F_SETLK,) path=" << filename_ << " fd=" << file_des_);
+        FOXXLL_THROW_ERRNO(io_error, "fcntl(,F_SETLK,) path=" << filename_ << " fd=" << file_des_);
 #endif
 }
 
@@ -201,7 +201,7 @@ file::offset_type ufs_file_base::_size()
 
     off_t rc = ::lseek(file_des_, 0, SEEK_END);
     if (rc < 0)
-        STXXL_THROW_ERRNO(io_error, "lseek(fd,0,SEEK_END) path=" << filename_ << " fd=" << file_des_);
+        FOXXLL_THROW_ERRNO(io_error, "lseek(fd,0,SEEK_END) path=" << filename_ << " fd=" << file_des_);
 
     // return value is already the total size
     return rc;
@@ -227,30 +227,30 @@ void ufs_file_base::_set_size(offset_type newsize)
     {
 #if STXXL_WINDOWS || defined(__MINGW32__)
         HANDLE hfile = (HANDLE)::_get_osfhandle(file_des_);
-        STXXL_THROW_ERRNO_NE_0((hfile == INVALID_HANDLE_VALUE), io_error,
+        FOXXLL_THROW_ERRNO_NE_0((hfile == INVALID_HANDLE_VALUE), io_error,
                                "_get_osfhandle() path=" << filename_ << " fd=" << file_des_);
 
         LARGE_INTEGER desired_pos;
         desired_pos.QuadPart = newsize;
 
         if (!SetFilePointerEx(hfile, desired_pos, nullptr, FILE_BEGIN))
-            STXXL_THROW_WIN_LASTERROR(io_error,
+            FOXXLL_THROW_WIN_LASTERROR(io_error,
                                       "SetFilePointerEx in ufs_file_base::set_size(..) oldsize=" << cur_size <<
                                       " newsize=" << newsize << " ");
 
         if (!SetEndOfFile(hfile))
-            STXXL_THROW_WIN_LASTERROR(io_error,
+            FOXXLL_THROW_WIN_LASTERROR(io_error,
                                       "SetEndOfFile oldsize=" << cur_size <<
                                       " newsize=" << newsize << " ");
 #else
-        STXXL_THROW_ERRNO_NE_0(::ftruncate(file_des_, newsize), io_error,
+        FOXXLL_THROW_ERRNO_NE_0(::ftruncate(file_des_, newsize), io_error,
                                "ftruncate() path=" << filename_ << " fd=" << file_des_);
 #endif
     }
 
 #if !STXXL_WINDOWS
     if (newsize > cur_size)
-        STXXL_THROW_ERRNO_LT_0(::lseek(file_des_, newsize - 1, SEEK_SET), io_error,
+        FOXXLL_THROW_ERRNO_LT_0(::lseek(file_des_, newsize - 1, SEEK_SET), io_error,
                                "lseek() path=" << filename_ << " fd=" << file_des_ << " pos=" << newsize - 1);
 #endif
 }
@@ -276,7 +276,7 @@ void ufs_file_base::unlink()
     }
 
     if (::unlink(filename_.c_str()) != 0)
-        STXXL_THROW_ERRNO(io_error, "unlink() path=" << filename_ << " fd=" << file_des_);
+        FOXXLL_THROW_ERRNO(io_error, "unlink() path=" << filename_ << " fd=" << file_des_);
 }
 
 bool ufs_file_base::is_device() const

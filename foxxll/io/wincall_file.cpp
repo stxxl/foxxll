@@ -41,7 +41,7 @@ void wincall_file::serve(void* buffer, offset_type offset, size_type bytes,
     desired_pos.QuadPart = offset;
     if (!SetFilePointerEx(handle, desired_pos, nullptr, FILE_BEGIN))
     {
-        STXXL_THROW_WIN_LASTERROR(
+        FOXXLL_THROW_WIN_LASTERROR(
             io_error,
             "SetFilePointerEx in wincall_request::serve()" <<
                 " offset=" << offset <<
@@ -61,7 +61,7 @@ void wincall_file::serve(void* buffer, offset_type offset, size_type bytes,
             assert(bytes <= std::numeric_limits<DWORD>::max());
             if (!ReadFile(handle, buffer, (DWORD)bytes, &NumberOfBytesRead, nullptr))
             {
-                STXXL_THROW_WIN_LASTERROR(
+                FOXXLL_THROW_WIN_LASTERROR(
                     io_error,
                     "ReadFile" <<
                         " this=" << this <<
@@ -72,7 +72,7 @@ void wincall_file::serve(void* buffer, offset_type offset, size_type bytes,
                         " NumberOfBytesRead= " << NumberOfBytesRead);
             }
             else if (NumberOfBytesRead != bytes) {
-                STXXL_THROW_WIN_LASTERROR(io_error, " partial read: missing " << (bytes - NumberOfBytesRead) << " out of " << bytes << " bytes");
+                FOXXLL_THROW_WIN_LASTERROR(io_error, " partial read: missing " << (bytes - NumberOfBytesRead) << " out of " << bytes << " bytes");
             }
         }
         else
@@ -81,7 +81,7 @@ void wincall_file::serve(void* buffer, offset_type offset, size_type bytes,
             assert(bytes <= std::numeric_limits<DWORD>::max());
             if (!WriteFile(handle, buffer, (DWORD)bytes, &NumberOfBytesWritten, nullptr))
             {
-                STXXL_THROW_WIN_LASTERROR(
+                FOXXLL_THROW_WIN_LASTERROR(
                     io_error,
                     "WriteFile" <<
                         " this=" << this <<
@@ -92,7 +92,7 @@ void wincall_file::serve(void* buffer, offset_type offset, size_type bytes,
                         " NumberOfBytesWritten= " << NumberOfBytesWritten);
             }
             else if (NumberOfBytesWritten != bytes) {
-                STXXL_THROW_WIN_LASTERROR(io_error, " partial write: missing " << (bytes - NumberOfBytesWritten) << " out of " << bytes << " bytes");
+                FOXXLL_THROW_WIN_LASTERROR(io_error, " partial write: missing " << (bytes - NumberOfBytesWritten) << " out of " << bytes << " bytes");
             }
         }
     }

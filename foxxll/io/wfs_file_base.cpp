@@ -108,7 +108,7 @@ static HANDLE open_file_impl(const std::string& filename, int mode)
     }
 #endif
 
-    STXXL_THROW_WIN_LASTERROR(io_error, "CreateFile() path=" << filename << " mode=" << mode);
+    FOXXLL_THROW_WIN_LASTERROR(io_error, "CreateFile() path=" << filename << " mode=" << mode);
 }
 
 wfs_file_base::wfs_file_base(const std::string& filename, int mode)
@@ -158,7 +158,7 @@ void wfs_file_base::close()
         return;
 
     if (!CloseHandle(file_des_))
-        STXXL_THROW_WIN_LASTERROR(io_error, "CloseHandle() of file fd=" << file_des_);
+        FOXXLL_THROW_WIN_LASTERROR(io_error, "CloseHandle() of file fd=" << file_des_);
 
     file_des_ = INVALID_HANDLE_VALUE;
 }
@@ -169,7 +169,7 @@ void wfs_file_base::lock()
     if (locked)
         return;  // already locked
     if (LockFile(file_des_, 0, 0, 0xffffffff, 0xffffffff) == 0)
-        STXXL_THROW_WIN_LASTERROR(io_error, "LockFile() fd=" << file_des_);
+        FOXXLL_THROW_WIN_LASTERROR(io_error, "LockFile() fd=" << file_des_);
     locked = true;
 }
 
@@ -177,7 +177,7 @@ file::offset_type wfs_file_base::_size()
 {
     LARGE_INTEGER result;
     if (!GetFileSizeEx(file_des_, &result))
-        STXXL_THROW_WIN_LASTERROR(io_error, "GetFileSizeEx() fd=" << file_des_);
+        FOXXLL_THROW_WIN_LASTERROR(io_error, "GetFileSizeEx() fd=" << file_des_);
 
     return result.QuadPart;
 }
@@ -202,25 +202,25 @@ void wfs_file_base::set_size(offset_type newsize)
         if (direct_with_bad_size)
         {
             if (!CloseHandle(file_des_))
-                STXXL_THROW_WIN_LASTERROR(io_error, "closing file (call of ::CloseHandle() from set_size) ");
+                FOXXLL_THROW_WIN_LASTERROR(io_error, "closing file (call of ::CloseHandle() from set_size) ");
 
             file_des_ = INVALID_HANDLE_VALUE;
             file_des_ = open_file_impl(filename, WRONLY);
         }
 
         if (!SetFilePointerEx(file_des_, desired_pos, nullptr, FILE_BEGIN))
-            STXXL_THROW_WIN_LASTERROR(io_error,
+            FOXXLL_THROW_WIN_LASTERROR(io_error,
                                       "SetFilePointerEx() in wfs_file_base::set_size(..) oldsize=" << cur_size <<
                                       " newsize=" << newsize << " ");
 
         if (!SetEndOfFile(file_des_))
-            STXXL_THROW_WIN_LASTERROR(io_error, "SetEndOfFile() oldsize=" << cur_size <<
+            FOXXLL_THROW_WIN_LASTERROR(io_error, "SetEndOfFile() oldsize=" << cur_size <<
                                       " newsize=" << newsize << " ");
 
         if (direct_with_bad_size)
         {
             if (!CloseHandle(file_des_))
-                STXXL_THROW_WIN_LASTERROR(io_error, "closing file (call of ::CloseHandle() from set_size) ");
+                FOXXLL_THROW_WIN_LASTERROR(io_error, "closing file (call of ::CloseHandle() from set_size) ");
 
             file_des_ = INVALID_HANDLE_VALUE;
             file_des_ = open_file_impl(filename, mode_ & ~TRUNC);

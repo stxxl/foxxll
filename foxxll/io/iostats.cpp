@@ -150,7 +150,7 @@ void file_stats::read_op_finished(const size_t size, double duration)
 
 file_stats_data file_stats_data::operator + (const file_stats_data& a) const
 {
-    STXXL_THROW_IF(device_id_ != a.device_id_, std::runtime_error,
+    FOXXLL_THROW_IF(device_id_ != a.device_id_, std::runtime_error,
                    "foxxll::file_stats_data objects do not belong to the same file/disk");
 
     file_stats_data fsd;
@@ -168,7 +168,7 @@ file_stats_data file_stats_data::operator + (const file_stats_data& a) const
 
 file_stats_data file_stats_data::operator - (const file_stats_data& a) const
 {
-    STXXL_THROW_IF(device_id_ != a.device_id_, std::runtime_error,
+    FOXXLL_THROW_IF(device_id_ != a.device_id_, std::runtime_error,
                    "foxxll::file_stats_data objects do not belong to the same file/disk");
 
     file_stats_data fsd;
@@ -431,7 +431,7 @@ stats_data stats_data::operator + (const stats_data& a) const
     }
     else
     {
-        STXXL_THROW(std::runtime_error,
+        FOXXLL_THROW(std::runtime_error,
                     "The number of files has changed between the snapshots.");
     }
 
@@ -464,7 +464,7 @@ stats_data stats_data::operator - (const stats_data& a) const
     }
     else
     {
-        STXXL_THROW(std::runtime_error,
+        FOXXLL_THROW(std::runtime_error,
                     "The number of files has changed between the snapshots.");
     }
 

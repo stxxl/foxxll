@@ -40,7 +40,7 @@ void syscall_file::serve(void* buffer, offset_type offset, size_type bytes,
         off_t rc = ::lseek(file_des_, offset, SEEK_SET);
         if (rc < 0)
         {
-            STXXL_THROW_ERRNO
+            FOXXLL_THROW_ERRNO
                 (io_error,
                 " this=" << this <<
                 " call=::lseek(fd,offset,SEEK_SET)" <<
@@ -62,7 +62,7 @@ void syscall_file::serve(void* buffer, offset_type offset, size_type bytes,
             if ((rc = ::read(file_des_, cbuffer, bytes)) <= 0)
 #endif
             {
-                STXXL_THROW_ERRNO
+                FOXXLL_THROW_ERRNO
                     (io_error,
                     " this=" << this <<
                     " call=::read(fd,buffer,bytes)" <<
@@ -95,7 +95,7 @@ void syscall_file::serve(void* buffer, offset_type offset, size_type bytes,
             if ((rc = ::write(file_des_, cbuffer, bytes)) <= 0)
 #endif
             {
-                STXXL_THROW_ERRNO
+                FOXXLL_THROW_ERRNO
                     (io_error,
                     " this=" << this <<
                     " call=::write(fd,buffer,bytes)" <<
