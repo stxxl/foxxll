@@ -1,7 +1,7 @@
 /***************************************************************************
  *  foxxll/io/linuxaio_file.hpp
  *
- *  Part of the STXXL. See http://stxxl.org
+ *  Part of FOXXLL. See http://foxxll.org
  *
  *  Copyright (C) 2011 Johannes Singler <singler@kit.edu>
  *  Copyright (C) 2014 Timo Bingmann <tb@panthema.net>

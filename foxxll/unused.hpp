@@ -1,7 +1,7 @@
 /***************************************************************************
  *  foxxll/unused.hpp
  *
- *  Part of the STXXL. See http://stxxl.org
+ *  Part of FOXXLL. See http://foxxll.org
  *
  *  Copyright (C) 2007 Andreas Beckmann <beckmann@cs.uni-frankfurt.de>
  *  Copyright (C) 2009 Johannes Singler <singler@ira.uka.de>

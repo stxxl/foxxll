@@ -5,7 +5,7 @@
 #  Perl script to test source header files, license headers and write
 #  AUTHORS from copyright statements.
 #
-#  Part of the STXXL. See http://stxxl.org
+#  Part of FOXXLL. See http://foxxll.org
 #
 #  Copyright (C) 2013-2014 Timo Bingmann <tb@panthema.net>
 #
@@ -247,14 +247,14 @@ sub process_cpp {
     expect($path, $i, @data, " *\n"); ++$i;
 
     # skip over comment
-    while ($data[$i] !~ /^ \*  Part of the STXXL/) {
+    while ($data[$i] !~ /^ \*  Part of FOXXLL/) {
         expect_re($path, $i, @data, '^ \*(  .*)?\n$');
         die unless ++$i < @data;
     }
 
-    # check "Part of STXXL"
+    # check "Part of FOXXLL"
     expect($path, $i-1, @data, " *\n");
-    expect($path, $i, @data, " *  Part of the STXXL. See http://stxxl.org\n"); ++$i;
+    expect($path, $i, @data, " *  Part of FOXXLL. See http://foxxll.org\n"); ++$i;
     expect($path, $i, @data, " *\n"); ++$i;
 
     # read authors
@@ -393,14 +393,14 @@ sub process_pl_cmake {
     expect($path, $i, @data, "#\n"); ++$i;
 
     # skip over comment
-    while ($data[$i] !~ /^#  Part of the STXXL/) {
+    while ($data[$i] !~ /^#  Part of FOXXLL/) {
         expect_re($path, $i, @data, '^#(  .*)?\n$');
         die unless ++$i < @data;
     }
 
     # check "Part of STXXL"
     expect($path, $i-1, @data, "#\n");
-    expect($path, $i, @data, "#  Part of the STXXL. See http://stxxl.org\n"); ++$i;
+    expect($path, $i, @data, "#  Part of FOXXLL. See http://foxxll.org\n"); ++$i;
     expect($path, $i, @data, "#\n"); ++$i;
 
     # read authors

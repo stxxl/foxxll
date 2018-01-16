@@ -1,7 +1,7 @@
 /***************************************************************************
  *  tools/benchmark_files.cpp
  *
- *  Part of the STXXL. See http://stxxl.org
+ *  Part of FOXXLL. See http://foxxll.org
  *
  *  Copyright (C) 2002-2003 Roman Dementiev <dementiev@mpi-sb.mpg.de>
  *  Copyright (C) 2007-2011 Andreas Beckmann <beckmann@cs.uni-frankfurt.de>

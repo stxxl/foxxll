@@ -3,7 +3,7 @@
 #
 #  Base CMake file for building stxxl with different options.
 #
-#  Part of the STXXL. See http://stxxl.org
+#  Part of FOXXLL. See http://foxxll.org
 #
 #  Copyright (C) 2013-2014 Timo Bingmann <tb@panthema.net>
 #

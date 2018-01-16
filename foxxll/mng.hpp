@@ -2,7 +2,7 @@
 /***************************************************************************
  *  foxxll/mng.hpp
  *
- *  Part of the STXXL. See http://stxxl.org
+ *  Part of FOXXLL. See http://foxxll.org
  *
  *  Copyright (C) 2007, 2009 Andreas Beckmann <beckmann@cs.uni-frankfurt.de>
  *

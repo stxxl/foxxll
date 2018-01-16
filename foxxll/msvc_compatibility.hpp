@@ -1,7 +1,7 @@
 /***************************************************************************
  *  foxxll/msvc_compatibility.hpp
  *
- *  Part of the STXXL. See http://stxxl.org
+ *  Part of FOXXLL. See http://foxxll.org
  *
  *  Copyright (C) 2009, 2011 Andreas Beckmann <beckmann@cs.uni-frankfurt.de>
  *

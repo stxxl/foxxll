@@ -1,7 +1,7 @@
 /***************************************************************************
  *  foxxll/io/request_queue.hpp
  *
- *  Part of the STXXL. See http://stxxl.org
+ *  Part of FOXXLL. See http://foxxll.org
  *
  *  Copyright (C) 2009 Andreas Beckmann <beckmann@cs.uni-frankfurt.de>
  *  Copyright (C) 2011 Johannes Singler <singler@ira.uka.de>

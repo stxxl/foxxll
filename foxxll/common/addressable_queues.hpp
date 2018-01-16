@@ -1,7 +1,7 @@
 /***************************************************************************
  *  foxxll/common/addressable_queues.hpp
  *
- *  Part of the STXXL. See http://stxxl.org
+ *  Part of FOXXLL. See http://foxxll.org
  *
  *  Copyright (C) 2010-2011 Raoul Steffen <R-Steffen@gmx.de>
  *

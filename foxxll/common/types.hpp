@@ -1,7 +1,7 @@
 /***************************************************************************
  *  foxxll/common/types.hpp
  *
- *  Part of the STXXL. See http://stxxl.org
+ *  Part of FOXXLL. See http://foxxll.org
  *
  *  Copyright (C) 2007 Roman Dementiev <dementiev@ira.uka.de>
  *  Copyright (C) 2010 Andreas Beckmann <beckmann@cs.uni-frankfurt.de>

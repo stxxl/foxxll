@@ -3,7 +3,7 @@
  *
  *  (optional) short description
  *
- *  Part of the STXXL. See http://stxxl.org
+ *  Part of FOXXLL. See http://foxxll.org
  *
  *  Copyright (C) 200X Joe XXL Coder <stxxl@stl.xxl>
  *

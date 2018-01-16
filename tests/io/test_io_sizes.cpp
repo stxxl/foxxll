@@ -1,7 +1,7 @@
 /***************************************************************************
  *  tests/io/test_io_sizes.cpp
  *
- *  Part of the STXXL. See http://stxxl.org
+ *  Part of FOXXLL. See http://foxxll.org
  *
  *  Copyright (C) 2010 Johannes Singler <singler@kit.edu>
  *

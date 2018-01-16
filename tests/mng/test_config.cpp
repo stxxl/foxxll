@@ -1,7 +1,7 @@
 /***************************************************************************
  *  tests/mng/test_config.cpp
  *
- *  Part of the STXXL. See http://stxxl.org
+ *  Part of FOXXLL. See http://foxxll.org
  *
  *  Copyright (C) 2013 Timo Bingmann <tb@panthema.net>
  *
