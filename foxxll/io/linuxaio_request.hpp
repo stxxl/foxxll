@@ -22,7 +22,7 @@
 
 #include <foxxll/io/request_with_state.hpp>
 
-#define STXXL_VERBOSE_LINUXAIO(msg) STXXL_VERBOSE2(msg)
+#define STXXL_VERBOSE_LINUXAIO(msg) STXXL_VERBOSE3(msg)
 
 namespace foxxll {
 
@@ -57,11 +57,13 @@ public:
                 " op=" << op << ")");
     }
 
-    bool post();
+    void prepare_post();
+
     bool cancel() final;
-    bool cancel_aio();
     void completed(bool posted, bool canceled);
     void completed(bool canceled) { completed(true, canceled); }
+
+    iocb & control_block() { return cb_; }
 };
 
 //! \}
