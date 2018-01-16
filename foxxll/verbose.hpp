@@ -179,36 +179,6 @@ void print_msg(const char* label, const std::string& msg, unsigned flags);
         }                                                                       \
     } while (0)
 
-// STXXL_ASSERT is an assertion macro almost identical to assert(). The only
-// difference is that with NDEBUG defined, the _code_ itself still exists. This
-// silences warnings about unused variables and typedefs in release builds.
-
-#ifdef NDEBUG
-
-#define STXXL_ASSERT(condition)                                                   \
-    do { if (0) {                                                                 \
-             if (!(condition)) {                                                  \
-                 _STXXL_PRINT("STXXL-ASSERT",                                     \
-                              #condition " - FAILED @ " __FILE__ ":" << __LINE__, \
-                              _STXXL_PRINT_FLAGS_ERROR); abort();                 \
-             }                                                                    \
-         }                                                                        \
-    } while (0)
-
-#else
-
-#define STXXL_ASSERT(condition)                                                   \
-    do { if (1) {                                                                 \
-             if (!(condition)) {                                                  \
-                 _STXXL_PRINT("STXXL-ASSERT",                                     \
-                              #condition " - FAILED @ " __FILE__ ":" << __LINE__, \
-                              _STXXL_PRINT_FLAGS_ERROR); abort();                 \
-             }                                                                    \
-         }                                                                        \
-    } while (0)
-
-#endif
-
 // FOXXLL_CHECK_THROW is an assertion macro for unit tests, which checks that
 // the enclosed code throws an exception.
 

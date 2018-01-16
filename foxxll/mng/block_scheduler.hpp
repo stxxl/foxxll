@@ -13,6 +13,8 @@
 #ifndef FOXXLL_MNG_BLOCK_SCHEDULER_HEADER
 #define FOXXLL_MNG_BLOCK_SCHEDULER_HEADER
 
+#include <cassert>
+
 #include <algorithm>
 #include <deque>
 #include <functional>
@@ -25,6 +27,8 @@
 #include <string>
 #include <utility>
 #include <vector>
+
+#include <tlx/unused.hpp>
 
 #include <foxxll/mng/block_manager.hpp>
 #include <foxxll/mng/typed_block.hpp>
@@ -1229,7 +1233,9 @@ protected:
         if (wrr->write_req.valid())
         {
             bool t = write_scheduled_blocks.insert(std::make_pair(sbid, wrr)).second;
-            STXXL_ASSERT(t);
+            tlx::unused(t);
+
+            assert(t);
             return wrr;
         }
         else
@@ -1698,7 +1704,9 @@ public:
             {
                 // not acquired yet -> remove from scheduled_evictable_blocks
                 size_t t = scheduled_evictable_blocks.erase(sbid);
-                STXXL_ASSERT(t != 0);
+                tlx::unused(t);
+
+                assert(t != 0);
                 wait_on_read(schedule_meta);
             }
             sblock.acquire();
