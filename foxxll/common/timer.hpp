@@ -17,6 +17,7 @@
 #define FOXXLL_COMMON_TIMER_HEADER
 
 #include <chrono>
+#include <mutex>
 #include <limits>
 #include <string>
 
@@ -61,6 +62,9 @@ class timer
         return foxxll::timestamp();
     }
 
+    //! guard accumulated
+    std::mutex mutex_accumulated;
+
 public:
     //! boolean indicating that this class does real timing
     static const bool is_real = true;
@@ -83,12 +87,16 @@ public:
     void stop()
     {
         running = false;
-        accumulated += timestamp() - last_clock;
+        auto delta = timestamp() - last_clock;
+
+        std::unique_lock<std::mutex> (mutex_accumulated);
+        accumulated += delta;
     }
 
     //! return accumulated time
     void reset()
     {
+        std::unique_lock<std::mutex> (mutex_accumulated);
         accumulated = 0.;
         last_clock = timestamp();
     }
@@ -96,6 +104,8 @@ public:
     //! return currently accumulated time in milliseconds
     double mseconds() const
     {
+        std::unique_lock<std::mutex> (mutex_accumulated);
+
         if (running)
             return (accumulated + timestamp() - last_clock) * 1000.;
 
@@ -105,8 +115,12 @@ public:
     //! return currently accumulated time in microseconds
     double useconds() const
     {
+        auto delta = timestamp() - last_clock;
+
+        std::unique_lock<std::mutex> (mutex_accumulated);
+
         if (running)
-            return (accumulated + timestamp() - last_clock) * 1000000.;
+            return (accumulated + delta) * 1000000.;
 
         return (accumulated * 1000000.);
     }
@@ -114,8 +128,12 @@ public:
     //! return currently accumulated time in seconds (as double)
     double seconds() const
     {
+        auto delta = timestamp() - last_clock;
+
+        std::unique_lock<std::mutex> (mutex_accumulated);
+
         if (running)
-            return (accumulated + timestamp() - last_clock);
+            return (accumulated + delta);
 
         return (accumulated);
     }
@@ -123,10 +141,10 @@ public:
     //! accumulate elapsed time from another timer
     timer& operator += (const timer& tm)
     {
-#if STXXL_PARALLEL
-#pragma omp atomic
-#endif
-        accumulated += tm.seconds();
+        auto delta = tm.seconds();
+        std::unique_lock<std::mutex> (mutex_accumulated);
+
+        accumulated += delta;
         return *this;
     }
 
