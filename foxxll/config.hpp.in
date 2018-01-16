@@ -8,25 +8,26 @@
  *  Part of the STXXL. See http://stxxl.org
  *
  *  Copyright (C) 2012-2013 Timo Bingmann <tb@panthema.net>
+ *  Copyright (C) 2018      Manuel Penschuck <foxxll@manuel.jetzt>
  *
  *  Distributed under the Boost Software License, Version 1.0.
  *  (See accompanying file LICENSE_1_0.txt or copy at
  *  http://www.boost.org/LICENSE_1_0.txt)
  **************************************************************************/
 
-#ifndef STXXL_CONFIG_HEADER
-#define STXXL_CONFIG_HEADER
+#ifndef FOXXLL_CONFIG_HEADER
+#define FOXXLL_CONFIG_HEADER
 
 // the STXXL library version variables
-#define STXXL_VERSION_MAJOR ${STXXL_VERSION_MAJOR}
-#define STXXL_VERSION_MINOR ${STXXL_VERSION_MINOR}
-#define STXXL_VERSION_PATCH ${STXXL_VERSION_PATCH}
-#define STXXL_VERSION_STRING "${STXXL_VERSION_STRING}"
-#define STXXL_VERSION_PHASE "${STXXL_VERSION_PHASE}"
+#define FOXXLL_VERSION_MAJOR ${FOXXLL_VERSION_MAJOR}
+#define FOXXLL_VERSION_MINOR ${FOXXLL_VERSION_MINOR}
+#define FOXXLL_VERSION_PATCH ${FOXXLL_VERSION_PATCH}
+#define FOXXLL_VERSION_STRING "${FOXXLL_VERSION_STRING}"
+#define FOXXLL_VERSION_PHASE "${FOXXLL_VERSION_PHASE}"
 
 // if this is a git repository, add the refspec and commit sha
-#cmakedefine STXXL_VERSION_GIT_REFSPEC "${STXXL_VERSION_GIT_REFSPEC}"
-#cmakedefine STXXL_VERSION_GIT_SHA1 "${STXXL_VERSION_GIT_SHA1}"
+#cmakedefine FOXXLL_VERSION_GIT_REFSPEC "${FOXXLL_VERSION_GIT_REFSPEC}"
+#cmakedefine FOXXLL_VERSION_GIT_SHA1 "${FOXXLL_VERSION_GIT_SHA1}"
 
 #ifndef STXXL_DEBUG_ASSERTIONS
 #cmakedefine STXXL_DEBUG_ASSERTIONS ${STXXL_DEBUG_ASSERTIONS}
@@ -95,4 +96,4 @@
 // cmake:   option USE_VALGRIND=ON
 // effect:  run all tests with valgrind and pre-initialize some memory buffers
 
-#endif // !STXXL_CONFIG_HEADER
+#endif // !FOXXLL_CONFIG_HEADER
