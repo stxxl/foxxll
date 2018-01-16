@@ -22,6 +22,8 @@
 
 namespace foxxll {
 
+static_assert(sizeof(size_t) == 8, "FOXXLL supports only 64-bit builds");
+
 using external_size_type = uint64_t;       // may require external memory
 using external_diff_type = int64_t;        // may require external memory
 
