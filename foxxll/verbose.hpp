@@ -143,27 +143,6 @@ void print_msg(const char* label, const std::string& msg, unsigned flags);
 #define STXXL_VERBOSE3_THIS(x) \
     STXXL_VERBOSE3("[" << static_cast<void*>(this) << "] " << x)
 
-//! STXXL_DEBUG_COND is a macro which prints iff the passed variable "debug" is
-//! true. Use this for conditional debug variables.
-#define STXXL_DEBUG_COND(dbg, x)                                        \
-    do {                                                                \
-        if (dbg) {                                                      \
-            _STXXL_PRINT("STXXL-DEBUG", x, _STXXL_PRINT_FLAGS_DEFAULT); \
-        }                                                               \
-    } while (0)
-
-//! STXXL_DEBUG is a macro which prints iff the locally defined variable
-//! "debug" is true. Use this for scoped-based debug variables.
-#define STXXL_DEBUG(x) STXXL_DEBUG_COND(debug, x)
-
-//! STXXL_DEBUG0 is a macro which never prints the debug message, used to
-//! temporarily disable STXXL_DEBUG occurrences.
-#define STXXL_DEBUG0(x) STXXL_DEBUG_COND(false, x)
-
-//! STXXL_DEBUG1 is a macro which always prints the debug message, used to
-//! temporarily enable STXXL_DEBUG occurrences.
-#define STXXL_DEBUG1(x) STXXL_DEBUG_COND(true, x)
-
 //! FOXXLL_CHECK is an assertion macro for unit tests, which contrarily to
 //! assert() also works in release builds. These macros should ONLY be used in
 //! UNIT TESTS, not in the library source. Use usual assert() there.
@@ -222,36 +201,6 @@ void print_msg(const char* label, const std::string& msg, unsigned flags);
     do { if (1) {                                                                 \
              if (!(condition)) {                                                  \
                  _STXXL_PRINT("STXXL-ASSERT",                                     \
-                              #condition " - FAILED @ " __FILE__ ":" << __LINE__, \
-                              _STXXL_PRINT_FLAGS_ERROR); abort();                 \
-             }                                                                    \
-         }                                                                        \
-    } while (0)
-
-#endif
-
-// STXXL_DEBUG_ASSERT is an assertions, that is only active if the compile flag
-// STXXL_DEBUG_ASSERTIONS=1 is true. This macro should be used for more costly
-// assertions inside the library, that can be deactivated after development.
-
-#if STXXL_DEBUG_ASSERTIONS
-
-#define STXXL_DEBUG_ASSERT(condition)                                             \
-    do { if (true) {                                                              \
-             if (!(condition)) {                                                  \
-                 _STXXL_PRINT("STXXL-DEBUG-ASSERT",                               \
-                              #condition " - FAILED @ " __FILE__ ":" << __LINE__, \
-                              _STXXL_PRINT_FLAGS_ERROR); abort();                 \
-             }                                                                    \
-         }                                                                        \
-    } while (0)
-
-#else
-
-#define STXXL_DEBUG_ASSERT(condition)                                             \
-    do { if (false) {                                                             \
-             if (!(condition)) {                                                  \
-                 _STXXL_PRINT("STXXL-DEBUG-ASSERT",                               \
                               #condition " - FAILED @ " __FILE__ ":" << __LINE__, \
                               _STXXL_PRINT_FLAGS_ERROR); abort();                 \
              }                                                                    \
