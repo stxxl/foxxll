@@ -18,7 +18,7 @@
 #include <foxxll/config.hpp>
 
 #ifndef STXXL_HAVE_WINCALL_FILE
-#if STXXL_WINDOWS
+#if FOXXLL_WINDOWS
  #define STXXL_HAVE_WINCALL_FILE 1
 #else
  #define STXXL_HAVE_WINCALL_FILE 0

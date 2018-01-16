@@ -45,7 +45,7 @@ protected:
                             size_t(bid.offset >> 32);
             return result;
         }
-#if STXXL_MSVC
+#if FOXXLL_MSVC
         bool operator () (const bid_type& a, const bid_type& b) const
         {
             return (a.storage < b.storage) || (a.storage == b.storage && a.offset < b.offset);

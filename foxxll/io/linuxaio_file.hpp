@@ -16,7 +16,7 @@
 
 #include <foxxll/config.hpp>
 
-#if STXXL_HAVE_LINUXAIO_FILE
+#if FOXXLL_HAVE_LINUXAIO_FILE
 
 #include <string>
 
@@ -81,7 +81,7 @@ public:
 
 } // namespace foxxll
 
-#endif // #if STXXL_HAVE_LINUXAIO_FILE
+#endif // #if FOXXLL_HAVE_LINUXAIO_FILE
 
 #endif // !FOXXLL_IO_LINUXAIO_FILE_HEADER
 // vim: et:ts=4:sw=4

@@ -46,7 +46,7 @@
 
 #cmakedefine FOXXLL_WINDOWS ${FOXXLL_WINDOWS}
 // default: off
-// cmake:   detection of ms windows platform (32- or 64-bit)
+// cmake:   detection of ms windows platform
 // effect:  enables windows-specific api calls (mingw or msvc)
 
 #cmakedefine FOXXLL_MSVC ${FOXXLL_MSVC}
@@ -54,12 +54,7 @@
 // cmake:   detection of ms visual c++ via CMake (contains version number)
 // effect:  enables msvc-specific headers and macros
 
-#cmakedefine STXXL_STD_RANDOM ${STXXL_STD_RANDOM}
-// default: off
-// cmake:   detection of <random>
-// effect:  uses std random generator on windows or (forced on linux)
-
-#cmakedefine STXXL_WITH_VALGRIND ${STXXL_WITH_VALGRIND}
+#cmakedefine FOXXLL_WITH_VALGRIND ${FOXXLL_WITH_VALGRIND}
 // default: off
 // cmake:   option USE_VALGRIND=ON
 // effect:  run all tests with valgrind and pre-initialize some memory buffers

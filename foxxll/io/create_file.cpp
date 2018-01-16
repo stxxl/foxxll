@@ -114,7 +114,7 @@ file_ptr create_file(disk_config& cfg, int mode, int disk_allocator_id)
         result->lock();
         return result;
     }
-#if STXXL_HAVE_LINUXAIO_FILE
+#if FOXXLL_HAVE_LINUXAIO_FILE
     // linuxaio can have the desired queue length, specified as queue_length=?
     else if (cfg.io_impl == "linuxaio")
     {
@@ -149,7 +149,7 @@ file_ptr create_file(disk_config& cfg, int mode, int disk_allocator_id)
         return result;
     }
 #endif
-#if STXXL_HAVE_MMAP_FILE
+#if FOXXLL_HAVE_MMAP_FILE
     else if (cfg.io_impl == "mmap")
     {
         tlx::counting_ptr<ufs_file_base> result =

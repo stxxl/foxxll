@@ -17,7 +17,7 @@
 
 #include <foxxll/config.hpp>
 
-#if STXXL_HAVE_MMAP_FILE
+#if FOXXLL_HAVE_MMAP_FILE
 
 #include <string>
 
@@ -59,6 +59,6 @@ public:
 
 } // namespace foxxll
 
-#endif // #if STXXL_HAVE_MMAP_FILE
+#endif // #if FOXXLL_HAVE_MMAP_FILE
 
 #endif // !FOXXLL_IO_MMAP_FILE_HEADER

@@ -27,7 +27,7 @@ void testIO()
     const int size = 1024 * 384;
     char* buffer = static_cast<char*>(foxxll::aligned_alloc<STXXL_BLOCK_ALIGN>(size));
     memset(buffer, 0, size);
-#if STXXL_WINDOWS
+#if FOXXLL_WINDOWS
     const char* paths[2] = { "data1", "data2" };
 #else
     const char* paths[2] = { "/var/tmp/data1", "/var/tmp/data2" };
@@ -48,7 +48,7 @@ void testIO()
 
     foxxll::aligned_dealloc<STXXL_BLOCK_ALIGN>(buffer);
 
-#if !STXXL_WINDOWS
+#if !FOXXLL_WINDOWS
     file1->close_remove();
 #endif
     file2->close_remove();

@@ -46,7 +46,7 @@ using foxxll::external_size_type;
 
 #define POLL_DELAY 1000
 
-#if STXXL_WINDOWS
+#if FOXXLL_WINDOWS
 const char* default_file_type = "wincall";
 #else
 const char* default_file_type = "syscall";
@@ -191,8 +191,8 @@ int benchmark_files(int argc, char* argv[])
     if (!myself || !*(++myself))
         myself = argv[0];
     std::cout << "# " << myself << " " << foxxll::get_version_string_long();
-#if STXXL_DIRECT_IO_OFF
-    std::cout << " STXXL_DIRECT_IO_OFF";
+#if FOXXLL_DIRECT_IO_OFF
+    std::cout << " FOXXLL_DIRECT_IO_OFF";
 #endif
     std::cout << std::endl;
 

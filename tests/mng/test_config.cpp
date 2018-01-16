@@ -48,7 +48,7 @@ void test1()
 
 void test2()
 {
-#if !STXXL_WINDOWS
+#if !FOXXLL_WINDOWS
     // test user-supplied configuration
 
     foxxll::config* config = foxxll::config::get_instance();

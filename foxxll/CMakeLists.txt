@@ -52,7 +52,7 @@ if(NOT MSVC)
     )
 endif(NOT MSVC)
 
-if(STXXL_HAVE_LINUXAIO_FILE)
+if(FOXXLL_HAVE_LINUXAIO_FILE)
   # additional sources fo LinuxAIO fileio access method
   set(LIBFOXXLL_SOURCES ${LIBFOXXLL_SOURCES}
     io/linuxaio_file.cpp

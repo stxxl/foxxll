@@ -18,8 +18,13 @@
 
 #include <map>
 
+#include <foxxll/io/iostats.hpp>
+#include <foxxll/io/linuxaio_queue.hpp>
+#include <foxxll/io/linuxaio_request.hpp>
 #include <foxxll/io/request.hpp>
 #include <foxxll/io/request_queue.hpp>
+#include <foxxll/io/request_queue_impl_qwqr.hpp>
+#include <foxxll/io/serving_request.hpp>
 #include <foxxll/singleton.hpp>
 
 namespace foxxll {

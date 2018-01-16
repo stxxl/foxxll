@@ -327,7 +327,7 @@ public:
         void* result = aligned_alloc<STXXL_BLOCK_ALIGN>(
             bytes - meta_info_size, meta_info_size);
 
-#if STXXL_WITH_VALGRIND || STXXL_TYPED_BLOCK_INITIALIZE_ZERO
+#if FOXXLL_WITH_VALGRIND || STXXL_TYPED_BLOCK_INITIALIZE_ZERO
         memset(result, 0, bytes);
 #endif
         return result;
@@ -341,7 +341,7 @@ public:
         void* result = aligned_alloc<STXXL_BLOCK_ALIGN>(
             bytes - meta_info_size, meta_info_size);
 
-#if STXXL_WITH_VALGRIND || STXXL_TYPED_BLOCK_INITIALIZE_ZERO
+#if FOXXLL_WITH_VALGRIND || STXXL_TYPED_BLOCK_INITIALIZE_ZERO
         memset(result, 0, bytes);
 #endif
         return result;

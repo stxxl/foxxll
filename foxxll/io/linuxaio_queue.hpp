@@ -16,7 +16,7 @@
 
 #include <foxxll/io/linuxaio_file.hpp>
 
-#if STXXL_HAVE_LINUXAIO_FILE
+#if FOXXLL_HAVE_LINUXAIO_FILE
 
 #include <atomic>
 #include <list>
@@ -96,7 +96,7 @@ public:
 
 } // namespace foxxll
 
-#endif // #if STXXL_HAVE_LINUXAIO_FILE
+#endif // #if FOXXLL_HAVE_LINUXAIO_FILE
 
 #endif // !FOXXLL_IO_LINUXAIO_QUEUE_HEADER
 // vim: et:ts=4:sw=4

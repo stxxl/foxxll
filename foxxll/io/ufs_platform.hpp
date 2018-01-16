@@ -17,7 +17,7 @@
 #ifndef FOXXLL_IO_UFS_PLATFORM_HEADER
 #define FOXXLL_IO_UFS_PLATFORM_HEADER
 
-#if STXXL_WINDOWS || defined(__MINGW32__)
+#if FOXXLL_WINDOWS || defined(__MINGW32__)
   #ifndef NOMINMAX
     #define NOMINMAX
   #endif
@@ -67,7 +67,7 @@
 #endif
 
 // use 64-bit functions on Windows
-#if STXXL_WINDOWS
+#if FOXXLL_WINDOWS
   #ifndef lseek
     #define lseek _lseeki64
   #endif

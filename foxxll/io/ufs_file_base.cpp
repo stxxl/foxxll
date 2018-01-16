@@ -63,7 +63,7 @@ ufs_file_base::ufs_file_base(const std::string& filename, int mode)
     {
 #ifdef __APPLE__
         // no additional open flags are required for Mac OS X
-#elif !STXXL_DIRECT_IO_OFF
+#elif !FOXXLL_DIRECT_IO_OFF
         flags |= O_DIRECT;
 #else
         if (mode & REQUIRE_DIRECT) {
@@ -84,11 +84,11 @@ ufs_file_base::ufs_file_base(const std::string& filename, int mode)
         flags |= O_SYNC;
     }
 
-#if STXXL_WINDOWS
+#if FOXXLL_WINDOWS
     flags |= O_BINARY;                     // the default in MS is TEXT mode
 #endif
 
-#if STXXL_WINDOWS || defined(__MINGW32__)
+#if FOXXLL_WINDOWS || defined(__MINGW32__)
     const int perms = S_IREAD | S_IWRITE;
 #else
     const int perms = S_IREAD | S_IWRITE | S_IRGRP | S_IWGRP;
@@ -100,7 +100,7 @@ ufs_file_base::ufs_file_base(const std::string& filename, int mode)
         return;
     }
 
-#if !STXXL_DIRECT_IO_OFF
+#if !FOXXLL_DIRECT_IO_OFF
     if ((mode & DIRECT) && !(mode & REQUIRE_DIRECT) && errno == EINVAL)
     {
         STXXL_MSG("open() error on path=" << filename_
@@ -129,7 +129,7 @@ ufs_file_base::~ufs_file_base()
 void ufs_file_base::_after_open()
 {
     // stat file type
-#if STXXL_WINDOWS || defined(__MINGW32__)
+#if FOXXLL_WINDOWS || defined(__MINGW32__)
     struct _stat64 st;
     FOXXLL_THROW_ERRNO_NE_0(::_fstat64(file_des_, &st), io_error,
                            "_fstat64() path=" << filename_ << " fd=" << file_des_);
@@ -179,7 +179,7 @@ void ufs_file_base::close()
 
 void ufs_file_base::lock()
 {
-#if STXXL_WINDOWS || defined(__MINGW32__)
+#if FOXXLL_WINDOWS || defined(__MINGW32__)
     // not yet implemented
 #else
     std::unique_lock<std::mutex> fd_lock(fd_mutex_);
@@ -225,7 +225,7 @@ void ufs_file_base::_set_size(offset_type newsize)
 
     if (!(mode_ & RDONLY) && !is_device_)
     {
-#if STXXL_WINDOWS || defined(__MINGW32__)
+#if FOXXLL_WINDOWS || defined(__MINGW32__)
         HANDLE hfile = (HANDLE)::_get_osfhandle(file_des_);
         FOXXLL_THROW_ERRNO_NE_0((hfile == INVALID_HANDLE_VALUE), io_error,
                                "_get_osfhandle() path=" << filename_ << " fd=" << file_des_);
@@ -248,7 +248,7 @@ void ufs_file_base::_set_size(offset_type newsize)
 #endif
     }
 
-#if !STXXL_WINDOWS
+#if !FOXXLL_WINDOWS
     if (newsize > cur_size)
         FOXXLL_THROW_ERRNO_LT_0(::lseek(file_des_, newsize - 1, SEEK_SET), io_error,
                                "lseek() path=" << filename_ << " fd=" << file_des_ << " pos=" << newsize - 1);

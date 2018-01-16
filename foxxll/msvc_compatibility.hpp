@@ -15,7 +15,7 @@
 
 #include <foxxll/config.hpp>
 
-#if STXXL_MSVC
+#if FOXXLL_MSVC
 
 #include <cma.hpp>
 
@@ -33,7 +33,7 @@ inline double log2(double x)
 // http://msdn.microsoft.com/en-us/library/85zk715d.aspx
 #define strtoull _strtoui64
 
-#endif // STXXL_MSVC
+#endif // FOXXLL_MSVC
 
 #endif // !FOXXLL_MSVC_COMPATIBILITY_HEADER
 // vim: et:ts=4:sw=4

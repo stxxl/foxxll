@@ -334,14 +334,14 @@ int main() { return ((int)O_DIRECT) != 0; }
 " STXXL_HAVE_O_DIRECT)
 
   if(STXXL_HAVE_O_DIRECT)
-    set(STXXL_DIRECT_IO_OFF 0)
+    set(FOXXLL_DIRECT_IO_OFF 0)
   else()
-    set(STXXL_DIRECT_IO_OFF 1)
+    set(FOXXLL_DIRECT_IO_OFF 1)
   endif()
 
 endif()
 
-if(STXXL_DIRECT_IO_OFF)
+if(FOXXLL_DIRECT_IO_OFF)
   message(WARNING
     "The open() flag O_DIRECT was disabled!\n"
     "This means that FOXXLL cannot bypass the system cache on your system, which may degrade performance.")
@@ -351,7 +351,7 @@ endif()
 # check for mmap() function in sys/mman.h
 
 include(CheckSymbolExists)
-check_symbol_exists(mmap "sys/mman.h" STXXL_HAVE_MMAP_FILE)
+check_symbol_exists(mmap "sys/mman.h" FOXXLL_HAVE_MMAP_FILE)
 
 ###############################################################################
 # check for Linux aio syscalls
@@ -366,7 +366,7 @@ check_cxx_source_compiles(
        long r = syscall(SYS_io_setup, 5, &context);
        return (r == 0) ? 0 : -1;
    }"
-   STXXL_HAVE_LINUXAIO_FILE)
+   FOXXLL_HAVE_LINUXAIO_FILE)
 
 ###############################################################################
 # optional OpenMP parallelization

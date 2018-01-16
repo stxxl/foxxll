@@ -90,7 +90,7 @@ void fileperblock_file<base_file_type>::lock()
         //create lock file and fill it with one page, an empty file cannot be locked
         const int page_size = STXXL_BLOCK_ALIGN;
         void* one_page = aligned_alloc<STXXL_BLOCK_ALIGN>(page_size);
-#if STXXL_WITH_VALGRIND
+#if FOXXLL_WITH_VALGRIND
         memset(one_page, 0, page_size);
 #endif
         lock_file_->set_size(page_size);
@@ -127,7 +127,7 @@ void fileperblock_file<base_file_type>::export_files(offset_type offset, offset_
     if (::rename(original.c_str(), filename.c_str()) != 0)
         STXXL_ERRMSG("rename() error on path=" << filename << " to=" << original << " error=" << strerror(errno));
 
-#if !STXXL_WINDOWS
+#if !FOXXLL_WINDOWS
     //TODO: implement on Windows
     if (::truncate(filename.c_str(), as_signed(length)) != 0) {
         FOXXLL_THROW_ERRNO(io_error, "Error doing truncate()");
@@ -147,7 +147,7 @@ const char* fileperblock_file<base_file_type>::io_type() const
 
 template class fileperblock_file<syscall_file>;
 
-#if STXXL_HAVE_MMAP_FILE
+#if FOXXLL_HAVE_MMAP_FILE
 template class fileperblock_file<mmap_file>;
 #endif
 

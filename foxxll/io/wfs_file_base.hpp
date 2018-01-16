@@ -19,7 +19,7 @@
 
 #include <foxxll/config.hpp>
 
-#if STXXL_WINDOWS
+#if FOXXLL_WINDOWS
 
 #include <string>
 
@@ -60,6 +60,6 @@ public:
 
 } // namespace foxxll
 
-#endif // STXXL_WINDOWS
+#endif // FOXXLL_WINDOWS
 
 #endif // !FOXXLL_IO_WFS_FILE_BASE_HEADER

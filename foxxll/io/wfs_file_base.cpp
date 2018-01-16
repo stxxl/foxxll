@@ -15,7 +15,7 @@
 #include <foxxll/common/error_handling.hpp>
 #include <foxxll/io/wfs_file_base.hpp>
 
-#if STXXL_WINDOWS
+#if FOXXLL_WINDOWS
 
 #ifndef NOMINMAX
   #define NOMINMAX
@@ -68,7 +68,7 @@ static HANDLE open_file_impl(const std::string& filename, int mode)
 
     if (mode & file::DIRECT)
     {
-#if !STXXL_DIRECT_IO_OFF
+#if !FOXXLL_DIRECT_IO_OFF
         dwFlagsAndAttributes |= FILE_FLAG_NO_BUFFERING;
         // TODO: try also FILE_FLAG_WRITE_THROUGH option ?
 #else
@@ -93,7 +93,7 @@ static HANDLE open_file_impl(const std::string& filename, int mode)
     if (file_des_ != INVALID_HANDLE_VALUE)
         return file_des_;
 
-#if !STXXL_DIRECT_IO_OFF
+#if !FOXXLL_DIRECT_IO_OFF
     if ((mode& file::DIRECT) && !(mode & file::REQUIRE_DIRECT))
     {
         STXXL_MSG("CreateFile() error on path=" << filename << " mode=" << mode << ", retrying without DIRECT mode.");
@@ -236,5 +236,5 @@ void wfs_file_base::close_remove()
 
 } // namespace foxxll
 
-#endif // STXXL_WINDOWS
+#endif // FOXXLL_WINDOWS
 // vim: et:ts=4:sw=4

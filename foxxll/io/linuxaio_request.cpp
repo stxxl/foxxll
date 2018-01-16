@@ -13,7 +13,7 @@
 
 #include <foxxll/io/linuxaio_request.hpp>
 
-#if STXXL_HAVE_LINUXAIO_FILE
+#if FOXXLL_HAVE_LINUXAIO_FILE
 
 #include <sys/syscall.h>
 #include <unistd.h>
@@ -126,5 +126,5 @@ bool linuxaio_request::cancel_aio()
 
 } // namespace foxxll
 
-#endif // #if STXXL_HAVE_LINUXAIO_FILE
+#endif // #if FOXXLL_HAVE_LINUXAIO_FILE
 // vim: et:ts=4:sw=4

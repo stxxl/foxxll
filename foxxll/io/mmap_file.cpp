@@ -13,7 +13,7 @@
 
 #include <foxxll/io/mmap_file.hpp>
 
-#if STXXL_HAVE_MMAP_FILE
+#if FOXXLL_HAVE_MMAP_FILE
 
 #include <sys/mman.h>
 
@@ -72,5 +72,5 @@ const char* mmap_file::io_type() const
 
 } // namespace foxxll
 
-#endif // #if STXXL_HAVE_MMAP_FILE
+#endif // #if FOXXLL_HAVE_MMAP_FILE
 // vim: et:ts=4:sw=4

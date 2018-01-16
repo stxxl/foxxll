@@ -55,7 +55,7 @@ void syscall_file::serve(void* buffer, offset_type offset, size_type bytes,
 
         if (op == request::READ)
         {
-#if STXXL_MSVC
+#if FOXXLL_MSVC
             assert(bytes <= std::numeric_limits<unsigned int>::max());
             if ((rc = ::read(file_des_, cbuffer, (unsigned int)bytes)) <= 0)
 #else
@@ -88,7 +88,7 @@ void syscall_file::serve(void* buffer, offset_type offset, size_type bytes,
         }
         else
         {
-#if STXXL_MSVC
+#if FOXXLL_MSVC
             assert(bytes <= std::numeric_limits<unsigned int>::max());
             if ((rc = ::write(file_des_, cbuffer, (unsigned int)bytes)) <= 0)
 #else

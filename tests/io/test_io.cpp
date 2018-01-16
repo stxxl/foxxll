@@ -48,7 +48,7 @@ int main(int argc, char** argv)
     char* buffer = (char*)foxxll::aligned_alloc<4096>(size);
     memset(buffer, 0, size);
 
-#if STXXL_HAVE_MMAP_FILE
+#if FOXXLL_HAVE_MMAP_FILE
     foxxll::file_ptr file1 = tlx::make_counting<foxxll::mmap_file>(
         tempfilename[0], file::CREAT | file::RDWR | file::DIRECT, 0);
     file1->set_size(size * 1024);
@@ -88,7 +88,7 @@ int main(int argc, char** argv)
         STXXL_MSG(">>>" << foxxll::add_IEC_binary_multiplier(sz, "B") << "<<<");
     STXXL_MSG(">>>" << foxxll::add_IEC_binary_multiplier(std::numeric_limits<uint64_t>::max(), "B") << "<<<");
 
-#if STXXL_HAVE_MMAP_FILE
+#if FOXXLL_HAVE_MMAP_FILE
     file1->close_remove();
 #endif
 

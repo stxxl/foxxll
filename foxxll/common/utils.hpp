@@ -55,7 +55,7 @@ std::string to_str(const Type& t)
 
 inline int64_t atoi64(const char* s)
 {
-#if STXXL_MSVC
+#if FOXXLL_MSVC
     return _atoi64(s);
 #else
     return atoll(s);
@@ -66,7 +66,7 @@ inline int64_t atoi64(const char* s)
 
 inline uint64_t atouint64(const char* s)
 {
-#if STXXL_MSVC
+#if FOXXLL_MSVC
     return _strtoui64(s, nullptr, 10);
 #else
     return strtoull(s, nullptr, 10);

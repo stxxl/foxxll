@@ -25,7 +25,7 @@
 #include <tlx/string/parse_si_iec_units.hpp>
 #include <tlx/string/split.hpp>
 
-#if STXXL_WINDOWS
+#if FOXXLL_WINDOWS
    #ifndef NOMINMAX
     #define NOMINMAX
   #endif
@@ -86,7 +86,7 @@ void config::find_config()
     if (stxxlcfg && exist_file(stxxlcfg))
         return load_config_file(stxxlcfg);
 
-#if !STXXL_WINDOWS
+#if !FOXXLL_WINDOWS
     // read environment, unix style
     const char* hostname = getenv("HOSTNAME");
     const char* home = getenv("HOME");
@@ -129,7 +129,7 @@ void config::load_default_config()
 {
     STXXL_ERRMSG("Warning: no config file found.");
     STXXL_ERRMSG("Using default disk configuration.");
-#if !STXXL_WINDOWS
+#if !FOXXLL_WINDOWS
     disk_config entry1("/var/tmp/stxxl", 1000 * 1024 * 1024, "syscall");
     entry1.delete_on_exit = true;
     entry1.autogrow = true;
@@ -345,7 +345,7 @@ void disk_config::parse_line(const std::string& line)
         std::string::size_type pos;
         if ((pos = path.find("$$")) != std::string::npos)
         {
-#if !STXXL_WINDOWS
+#if !FOXXLL_WINDOWS
             int pid = getpid();
 #else
             DWORD pid = GetCurrentProcessId();

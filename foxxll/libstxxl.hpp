@@ -15,7 +15,7 @@
 
 #include <foxxll/config.hpp>
 
-#if STXXL_MSVC
+#if FOXXLL_MSVC
  #ifndef STXXL_LIBNAME
   #define STXXL_LIBNAME "stxxl"
  #endif

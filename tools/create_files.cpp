@@ -19,7 +19,7 @@
 #include <foxxll/io.hpp>
 #include <tlx/cmdline_parser.hpp>
 
-#if !STXXL_WINDOWS
+#if !FOXXLL_WINDOWS
  #include <unistd.h>
 #endif
 
@@ -109,7 +109,7 @@ int create_files(int argc, char* argv[])
 
     const size_t ndisks = disks_arr.size();
 
-#if STXXL_WINDOWS
+#if FOXXLL_WINDOWS
     size_t buffer_size = 64 * MB;
 #else
     size_t buffer_size = 256 * MB;
@@ -135,7 +135,7 @@ int create_files(int argc, char* argv[])
 
     for (i = 0; i < ndisks; i++)
     {
-#if STXXL_WINDOWS
+#if FOXXLL_WINDOWS
  #ifdef RAW_ACCESS
         disks[i] = new foxxll::wincall_file(disks_arr[i],
                                             file::CREAT | file::RDWR | file::DIRECT, static_cast<int>(i));

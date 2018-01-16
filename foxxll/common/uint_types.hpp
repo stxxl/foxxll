@@ -44,7 +44,7 @@ namespace foxxll {
  * the lower/higher part. Not all arithmetic operations are supported, patches
  * welcome if you really need the operations.
  */
-#if STXXL_MSVC
+#if FOXXLL_MSVC
 #pragma pack(push, 1)
 #endif
 template <typename HighType>
@@ -234,7 +234,7 @@ public:
                          std::numeric_limits<high_type>::max());
     }
 }
-#if STXXL_MSVC
+#if FOXXLL_MSVC
 ;                         // NOLINT
 #pragma pack(pop)
 #else

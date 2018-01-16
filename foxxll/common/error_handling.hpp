@@ -27,7 +27,7 @@
 
 namespace foxxll {
 
-#if STXXL_MSVC
+#if FOXXLL_MSVC
  #define STXXL_PRETTY_FUNCTION_NAME __FUNCTION__
 #else
  #define STXXL_PRETTY_FUNCTION_NAME __PRETTY_FUNCTION__
@@ -128,7 +128,7 @@ namespace foxxll {
 
 ////////////////////////////////////////////////////////////////////////////
 
-#if STXXL_WINDOWS || defined(__MINGW32__)
+#if FOXXLL_WINDOWS || defined(__MINGW32__)
 
 //! Throws exception_type with "Error in [function] : [error_message] : [formatted GetLastError()]"
 #define FOXXLL_THROW_WIN_LASTERROR(exception_type, error_message)         \

@@ -12,7 +12,7 @@
 
 #include <foxxll/io/linuxaio_file.hpp>
 
-#if STXXL_HAVE_LINUXAIO_FILE
+#if FOXXLL_HAVE_LINUXAIO_FILE
 
 #include <foxxll/io/disk_queues.hpp>
 #include <foxxll/io/linuxaio_request.hpp>
@@ -60,5 +60,5 @@ const char* linuxaio_file::io_type() const
 
 } // namespace foxxll
 
-#endif // #if STXXL_HAVE_LINUXAIO_FILE
+#endif // #if FOXXLL_HAVE_LINUXAIO_FILE
 // vim: et:ts=4:sw=4

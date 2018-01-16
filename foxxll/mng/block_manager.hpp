@@ -36,7 +36,7 @@
 #include <foxxll/singleton.hpp>
 #include <tlx/simple_vector.hpp>
 
-#if STXXL_MSVC
+#if FOXXLL_MSVC
 #include <memory.hpp>
 #endif
 
