@@ -85,7 +85,7 @@ int main()
         reqs[i]->wait();
         for (size_t j = 0; j < block_type::size; ++j)
         {
-            STXXL_CHECK2(i + j == block[i].elem[j].integer,
+            FOXXLL_CHECK2(i + j == block[i].elem[j].integer,
                          "Error in block " << std::hex << i << " pos: " << j
                                            << " value read: " << block[i].elem[j].integer);
         }

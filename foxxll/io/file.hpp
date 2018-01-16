@@ -34,7 +34,7 @@
 #include <tlx/unused.hpp>
 
 #if defined(__linux__)
- #define STXXL_CHECK_BLOCK_ALIGNING
+ #define FOXXLL_CHECK_BLOCK_ALIGNING
 #endif
 
 namespace foxxll {

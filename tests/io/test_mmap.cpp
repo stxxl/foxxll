@@ -58,8 +58,8 @@ void testIOException()
 {
     foxxll::file::unlink("TestFile");
     // try to open non-existing files
-    STXXL_CHECK_THROW(foxxll::mmap_file file1("TestFile", foxxll::file::RDWR, 0), foxxll::io_error);
-    STXXL_CHECK_THROW(foxxll::syscall_file file1("TestFile", foxxll::file::RDWR, 0), foxxll::io_error);
+    FOXXLL_CHECK_THROW(foxxll::mmap_file file1("TestFile", foxxll::file::RDWR, 0), foxxll::io_error);
+    FOXXLL_CHECK_THROW(foxxll::syscall_file file1("TestFile", foxxll::file::RDWR, 0), foxxll::io_error);
 }
 
 int main()

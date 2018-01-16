@@ -24,8 +24,8 @@
  #include <windows.hpp>
 #endif
 
-#ifndef STXXL_CHECK_FOR_PENDING_REQUESTS_ON_SUBMISSION
-#define STXXL_CHECK_FOR_PENDING_REQUESTS_ON_SUBMISSION 1
+#ifndef FOXXLL_CHECK_FOR_PENDING_REQUESTS_ON_SUBMISSION
+#define FOXXLL_CHECK_FOR_PENDING_REQUESTS_ON_SUBMISSION 1
 #endif
 
 namespace foxxll {
@@ -67,7 +67,7 @@ void request_queue_impl_qwqr::add_request(request_ptr& req)
 
     if (req.get()->op() == request::READ)
     {
-#if STXXL_CHECK_FOR_PENDING_REQUESTS_ON_SUBMISSION
+#if FOXXLL_CHECK_FOR_PENDING_REQUESTS_ON_SUBMISSION
         {
             std::unique_lock<std::mutex> lock(write_mutex_);
             if (std::find_if(write_queue_.begin(), write_queue_.end(),
@@ -83,7 +83,7 @@ void request_queue_impl_qwqr::add_request(request_ptr& req)
     }
     else
     {
-#if STXXL_CHECK_FOR_PENDING_REQUESTS_ON_SUBMISSION
+#if FOXXLL_CHECK_FOR_PENDING_REQUESTS_ON_SUBMISSION
         {
             std::unique_lock<std::mutex> lock(read_mutex_);
             if (std::find_if(read_queue_.begin(), read_queue_.end(),

@@ -29,7 +29,7 @@ serving_request::serving_request(
     read_or_write op)
     : request_with_state(on_cmpl, file, buffer, offset, bytes, op)
 {
-#ifdef STXXL_CHECK_BLOCK_ALIGNING
+#ifdef FOXXLL_CHECK_BLOCK_ALIGNING
     // Direct I/O requires file system block size alignment for file offsets,
     // memory buffer addresses, and transfer(buffer) size must be multiple
     // of the file system block size

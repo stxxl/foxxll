@@ -23,12 +23,12 @@
 // affects: library
 // effect:  enables/disables some file implementations
 
-//#define STXXL_CHECK_BLOCK_ALIGNING
+//#define FOXXLL_CHECK_BLOCK_ALIGNING
 // default: not defined
 // used in: io/*_file.cpp
 // effect:  call request::check_alignment() from request::request(...)
 
-//#define STXXL_CHECK_FOR_PENDING_REQUESTS_ON_SUBMISSION 0/1
+//#define FOXXLL_CHECK_FOR_PENDING_REQUESTS_ON_SUBMISSION 0/1
 // default: 1
 // used in: io/*_queue*.cpp
 // affects: library
@@ -60,7 +60,7 @@
 //          optimal schedule (Hutchinson, Sanders, Vitter: Duality between
 //          prefetching and queued writing on parallel disks, 2005)
 
-//#define STXXL_CHECK_ORDER_IN_SORTS 0/1
+//#define FOXXLL_CHECK_ORDER_IN_SORTS 0/1
 // default: 0
 // used in: algo/*sort.h, stream/sort_stream.h, containers/priority_queue.h
 // effect if set to 1: perform additional checking of sorted results

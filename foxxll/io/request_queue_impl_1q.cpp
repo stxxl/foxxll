@@ -25,8 +25,8 @@
  #include <windows.hpp>
 #endif
 
-#ifndef STXXL_CHECK_FOR_PENDING_REQUESTS_ON_SUBMISSION
-#define STXXL_CHECK_FOR_PENDING_REQUESTS_ON_SUBMISSION 1
+#ifndef FOXXLL_CHECK_FOR_PENDING_REQUESTS_ON_SUBMISSION
+#define FOXXLL_CHECK_FOR_PENDING_REQUESTS_ON_SUBMISSION 1
 #endif
 
 namespace foxxll {
@@ -66,7 +66,7 @@ void request_queue_impl_1q::add_request(request_ptr& req)
     if (!dynamic_cast<serving_request*>(req.get()))
         STXXL_ERRMSG("Incompatible request submitted to running queue.");
 
-#if STXXL_CHECK_FOR_PENDING_REQUESTS_ON_SUBMISSION
+#if FOXXLL_CHECK_FOR_PENDING_REQUESTS_ON_SUBMISSION
     {
         std::unique_lock<std::mutex> lock(queue_mutex_);
         if (std::find_if(queue_.begin(), queue_.end(),

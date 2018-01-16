@@ -147,7 +147,7 @@ public:
     //! \return pointer to the block. Ownership of the block goes to the caller.
     block_type * steal()
     {
-        STXXL_CHECK(!free_blocks.empty());
+        FOXXLL_CHECK(!free_blocks.empty());
 
         block_type* p = free_blocks.back();
         free_blocks.pop_back();

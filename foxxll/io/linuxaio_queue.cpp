@@ -5,6 +5,7 @@
  *
  *  Copyright (C) 2011 Johannes Singler <singler@kit.edu>
  *  Copyright (C) 2014 Timo Bingmann <tb@panthema.net>
+ *  Copyright (C) 2018 Manuel Penschuck <foxxll@manuel.jetzt>
  *
  *  Distributed under the Boost Software License, Version 1.0.
  *  (See accompanying file LICENSE_1_0.txt or copy at
@@ -24,10 +25,6 @@
 #include <foxxll/io/linuxaio_request.hpp>
 #include <foxxll/mng/block_manager.hpp>
 #include <foxxll/verbose.hpp>
-
-#ifndef STXXL_CHECK_FOR_PENDING_REQUESTS_ON_SUBMISSION
-#define STXXL_CHECK_FOR_PENDING_REQUESTS_ON_SUBMISSION 1
-#endif
 
 namespace foxxll {
 

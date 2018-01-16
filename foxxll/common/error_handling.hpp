@@ -118,7 +118,7 @@ namespace foxxll {
 ////////////////////////////////////////////////////////////////////////////
 
 //! Checks pthread call, if return != 0, throws foxxll::resource_error with "Error in [function] : [pthread_expr] : [errno message]
-#define STXXL_CHECK_PTHREAD_CALL(expr)                              \
+#define FOXXLL_CHECK_PTHREAD_CALL(expr)                              \
     do {                                                            \
         int res = (expr);                                           \
         if (res != 0) {                                             \

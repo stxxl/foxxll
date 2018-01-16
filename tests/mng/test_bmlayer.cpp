@@ -71,7 +71,7 @@ void testIO()
         reqs[i]->wait();
         for (size_t j = 0; j < block_type::size; ++j)
         {
-            STXXL_CHECK(j == block->elem[j].integer);
+            FOXXLL_CHECK(j == block->elem[j].integer);
         }
     }
 
@@ -150,7 +150,7 @@ void testStreams()
         {
             int value;
             in >> value;
-            STXXL_CHECK(value == int(i));
+            FOXXLL_CHECK(value == int(i));
         }
     }
     bm->delete_blocks(bids.begin(), bids.end());
