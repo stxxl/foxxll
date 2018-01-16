@@ -74,16 +74,6 @@
 // cmake:   detection of <random>
 // effect:  uses std random generator on windows or (forced on linux)
 
-#cmakedefine STXXL_HAVE_MALLINFO_PROTO ${STXXL_HAVE_MALLINFO_PROTO}
-// default: off
-// cmake:   detection of mallinfo() function in <malloc.h>
-// effect:  used by stxxl_tool/mallinfo for malloc stats
-
-#cmakedefine STXXL_HAVE_MLOCK_PROTO ${STXXL_HAVE_MLOCK_PROTO}
-// default: off
-// cmake:   detection of mlock() function in <sys/mman.h>
-// effect:  used by stxxl_tool/mlock for locking physical pages
-
 #cmakedefine STXXL_WITH_VALGRIND ${STXXL_WITH_VALGRIND}
 // default: off
 // cmake:   option USE_VALGRIND=ON

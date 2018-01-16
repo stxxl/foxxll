@@ -438,10 +438,6 @@ endif(USE_GNU_PARALLEL)
 ###############################################################################
 # test for additional includes and features used by some foxxll_tool components
 
-include(CheckSymbolExists)
-check_symbol_exists(mallinfo "malloc.h" STXXL_HAVE_MALLINFO_PROTO)
-check_symbol_exists(mlock "sys/mman.h" STXXL_HAVE_MLOCK_PROTO)
-
 if(USE_MALLOC_COUNT)
   # malloc_count requires the linux dl (dynamic linker) library
   find_library(DL_LIBRARIES NAMES dl)
