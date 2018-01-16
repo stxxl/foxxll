@@ -29,13 +29,6 @@
 #cmakedefine FOXXLL_VERSION_GIT_REFSPEC "${FOXXLL_VERSION_GIT_REFSPEC}"
 #cmakedefine FOXXLL_VERSION_GIT_SHA1 "${FOXXLL_VERSION_GIT_SHA1}"
 
-#ifndef STXXL_DEBUG_ASSERTIONS
-#cmakedefine STXXL_DEBUG_ASSERTIONS ${STXXL_DEBUG_ASSERTIONS}
-#endif
-// default: off
-// cmake:   option
-// effect:  enable more costly assertions and checks for debugging the library
-
 #cmakedefine STXXL_DIRECT_IO_OFF ${STXXL_DIRECT_IO_OFF}
 // default: 0/1 (platform dependent)
 // cmake:   detection of platform and flag

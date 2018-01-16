@@ -86,11 +86,6 @@ option(USE_MALLOC_COUNT "Compile all programs with included malloc_count heap pr
 
 option(USE_GCOV "Compile and run tests with gcov for coverage analysis." OFF)
 
-option(FOXXLL_DEBUG_ASSERTIONS "Enable more costly assertions for internal debugging." OFF)
-if(FOXXLL_DEBUG_ASSERTIONS)
-  set(FOXXLL_DEBUG_ASSERTIONS "1") # change from ON/OFF to 1/0
-endif()
-
 ### building shared and/or static libraries
 
 # by default we currently only build a static library, since we do not aim to
