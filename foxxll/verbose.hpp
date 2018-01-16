@@ -56,21 +56,21 @@ void print_msg(const char* label, const std::string& msg, unsigned flags);
     } while (false)
 
 #ifdef STXXL_FORCE_VERBOSE_LEVEL
-#undef STXXL_VERBOSE_LEVEL
-#define STXXL_VERBOSE_LEVEL STXXL_FORCE_VERBOSE_LEVEL
+#undef FOXXLL_VERBOSE_LEVEL
+#define FOXXLL_VERBOSE_LEVEL STXXL_FORCE_VERBOSE_LEVEL
 #endif
 
 #ifdef STXXL_DEFAULT_VERBOSE_LEVEL
-#ifndef STXXL_VERBOSE_LEVEL
-#define STXXL_VERBOSE_LEVEL STXXL_DEFAULT_VERBOSE_LEVEL
+#ifndef FOXXLL_VERBOSE_LEVEL
+#define FOXXLL_VERBOSE_LEVEL STXXL_DEFAULT_VERBOSE_LEVEL
 #endif
 #endif
 
-#ifndef STXXL_VERBOSE_LEVEL
-#define STXXL_VERBOSE_LEVEL -1
+#ifndef FOXXLL_VERBOSE_LEVEL
+#define FOXXLL_VERBOSE_LEVEL -1
 #endif
 
-#if STXXL_VERBOSE_LEVEL > -10
+#if FOXXLL_VERBOSE_LEVEL > -10
  #define STXXL_MSG(x) _STXXL_PRINT("STXXL-MSG", x, _STXXL_PRINT_FLAGS_DEFAULT)
 #else
 // Please do not report STXXL problems with STXXL_MSG disabled!
@@ -78,70 +78,70 @@ void print_msg(const char* label, const std::string& msg, unsigned flags);
 #endif
 
 // STXXL_VARDUMP(x) prints the name of x together with its value.
-#if STXXL_VERBOSE_LEVEL > -10
+#if FOXXLL_VERBOSE_LEVEL > -10
  #define STXXL_VARDUMP(x) _STXXL_PRINT("STXXL-MSG", #x " = " << x, _STXXL_PRINT_FLAGS_DEFAULT)
 #else
  #define STXXL_VARDUMP(x) _STXXL_NOT_VERBOSE
 #endif
 
 // STXXL_MEMDUMP(x) prints the name of x together with its value as an amount of memory in IEC units.
-#if STXXL_VERBOSE_LEVEL > -10
+#if FOXXLL_VERBOSE_LEVEL > -10
  #define STXXL_MEMDUMP(x) _STXXL_PRINT("STXXL-MSG", #x " = " << tlx::format_iec_units(x) << "B", _STXXL_PRINT_FLAGS_DEFAULT)
 #else
  #define STXXL_MEMDUMP(x) _STXXL_NOT_VERBOSE
 #endif
 
-#if STXXL_VERBOSE_LEVEL > -100
+#if FOXXLL_VERBOSE_LEVEL > -100
  #define STXXL_ERRMSG(x) _STXXL_PRINT("STXXL-ERRMSG", x, _STXXL_PRINT_FLAGS_ERROR)
 #else
 // Please do not report STXXL problems with STXXL_ERRMSG disabled!
  #define STXXL_ERRMSG(x) _STXXL_NOT_VERBOSE(x)
 #endif
 
-// STXXL_VERBOSE0 should be used for current debugging activity only,
-// and afterwards be replaced by STXXL_VERBOSE1 or higher.
-// Code that actively uses STXXL_VERBOSE0 should never get into a release.
+// FOXXLL_VERBOSE0 should be used for current debugging activity only,
+// and afterwards be replaced by FOXXLL_VERBOSE1 or higher.
+// Code that actively uses FOXXLL_VERBOSE0 should never get into a release.
 
-#if STXXL_VERBOSE_LEVEL > -1
- #define STXXL_VERBOSE0(x) _STXXL_PRINT("STXXL-VERBOSE0", x, _STXXL_PRINT_FLAGS_VERBOSE)
+#if FOXXLL_VERBOSE_LEVEL > -1
+ #define FOXXLL_VERBOSE0(x) _STXXL_PRINT("STXXL-VERBOSE0", x, _STXXL_PRINT_FLAGS_VERBOSE)
 #else
- #define STXXL_VERBOSE0(x) _STXXL_NOT_VERBOSE(x)
+ #define FOXXLL_VERBOSE0(x) _STXXL_NOT_VERBOSE(x)
 #endif
 
-#if STXXL_VERBOSE_LEVEL > 0
- #define STXXL_VERBOSE1(x) _STXXL_PRINT("STXXL-VERBOSE1", x, _STXXL_PRINT_FLAGS_VERBOSE)
+#if FOXXLL_VERBOSE_LEVEL > 0
+ #define FOXXLL_VERBOSE1(x) _STXXL_PRINT("STXXL-VERBOSE1", x, _STXXL_PRINT_FLAGS_VERBOSE)
 #else
- #define STXXL_VERBOSE1(x) _STXXL_NOT_VERBOSE(x)
+ #define FOXXLL_VERBOSE1(x) _STXXL_NOT_VERBOSE(x)
 #endif
 
-#define STXXL_VERBOSE(x) STXXL_VERBOSE1(x)
+#define FOXXLL_VERBOSE(x) FOXXLL_VERBOSE1(x)
 
-#if STXXL_VERBOSE_LEVEL > 1
- #define STXXL_VERBOSE2(x) _STXXL_PRINT("STXXL-VERBOSE2", x, _STXXL_PRINT_FLAGS_VERBOSE)
+#if FOXXLL_VERBOSE_LEVEL > 1
+ #define FOXXLL_VERBOSE2(x) _STXXL_PRINT("STXXL-VERBOSE2", x, _STXXL_PRINT_FLAGS_VERBOSE)
 #else
- #define STXXL_VERBOSE2(x) _STXXL_NOT_VERBOSE(x)
+ #define FOXXLL_VERBOSE2(x) _STXXL_NOT_VERBOSE(x)
 #endif
 
-#if STXXL_VERBOSE_LEVEL > 2
- #define STXXL_VERBOSE3(x) _STXXL_PRINT("STXXL-VERBOSE3", x, _STXXL_PRINT_FLAGS_VERBOSE)
+#if FOXXLL_VERBOSE_LEVEL > 2
+ #define FOXXLL_VERBOSE3(x) _STXXL_PRINT("STXXL-VERBOSE3", x, _STXXL_PRINT_FLAGS_VERBOSE)
 #else
- #define STXXL_VERBOSE3(x) _STXXL_NOT_VERBOSE(x)
+ #define FOXXLL_VERBOSE3(x) _STXXL_NOT_VERBOSE(x)
 #endif
 
-// STXXL_VERBOSE[0123]_THIS prefixes "[0xaddress]" and then calls the version
+// FOXXLL_VERBOSE[0123]_THIS prefixes "[0xaddress]" and then calls the version
 // without _THIS.
 
-#define STXXL_VERBOSE0_THIS(x) \
-    STXXL_VERBOSE0("[" << static_cast<void*>(this) << "] " << x)
+#define FOXXLL_VERBOSE0_THIS(x) \
+    FOXXLL_VERBOSE0("[" << static_cast<void*>(this) << "] " << x)
 
-#define STXXL_VERBOSE1_THIS(x) \
-    STXXL_VERBOSE1("[" << static_cast<void*>(this) << "] " << x)
+#define FOXXLL_VERBOSE1_THIS(x) \
+    FOXXLL_VERBOSE1("[" << static_cast<void*>(this) << "] " << x)
 
-#define STXXL_VERBOSE2_THIS(x) \
-    STXXL_VERBOSE2("[" << static_cast<void*>(this) << "] " << x)
+#define FOXXLL_VERBOSE2_THIS(x) \
+    FOXXLL_VERBOSE2("[" << static_cast<void*>(this) << "] " << x)
 
-#define STXXL_VERBOSE3_THIS(x) \
-    STXXL_VERBOSE3("[" << static_cast<void*>(this) << "] " << x)
+#define FOXXLL_VERBOSE3_THIS(x) \
+    FOXXLL_VERBOSE3("[" << static_cast<void*>(this) << "] " << x)
 
 //! FOXXLL_CHECK is an assertion macro for unit tests, which contrarily to
 //! assert() also works in release builds. These macros should ONLY be used in

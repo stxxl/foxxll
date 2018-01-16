@@ -26,13 +26,13 @@ request::request(
       file_(file), buffer_(buffer), offset_(offset), bytes_(bytes),
       op_(op)
 {
-    STXXL_VERBOSE3_THIS("request::(...), ref_cnt=" << reference_count());
+    FOXXLL_VERBOSE3_THIS("request::(...), ref_cnt=" << reference_count());
     file_->add_request_ref();
 }
 
 request::~request()
 {
-    STXXL_VERBOSE3_THIS("request::~request(), ref_cnt=" << reference_count());
+    FOXXLL_VERBOSE3_THIS("request::~request(), ref_cnt=" << reference_count());
 }
 
 void request::check_alignment() const

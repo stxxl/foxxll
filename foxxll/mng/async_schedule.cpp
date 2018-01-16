@@ -117,7 +117,7 @@ size_t simulate_async_write(
             oldtime = cur.timestamp;
         }
 
-        STXXL_VERBOSE1("Block " << cur.iblock << " put out, time " << cur.timestamp << " disk: " << disks[cur.iblock]);
+        FOXXLL_VERBOSE1("Block " << cur.iblock << " put out, time " << cur.timestamp << " disk: " << disks[cur.iblock]);
         o_time[cur.iblock] = std::pair<size_t, size_t>(cur.iblock, cur.timestamp);
 
         if (i > 0)
@@ -131,13 +131,13 @@ size_t simulate_async_write(
             {
                 if (!disk_queues[disk].empty())
                 {
-                    STXXL_VERBOSE1("c Block " << disk_queues[disk].front() << " scheduled for time " << cur.timestamp + 1);
+                    FOXXLL_VERBOSE1("c Block " << disk_queues[disk].front() << " scheduled for time " << cur.timestamp + 1);
                     event_queue.push(sim_event(cur.timestamp + 1, disk_queues[disk].front()));
                     disk_queues[disk].pop();
                 }
                 else
                 {
-                    STXXL_VERBOSE1("a Block " << (i - 1) << " scheduled for time " << cur.timestamp + 1);
+                    FOXXLL_VERBOSE1("a Block " << (i - 1) << " scheduled for time " << cur.timestamp + 1);
                     event_queue.push(sim_event(cur.timestamp + 1, --i));
                 }
                 disk_busy[disk] = true;
@@ -148,7 +148,7 @@ size_t simulate_async_write(
         size_t disk = get_disk(cur.iblock, disks, D);
         if (!disk_busy[disk] && !disk_queues[disk].empty())
         {
-            STXXL_VERBOSE1("b Block " << disk_queues[disk].front() << " scheduled for time " << cur.timestamp + 1);
+            FOXXLL_VERBOSE1("b Block " << disk_queues[disk].front() << " scheduled for time " << cur.timestamp + 1);
             event_queue.push(sim_event(cur.timestamp + 1, disk_queues[disk].front()));
             disk_queues[disk].pop();
             disk_busy[disk] = true;
@@ -184,10 +184,10 @@ void compute_prefetch_schedule(
 
     size_t w_steps = async_schedule_local::simulate_async_write(first, L, m, D, write_order);
 
-    STXXL_VERBOSE1("Write steps: " << w_steps);
+    FOXXLL_VERBOSE1("Write steps: " << w_steps);
 
     for (size_t i = 0; i < L; i++)
-        STXXL_VERBOSE1(first[i] << " " << write_order[i].first << " " << write_order[i].second);
+        FOXXLL_VERBOSE1(first[i] << " " << write_order[i].first << " " << write_order[i].second);
 
     std::stable_sort(write_order, write_order + L, async_schedule_local::write_time_cmp());
 
@@ -195,7 +195,7 @@ void compute_prefetch_schedule(
     {
         out_first[i] = write_order[i].first;
         //if(out_first[i] != i)
-        STXXL_VERBOSE1(i << " " << out_first[i]);
+        FOXXLL_VERBOSE1(i << " " << out_first[i]);
     }
 
     delete[] write_order;

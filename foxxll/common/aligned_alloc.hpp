@@ -20,8 +20,8 @@
 #include <foxxll/common/utils.hpp>
 #include <foxxll/verbose.hpp>
 
-#ifndef STXXL_VERBOSE_ALIGNED_ALLOC
-#define STXXL_VERBOSE_ALIGNED_ALLOC STXXL_VERBOSE2
+#ifndef FOXXLL_VERBOSE_ALIGNED_ALLOC
+#define FOXXLL_VERBOSE_ALIGNED_ALLOC FOXXLL_VERBOSE2
 #endif
 
 namespace foxxll {
@@ -48,7 +48,7 @@ bool aligned_alloc_settings<MustBeInt>::may_use_realloc = true;
 template <size_t Alignment>
 inline void * aligned_alloc(size_t size, size_t meta_info_size = 0)
 {
-    STXXL_VERBOSE2("foxxll::aligned_alloc<" << Alignment << ">(), size = " << size << ", meta info size = " << meta_info_size);
+    FOXXLL_VERBOSE2("foxxll::aligned_alloc<" << Alignment << ">(), size = " << size << ", meta info size = " << meta_info_size);
 #if !defined(STXXL_WASTE_MORE_MEMORY_FOR_IMPROVED_ACCESS_AFTER_ALLOCATED_MEMORY_CHECKS)
     // malloc()/realloc() variant that frees the unused amount of memory
     // after the data area of size 'size'. realloc() from valgrind does not
@@ -79,7 +79,7 @@ inline void * aligned_alloc(size_t size, size_t meta_info_size = 0)
     char* reserve_buffer = buffer + sizeof(char*) + meta_info_size;
     char* result = reserve_buffer + Alignment -
                    (((size_t)reserve_buffer) % (Alignment)) - meta_info_size;
-    STXXL_VERBOSE2("foxxll::aligned_alloc<" << Alignment << ">() address " << (void*)result << " lost " << (result - buffer) << " bytes");
+    FOXXLL_VERBOSE2("foxxll::aligned_alloc<" << Alignment << ">() address " << (void*)result << " lost " << (result - buffer) << " bytes");
     //-tb: check that there is space for one char* before the "result" pointer
     // delivered to the user. this char* is set below to the beginning of the
     // allocated area.
@@ -102,10 +102,10 @@ inline void * aligned_alloc(size_t size, size_t meta_info_size = 0)
     }
 
     *(((char**)result) - 1) = buffer;
-    STXXL_VERBOSE2(
+    FOXXLL_VERBOSE2(
         "foxxll::aligned_alloc<" << Alignment << ">(), allocated at " <<
         (void*)buffer << " returning " << (void*)result);
-    STXXL_VERBOSE_ALIGNED_ALLOC(
+    FOXXLL_VERBOSE_ALIGNED_ALLOC(
         "foxxll::aligned_alloc<" << Alignment <<
             ">(size = " << size << ", meta info size = " << meta_info_size <<
             ") => buffer = " << (void*)buffer << ", ptr = " << (void*)result);
@@ -120,7 +120,7 @@ aligned_dealloc(void* ptr)
     if (!ptr)
         return;
     char* buffer = *(((char**)ptr) - 1);
-    STXXL_VERBOSE_ALIGNED_ALLOC("foxxll::aligned_dealloc<" << Alignment << ">(), ptr = " << ptr << ", buffer = " << (void*)buffer);
+    FOXXLL_VERBOSE_ALIGNED_ALLOC("foxxll::aligned_dealloc<" << Alignment << ">(), ptr = " << ptr << ", buffer = " << (void*)buffer);
     std::free(buffer);
 }
 

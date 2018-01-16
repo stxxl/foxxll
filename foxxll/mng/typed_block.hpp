@@ -23,10 +23,8 @@
 #include <foxxll/io/request.hpp>
 #include <foxxll/mng/bid.hpp>
 
-#include <tlx/unused.hpp>
-
-#ifndef STXXL_VERBOSE_TYPED_BLOCK
-#define STXXL_VERBOSE_TYPED_BLOCK STXXL_VERBOSE2
+#ifndef FOXXLL_VERBOSE_TYPED_BLOCK
+#define FOXXLL_VERBOSE_TYPED_BLOCK FOXXLL_VERBOSE2
 #endif
 
 namespace foxxll {
@@ -49,7 +47,7 @@ class filler_struct
     byte_type filler_array[Bytes];
 
 public:
-    filler_struct() { STXXL_VERBOSE_TYPED_BLOCK("[" << (void*)this << "] filler_struct is constructed"); }
+    filler_struct() { FOXXLL_VERBOSE_TYPED_BLOCK("[" << (void*)this << "] filler_struct is constructed"); }
 };
 
 template <>
@@ -58,7 +56,7 @@ class filler_struct<0>
     using byte_type = unsigned char;
 
 public:
-    filler_struct() { STXXL_VERBOSE_TYPED_BLOCK("[" << (void*)this << "] filler_struct<> is constructed"); }
+    filler_struct() { FOXXLL_VERBOSE_TYPED_BLOCK("[" << (void*)this << "] filler_struct<> is constructed"); }
 };
 
 //! Contains data elements for \c foxxll::typed_block , not intended for direct use.
@@ -79,7 +77,7 @@ public:
     //! Array of elements of type Type
     value_type elem[kSize];
 
-    element_block() { STXXL_VERBOSE_TYPED_BLOCK("[" << (void*)this << "] element_block is constructed"); }
+    element_block() { FOXXLL_VERBOSE_TYPED_BLOCK("[" << (void*)this << "] element_block is constructed"); }
 
     //! An operator to access elements in the block
     reference operator [] (size_t i)
@@ -143,7 +141,7 @@ public:
         return ref[i];
     }
 
-    block_w_bids() { STXXL_VERBOSE_TYPED_BLOCK("[" << (void*)this << "] block_w_bids is constructed"); }
+    block_w_bids() { FOXXLL_VERBOSE_TYPED_BLOCK("[" << (void*)this << "] block_w_bids is constructed"); }
 };
 
 template <typename Type, size_t Size, size_t RawSize>
@@ -156,7 +154,7 @@ public:
 
     using bid_type = BID<raw_size>;
 
-    block_w_bids() { STXXL_VERBOSE_TYPED_BLOCK("[" << (void*)this << "] block_w_bids<> is constructed"); }
+    block_w_bids() { FOXXLL_VERBOSE_TYPED_BLOCK("[" << (void*)this << "] block_w_bids<> is constructed"); }
 };
 
 //! Contains per block information for \c foxxll::typed_block , not intended for direct use.
@@ -171,7 +169,7 @@ public:
     //! Per block information element.
     info_type info;
 
-    block_w_info() { STXXL_VERBOSE_TYPED_BLOCK("[" << (void*)this << "] block_w_info is constructed"); }
+    block_w_info() { FOXXLL_VERBOSE_TYPED_BLOCK("[" << (void*)this << "] block_w_info is constructed"); }
 };
 
 template <typename Type, size_t RawSize, size_t NBids>
@@ -181,7 +179,7 @@ class block_w_info<Type, RawSize, NBids, void>
 public:
     using info_type = void;
 
-    block_w_info() { STXXL_VERBOSE_TYPED_BLOCK("[" << (void*)this << "] block_w_info<> is constructed"); }
+    block_w_info() { FOXXLL_VERBOSE_TYPED_BLOCK("[" << (void*)this << "] block_w_info<> is constructed"); }
 };
 
 //! Contains per block filler for \c foxxll::typed_block , not intended for direct use.
@@ -193,7 +191,7 @@ private:
     filler_struct<FillSize> filler;
 
 public:
-    add_filler() { STXXL_VERBOSE_TYPED_BLOCK("[" << (void*)this << "] add_filler is constructed"); }
+    add_filler() { FOXXLL_VERBOSE_TYPED_BLOCK("[" << (void*)this << "] add_filler is constructed"); }
 };
 
 template <typename BaseType>
@@ -201,7 +199,7 @@ class add_filler<BaseType, 0>
     : public BaseType
 {
 public:
-    add_filler() { STXXL_VERBOSE_TYPED_BLOCK("[" << (void*)this << "] add_filler<> is constructed"); }
+    add_filler() { FOXXLL_VERBOSE_TYPED_BLOCK("[" << (void*)this << "] add_filler<> is constructed"); }
 };
 
 //! Helper to compute the size of the filler , not intended for direct use.
@@ -251,7 +249,7 @@ public:
     {
         static_assert(sizeof(typed_block) == raw_size,
                       "sizeof(typed_block) == raw_size");
-        STXXL_VERBOSE_TYPED_BLOCK("[" << (void*)this << "] typed_block is constructed");
+        FOXXLL_VERBOSE_TYPED_BLOCK("[" << (void*)this << "] typed_block is constructed");
 #if 0
         assert(((long)this) % STXXL_BLOCK_ALIGN == 0);
 #endif
@@ -263,7 +261,7 @@ public:
         static_assert(sizeof(typed_block) == raw_size,
                       "sizeof(typed_block) == raw_size");
         STXXL_MSG("[" << (void*)this << "] typed_block is copy constructed from [" << (void*)&tb << "]");
-        tlx::UNUSED(tb);
+        STXXL_UNUSED(tb);
     }
 #endif
 
@@ -276,7 +274,7 @@ public:
     request_ptr write(const bid_type& bid,
                       completion_handler on_complete = completion_handler())
     {
-        STXXL_VERBOSE_BLOCK_LIFE_CYCLE("BLC:write  " << bid);
+        FOXXLL_VERBOSE_BLOCK_LIFE_CYCLE("BLC:write  " << FMT_BID(bid));
         return bid.storage->awrite(this, bid.offset, raw_size, on_complete);
     }
 
@@ -289,7 +287,7 @@ public:
     request_ptr read(const bid_type& bid,
                      completion_handler on_complete = completion_handler())
     {
-        STXXL_VERBOSE_BLOCK_LIFE_CYCLE("BLC:read   " << bid);
+        FOXXLL_VERBOSE_BLOCK_LIFE_CYCLE("BLC:read   " << FMT_BID(bid));
         return bid.storage->aread(this, bid.offset, raw_size, on_complete);
     }
 
@@ -302,7 +300,7 @@ public:
     request_ptr write(const BID<0>& bid,
                       completion_handler on_complete = completion_handler())
     {
-        STXXL_VERBOSE_BLOCK_LIFE_CYCLE("BLC:write  " << bid);
+        FOXXLL_VERBOSE_BLOCK_LIFE_CYCLE("BLC:write  " << FMT_BID(bid));
         assert(bid.size >= raw_size);
         return bid.storage->awrite(this, bid.offset, raw_size, on_complete);
     }
@@ -316,7 +314,7 @@ public:
     request_ptr read(const BID<0>& bid,
                      completion_handler on_complete = completion_handler())
     {
-        STXXL_VERBOSE_BLOCK_LIFE_CYCLE("BLC:read   " << bid);
+        FOXXLL_VERBOSE_BLOCK_LIFE_CYCLE("BLC:read   " << FMT_BID(bid));
         assert(bid.size >= raw_size);
         return bid.storage->aread(this, bid.offset, raw_size, on_complete);
     }
@@ -324,7 +322,7 @@ public:
     static void* operator new (size_t bytes)
     {
         size_t meta_info_size = bytes % raw_size;
-        STXXL_VERBOSE_TYPED_BLOCK("typed::block operator new[]: bytes=" << bytes << ", meta_info_size=" << meta_info_size);
+        FOXXLL_VERBOSE_TYPED_BLOCK("typed::block operator new[]: bytes=" << bytes << ", meta_info_size=" << meta_info_size);
 
         void* result = aligned_alloc<STXXL_BLOCK_ALIGN>(
             bytes - meta_info_size, meta_info_size);
@@ -338,7 +336,7 @@ public:
     static void* operator new[] (size_t bytes)
     {
         size_t meta_info_size = bytes % raw_size;
-        STXXL_VERBOSE_TYPED_BLOCK("typed::block operator new[]: bytes=" << bytes << ", meta_info_size=" << meta_info_size);
+        FOXXLL_VERBOSE_TYPED_BLOCK("typed::block operator new[]: bytes=" << bytes << ", meta_info_size=" << meta_info_size);
 
         void* result = aligned_alloc<STXXL_BLOCK_ALIGN>(
             bytes - meta_info_size, meta_info_size);
@@ -379,7 +377,7 @@ public:
     //  be 8 bytes long in g++."
     ~typed_block()
     {
-        STXXL_VERBOSE_TYPED_BLOCK("[" << (void*)this << "] typed_block is destructed");
+        FOXXLL_VERBOSE_TYPED_BLOCK("[" << (void*)this << "] typed_block is destructed");
     }
 #endif
 };

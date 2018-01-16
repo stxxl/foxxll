@@ -143,7 +143,7 @@ public:
     {
         std::unique_lock<std::mutex> lock(mutex_);
 
-        STXXL_VERBOSE2("disk_block_allocator::delete_block<" << BlockSize <<
+        FOXXLL_VERBOSE2("disk_block_allocator::delete_block<" << BlockSize <<
                        ">(pos=" << bid.offset << ", size=" << bid.size <<
                        "), free:" << free_bytes_ << " total:" << disk_bytes_);
 
@@ -158,13 +158,13 @@ void disk_block_allocator::new_blocks(BIDIterator begin, BIDIterator end)
 
     for (BIDIterator cur = begin; cur != end; ++cur)
     {
-        STXXL_VERBOSE2("Asking for a block with size: " << cur->size);
+        FOXXLL_VERBOSE2("Asking for a block with size: " << cur->size);
         requested_size += cur->size;
     }
 
     std::unique_lock<std::mutex> lock(mutex_);
 
-    STXXL_VERBOSE2("disk_block_allocator::new_blocks<BlockSize>"
+    FOXXLL_VERBOSE2("disk_block_allocator::new_blocks<BlockSize>"
                    ", BlockSize = " << begin->size <<
                    ", free:" << free_bytes_ << " total:" << disk_bytes_ <<
                    ", blocks: " << (end - begin) <<
@@ -236,9 +236,9 @@ void disk_block_allocator::new_blocks(BIDIterator begin, BIDIterator end)
     }
 
     // no contiguous region found
-    STXXL_VERBOSE1("Warning, when allocating an external memory space, "
+    FOXXLL_VERBOSE1("Warning, when allocating an external memory space, "
                    "no contiguous region found");
-    STXXL_VERBOSE1("It might harm the performance");
+    FOXXLL_VERBOSE1("It might harm the performance");
 
     assert(end - begin > 1);
 

@@ -40,7 +40,7 @@ serving_request::serving_request(
 void serving_request::serve()
 {
     check_nref();
-    STXXL_VERBOSE2_THIS(
+    FOXXLL_VERBOSE2_THIS(
         "serving_request::serve(): " <<
             buffer_ << " @ [" <<
             file_ << "|" << file_->get_allocator_id() << "]0x" <<

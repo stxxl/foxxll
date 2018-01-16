@@ -27,7 +27,7 @@ namespace foxxll {
 
 request_with_state::~request_with_state()
 {
-    STXXL_VERBOSE3_THIS("request_with_state::~(), ref_cnt: " << reference_count());
+    FOXXLL_VERBOSE3_THIS("request_with_state::~(), ref_cnt: " << reference_count());
 
     assert(state_() == DONE || state_() == READY2DIE);
 
@@ -40,7 +40,7 @@ request_with_state::~request_with_state()
 
 void request_with_state::wait(bool measure_time)
 {
-    STXXL_VERBOSE3_THIS("request_with_state::wait()");
+    FOXXLL_VERBOSE3_THIS("request_with_state::wait()");
 
     stats::scoped_wait_timer wait_timer(
         op_ == READ ? stats::WAIT_OP_READ : stats::WAIT_OP_WRITE, measure_time);
@@ -52,7 +52,7 @@ void request_with_state::wait(bool measure_time)
 
 bool request_with_state::cancel()
 {
-    STXXL_VERBOSE3_THIS("request_with_state::cancel() "
+    FOXXLL_VERBOSE3_THIS("request_with_state::cancel() "
                         << file_ << " " << buffer_ << " " << offset_);
 
     if (!file_) return false;
@@ -84,7 +84,7 @@ bool request_with_state::poll()
 
 void request_with_state::completed(bool canceled)
 {
-    STXXL_VERBOSE3_THIS("request_with_state::completed()");
+    FOXXLL_VERBOSE3_THIS("request_with_state::completed()");
     // change state
     state_.set_to(DONE);
     // user callback

@@ -73,7 +73,7 @@ void memory_file::discard(offset_type offset, offset_type size)
     std::unique_lock<std::mutex> lock(mutex_);
 #ifndef STXXL_MEMFILE_DONT_CLEAR_FREED_MEMORY
     // overwrite the freed region with uninitialized memory
-    STXXL_VERBOSE("discard at " << offset << " len " << size);
+    FOXXLL_VERBOSE("discard at " << offset << " len " << size);
     void* uninitialized = malloc(STXXL_BLOCK_ALIGN);
     while (size >= STXXL_BLOCK_ALIGN) {
         memcpy(ptr_ + offset, uninitialized, STXXL_BLOCK_ALIGN);

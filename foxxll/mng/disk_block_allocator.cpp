@@ -66,7 +66,7 @@ void disk_block_allocator::add_free_region(uint64_t block_pos, uint64_t block_si
 {
     //assert(block_size);
     //dump();
-    STXXL_VERBOSE2("Deallocating a block with size: " << block_size << " position: " << block_pos);
+    FOXXLL_VERBOSE2("Deallocating a block with size: " << block_size << " position: " << block_pos);
     uint64_t region_pos = block_pos;
     uint64_t region_size = block_size;
     if (!free_space_.empty())

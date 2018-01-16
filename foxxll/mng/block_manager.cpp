@@ -85,7 +85,7 @@ block_manager::block_manager()
 
 block_manager::~block_manager()
 {
-    STXXL_VERBOSE1("Block manager destructor");
+    FOXXLL_VERBOSE1("Block manager destructor");
     for (size_t i = ndisks_; i > 0; )
     {
         --i;

@@ -24,8 +24,8 @@
 #include <foxxll/io/request.hpp>
 #include <tlx/simple_vector.hpp>
 
-#ifndef STXXL_VERBOSE_BLOCK_LIFE_CYCLE
-#define STXXL_VERBOSE_BLOCK_LIFE_CYCLE STXXL_VERBOSE2
+#ifndef FOXXLL_VERBOSE_BLOCK_LIFE_CYCLE
+#define FOXXLL_VERBOSE_BLOCK_LIFE_CYCLE FOXXLL_VERBOSE2
 #endif
 
 namespace foxxll {
