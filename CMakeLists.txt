@@ -379,14 +379,6 @@ check_cxx_source_compiles(
    STXXL_HAVE_LINUXAIO_FILE)
 
 ###############################################################################
-# check for an atomic add-and-fetch intrinsic for counting_ptr
-
-include(CheckCXXSourceCompiles)
-check_cxx_source_compiles(
-  "int main() { int x; __sync_add_and_fetch(&x, +1); return 0; }"
-  STXXL_HAVE_SYNC_ADD_AND_FETCH)
-
-###############################################################################
 # optional OpenMP parallelization
 
 if(USE_GNU_PARALLEL AND NOT USE_OPENMP)
