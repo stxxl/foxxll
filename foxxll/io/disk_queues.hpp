@@ -18,12 +18,8 @@
 
 #include <map>
 
-#include <foxxll/io/iostats.hpp>
-#include <foxxll/io/linuxaio_queue.hpp>
-#include <foxxll/io/linuxaio_request.hpp>
 #include <foxxll/io/request.hpp>
-#include <foxxll/io/request_queue_impl_qwqr.hpp>
-#include <foxxll/io/serving_request.hpp>
+#include <foxxll/io/request_queue.hpp>
 #include <foxxll/singleton.hpp>
 
 namespace foxxll {
@@ -43,54 +39,12 @@ class disk_queues : public singleton<disk_queues>
 protected:
     request_queue_map queues_;
 
-    disk_queues()
-    {
-        stats::get_instance(); // initialize stats before ourselves
-    }
+    disk_queues();
 
 public:
-    void make_queue(file* file)
-    {
-        int queue_id = file->get_queue_id();
+    void make_queue(file* file);
 
-        request_queue_map::iterator qi = queues_.find(queue_id);
-        if (qi != queues_.end())
-            return;
-
-        // create new request queue
-#if STXXL_HAVE_LINUXAIO_FILE
-        if (const linuxaio_file* af =
-                dynamic_cast<const linuxaio_file*>(file)) {
-            queues_[queue_id] = new linuxaio_queue(af->get_desired_queue_length());
-            return;
-        }
-#endif
-        queues_[queue_id] = new request_queue_impl_qwqr();
-    }
-
-    void add_request(request_ptr& req, disk_id_type disk)
-    {
-#ifdef STXXL_HACK_SINGLE_IO_THREAD
-        disk = 42;
-#endif
-        request_queue_map::iterator qi = queues_.find(disk);
-        request_queue* q;
-        if (qi == queues_.end())
-        {
-            // create new request queue
-#if STXXL_HAVE_LINUXAIO_FILE
-            if (dynamic_cast<linuxaio_request*>(req.get()))
-                q = queues_[disk] = new linuxaio_queue(
-                        dynamic_cast<linuxaio_file*>(req->get_file())->get_desired_queue_length());
-            else
-#endif
-            q = queues_[disk] = new request_queue_impl_qwqr();
-        }
-        else
-            q = qi->second;
-
-        q->add_request(req);
-    }
+    void add_request(request_ptr& req, disk_id_type disk);
 
     //! Cancel a request.
     //! The specified request is canceled unless already being processed.
@@ -100,42 +54,18 @@ public:
     //! \param req request to cancel
     //! \param disk disk number for disk that \c req was scheduled on
     //! \return \c true iff the request was canceled successfully
-    bool cancel_request(request_ptr& req, disk_id_type disk)
-    {
-#ifdef STXXL_HACK_SINGLE_IO_THREAD
-        disk = 42;
-#endif
-        if (queues_.find(disk) != queues_.end())
-            return queues_[disk]->cancel_request(req);
-        else
-            return false;
-    }
+    bool cancel_request(request_ptr& req, disk_id_type disk);
 
-    request_queue * get_queue(disk_id_type disk)
-    {
-        if (queues_.find(disk) != queues_.end())
-            return queues_[disk];
-        else
-            return nullptr;
-    }
+    request_queue * get_queue(disk_id_type disk);
 
-    ~disk_queues()
-    {
-        // deallocate all queues_
-        for (request_queue_map::iterator i = queues_.begin(); i != queues_.end(); i++)
-            delete (*i).second;
-    }
+    ~disk_queues();
 
     //! Changes requests priorities.
     //! \param op one of:
     //! - READ, read requests are served before write requests within a disk queue
     //! - WRITE, write requests are served before read requests within a disk queue
     //! - NONE, read and write requests are served by turns, alternately
-    void set_priority_op(const request_queue::priority_op& op)
-    {
-        for (request_queue_map::iterator i = queues_.begin(); i != queues_.end(); i++)
-            i->second->set_priority_op(op);
-    }
+    void set_priority_op(const request_queue::priority_op& op);
 };
 
 //! \}

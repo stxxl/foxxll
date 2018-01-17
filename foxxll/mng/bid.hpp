@@ -20,8 +20,8 @@
 #include <iomanip>
 #include <ostream>
 
-#include <foxxll/common/utils.hpp>
 #include <foxxll/io/file.hpp>
+#include <foxxll/io/request.hpp>
 #include <tlx/simple_vector.hpp>
 
 #ifndef STXXL_VERBOSE_BLOCK_LIFE_CYCLE
@@ -177,7 +177,8 @@ std::ostream& operator << (std::ostream& s, const BID<BlockSize>& bid)
         s << bid.storage->get_allocator_id();
     else
         s << "?";
-    s << "]0x" << std::hex << std::setfill('0') << std::setw(8) << bid.offset << "/0x" << std::setw(8) << bid.size << std::dec;
+    s << "]0x" << std::hex << std::setfill('0') << std::setw(8) << bid.offset
+      << "/0x" << std::setw(8) << bid.size << std::dec;
 
     s.copyfmt(state);
     return s;
