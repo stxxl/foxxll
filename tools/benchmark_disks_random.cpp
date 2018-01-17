@@ -99,13 +99,13 @@ void run_test(external_size_type span, external_size_type worksize, bool do_init
             elapsed = end - begin;
             std::cout << "Written "
                       << std::setw(12) << num_blocks_in_span << " blocks in " << std::fixed << std::setw(9) << std::setprecision(2) << elapsed << " seconds: "
-                      << std::setw(9) << std::setprecision(1) << (double(num_blocks_in_span) / elapsed) << " blocks/s "
-                      << std::setw(7) << std::setprecision(1) << (double(num_blocks_in_span * raw_block_size) / MiB / elapsed) << " MiB/s write " << std::endl;
+                      << std::setw(9) << std::setprecision(1) << (static_cast<double>(num_blocks_in_span) / elapsed) << " blocks/s "
+                      << std::setw(7) << std::setprecision(1) << (static_cast<double>(num_blocks_in_span * raw_block_size) / MiB / elapsed) << " MiB/s write " << std::endl;
         }
 
         std::cout << "Random block access..." << std::endl;
 
-        srand((unsigned int)time(nullptr));
+        srand(static_cast<unsigned int>(time(nullptr)));
         std::random_shuffle(blocks.begin(), blocks.end());
 
         begin = timestamp();

@@ -220,7 +220,7 @@ public:
     inline std::pair<unsigned, unsigned> flash_range() const
     {
         assert(is_initialized);
-        return std::pair<unsigned, unsigned>(first_flash, (unsigned)disks_list.size());
+        return std::pair<unsigned, unsigned>(first_flash, static_cast<unsigned>(disks_list.size()));
     }
 
     //! Returns mutable disk_config structure for additional disk parameters

@@ -845,7 +845,7 @@ void scoped_print_iostats::report() const
     if (m_bytes) {
         const auto bps = static_cast<double>(m_bytes) / result.get_elapsed_time();
         ss << "Processed " << tlx::format_iec_units(m_bytes) << "B"
-           << " @ " << tlx::format_iec_units((uint64_t)bps) << "B/s. ";
+           << " @ " << tlx::format_iec_units(static_cast<uint64_t>(bps)) << "B/s. ";
     }
 
     result.to_ostream(ss, m_key);

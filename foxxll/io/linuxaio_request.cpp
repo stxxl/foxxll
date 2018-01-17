@@ -62,7 +62,7 @@ void linuxaio_request::fill_control_block()
     cb_.aio_fildes = af->file_des_;
     cb_.aio_lio_opcode = (op_ == READ) ? IOCB_CMD_PREAD : IOCB_CMD_PWRITE;
     cb_.aio_reqprio = 0;
-    cb_.aio_buf = static_cast<__u64>((unsigned long)(buffer_));
+    cb_.aio_buf = static_cast<__u64>(reinterpret_cast<unsigned long>(buffer_));
     cb_.aio_nbytes = bytes_;
     cb_.aio_offset = offset_;
 }

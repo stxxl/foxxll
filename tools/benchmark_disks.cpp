@@ -107,7 +107,7 @@ int benchmark_disks_alloc(
     // touch data, so it is actually allocated
     for (size_t j = 0; j < num_blocks_per_batch; ++j) {
         for (size_t i = 0; i < block_size; ++i)
-            buffer[j][i] = (uint32_t)(j * block_size + i);
+            buffer[j][i] = static_cast<uint32_t>(j * block_size + i);
     }
 
     try {
