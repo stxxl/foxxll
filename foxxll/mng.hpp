@@ -18,7 +18,7 @@
 #include <foxxll/mng/block_manager.hpp>
 #include <foxxll/mng/typed_block.hpp>
 
-//! \c STXXL library namespace
+//! \c FOXXLL library namespace
 namespace foxxll {
 
 // ...

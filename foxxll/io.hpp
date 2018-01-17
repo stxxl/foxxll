@@ -28,7 +28,7 @@
 #include <foxxll/io/syscall_file.hpp>
 #include <foxxll/io/wincall_file.hpp>
 
-//! \c STXXL library namespace
+//! \c FOXXLL library namespace
 namespace foxxll {
 
 // ...

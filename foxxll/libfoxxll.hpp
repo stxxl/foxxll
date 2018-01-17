@@ -1,5 +1,5 @@
 /***************************************************************************
- *  foxxll/libstxxl.hpp
+ *  foxxll/libfoxxll.hpp
  *
  *  Part of FOXXLL. See http://foxxll.org
  *
