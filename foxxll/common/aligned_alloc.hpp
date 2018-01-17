@@ -50,7 +50,7 @@ inline void * aligned_alloc(size_t size, size_t meta_info_size = 0)
 {
     LOGC(debug_aligned_alloc) << "foxxll::aligned_alloc<" << Alignment << ">(), "
         "size = " << size << ", meta info size = " << meta_info_size;
-#if !defined(STXXL_WASTE_MORE_MEMORY_FOR_IMPROVED_ACCESS_AFTER_ALLOCATED_MEMORY_CHECKS)
+#if !defined(FOXXLL_WASTE_MORE_MEMORY_FOR_IMPROVED_ACCESS_AFTER_ALLOCATED_MEMORY_CHECKS)
     // malloc()/realloc() variant that frees the unused amount of memory
     // after the data area of size 'size'. realloc() from valgrind does not
     // preserve the old memory area when shrinking, so out-of-bounds
@@ -74,7 +74,7 @@ inline void * aligned_alloc(size_t size, size_t meta_info_size = 0)
 #endif
     if (buffer == nullptr)
         throw std::bad_alloc();
-    #ifdef STXXL_ALIGNED_CALLOC
+    #ifdef FOXXLL_ALIGNED_CALLOC
     memset(buffer, 0, alloc_size);
     #endif
     char* reserve_buffer = buffer + sizeof(char*) + meta_info_size;

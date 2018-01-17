@@ -84,9 +84,9 @@ void config::find_config()
     // check several locations for disk configuration files
 
     // check STXXLCFG environment path
-    const char* stxxlcfg = getenv("STXXLCFG");
-    if (stxxlcfg && exist_file(stxxlcfg))
-        return load_config_file(stxxlcfg);
+    const char* cfg = getenv("STXXLCFG");
+    if (cfg && exist_file(cfg))
+        return load_config_file(cfg);
 
 #if !FOXXLL_WINDOWS
     // read environment, unix style
@@ -132,7 +132,7 @@ void config::load_default_config()
     LOG1 << "Warning: no config file found.";
     LOG1 << "Using default disk configuration.";
 #if !FOXXLL_WINDOWS
-    disk_config entry1("/var/tmp/stxxl", 1000 * 1024 * 1024, "syscall");
+    disk_config entry1("disk=/var/tmp/foxxll,1Gi,syscall unlink");
     entry1.delete_on_exit = true;
     entry1.autogrow = true;
 #else
@@ -144,7 +144,7 @@ void config::load_default_config()
     if (GetTempPathA(255, tmpstr) == 0)
         FOXXLL_THROW_WIN_LASTERROR(resource_error, "GetTempPathA()");
     entry1.path = tmpstr;
-    entry1.path += "stxxl.tmp";
+    entry1.path += "foxxll.tmp";
     delete[] tmpstr;
 #endif
     disks_list.push_back(entry1);

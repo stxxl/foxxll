@@ -18,7 +18,7 @@
 #ifndef FOXXLL_CONFIG_HEADER
 #define FOXXLL_CONFIG_HEADER
 
-// the STXXL library version variables
+// the FOXXLL library version variables
 #define FOXXLL_VERSION_MAJOR ${FOXXLL_VERSION_MAJOR}
 #define FOXXLL_VERSION_MINOR ${FOXXLL_VERSION_MINOR}
 #define FOXXLL_VERSION_PATCH ${FOXXLL_VERSION_PATCH}

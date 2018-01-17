@@ -2,8 +2,8 @@
  *  foxxll/io/ufs_platform.hpp
  *
  *  Platform porting code local the I/O file implementations. This header is
- *  not part of STXXL's template library interface and must only be used inside
- *  libstxxl.
+ *  not part of FOXXLL's public interface and must only be used inside the
+ *  library.
  *
  *  Part of FOXXLL. See http://foxxll.org
  *

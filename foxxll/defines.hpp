@@ -1,7 +1,7 @@
 /***************************************************************************
  *  foxxll/defines.hpp
  *
- *  Document all defines that may change the behavior of stxxl.
+ *  Document all defines that may change the behavior of FOXXLL.
  *
  *  Part of FOXXLL. See http://foxxll.org
  *
@@ -41,48 +41,23 @@
 // used in: io/iostats.{h,cpp}
 // effect:  makes calls to wait time counting functions no-ops
 
-//#define STXXL_WAIT_LOG_ENABLED
+//#define FOXXLL_WAIT_LOG_ENABLED
 // default: not defined
 // used in: common/log.cpp, io/iostats.cpp
 // effect:  writes wait timing information to the file given via environment
 //          variable STXXLWAITLOGFILE, does nothing if this is not defined
-
-//#define STXXL_PRINT_TIMESTAMP_ALWAYS
-// default: not defined
-// used in: common/verbose.cpp
-// affects: library
-// effect:  prefix all MSG/ERRMSG/VERBOSE with elapsed time since program start
-
-//#define STXXL_SORT_OPTIMAL_PREFETCHING 0/1
-// default: 1
-// used in: algo/*sort.h, stream/sort_stream.h
-// effect if defined to 0: does not reorder prefetch requests to a disk
-//          optimal schedule (Hutchinson, Sanders, Vitter: Duality between
-//          prefetching and queued writing on parallel disks, 2005)
 
 //#define FOXXLL_CHECK_ORDER_IN_SORTS 0/1
 // default: 0
 // used in: algo/*sort.h, stream/sort_stream.h, containers/priority_queue.h
 // effect if set to 1: perform additional checking of sorted results
 
-//#define STXXL_NO_WARN_RECURSIVE_SORT
-// default: not defined
-// used in: algo/sort_base.h
-// affects: programs
-// effect if defined: does not print error messages about possibly inefficient
-//          recursive merging
-
-//#define STXXL_HACK_SINGLE_IO_THREAD
+//#define FOXXLL_HACK_SINGLE_IO_THREAD
 // default: not defined
 // used in: io/disk_queues.h
 // affects: programs
 // effect if defined: uses only a single I/O thread instead of one per disk
 //          used e.g. by EcoSort which puts input file, output file and
 //          scratch on a single disk (RAID0)
-
-//#define STXXL_NO_DEPRECATED 0/1
-// default: 0
-// used in deprecated.h
-// turns off deprecated warnings for some forced template instantiations
 
 #endif // !FOXXLL_DEFINES_HEADER

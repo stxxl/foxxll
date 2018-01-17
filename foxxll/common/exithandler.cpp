@@ -18,7 +18,6 @@
 // 2. #define FOXXLL_NON_DEFAULT_EXIT_HANDLER for a handler that does not use atexit()
 // 3. #define FOXXLL_EXTERNAL_EXIT_HANDLER to provide your own implementation
 
-
 #ifdef STXXL_EXTERNAL_EXIT_HANDLER
 static_assert(false, "STXXL_EXTERNAL_EXIT_HANDLER was renamed to FOXXLL_EXTERNAL_EXIT_HANDLER");
 #endif

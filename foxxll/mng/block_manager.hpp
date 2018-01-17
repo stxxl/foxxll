@@ -270,20 +270,6 @@ void block_manager::delete_blocks(
         delete_block(*it);
 }
 
-// in bytes
-#ifndef STXXL_DEFAULT_BLOCK_SIZE
-// ensure that the type parameter to STXXL_DEFAULT_BLOCK_SIZE is a valid type
-template <typename T>
-struct dummy_default_block_size
-{
-    static constexpr size_t size()
-    {
-        return 2 * 1024 * 1024;
-    }
-};
-#define STXXL_DEFAULT_BLOCK_SIZE(type) (size_t(::foxxll::dummy_default_block_size<type>::size())) // use traits
-#endif
-
 //! \}
 
 } // namespace foxxll

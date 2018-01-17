@@ -151,8 +151,6 @@ namespace foxxll {
 
 #endif
 
-////////////////////////////////////////////////////////////////////////////
-
 } // namespace foxxll
 
 #endif // !FOXXLL_COMMON_ERROR_HANDLING_HEADER

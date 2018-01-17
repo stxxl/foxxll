@@ -19,6 +19,8 @@
 #include <sstream>
 #include <string>
 
+#include <tlx/logger.hpp>
+
 #include <foxxll/common/timer.hpp>
 #include <foxxll/common/types.hpp>
 #include <foxxll/io/iostats.hpp>
@@ -256,13 +258,12 @@ void stats::wait_finished(const wait_op_type wait_op)
             p_begin_wait_write_ = now;
             p_wait_write_ += (acc_wait_write_--) ? diff2 : 0.0;
         }
-#ifdef STXXL_WAIT_LOG_ENABLED
-        std::ofstream* waitlog = foxxll::logger::get_instance()->waitlog_stream();
+#ifdef FOXXLL_WAIT_LOG_ENABLED
         if (waitlog)
-            *waitlog << (now - last_reset) << "\t"
-                     << ((wait_op == WAIT_OP_READ) ? diff : 0.0) << "\t"
-                     << ((wait_op != WAIT_OP_READ) ? diff : 0.0) << "\t"
-                     << t_wait_read_ << "\t" << t_wait_write_ << "\n" << line_prefix << std::flush;
+            LOG1 << (now - last_reset) << "\t"
+                 << ((wait_op == WAIT_OP_READ) ? diff : 0.0) << "\t"
+                 << ((wait_op != WAIT_OP_READ) ? diff : 0.0) << "\t"
+                 << t_wait_read_ << "\t" << t_wait_write_ << "\n" << line_prefix << std::flush;
 #endif
     }
 }
@@ -687,7 +688,7 @@ void stats_data::to_ostream(std::ostream& o, const std::string line_prefix) cons
 {
     constexpr double one_mib = 1024.0 * 1024;
 
-    o << "STXXL I/O statistics\n" << line_prefix;
+    o << "I/O statistics\n" << line_prefix;
 
     size_t nf = num_files();
     if (nf != 1) {

@@ -104,7 +104,7 @@ template <class base_file_type>
 void fileperblock_file<base_file_type>::discard(offset_type offset, offset_type length)
 {
     tlx::unused(length);
-#ifdef STXXL_FILEPERBLOCK_NO_DELETE
+#ifdef FOXXLL_FILEPERBLOCK_NO_DELETE
     if (::truncate(filename_for_block(offset).c_str(), 0) != 0)
         LOG1 << "truncate() error on path=" << filename_for_block(offset) << " error=" << strerror(errno);
 #else
