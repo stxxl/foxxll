@@ -152,7 +152,7 @@ int benchmark_files(int argc, char* argv[])
                     "32-bit pattern to write (default: block index)");
 
     cp.set_description(
-        "Open a file using one of STXXL's file abstractions and perform "
+        "Open a file using one of FOXXLL's file abstractions and perform "
         "write/read/verify tests on the file. "
         "Block sizes and batch size can be adjusted via command line. "
         "If length == 0 , then operation will continue till end of space "

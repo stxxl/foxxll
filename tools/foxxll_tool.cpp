@@ -21,7 +21,7 @@
 #include <foxxll/version.hpp>
 #include <tlx/cmdline_parser.hpp>
 
-int stxxl_info(int, char**)
+int foxxll_info(int, char**)
 {
     foxxll::config::get_instance();
     foxxll::block_manager::get_instance();
@@ -61,9 +61,9 @@ struct SubTool
 
 struct SubTool subtools[] = {
     {
-        "info", &stxxl_info, false,
+        "info", &foxxll_info, false,
         "Print out information about the build system and which optional "
-        "modules where compiled into STXXL."
+        "modules where compiled into FOXXLL."
     },
     {
         "create_files", &create_files, false,
