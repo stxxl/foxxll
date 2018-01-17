@@ -250,8 +250,12 @@ struct offset_allocator
     }
 };
 
+#ifndef FOXXLL_DEFAULT_ALLOC_STRATEGY
+    #define FOXXLL_DEFAULT_ALLOC_STRATEGY foxxll::random_cyclic
+#endif
+
 #ifndef STXXL_DEFAULT_ALLOC_STRATEGY
-    #define STXXL_DEFAULT_ALLOC_STRATEGY foxxll::random_cyclic
+    #define STXXL_DEFAULT_ALLOC_STRATEGY FOXXLL_DEFAULT_ALLOC_STRATEGY
 #endif
 
 //! \}
