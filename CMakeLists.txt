@@ -80,8 +80,8 @@ option(USE_GCOV "Compile and run tests with gcov for coverage analysis." OFF)
 
 # by default we currently only build a static library, since we do not aim to
 # keep a stable binary interface.
-option(BUILD_STATIC_LIBS "Build static library version of libfoxxll" ON)
-option(BUILD_SHARED_LIBS "Build shared library version of libfoxxll" OFF)
+option(FOXXLL_BUILD_STATIC_LIBS "Build static library version of libfoxxll" ON)
+option(FOXXLL_BUILD_SHARED_LIBS "Build shared library version of libfoxxll" OFF)
 
 ### allow user to specify other installation paths
 

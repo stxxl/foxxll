@@ -79,7 +79,7 @@ if(FOXXLL_LIBNAME STREQUAL "foxxll_release" OR FOXXLL_LIBNAME STREQUAL "foxxll_"
   set(FOXXLL_LIBNAME "foxxll")
 endif()
 
-if(BUILD_SHARED_LIBS)
+if(FOXXLL_BUILD_SHARED_LIBS)
 
   # build foxxll SHARED library and link all programs again it
   add_library(foxxll SHARED ${LIBFOXXLL_SOURCES})
@@ -99,7 +99,7 @@ if(BUILD_SHARED_LIBS)
     ARCHIVE DESTINATION ${INSTALL_LIB_DIR}
     LIBRARY DESTINATION ${INSTALL_LIB_DIR})
 
-  if(BUILD_STATIC_LIBS)
+  if(FOXXLL_BUILD_STATIC_LIBS)
     # but also build STATIC library
     add_library(foxxll_static STATIC ${LIBFOXXLL_SOURCES})
     set_target_properties(foxxll_static PROPERTIES OUTPUT_NAME "${FOXXLL_LIBNAME}")
@@ -123,7 +123,7 @@ if(BUILD_SHARED_LIBS)
 
 else()
 
-  if(NOT BUILD_STATIC_LIBS)
+  if(NOT FOXXLL_BUILD_STATIC_LIBS)
     message(FATAL_ERROR "You must build either a static or shared FOXXLL library")
   endif()
 
