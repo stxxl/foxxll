@@ -251,8 +251,8 @@ void ufs_file_base::_set_size(offset_type newsize)
 
 #if !FOXXLL_WINDOWS
     if (newsize > cur_size)
-        FOXXLL_THROW_ERRNO_LT_0(::lseek(file_des_, newsize - 1, SEEK_SET), io_error,
-                                "lseek() path=" << filename_ << " fd=" << file_des_ << " pos=" << newsize - 1);
+        FOXXLL_THROW_IF(::lseek(file_des_, newsize - 1, SEEK_SET) < 0, io_error,
+                        "lseek() path=" << filename_ << " fd=" << file_des_ << " pos=" << newsize - 1);
 #endif
 }
 
