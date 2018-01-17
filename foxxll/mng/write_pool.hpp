@@ -20,8 +20,9 @@
 #include <list>
 #include <utility>
 
+#include <tlx/define.hpp>
+
 #include <foxxll/config.hpp>
-#include <foxxll/deprecated.hpp>
 #include <foxxll/io/request_operations.hpp>
 
 #define FOXXLL_VERBOSE_WPOOL(msg) FOXXLL_VERBOSE1("write_pool[" << static_cast<void*>(this) << "]" << msg)
@@ -167,7 +168,7 @@ public:
     }
 
     // deprecated name for the steal()
-    STXXL_DEPRECATED(block_type * get())
+    TLX_DEPRECATED(block_type * get())
     {
         return steal();
     }
@@ -192,7 +193,7 @@ public:
             delete steal();
     }
 
-    STXXL_DEPRECATED(request_ptr get_request(bid_type bid))
+    TLX_DEPRECATED(request_ptr get_request(bid_type bid))
     {
         busy_blocks_iterator i2 = busy_blocks.begin();
         for ( ; i2 != busy_blocks.end(); ++i2)
@@ -213,7 +214,7 @@ public:
         return false;
     }
 
-    STXXL_DEPRECATED(block_type * steal(bid_type bid))
+    TLX_DEPRECATED(block_type * steal(bid_type bid))
     {
         busy_blocks_iterator i2 = busy_blocks.begin();
         for ( ; i2 != busy_blocks.end(); ++i2)

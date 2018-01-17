@@ -25,7 +25,6 @@
 #include <foxxll/common/utils.hpp>
 #include <foxxll/config.hpp>
 #include <foxxll/defines.hpp>
-#include <foxxll/deprecated.hpp>
 #include <foxxll/io/create_file.hpp>
 #include <foxxll/io/file.hpp>
 #include <foxxll/io/request.hpp>

@@ -30,7 +30,6 @@
 #include <foxxll/common/timer.hpp>
 #include <foxxll/common/types.hpp>
 #include <foxxll/common/utils.hpp>
-#include <foxxll/deprecated.hpp>
 #include <foxxll/singleton.hpp>
 #include <foxxll/unused.hpp>
 

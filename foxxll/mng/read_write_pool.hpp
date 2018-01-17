@@ -16,6 +16,8 @@
 #include <algorithm>
 #include <utility>
 
+#include <tlx/define.hpp>
+
 #include <foxxll/mng/prefetch_pool.hpp>
 #include <foxxll/mng/write_pool.hpp>
 
@@ -52,7 +54,7 @@ public:
         p_pool = new prefetch_pool_type(init_size_prefetch);
     }
 
-    STXXL_DEPRECATED(read_write_pool(prefetch_pool_type & p_pool, write_pool_type & w_pool))
+    TLX_DEPRECATED(read_write_pool(prefetch_pool_type & p_pool, write_pool_type & w_pool))
         : w_pool(&w_pool), p_pool(&p_pool), delete_pools(false)
     { }
 
