@@ -25,7 +25,6 @@
 
 #include <foxxll/common/utils.hpp>
 #include <foxxll/config.hpp>
-#include <foxxll/verbose.hpp>
 #include <tlx/string/format_si_iec_units.hpp>
 
 namespace foxxll {
