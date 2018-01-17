@@ -50,7 +50,7 @@ void request_queue_impl_worker::stop_thread(
     // thinks this is not a big issue. It has not been fixed in VC++RT 2013.
     // https://connect.microsoft.com/VisualStudio/feedback/details/747145
     //
-    // All STXXL threads are created by singletons, which are global variables
+    // All FOXXLL threads are created by singletons, which are global variables
     // that are deleted after main() exits. The fix applied here it to use
     // std::thread::native_handle() and access the WINAPI to terminate the
     // thread directly (after it finished handling its i/o requests).

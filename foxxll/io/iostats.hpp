@@ -26,6 +26,8 @@
 #include <utility>
 #include <vector>
 
+#include <tlx/logger.hpp>
+
 #include <foxxll/common/error_handling.hpp>
 #include <foxxll/common/timer.hpp>
 #include <foxxll/common/types.hpp>
@@ -685,7 +687,7 @@ public:
           m_bytes(bytes),
           m_report_on_destruction(true)
     {
-        STXXL_MSG("Starting " << message);
+        LOG1 << "Starting " << message;
     }
 
     explicit scoped_print_iostats(const std::string& message, uint64_t bytes = 0)
@@ -702,7 +704,7 @@ public:
         return m_begin;
     }
 
-    //! print out relative stats via STXXL_MSG
+    //! print out relative stats via LOG
     void report() const;
 
     //! Same as report() but disables reporting on destruction

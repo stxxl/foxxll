@@ -144,8 +144,8 @@ public:
         std::unique_lock<std::mutex> lock(mutex_);
 
         FOXXLL_VERBOSE2("disk_block_allocator::delete_block<" << BlockSize <<
-                       ">(pos=" << bid.offset << ", size=" << bid.size <<
-                       "), free:" << free_bytes_ << " total:" << disk_bytes_);
+                        ">(pos=" << bid.offset << ", size=" << bid.size <<
+                        "), free:" << free_bytes_ << " total:" << disk_bytes_);
 
         add_free_region(bid.offset, bid.size);
     }
@@ -165,18 +165,18 @@ void disk_block_allocator::new_blocks(BIDIterator begin, BIDIterator end)
     std::unique_lock<std::mutex> lock(mutex_);
 
     FOXXLL_VERBOSE2("disk_block_allocator::new_blocks<BlockSize>"
-                   ", BlockSize = " << begin->size <<
-                   ", free:" << free_bytes_ << " total:" << disk_bytes_ <<
-                   ", blocks: " << (end - begin) <<
-                   ", requested_size=" << requested_size);
+                    ", BlockSize = " << begin->size <<
+                    ", free:" << free_bytes_ << " total:" << disk_bytes_ <<
+                    ", blocks: " << (end - begin) <<
+                    ", requested_size=" << requested_size);
 
     if (free_bytes_ < requested_size)
     {
         if (!autogrow_) {
             FOXXLL_THROW(bad_ext_alloc,
-                        "Out of external memory error: " << requested_size <<
-                        " requested, " << free_bytes_ << " bytes free. "
-                        "Maybe enable autogrow_ flags?");
+                         "Out of external memory error: " << requested_size <<
+                         " requested, " << free_bytes_ << " bytes free. "
+                         "Maybe enable autogrow_ flags?");
         }
 
         STXXL_ERRMSG("External memory block allocation error: " << requested_size <<
@@ -197,7 +197,7 @@ void disk_block_allocator::new_blocks(BIDIterator begin, BIDIterator end)
     if (space == free_space_.end() && begin + 1 == end)
     {
         if (!autogrow_) {
-            STXXL_ERRMSG("Warning: Severe external memory space fragmentation!");
+            LOG1 << "Warning: Severe external memory space fragmentation!";
             dump();
 
             STXXL_ERRMSG("External memory block allocation error: " << requested_size <<
@@ -237,7 +237,7 @@ void disk_block_allocator::new_blocks(BIDIterator begin, BIDIterator end)
 
     // no contiguous region found
     FOXXLL_VERBOSE1("Warning, when allocating an external memory space, "
-                   "no contiguous region found");
+                    "no contiguous region found");
     FOXXLL_VERBOSE1("It might harm the performance");
 
     assert(end - begin > 1);

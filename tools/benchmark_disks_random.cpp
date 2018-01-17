@@ -141,7 +141,7 @@ void run_test(external_size_type span, external_size_type worksize, bool do_init
     catch (const std::exception& ex)
     {
         std::cout << std::endl;
-        STXXL_ERRMSG(ex.what());
+        LOG1 << ex.what();
     }
 
     delete[] reqs;

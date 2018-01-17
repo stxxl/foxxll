@@ -14,13 +14,14 @@
  *  http://www.boost.org/LICENSE_1_0.txt)
  **************************************************************************/
 
+#include <tlx/logger.hpp>
+
 #include <foxxll/common/error_handling.hpp>
 #include <foxxll/common/exceptions.hpp>
 #include <foxxll/config.hpp>
 #include <foxxll/io/file.hpp>
 #include <foxxll/io/ufs_file_base.hpp>
 #include <foxxll/io/ufs_platform.hpp>
-#include <foxxll/verbose.hpp>
 
 namespace foxxll {
 
@@ -67,12 +68,12 @@ ufs_file_base::ufs_file_base(const std::string& filename, int mode)
         flags |= O_DIRECT;
 #else
         if (mode & REQUIRE_DIRECT) {
-            STXXL_ERRMSG("Error: open()ing " << filename_ << " with DIRECT mode required, but the system does not support it.");
+            LOG1 << "Error: open()ing " << filename_ << " with DIRECT mode required, but the system does not support it.";
             file_des_ = -1;
             return;
         }
         else {
-            STXXL_MSG("Warning: open()ing " << filename_ << " without DIRECT mode, as the system does not support it.");
+            LOG1 << "Warning: open()ing " << filename_ << " without DIRECT mode, as the system does not support it.";
         }
 #endif
     }
@@ -103,8 +104,8 @@ ufs_file_base::ufs_file_base(const std::string& filename, int mode)
 #if !FOXXLL_DIRECT_IO_OFF
     if ((mode & DIRECT) && !(mode & REQUIRE_DIRECT) && errno == EINVAL)
     {
-        STXXL_MSG("open() error on path=" << filename_
-                                          << " flags=" << flags << ", retrying without O_DIRECT.");
+        LOG1 << "open() error on path=" << filename_
+             << " flags=" << flags << ", retrying without O_DIRECT.";
 
         flags &= ~O_DIRECT;
         mode &= ~DIRECT;
@@ -118,7 +119,7 @@ ufs_file_base::ufs_file_base(const std::string& filename, int mode)
 #endif
 
     FOXXLL_THROW_ERRNO(io_error, "open() rc=" << file_des_
-                                             << " path=" << filename_ << " flags=" << flags);
+                                              << " path=" << filename_ << " flags=" << flags);
 }
 
 ufs_file_base::~ufs_file_base()
@@ -132,29 +133,29 @@ void ufs_file_base::_after_open()
 #if FOXXLL_WINDOWS || defined(__MINGW32__)
     struct _stat64 st;
     FOXXLL_THROW_ERRNO_NE_0(::_fstat64(file_des_, &st), io_error,
-                           "_fstat64() path=" << filename_ << " fd=" << file_des_);
+                            "_fstat64() path=" << filename_ << " fd=" << file_des_);
 #else
     struct stat st;
     FOXXLL_THROW_ERRNO_NE_0(::fstat(file_des_, &st), io_error,
-                           "fstat() path=" << filename_ << " fd=" << file_des_);
+                            "fstat() path=" << filename_ << " fd=" << file_des_);
 #endif
     is_device_ = S_ISBLK(st.st_mode) ? true : false;
 
 #ifdef __APPLE__
     if (mode_ & REQUIRE_DIRECT) {
         FOXXLL_THROW_ERRNO_NE_0(fcntl(file_des_, F_NOCACHE, 1), io_error,
-                               "fcntl() path=" << filename_ << " fd=" << file_des_);
+                                "fcntl() path=" << filename_ << " fd=" << file_des_);
         FOXXLL_THROW_ERRNO_NE_0(fcntl(file_des_, F_RDAHEAD, 0), io_error,
-                               "fcntl() path=" << filename_ << " fd=" << file_des_);
+                                "fcntl() path=" << filename_ << " fd=" << file_des_);
     }
     else if (mode_ & DIRECT) {
         if (fcntl(file_des_, F_NOCACHE, 1) != 0) {
-            STXXL_MSG("fcntl(fd,F_NOCACHE,1) failed on path=" << filename_ <<
-                      " fd=" << file_des_ << " : " << strerror(errno));
+            LOG1 << "fcntl(fd,F_NOCACHE,1) failed on path=" << filename_ <<
+                " fd=" << file_des_ << " : " << strerror(errno);
         }
         if (fcntl(file_des_, F_RDAHEAD, 0) != 0) {
-            STXXL_MSG("fcntl(fd,F_RDAHEAD,0) failed on path=" << filename_ <<
-                      " fd=" << file_des_ << " : " << strerror(errno));
+            LOG1 << "fcntl(fd,F_RDAHEAD,0) failed on path=" << filename_ <<
+                " fd=" << file_des_ << " : " << strerror(errno);
         }
     }
 #endif
@@ -228,30 +229,30 @@ void ufs_file_base::_set_size(offset_type newsize)
 #if FOXXLL_WINDOWS || defined(__MINGW32__)
         HANDLE hfile = (HANDLE)::_get_osfhandle(file_des_);
         FOXXLL_THROW_ERRNO_NE_0((hfile == INVALID_HANDLE_VALUE), io_error,
-                               "_get_osfhandle() path=" << filename_ << " fd=" << file_des_);
+                                "_get_osfhandle() path=" << filename_ << " fd=" << file_des_);
 
         LARGE_INTEGER desired_pos;
         desired_pos.QuadPart = newsize;
 
         if (!SetFilePointerEx(hfile, desired_pos, nullptr, FILE_BEGIN))
             FOXXLL_THROW_WIN_LASTERROR(io_error,
-                                      "SetFilePointerEx in ufs_file_base::set_size(..) oldsize=" << cur_size <<
-                                      " newsize=" << newsize << " ");
+                                       "SetFilePointerEx in ufs_file_base::set_size(..) oldsize=" << cur_size <<
+                                       " newsize=" << newsize << " ");
 
         if (!SetEndOfFile(hfile))
             FOXXLL_THROW_WIN_LASTERROR(io_error,
-                                      "SetEndOfFile oldsize=" << cur_size <<
-                                      " newsize=" << newsize << " ");
+                                       "SetEndOfFile oldsize=" << cur_size <<
+                                       " newsize=" << newsize << " ");
 #else
         FOXXLL_THROW_ERRNO_NE_0(::ftruncate(file_des_, newsize), io_error,
-                               "ftruncate() path=" << filename_ << " fd=" << file_des_);
+                                "ftruncate() path=" << filename_ << " fd=" << file_des_);
 #endif
     }
 
 #if !FOXXLL_WINDOWS
     if (newsize > cur_size)
         FOXXLL_THROW_ERRNO_LT_0(::lseek(file_des_, newsize - 1, SEEK_SET), io_error,
-                               "lseek() path=" << filename_ << " fd=" << file_des_ << " pos=" << newsize - 1);
+                                "lseek() path=" << filename_ << " fd=" << file_des_ << " pos=" << newsize - 1);
 #endif
 }
 
@@ -260,18 +261,18 @@ void ufs_file_base::close_remove()
     close();
 
     if (is_device_) {
-        STXXL_ERRMSG("remove() path=" << filename_ << " skipped as file is device node");
+        LOG1 << "remove() path=" << filename_ << " skipped as file is device node";
         return;
     }
 
     if (::remove(filename_.c_str()) != 0)
-        STXXL_ERRMSG("remove() error on path=" << filename_ << " error=" << strerror(errno));
+        LOG1 << "remove() error on path=" << filename_ << " error=" << strerror(errno);
 }
 
 void ufs_file_base::unlink()
 {
     if (is_device_) {
-        STXXL_ERRMSG("unlink() path=" << filename_ << " skipped as file is device node");
+        LOG1 << "unlink() path=" << filename_ << " skipped as file is device node";
         return;
     }
 

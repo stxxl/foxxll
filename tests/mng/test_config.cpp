@@ -63,7 +63,7 @@ void test2()
         FOXXLL_CHECK_EQUAL(disk1.size, 100 * 1024 * uint64_t(1024));
         FOXXLL_CHECK_EQUAL(disk1.autogrow, 1);
         FOXXLL_CHECK_EQUAL(disk1.fileio_string(),
-                          "syscall direct=off unlink_on_open");
+                           "syscall direct=off unlink_on_open");
 
         config->add_disk(disk1);
 
@@ -74,7 +74,7 @@ void test2()
         FOXXLL_CHECK_EQUAL(disk2.path, "/tmp/foxxll-2.tmp");
         FOXXLL_CHECK_EQUAL(disk2.size, 200 * 1024 * uint64_t(1024));
         FOXXLL_CHECK_EQUAL(disk2.fileio_string(),
-                          "syscall autogrow=no direct=off unlink_on_open");
+                           "syscall autogrow=no direct=off unlink_on_open");
         FOXXLL_CHECK_EQUAL(disk2.direct, 0);
 
         config->add_disk(disk2);

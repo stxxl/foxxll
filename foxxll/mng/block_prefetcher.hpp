@@ -139,9 +139,9 @@ public:
             assert(prefetch_seq[i] < seq_length);
             read_bids[i] = *(consume_seq_begin + prefetch_seq[i]);
             FOXXLL_VERBOSE1("block_prefetcher: reading block " << i <<
-                           " prefetch_seq[" << i << "]=" << prefetch_seq[i] <<
-                           " @ " << &read_buffers[i] <<
-                           " @ " << read_bids[i]);
+                            " prefetch_seq[" << i << "]=" << prefetch_seq[i] <<
+                            " @ " << &read_buffers[i] <<
+                            " @ " << read_bids[i]);
             read_reqs[i] = read_buffers[i].read(
                 read_bids[i],
                 set_switch_handler(*(completed + prefetch_seq[i]), do_after_fetch));

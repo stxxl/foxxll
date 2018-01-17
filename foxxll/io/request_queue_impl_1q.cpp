@@ -16,6 +16,8 @@
 #include <algorithm>
 #include <functional>
 
+#include <tlx/logger.hpp>
+
 #include <foxxll/common/error_handling.hpp>
 #include <foxxll/config.hpp>
 #include <foxxll/io/request_queue_impl_1q.hpp>
@@ -64,7 +66,7 @@ void request_queue_impl_1q::add_request(request_ptr& req)
     if (thread_state_() != RUNNING)
         FOXXLL_THROW_INVALID_ARGUMENT("Request submitted to not running queue.");
     if (!dynamic_cast<serving_request*>(req.get()))
-        STXXL_ERRMSG("Incompatible request submitted to running queue.");
+        LOG1 << "Incompatible request submitted to running queue.";
 
 #if FOXXLL_CHECK_FOR_PENDING_REQUESTS_ON_SUBMISSION
     {
@@ -73,7 +75,7 @@ void request_queue_impl_1q::add_request(request_ptr& req)
                          bind2nd(file_offset_match(), req))
             != queue_.end())
         {
-            STXXL_ERRMSG("request submitted for a BID with a pending request");
+            LOG1 << "request submitted for a BID with a pending request";
         }
     }
 #endif
@@ -90,7 +92,7 @@ bool request_queue_impl_1q::cancel_request(request_ptr& req)
     if (thread_state_() != RUNNING)
         FOXXLL_THROW_INVALID_ARGUMENT("Request canceled to not running queue.");
     if (!dynamic_cast<serving_request*>(req.get()))
-        STXXL_ERRMSG("Incompatible request submitted to running queue.");
+        LOG1 << "Incompatible request submitted to running queue.";
 
     bool was_still_in_queue = false;
     {

@@ -43,7 +43,7 @@ int main(int argc, char** argv)
                 buffer[i] = i;
 
             //write
-            STXXL_MSG(foxxll::add_IEC_binary_multiplier(size, "B") << "are being written at once");
+            LOG1 << foxxll::add_IEC_binary_multiplier(size, "B") << "are being written at once";
             req = file->awrite(buffer, 0, size);
             wait_all(&req, 1);
 
@@ -52,7 +52,7 @@ int main(int argc, char** argv)
                 buffer[i] = 0xFFFFFFFFFFFFFFFFull;
 
             //read again
-            STXXL_MSG(foxxll::add_IEC_binary_multiplier(size, "B") << "are being read at once");
+            LOG1 << foxxll::add_IEC_binary_multiplier(size, "B") << "are being read at once";
             req = file->aread(buffer, 0, size);
             wait_all(&req, 1);
 
@@ -61,7 +61,7 @@ int main(int argc, char** argv)
             for (size_t i = 0; i < size / sizeof(size_t); ++i)
                 if (buffer[i] != i)
                 {
-                    STXXL_ERRMSG("Read inconsistent data at position " << i * sizeof(size_t));
+                    LOG1 << "Read inconsistent data at position " << i * sizeof(size_t);
                     wrong = true;
                     break;
                 }

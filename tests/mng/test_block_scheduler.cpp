@@ -14,6 +14,8 @@
 #include <iostream>
 #include <limits>
 
+#include <tlx/logger.hpp>
+
 #include <foxxll/mng/block_scheduler.hpp>
 #include <tlx/cmdline_parser.hpp>
 
@@ -68,7 +70,7 @@ using external_block_type = block_scheduler_type::external_block_type;
 void test1()
 {
     // ------------------- call all functions -----------------------
-    STXXL_MSG("first test: call all functions");
+    LOG1 << "first test: call all functions";
 
     // prepare an external_block with pattern A
     external_block_type ext_bl;
@@ -98,7 +100,7 @@ void test1()
         for (size_t i = 0; i < block_size; ++i)
             num_err += (ib[i] != i);
         FOXXLL_CHECK2(num_err == 0,
-                     "previously initialized block had " << num_err << " errors.");
+                      "previously initialized block had " << num_err << " errors.");
     }
     {
         // get a new reference to the already allocated block (because we forgot the old one)
@@ -175,7 +177,7 @@ void test1()
     {
         block_scheduler_type::prediction_sequence_type ps = bs.get_prediction_sequence();
         for (block_scheduler_type::prediction_sequence_type::iterator it = ps.begin(); it != ps.end(); ++it)
-            STXXL_MSG("id: " << it->id << " op: " << it->op << " t: " << it->time);
+            LOG1 << "id: " << it->id << " op: " << it->op << " t: " << it->time;
     }
 
     // switch to LFD processing
@@ -219,14 +221,14 @@ void test1()
 
     int_bl->read(ext_bl)->wait();
     FOXXLL_CHECK2(test_pattern_B(*int_bl) == 0,
-                 "after extraction changed block should contain pattern B.");
+                  "after extraction changed block should contain pattern B.");
     delete int_bl;
 }
 
 void test2()
 {
     // ---------- force swapping ---------------------
-    STXXL_MSG("next test: force swapping");
+    LOG1 << "next test: force swapping";
     constexpr size_t kNumSB = 5;
 
     // only 3 internal_blocks allowed
@@ -280,7 +282,7 @@ void test3()
 {
     {
         // ---------- do not free uninitialized block ---------------------
-        STXXL_MSG("next test: do not free uninitialized block");
+        LOG1 << "next test: do not free uninitialized block";
 
         block_scheduler_type bs(block_size * sizeof(value_type));
         swappable_block_identifier_type sbi;
@@ -292,7 +294,7 @@ void test3()
     }
     {
         // ---------- do not free initialized block ---------------------
-        STXXL_MSG("next test: do not free initialized block");
+        LOG1 << "next test: do not free initialized block";
 
         block_scheduler_type bs(block_size * sizeof(value_type));
         swappable_block_identifier_type sbi;
@@ -305,7 +307,7 @@ void test3()
     if (0) //-tb: causes assertion (which is the expected behaviour)!
     {
         // ---------- do not release but free block ---------------------
-        STXXL_MSG("next test: do not release but free block");
+        LOG1 << "next test: do not release but free block";
 
         block_scheduler_type bs(block_size * sizeof(value_type));
         swappable_block_identifier_type sbi;
@@ -317,7 +319,7 @@ void test3()
     }
     {
         // ---------- do neither release nor free block ---------------------
-        STXXL_MSG("next test: do neither release nor free block");
+        LOG1 << "next test: do neither release nor free block";
 
         block_scheduler_type bs(block_size * sizeof(value_type));
         swappable_block_identifier_type sbi;
@@ -330,7 +332,7 @@ void test3()
     if (0) //-tb: causes assertion (which is the expected behaviour)!
     {
         // ---------- release block to often ---------------------
-        STXXL_MSG("next test: release block to often");
+        LOG1 << "next test: release block to often";
 
         block_scheduler_type bs(block_size * sizeof(value_type));
         swappable_block_identifier_type sbi;
@@ -368,7 +370,7 @@ int main(int argc, char** argv)
     test2();
     test3();
 
-    STXXL_MSG("end of test");
+    LOG1 << "end of test";
 
     return 0;
 }

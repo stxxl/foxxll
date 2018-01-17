@@ -19,6 +19,8 @@
 #include <memory>
 #include <vector>
 
+#include <tlx/logger.hpp>
+
 #include <foxxll/io.hpp>
 #include <foxxll/mng.hpp>
 #include <foxxll/verbose.hpp>
@@ -36,7 +38,7 @@ struct my_handler
 {
     void operator () (foxxll::request* req, bool /* success */)
     {
-        STXXL_MSG(req << " done, type=" << req->io_type());
+        LOG1 << req << " done, type=" << req->io_type();
     }
 };
 
@@ -44,8 +46,8 @@ using block_type = foxxll::typed_block<BLOCK_SIZE, MyType>;
 
 int main()
 {
-    STXXL_MSG(sizeof(MyType) << " " << (BLOCK_SIZE % sizeof(MyType)));
-    STXXL_MSG(sizeof(block_type) << " " << BLOCK_SIZE);
+    LOG1 << sizeof(MyType) << " " << (BLOCK_SIZE % sizeof(MyType));
+    LOG1 << sizeof(block_type) << " " << BLOCK_SIZE;
 
     constexpr size_t nblocks = 2;
     foxxll::BIDArray<BLOCK_SIZE> bids(nblocks);
@@ -56,10 +58,10 @@ int main()
 
     std::unique_ptr<block_type[]> block(new block_type[nblocks]);
 
-    STXXL_MSG(std::hex);
-    STXXL_MSG("Allocated block address    : " << (size_t)(block.get()));
-    STXXL_MSG("Allocated block address + 1: " << (size_t)(block.get() + 1));
-    STXXL_MSG(std::dec);
+    LOG1 << std::hex;
+    LOG1 << "Allocated block address    : " << (size_t)(block.get());
+    LOG1 << "Allocated block address + 1: " << (size_t)(block.get() + 1);
+    LOG1 << std::dec;
 
     for (size_t i = 0; i < nblocks; i++) {
         for (size_t j = 0; j < block_type::size; ++j) {
@@ -86,8 +88,8 @@ int main()
         for (size_t j = 0; j < block_type::size; ++j)
         {
             FOXXLL_CHECK2(i + j == block[i].elem[j].integer,
-                         "Error in block " << std::hex << i << " pos: " << j
-                                           << " value read: " << block[i].elem[j].integer);
+                          "Error in block " << std::hex << i << " pos: " << j
+                                            << " value read: " << block[i].elem[j].integer);
         }
     }
 

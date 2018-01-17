@@ -56,7 +56,7 @@ int main()
             in >> value;
 
             FOXXLL_CHECK2(value == i,
-                         "Error at position " << std::hex << i << " (" << value << ") block " << (i / block_type::size));
+                          "Error at position " << std::hex << i << " (" << value << ") block " << (i / block_type::size));
             FOXXLL_CHECK(prevalue == value);
         }
     }
@@ -69,7 +69,7 @@ int main()
             in >> value;
 
             FOXXLL_CHECK2(value == nelements - i - 1,
-                         "Error at position " << std::hex << i << " (" << value << ") block " << (i / block_type::size));
+                          "Error at position " << std::hex << i << " (" << value << ") block " << (i / block_type::size));
             FOXXLL_CHECK(prevalue == value);
         }
     }

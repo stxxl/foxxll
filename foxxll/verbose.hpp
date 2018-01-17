@@ -22,6 +22,11 @@
 
 #include <foxxll/unused.hpp>
 
+namespace foxxll {
+
+constexpr bool debug = false;
+}
+
 #define _STXXL_PRNT_COUT        (1 << 0)
 #define _STXXL_PRNT_CERR        (1 << 1)
 #define _STXXL_PRNT_LOG         (1 << 2)
@@ -68,13 +73,6 @@ void print_msg(const char* label, const std::string& msg, unsigned flags);
 
 #ifndef FOXXLL_VERBOSE_LEVEL
 #define FOXXLL_VERBOSE_LEVEL -1
-#endif
-
-#if FOXXLL_VERBOSE_LEVEL > -10
- #define STXXL_MSG(x) _STXXL_PRINT("STXXL-MSG", x, _STXXL_PRINT_FLAGS_DEFAULT)
-#else
-// Please do not report STXXL problems with STXXL_MSG disabled!
- #define STXXL_MSG(x) _STXXL_NOT_VERBOSE(x)
 #endif
 
 // STXXL_VARDUMP(x) prints the name of x together with its value.
@@ -147,7 +145,7 @@ void print_msg(const char* label, const std::string& msg, unsigned flags);
 //! assert() also works in release builds. These macros should ONLY be used in
 //! UNIT TESTS, not in the library source. Use usual assert() there.
 
-#define FOXXLL_CHECK(condition)                                               \
+#define FOXXLL_CHECK(condition)                                              \
     do {                                                                     \
         if (!(condition)) {                                                  \
             _STXXL_PRINT("STXXL-CHECK",                                      \
@@ -156,7 +154,7 @@ void print_msg(const char* label, const std::string& msg, unsigned flags);
         }                                                                    \
     } while (0)
 
-#define FOXXLL_CHECK2(condition, text)                                                      \
+#define FOXXLL_CHECK2(condition, text)                                                     \
     do {                                                                                   \
         if (!(condition)) {                                                                \
             _STXXL_PRINT("STXXL-CHECK",                                                    \
@@ -169,7 +167,7 @@ void print_msg(const char* label, const std::string& msg, unsigned flags);
 //! FOXXLL_CHECK(a==b). The difference is that FOXXLL_CHECK_EQUAL(a,b) also
 //! prints the values of a and b. Attention: a and b must be printable with
 //! std::cout!
-#define FOXXLL_CHECK_EQUAL(a, b)                                                 \
+#define FOXXLL_CHECK_EQUAL(a, b)                                                \
     do {                                                                        \
         if (!(a == b)) {                                                        \
             _STXXL_PRINT("STXXL-CHECK",                                         \
@@ -182,7 +180,7 @@ void print_msg(const char* label, const std::string& msg, unsigned flags);
 // FOXXLL_CHECK_THROW is an assertion macro for unit tests, which checks that
 // the enclosed code throws an exception.
 
-#define FOXXLL_CHECK_THROW(code, exception_type)               \
+#define FOXXLL_CHECK_THROW(code, exception_type)              \
     do {                                                      \
         bool t_ = false; try { code; }                        \
         catch (const exception_type&) { t_ = true; }          \

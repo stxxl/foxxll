@@ -107,10 +107,10 @@ void fileperblock_file<base_file_type>::discard(offset_type offset, offset_type 
     tlx::unused(length);
 #ifdef STXXL_FILEPERBLOCK_NO_DELETE
     if (::truncate(filename_for_block(offset).c_str(), 0) != 0)
-        STXXL_ERRMSG("truncate() error on path=" << filename_for_block(offset) << " error=" << strerror(errno));
+        LOG1 << "truncate() error on path=" << filename_for_block(offset) << " error=" << strerror(errno);
 #else
     if (::remove(filename_for_block(offset).c_str()) != 0)
-        STXXL_ERRMSG("remove() error on path=" << filename_for_block(offset) << " error=" << strerror(errno));
+        LOG1 << "remove() error on path=" << filename_for_block(offset) << " error=" << strerror(errno);
 #endif
 
     FOXXLL_VERBOSE2("discard " << offset << " + " << length);
@@ -122,10 +122,10 @@ void fileperblock_file<base_file_type>::export_files(offset_type offset, offset_
     std::string original(filename_for_block(offset));
     filename.insert(0, original.substr(0, original.find_last_of("/") + 1));
     if (::remove(filename.c_str()) != 0)
-        STXXL_ERRMSG("remove() error on path=" << filename << " error=" << strerror(errno));
+        LOG1 << "remove() error on path=" << filename << " error=" << strerror(errno);
 
     if (::rename(original.c_str(), filename.c_str()) != 0)
-        STXXL_ERRMSG("rename() error on path=" << filename << " to=" << original << " error=" << strerror(errno));
+        LOG1 << "rename() error on path=" << filename << " to=" << original << " error=" << strerror(errno);
 
 #if !FOXXLL_WINDOWS
     //TODO: implement on Windows

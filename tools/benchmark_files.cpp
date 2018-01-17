@@ -403,7 +403,7 @@ int benchmark_files(int argc, char* argv[])
     catch (const std::exception& ex)
     {
         std::cout << std::endl;
-        STXXL_ERRMSG(ex.what());
+        LOG1 << ex.what();
     }
     t_total.stop();
 

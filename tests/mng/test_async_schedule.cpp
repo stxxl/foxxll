@@ -14,6 +14,8 @@
 #include <cstdlib>
 #include <random>
 
+#include <tlx/logger.hpp>
+
 #include <foxxll/mng/async_schedule.hpp>
 #include <foxxll/verbose.hpp>
 
@@ -23,7 +25,7 @@ int main(int argc, char* argv[])
 {
     if (argc < 5)
     {
-        STXXL_ERRMSG("Usage: " << argv[0] << " D L m seed");
+        LOG1 << "Usage: " << argv[0] << " D L m seed";
         return -1;
     }
     const size_t D = strtoul(argv[1], nullptr, 0);
@@ -49,15 +51,15 @@ int main(int argc, char* argv[])
 
     foxxll::compute_prefetch_schedule(disks, disks + L, prefetch_order, m, D);
 
-    STXXL_MSG("Prefetch order:");
+    LOG1 << "Prefetch order:";
     for (size_t i = 0; i < L; ++i) {
-        STXXL_MSG("request " << prefetch_order[i] << "  on disk " << disks[prefetch_order[i]]);
+        LOG1 << "request " << prefetch_order[i] << "  on disk " << disks[prefetch_order[i]];
     }
-    STXXL_MSG("Request order:");
+    LOG1 << "Request order:";
     for (size_t i = 0; i < L; ++i) {
         size_t j;
         for (j = 0; prefetch_order[j] != i; ++j) ;
-        STXXL_MSG("request " << i << "  on disk " << disks[i] << "  scheduled as " << j);
+        LOG1 << "request " << i << "  on disk " << disks[i] << "  scheduled as " << j;
     }
 
     delete[] count;

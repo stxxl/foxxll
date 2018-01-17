@@ -24,7 +24,7 @@ namespace foxxll {
 // FOXXLL_VERSION_{MAJOR,MINOR,PATCH} are defined in cmake generated config.h
 
 // construct an integer version number, like "10400" for "1.4.0".
-#define FOXXLL_VERSION_INTEGER (FOXXLL_VERSION_MAJOR* 10000 + FOXXLL_VERSION_MINOR* 100 + FOXXLL_VERSION_PATCH)
+#define FOXXLL_VERSION_INTEGER (FOXXLL_VERSION_MAJOR * 10000 + FOXXLL_VERSION_MINOR * 100 + FOXXLL_VERSION_PATCH)
 
 #define stringify_(x) #x
 #define stringify(x) stringify_(x)

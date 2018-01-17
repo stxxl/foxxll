@@ -35,16 +35,15 @@ void mmap_file::serve(void* buffer, offset_type offset, size_type bytes,
 
     int prot = (op == request::READ) ? PROT_READ : PROT_WRITE;
     void* mem = mmap(nullptr, bytes, prot, MAP_SHARED, file_des_, offset);
-    // void *mem = mmap (buffer, bytes, prot , MAP_SHARED|MAP_FIXED , file_des_, offset);
-    // STXXL_MSG("Mmaped to "<<mem<<" , buffer suggested at "<<buffer);
+
     if (mem == MAP_FAILED)
     {
         FOXXLL_THROW_ERRNO(io_error,
-                          " mmap() failed." <<
-                          " path=" << filename_ <<
-                          " bytes=" << bytes <<
-                          " Page size: " << sysconf(_SC_PAGESIZE) <<
-                          " offset modulo page size " << (offset % sysconf(_SC_PAGESIZE)));
+                           " mmap() failed." <<
+                           " path=" << filename_ <<
+                           " bytes=" << bytes <<
+                           " Page size: " << sysconf(_SC_PAGESIZE) <<
+                           " offset modulo page size " << (offset % sysconf(_SC_PAGESIZE)));
     }
     else if (mem == 0)
     {
@@ -61,7 +60,7 @@ void mmap_file::serve(void* buffer, offset_type offset, size_type bytes,
             memcpy(mem, buffer, bytes);
         }
         FOXXLL_THROW_ERRNO_NE_0(munmap(mem, bytes), io_error,
-                               "munmap() failed");
+                                "munmap() failed");
     }
 }
 

@@ -16,6 +16,8 @@
 #include <algorithm>
 #include <functional>
 
+#include <tlx/logger.hpp>
+
 #include <foxxll/common/error_handling.hpp>
 #include <foxxll/io/request_queue_impl_qwqr.hpp>
 #include <foxxll/io/serving_request.hpp>
@@ -63,7 +65,7 @@ void request_queue_impl_qwqr::add_request(request_ptr& req)
     if (thread_state_() != RUNNING)
         FOXXLL_THROW_INVALID_ARGUMENT("Request submitted to not running queue.");
     if (!dynamic_cast<serving_request*>(req.get()))
-        STXXL_ERRMSG("Incompatible request submitted to running queue.");
+        LOG1 << "Incompatible request submitted to running queue.";
 
     if (req.get()->op() == request::READ)
     {
@@ -74,7 +76,7 @@ void request_queue_impl_qwqr::add_request(request_ptr& req)
                              bind2nd(file_offset_match(), req))
                 != write_queue_.end())
             {
-                STXXL_ERRMSG("READ request submitted for a BID with a pending WRITE request");
+                LOG1 << "READ request submitted for a BID with a pending WRITE request";
             }
         }
 #endif
@@ -90,7 +92,7 @@ void request_queue_impl_qwqr::add_request(request_ptr& req)
                              bind2nd(file_offset_match(), req))
                 != read_queue_.end())
             {
-                STXXL_ERRMSG("WRITE request submitted for a BID with a pending READ request");
+                LOG1 << "WRITE request submitted for a BID with a pending READ request";
             }
         }
 #endif
@@ -108,7 +110,7 @@ bool request_queue_impl_qwqr::cancel_request(request_ptr& req)
     if (thread_state_() != RUNNING)
         FOXXLL_THROW_INVALID_ARGUMENT("Request canceled to not running queue.");
     if (!dynamic_cast<serving_request*>(req.get()))
-        STXXL_ERRMSG("Incompatible request submitted to running queue.");
+        LOG1 << "Incompatible request submitted to running queue.";
 
     bool was_still_in_queue = false;
     if (req.get()->op() == request::READ)
@@ -193,11 +195,11 @@ void* request_queue_impl_qwqr::worker(void* arg)
                 read_lock.unlock();
 
                 FOXXLL_VERBOSE2("queue: before serve request has "
-                               << req->reference_count() << " references ");
+                                << req->reference_count() << " references ");
                 //assert(req->get_reference_count() > 1);
                 dynamic_cast<serving_request*>(req.get())->serve();
                 FOXXLL_VERBOSE2("queue: after serve request has "
-                               << req->reference_count() << " references ");
+                                << req->reference_count() << " references ");
             }
             else
             {

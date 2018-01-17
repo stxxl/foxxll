@@ -101,7 +101,7 @@ size_t simulate_async_write(
             size_t j = disk_queues[ii].front();
             disk_queues[ii].pop();
             event_queue.push(sim_event(1, j));
-            //STXXL_MSG("Block "<<j<<" scheduled");
+            LOG << "Block " << j << " scheduled";
         }
 
     while (!event_queue.empty())
@@ -117,7 +117,7 @@ size_t simulate_async_write(
             oldtime = cur.timestamp;
         }
 
-        FOXXLL_VERBOSE1("Block " << cur.iblock << " put out, time " << cur.timestamp << " disk: " << disks[cur.iblock]);
+        LOG << "Block " << cur.iblock << " put out, time " << cur.timestamp << " disk: " << disks[cur.iblock];
         o_time[cur.iblock] = std::pair<size_t, size_t>(cur.iblock, cur.timestamp);
 
         if (i > 0)

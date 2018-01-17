@@ -149,7 +149,7 @@ public:
                 busy_write_blocks.push_back(ibuffer);
             }
         }
-        //    STXXL_MSG("Adding write request to batch");
+        LOG << "Adding write request to batch";
 
         size_t ibuffer = filled_block - write_buffers;
         write_bids[ibuffer] = bid;

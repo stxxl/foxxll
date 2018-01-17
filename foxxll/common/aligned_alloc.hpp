@@ -17,6 +17,8 @@
 #include <cassert>
 #include <cstdlib>
 
+#include <tlx/logger.hpp>
+
 #include <foxxll/common/utils.hpp>
 #include <foxxll/verbose.hpp>
 
@@ -93,7 +95,7 @@ inline void * aligned_alloc(size_t size, size_t meta_info_size = 0)
         if (buffer != realloced) {
             // hmm, realloc does move the memory block around while shrinking,
             // might run under valgrind, so disable realloc and retry
-            STXXL_ERRMSG("foxxll::aligned_alloc: disabling realloc()");
+            LOG1 << "foxxll::aligned_alloc: disabling realloc()";
             std::free(realloced);
             aligned_alloc_settings<int>::may_use_realloc = false;
             return aligned_alloc<Alignment>(size, meta_info_size);

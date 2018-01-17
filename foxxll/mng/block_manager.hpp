@@ -153,6 +153,9 @@ private:
 
     //! protect internal data structures
     mutable std::mutex mutex_;
+
+    //! log creation and destruction of blocks
+    static constexpr bool verbose_block_life_cycle = false;
 };
 
 template <typename DiskAssignFunctor, typename BIDIterator>
@@ -228,7 +231,7 @@ void block_manager::new_blocks(
         for (size_t i = 0; i < disk_blocks[d]; ++i) {
             bids[i].storage = disk_files_[d].get();
 
-            FOXXLL_VERBOSE_BLOCK_LIFE_CYCLE("BLC:new    " << FMT_BID(bids[i]));
+            LOGC(verbose_block_life_cycle) << "BLC:new    " << FMT_BID(bids[i]);
             bid_begin[bid_perm[i]] = bids[i];
 
             total_allocation_ += bids[i].size;
@@ -245,12 +248,13 @@ void block_manager::delete_block(const BID<BlockSize>& bid)
     std::unique_lock<std::mutex> lock(mutex_);
 
     if (!bid.valid()) {
-        //STXXL_MSG("Warning: invalid block to be deleted.");
+        LOG << "Warning: invalid block to be deleted.";
         return;
     }
     if (!bid.is_managed())
         return;  // self managed disk
-    FOXXLL_VERBOSE_BLOCK_LIFE_CYCLE("BLC:delete " << FMT_BID(bid));
+
+    LOGC(verbose_block_life_cycle) << "BLC:delete " << FMT_BID(bid);
     assert(bid.storage->get_allocator_id() >= 0);
     block_allocators_[bid.storage->get_allocator_id()]->delete_block(bid);
     disk_files_[bid.storage->get_allocator_id()]->discard(bid.offset, bid.size);

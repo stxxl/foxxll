@@ -28,6 +28,7 @@
 #include <utility>
 #include <vector>
 
+#include <tlx/logger.hpp>
 #include <tlx/unused.hpp>
 
 #include <foxxll/mng/block_manager.hpp>
@@ -155,9 +156,7 @@ public:
     {
         assert(is_internal());
         assert(has_external_block());
-        #ifdef RW_VERBOSE
-        STXXL_MSG("reading block");
-        #endif
+        LOG << "reading block";
         dirty = false;
         return internal_data->read(external_data, on_cmpl);
     }
@@ -174,9 +173,9 @@ public:
             return request_ptr();
         if (! has_external_block())
             get_external_block();
-        #ifdef RW_VERBOSE
-        STXXL_MSG("writing block");
-        #endif
+
+        LOG << "writing block";
+
         dirty = false;
         return internal_data->write(external_data, on_cmpl);
     }
@@ -386,7 +385,7 @@ public:
         if (free_swappable_blocks.size() != swappable_blocks.size())
         {
             // => not all swappable_blocks are free, at least deinitialize them
-            STXXL_ERRMSG("not all swappable_blocks are free, those not acquired will be deinitialized");
+            LOG1 << "not all swappable_blocks are free, those not acquired will be deinitialized";
             // evictable_blocks would suffice
             for (typename std::vector<SwappableBlockType>::iterator it = swappable_blocks.begin();
                  it != swappable_blocks.end(); ++it)
@@ -398,7 +397,7 @@ public:
         }
         if (int64_t nlost = static_cast<int64_t>(max_internal_blocks - remaining_internal_blocks)
                             - static_cast<int64_t>(free_internal_blocks.size() + num_freed_internal_blocks)) {
-            STXXL_ERRMSG(nlost << " internal_blocks are lost. They will get deallocated.");
+            LOG1 << nlost << " internal_blocks are lost. They will get deallocated.";
         }
         while (! internal_blocks_blocks.empty())
         {
@@ -656,7 +655,7 @@ public:
     virtual ~block_scheduler_algorithm_online_lru()
     {
         if (! evictable_blocks.empty())
-            STXXL_ERRMSG("Destructing block_scheduler_algorithm_online that still holds evictable blocks. They get deinitialized.");
+            LOG1 << "Destructing block_scheduler_algorithm_online that still holds evictable blocks. They get deinitialized.";
         while (! evictable_blocks.empty())
         {
             SwappableBlockType& sblock = swappable_blocks[evictable_blocks.pop()];
@@ -808,7 +807,7 @@ public:
     virtual ~block_scheduler_algorithm_simulation()
     {
         if (! evictable_blocks.empty())
-            STXXL_ERRMSG("Destructing block_scheduler_algorithm_record_prediction_sequence that still holds evictable blocks. They get deinitialized.");
+            LOG1 << "Destructing block_scheduler_algorithm_record_prediction_sequence that still holds evictable blocks. They get deinitialized.";
         while (! evictable_blocks.empty())
         {
             SwappableBlockType& sblock = swappable_blocks[evictable_blocks.top()];
@@ -1024,7 +1023,7 @@ public:
     virtual ~block_scheduler_algorithm_offline_lfd()
     {
         if (! evictable_blocks.empty())
-            STXXL_ERRMSG("Destructing block_scheduler_algorithm_offline_lfd that still holds evictable blocks. They get deinitialized.");
+            LOG1 << "Destructing block_scheduler_algorithm_offline_lfd that still holds evictable blocks. They get deinitialized.";
         while (! evictable_blocks.empty())
         {
             SwappableBlockType& sblock = swappable_blocks[evictable_blocks.pop()];
@@ -1081,7 +1080,7 @@ public:
     {
         if (next_use.empty())
         {
-            STXXL_ERRMSG("block_scheduler_algorithm_offline_lfd got release-request but prediction sequence ended. Switching to block_scheduler_algorithm_online.");
+            LOG1 << "block_scheduler_algorithm_offline_lfd got release-request but prediction sequence ended. Switching to block_scheduler_algorithm_online.";
             // switch algorithm
             block_scheduler_algorithm_type* new_algo, * old_algo;
             new_algo = new block_scheduler_algorithm_online_lru<SwappableBlockType>(bs);
@@ -1510,7 +1509,7 @@ protected:
 
     block_scheduler_algorithm_type * give_up(std::string err_msg = "detected some error in the prediction sequence")
     {
-        STXXL_ERRMSG("block_scheduler_algorithm_offline_lru_prefetching: " << err_msg << ". Switching to block_scheduler_algorithm_online.");
+        LOG1 << "block_scheduler_algorithm_offline_lru_prefetching: " << err_msg << ". Switching to block_scheduler_algorithm_online.";
         // switch algorithm
         block_scheduler_algorithm_type* new_algo
             = new block_scheduler_algorithm_online_lru<SwappableBlockType>(bs);
@@ -1623,9 +1622,10 @@ protected:
     {
         // TODO remove
         if (! scheduled_blocks.empty())
-            STXXL_MSG("deinit while scheduled_blocks not empty");
+            LOG1 << "deinit while scheduled_blocks not empty";
+
         if (! scheduled_evictable_blocks.empty())
-            STXXL_MSG("deinit while scheduled_evictable_blocks not empty");
+            LOG1 << "deinit while scheduled_evictable_blocks not empty";
 
         // empty scheduled_blocks
         free_evictable_blocks.insert(scheduled_evictable_blocks.begin(), scheduled_evictable_blocks.end());
@@ -1662,7 +1662,7 @@ public:
     {
         deinit();
         if (! free_evictable_blocks.empty())
-            STXXL_ERRMSG("Destructing block_scheduler_algorithm_offline_lru_prefetching that still holds evictable blocks. They get deinitialized.");
+            LOG1 << "Destructing block_scheduler_algorithm_offline_lru_prefetching that still holds evictable blocks. They get deinitialized.";
         while (! free_evictable_blocks.empty())
         {
             SwappableBlockType& sblock = swappable_blocks[pop_begin(free_evictable_blocks)];
@@ -1801,7 +1801,7 @@ public:
             {
                 t = scheduled_evictable_blocks.erase(sbid);
                 if (t == 0) {
-                    STXXL_ERRMSG("dirty block not scheduled on deinitialize");
+                    LOG1 << "dirty block not scheduled on deinitialize";
                     t = free_evictable_blocks.erase(sbid);
                 }
             }

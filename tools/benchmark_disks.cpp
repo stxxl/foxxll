@@ -213,7 +213,7 @@ int benchmark_disks_alloc(
     catch (const std::exception& ex)
     {
         std::cout << std::endl;
-        STXXL_ERRMSG(ex.what());
+        LOG1 << ex.what();
     }
 
     std::cout << "=============================================================================================" << std::endl;

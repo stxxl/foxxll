@@ -14,6 +14,8 @@
 
 #include <iostream>
 
+#include <tlx/logger.hpp>
+
 #include <foxxll/mng.hpp>
 #include <foxxll/mng/prefetch_pool.hpp>
 #include <foxxll/mng/write_pool.hpp>
@@ -39,7 +41,7 @@ int main()
     STXXL_DEFAULT_ALLOC_STRATEGY alloc;
 
     {
-        STXXL_MSG("Write-After-Write coherence test");
+        LOG1 << "Write-After-Write coherence test";
         foxxll::prefetch_pool<block_type> p_pool(2);
         foxxll::write_pool<block_type> w_pool(10);
         block_type* blk;
@@ -70,14 +72,14 @@ int main()
         p_pool.read(blk, bid)->wait();
 
         FOXXLL_CHECK2((*blk)[0].integer == 23,
-                     "WRITE-AFTER-WRITE COHERENCE FAILURE");
+                      "WRITE-AFTER-WRITE COHERENCE FAILURE");
 
         w_pool.add(blk);
         bm->delete_block(bid);
     }
 
     {
-        STXXL_MSG("Write-After-Hint coherence test #1");
+        LOG1 << "Write-After-Hint coherence test #1";
         foxxll::prefetch_pool<block_type> p_pool(1);
         foxxll::write_pool<block_type> w_pool(1);
         block_type* blk;
@@ -102,14 +104,14 @@ int main()
         p_pool.read(blk, bid)->wait();
 
         FOXXLL_CHECK2((*blk)[0].integer == 23,
-                     "WRITE-AFTER-HINT COHERENCE FAILURE");
+                      "WRITE-AFTER-HINT COHERENCE FAILURE");
 
         w_pool.add(blk);
         bm->delete_block(bid);
     }
 
     {
-        STXXL_MSG("Write-After-Hint coherence test #2");
+        LOG1 << "Write-After-Hint coherence test #2";
         foxxll::prefetch_pool<block_type> p_pool(1);
         foxxll::write_pool<block_type> w_pool(1);
         block_type* blk;
@@ -134,7 +136,7 @@ int main()
         p_pool.read(blk, bid)->wait();
 
         FOXXLL_CHECK2((*blk)[0].integer == 23,
-                     "WRITE-AFTER-HINT COHERENCE FAILURE");
+                      "WRITE-AFTER-HINT COHERENCE FAILURE");
 
         w_pool.add(blk);
         bm->delete_block(bid);

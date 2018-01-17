@@ -17,9 +17,11 @@
 #define FOXXLL_COMMON_TIMER_HEADER
 
 #include <chrono>
-#include <mutex>
 #include <limits>
+#include <mutex>
 #include <string>
+
+#include <tlx/logger.hpp>
 
 #include <foxxll/common/utils.hpp>
 #include <foxxll/config.hpp>
@@ -238,25 +240,25 @@ public:
           m_bytes(bytes),
           m_timer(true)
     {
-        STXXL_MSG("Starting " << message);
+        LOG1 << "Starting " << message;
     }
 
     //! on destruction: tell the time
     ~scoped_print_timer()
     {
         if (m_bytes == 0) {
-            STXXL_MSG("Finished "
-                      << m_message
-                      << " after " << m_timer.seconds() << " seconds");
+            LOG1 << "Finished "
+                 << m_message
+                 << " after " << m_timer.seconds() << " seconds";
         }
         else {
             double bps = (double)m_bytes / m_timer.seconds();
 
-            STXXL_MSG("Finished "
-                      << m_message
-                      << " after " << m_timer.seconds() << " seconds. "
-                      << "Processed " << tlx::format_iec_units(m_bytes) << "B"
-                      << " @ " << tlx::format_iec_units((uint64_t)bps) << "B/s");
+            LOG1 << "Finished "
+                 << m_message
+                 << " after " << m_timer.seconds() << " seconds. "
+                 << "Processed " << tlx::format_iec_units(m_bytes) << "B"
+                 << " @ " << tlx::format_iec_units((uint64_t)bps) << "B/s";
         }
     }
 

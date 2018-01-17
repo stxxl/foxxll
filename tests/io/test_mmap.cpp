@@ -11,6 +11,8 @@
  *  http://www.boost.org/LICENSE_1_0.txt)
  **************************************************************************/
 
+#include <tlx/logger.hpp>
+
 #include <foxxll/common/aligned_alloc.hpp>
 #include <foxxll/io.hpp>
 
@@ -18,7 +20,7 @@ struct my_handler
 {
     void operator () (foxxll::request* ptr, bool /* success */)
     {
-        STXXL_MSG("Request completed: " << ptr);
+        LOG1 << "Request completed: " << ptr;
     }
 };
 

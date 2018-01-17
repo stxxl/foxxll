@@ -82,7 +82,7 @@ file_ptr create_file(disk_config& cfg, int mode, int disk_allocator_id)
         if (cfg.raw_device && !result->is_device())
         {
             FOXXLL_THROW(io_error, "Disk " << cfg.path << " was expected to be "
-                        "a raw block device, but it is a normal file!");
+                         "a raw block device, but it is a normal file!");
         }
 
         // if is raw_device -> get size and remove some flags.
@@ -132,7 +132,7 @@ file_ptr create_file(disk_config& cfg, int mode, int disk_allocator_id)
         if (cfg.raw_device && !result->is_device())
         {
             FOXXLL_THROW(io_error, "Disk " << cfg.path << " was expected to be "
-                        "a raw block device, but it is a normal file!");
+                         "a raw block device, but it is a normal file!");
         }
 
         // if is raw_device -> get size and remove some flags.
@@ -191,7 +191,7 @@ file_ptr create_file(disk_config& cfg, int mode, int disk_allocator_id)
 #endif
 
     FOXXLL_THROW(std::runtime_error,
-                "Unsupported disk I/O implementation '" << cfg.io_impl << "'.");
+                 "Unsupported disk I/O implementation '" << cfg.io_impl << "'.");
 }
 
 } // namespace foxxll

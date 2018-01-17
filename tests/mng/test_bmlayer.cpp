@@ -14,6 +14,8 @@
 
 #include <iostream>
 
+#include <tlx/logger.hpp>
+
 #include <foxxll/io/request_operations.hpp>
 #include <foxxll/mng/block_manager.hpp>
 #include <foxxll/mng/buf_istream.hpp>
@@ -33,7 +35,7 @@ struct my_handler
 {
     void operator () (foxxll::request* req, bool /* success */)
     {
-        STXXL_MSG(req << " done, type=" << req->io_type());
+        LOG1 << req << " done, type=" << req->io_type();
     }
 };
 
@@ -49,10 +51,10 @@ void testIO()
     bm->new_blocks(foxxll::striping(), bids.begin(), bids.end());
 
     block_type* block = new block_type;
-    STXXL_MSG(std::hex);
-    STXXL_MSG("Allocated block address    : " << (size_t)(block));
-    STXXL_MSG("Allocated block address + 1: " << (size_t)(block + 1));
-    STXXL_MSG(std::dec);
+    LOG1 << std::hex;
+    LOG1 << "Allocated block address    : " << (size_t)(block);
+    LOG1 << "Allocated block address + 1: " << (size_t)(block + 1);
+    LOG1 << std::dec;
     size_t i = 0;
     for (i = 0; i < block_type::size; ++i)
     {
@@ -165,7 +167,7 @@ int main()
     testStreams();
 
     foxxll::block_manager* bm = foxxll::block_manager::get_instance();
-    STXXL_MSG("block_manager total allocation: " << bm->total_allocation());
-    STXXL_MSG("block_manager current allocation: " << bm->current_allocation());
-    STXXL_MSG("block_manager maximum allocation: " << bm->maximum_allocation());
+    LOG1 << "block_manager total allocation: " << bm->total_allocation();
+    LOG1 << "block_manager current allocation: " << bm->current_allocation();
+    LOG1 << "block_manager maximum allocation: " << bm->maximum_allocation();
 }

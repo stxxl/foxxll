@@ -73,11 +73,11 @@ static HANDLE open_file_impl(const std::string& filename, int mode)
         // TODO: try also FILE_FLAG_WRITE_THROUGH option ?
 #else
         if (mode & file::REQUIRE_DIRECT) {
-            STXXL_ERRMSG("Error: open()ing " << filename << " with DIRECT mode required, but the system does not support it.");
+            LOG1 << "Error: open()ing " << filename << " with DIRECT mode required, but the system does not support it.";
             return INVALID_HANDLE_VALUE;
         }
         else {
-            STXXL_MSG("Warning: open()ing " << filename << " without DIRECT mode, as the system does not support it.");
+            LOG1 << "Warning: open()ing " << filename << " without DIRECT mode, as the system does not support it.";
         }
 #endif
     }
@@ -96,7 +96,7 @@ static HANDLE open_file_impl(const std::string& filename, int mode)
 #if !FOXXLL_DIRECT_IO_OFF
     if ((mode& file::DIRECT) && !(mode & file::REQUIRE_DIRECT))
     {
-        STXXL_MSG("CreateFile() error on path=" << filename << " mode=" << mode << ", retrying without DIRECT mode.");
+        LOG1 << "CreateFile() error on path=" << filename << " mode=" << mode << ", retrying without DIRECT mode.";
 
         dwFlagsAndAttributes &= ~FILE_FLAG_NO_BUFFERING;
 
@@ -127,7 +127,7 @@ wfs_file_base::wfs_file_base(const std::string& filename, int mode)
         char buf[32768], * part;
         if (!GetFullPathNameA(filename.c_str(), sizeof(buf), buf, &part))
         {
-            STXXL_ERRMSG("wfs_file_base::wfs_file_base(): GetFullPathNameA() error for file " << filename);
+            LOG1 << "wfs_file_base::wfs_file_base(): GetFullPathNameA() error for file " << filename;
             bytes_per_sector = 512;
         }
         else
@@ -136,7 +136,7 @@ wfs_file_base::wfs_file_base(const std::string& filename, int mode)
             DWORD bytes_per_sector_;
             if (!GetDiskFreeSpaceA(buf, nullptr, &bytes_per_sector_, nullptr, nullptr))
             {
-                STXXL_ERRMSG("wfs_file_base::wfs_file_base(): GetDiskFreeSpaceA() error for path " << buf);
+                LOG1 << "wfs_file_base::wfs_file_base(): GetDiskFreeSpaceA() error for path " << buf;
                 bytes_per_sector = 512;
             }
             else
@@ -210,12 +210,12 @@ void wfs_file_base::set_size(offset_type newsize)
 
         if (!SetFilePointerEx(file_des_, desired_pos, nullptr, FILE_BEGIN))
             FOXXLL_THROW_WIN_LASTERROR(io_error,
-                                      "SetFilePointerEx() in wfs_file_base::set_size(..) oldsize=" << cur_size <<
-                                      " newsize=" << newsize << " ");
+                                       "SetFilePointerEx() in wfs_file_base::set_size(..) oldsize=" << cur_size <<
+                                       " newsize=" << newsize << " ");
 
         if (!SetEndOfFile(file_des_))
             FOXXLL_THROW_WIN_LASTERROR(io_error, "SetEndOfFile() oldsize=" << cur_size <<
-                                      " newsize=" << newsize << " ");
+                                       " newsize=" << newsize << " ");
 
         if (direct_with_bad_size)
         {

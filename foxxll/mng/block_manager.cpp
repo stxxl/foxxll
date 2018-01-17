@@ -15,6 +15,8 @@
 #include <cstddef>
 #include <string>
 
+#include <tlx/logger.hpp>
+
 #include <foxxll/mng/block_manager.hpp>
 
 #include <foxxll/common/types.hpp>
@@ -55,15 +57,15 @@ block_manager::block_manager()
         {
             disk_files_[i] = create_file(cfg, file::CREAT | file::RDWR, i);
 
-            STXXL_MSG("Disk '" << cfg.path << "' is allocated, space: " <<
-                      (cfg.size) / (1024 * 1024) <<
-                      " MiB, I/O implementation: " << cfg.fileio_string());
+            LOG1 << "Disk '" << cfg.path << "' is allocated, space: " <<
+            (cfg.size) / (1024 * 1024) <<
+                " MiB, I/O implementation: " << cfg.fileio_string();
         }
         catch (io_error&)
         {
-            STXXL_MSG("Error allocating disk '" << cfg.path << "', space: " <<
-                      (cfg.size) / (1024 * 1024) <<
-                      " MiB, I/O implementation: " << cfg.fileio_string());
+            LOG1 << "Error allocating disk '" << cfg.path << "', space: " <<
+            (cfg.size) / (1024 * 1024) <<
+                " MiB, I/O implementation: " << cfg.fileio_string();
             throw;
         }
 
@@ -77,15 +79,15 @@ block_manager::block_manager()
 
     if (ndisks_ > 1)
     {
-        STXXL_MSG("In total " << ndisks_ << " disks are allocated, space: " <<
-                  (total_size / (1024 * 1024)) <<
-                  " MiB");
+        LOG1 << "In total " << ndisks_ << " disks are allocated, space: " <<
+        (total_size / (1024 * 1024)) <<
+            " MiB";
     }
 }
 
 block_manager::~block_manager()
 {
-    FOXXLL_VERBOSE1("Block manager destructor");
+    LOG << "Block manager destructor";
     for (size_t i = ndisks_; i > 0; )
     {
         --i;

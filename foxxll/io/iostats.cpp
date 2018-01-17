@@ -23,7 +23,6 @@
 #include <foxxll/common/timer.hpp>
 #include <foxxll/common/types.hpp>
 #include <foxxll/io/iostats.hpp>
-#include <foxxll/verbose.hpp>
 
 namespace foxxll {
 
@@ -151,7 +150,7 @@ void file_stats::read_op_finished(const size_t size, double duration)
 file_stats_data file_stats_data::operator + (const file_stats_data& a) const
 {
     FOXXLL_THROW_IF(device_id_ != a.device_id_, std::runtime_error,
-                   "foxxll::file_stats_data objects do not belong to the same file/disk");
+                    "foxxll::file_stats_data objects do not belong to the same file/disk");
 
     file_stats_data fsd;
     fsd.device_id_ = device_id_;
@@ -169,7 +168,7 @@ file_stats_data file_stats_data::operator + (const file_stats_data& a) const
 file_stats_data file_stats_data::operator - (const file_stats_data& a) const
 {
     FOXXLL_THROW_IF(device_id_ != a.device_id_, std::runtime_error,
-                   "foxxll::file_stats_data objects do not belong to the same file/disk");
+                    "foxxll::file_stats_data objects do not belong to the same file/disk");
 
     file_stats_data fsd;
     fsd.device_id_ = device_id_;
@@ -432,7 +431,7 @@ stats_data stats_data::operator + (const stats_data& a) const
     else
     {
         FOXXLL_THROW(std::runtime_error,
-                    "The number of files has changed between the snapshots.");
+                     "The number of files has changed between the snapshots.");
     }
 
     s.p_reads_ = p_reads_ + a.p_reads_;
@@ -465,7 +464,7 @@ stats_data stats_data::operator - (const stats_data& a) const
     else
     {
         FOXXLL_THROW(std::runtime_error,
-                    "The number of files has changed between the snapshots.");
+                     "The number of files has changed between the snapshots.");
     }
 
     s.p_reads_ = p_reads_ - a.p_reads_;
@@ -850,7 +849,7 @@ void scoped_print_iostats::report() const
 
     result.to_ostream(ss, m_key);
 
-    STXXL_MSG(ss.str());
+    LOG1 << ss.str();
 }
 
 } // namespace foxxll

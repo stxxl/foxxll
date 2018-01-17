@@ -90,7 +90,7 @@ public:
     ~write_pool()
     {
         FOXXLL_VERBOSE_WPOOL("::~write_pool free_blocks.size()=" << free_blocks.size() <<
-                            " busy_blocks.size()=" << busy_blocks.size());
+                             " busy_blocks.size()=" << busy_blocks.size());
         while (!free_blocks.empty())
         {
             FOXXLL_VERBOSE_WPOOL("  delete free block=" << free_blocks.back());
@@ -276,7 +276,7 @@ protected:
             ++cur;
         }
         FOXXLL_VERBOSE_WPOOL("::check_all_busy : " << cnt <<
-                            " are completed out of " << busy_blocks.size() + cnt << " busy blocks");
+                             " are completed out of " << busy_blocks.size() + cnt << " busy blocks");
     }
 };
 

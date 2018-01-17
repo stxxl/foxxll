@@ -53,7 +53,7 @@ void request_with_state::wait(bool measure_time)
 bool request_with_state::cancel()
 {
     FOXXLL_VERBOSE3_THIS("request_with_state::cancel() "
-                        << file_ << " " << buffer_ << " " << offset_);
+                         << file_ << " " << buffer_ << " " << offset_);
 
     if (!file_) return false;
 

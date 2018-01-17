@@ -14,6 +14,8 @@
 #include <cstring>
 #include <limits>
 
+#include <tlx/logger.hpp>
+
 #include <foxxll/common/aligned_alloc.hpp>
 #include <foxxll/io.hpp>
 
@@ -27,7 +29,7 @@ struct my_handler
 {
     void operator () (foxxll::request* ptr, bool success)
     {
-        STXXL_MSG("Request completed: " << ptr << " success: " << success);
+        LOG1 << "Request completed: " << ptr << " success: " << success;
     }
 };
 
@@ -78,15 +80,15 @@ int main(int argc, char** argv)
 
     size_t sz;
     for (sz = 123, i = 0; i < 20; ++i, sz *= 10)
-        STXXL_MSG(">>>" << foxxll::add_SI_multiplier(sz) << "<<<");
+        LOG1 << ">>>" << foxxll::add_SI_multiplier(sz) << "<<<";
     for (sz = 123, i = 0; i < 20; ++i, sz *= 10)
-        STXXL_MSG(">>>" << foxxll::add_SI_multiplier(sz, "B") << "<<<");
-    STXXL_MSG(">>>" << foxxll::add_SI_multiplier(std::numeric_limits<uint64_t>::max(), "B") << "<<<");
+        LOG1 << ">>>" << foxxll::add_SI_multiplier(sz, "B") << "<<<";
+    LOG1 << ">>>" << foxxll::add_SI_multiplier(std::numeric_limits<uint64_t>::max(), "B") << "<<<";
     for (sz = 123, i = 0; i < 20; ++i, sz *= 10)
-        STXXL_MSG(">>>" << foxxll::add_IEC_binary_multiplier(sz) << "<<<");
+        LOG1 << ">>>" << foxxll::add_IEC_binary_multiplier(sz) << "<<<";
     for (sz = 123, i = 0; i < 20; ++i, sz *= 10)
-        STXXL_MSG(">>>" << foxxll::add_IEC_binary_multiplier(sz, "B") << "<<<");
-    STXXL_MSG(">>>" << foxxll::add_IEC_binary_multiplier(std::numeric_limits<uint64_t>::max(), "B") << "<<<");
+        LOG1 << ">>>" << foxxll::add_IEC_binary_multiplier(sz, "B") << "<<<";
+    LOG1 << ">>>" << foxxll::add_IEC_binary_multiplier(std::numeric_limits<uint64_t>::max(), "B") << "<<<";
 
 #if FOXXLL_HAVE_MMAP_FILE
     file1->close_remove();

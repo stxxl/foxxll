@@ -28,36 +28,36 @@ void disk_block_allocator::dump() const
 {
     uint64_t total = 0;
     space_map_type::const_iterator cur = free_space_.begin();
-    STXXL_ERRMSG("Free regions dump:");
+    LOG1 << "Free regions dump:";
     for ( ; cur != free_space_.end(); ++cur)
     {
-        STXXL_ERRMSG("Free chunk: begin: " << (cur->first) << " size: " << (cur->second));
+        LOG1 << "Free chunk: begin: " << (cur->first) << " size: " << (cur->second);
         total += cur->second;
     }
-    STXXL_ERRMSG("Total bytes: " << total);
+    LOG1 << "Total bytes: " << total;
 }
 
 void disk_block_allocator::deallocation_error(
     uint64_t block_pos, uint64_t block_size,
     const space_map_type::iterator& pred, const space_map_type::iterator& succ) const
 {
-    STXXL_ERRMSG("Error deallocating block at " << block_pos << " size " << block_size);
-    STXXL_ERRMSG(((pred == succ) ? "pred==succ" : "pred!=succ"));
+    LOG1 << "Error deallocating block at " << block_pos << " size " << block_size;
+    LOG1 << ((pred == succ) ? "pred==succ" : "pred!=succ");
     if (pred == free_space_.end()) {
-        STXXL_ERRMSG("pred==free_space_.end()");
+        LOG1 << "pred==free_space_.end()";
     }
     else {
         if (pred == free_space_.begin())
-            STXXL_ERRMSG("pred==free_space_.begin()");
-        STXXL_ERRMSG("pred: begin=" << pred->first << " size=" << pred->second);
+            LOG1 << "pred==free_space_.begin()";
+        LOG1 << "pred: begin=" << pred->first << " size=" << pred->second;
     }
     if (succ == free_space_.end()) {
-        STXXL_ERRMSG("succ==free_space_.end()");
+        LOG1 << "succ==free_space_.end()";
     }
     else {
         if (succ == free_space_.begin())
-            STXXL_ERRMSG("succ==free_space_.begin()");
-        STXXL_ERRMSG("succ: begin=" << succ->first << " size=" << succ->second);
+            LOG1 << "succ==free_space_.begin()";
+        LOG1 << "succ: begin=" << succ->first << " size=" << succ->second;
     }
     dump();
 }

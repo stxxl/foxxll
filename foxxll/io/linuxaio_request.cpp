@@ -27,7 +27,7 @@ namespace foxxll {
 void linuxaio_request::completed(bool posted, bool canceled)
 {
     FOXXLL_VERBOSE_LINUXAIO("linuxaio_request[" << this << "] completed(" <<
-                           posted << "," << canceled << ")");
+                            posted << "," << canceled << ")");
 
     auto* stats = file_->get_file_stats();
     const double duration = timestamp() - time_posted_;
