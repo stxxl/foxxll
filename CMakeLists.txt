@@ -34,7 +34,7 @@ if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
   set(CMAKE_BUILD_TYPE "Debug")
 endif()
 
-# STXXL version string
+# FOXXLL version string
 set(FOXXLL_VERSION_MAJOR "1")
 set(FOXXLL_VERSION_MINOR "4")
 set(FOXXLL_VERSION_PATCH "99")
@@ -193,7 +193,7 @@ endif()
 
 # enable C++14
 if(MSVC)
-  # MSVC 11 or greater has C++11 automatically enabled
+  # TODO: ???
 else()
   # try -std= flags to enable C++14
   check_cxx_compiler_flag(-std=c++14 CXX_HAS_STD_CXX14)
@@ -202,6 +202,7 @@ else()
   else()
     message(SEND_ERROR "Compiler does not support -std=c++14")
   endif()
+
   # on MacOSX with clang we need to use libc++ for C++14 headers
   if(APPLE)
     if (CMAKE_CXX_COMPILER MATCHES ".*clang[+][+]"
@@ -317,9 +318,9 @@ else()
 #include <unistd.h>
 #include <fcntl.h>
 int main() { return ((int)O_DIRECT) != 0; }
-" STXXL_HAVE_O_DIRECT)
+" FOXXLL_HAVE_O_DIRECT)
 
-  if(STXXL_HAVE_O_DIRECT)
+  if(FOXXLL_HAVE_O_DIRECT)
     set(FOXXLL_DIRECT_IO_OFF 0)
   else()
     set(FOXXLL_DIRECT_IO_OFF 1)
