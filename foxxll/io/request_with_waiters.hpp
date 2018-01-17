@@ -28,8 +28,8 @@ namespace foxxll {
 //! Request that is aware of threads waiting for it to complete.
 class request_with_waiters : public request
 {
-    std::mutex m_waiters_mutex;
-    std::set<onoff_switch*> m_waiters;
+    std::mutex waiters_mutex_;
+    std::set<onoff_switch*> waiters_;
 
 protected:
     bool add_waiter(onoff_switch* sw) final;

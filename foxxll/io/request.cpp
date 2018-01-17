@@ -65,11 +65,6 @@ void request::check_nref_failed(bool after)
                  " iotype=" << file_->io_type());
 }
 
-const char* request::io_type() const
-{
-    return file_->io_type();
-}
-
 std::ostream& request::print(std::ostream& out) const
 {
     out << "File object address: " << file_;
@@ -78,6 +73,35 @@ std::ostream& request::print(std::ostream& out) const
     out << " Transfer size: " << bytes_ << " bytes";
     out << " Type of transfer: " << ((op_ == READ) ? "READ" : "WRITE");
     return out;
+}
+
+void request::error_occured(const char* msg)
+{
+    error_.reset(new io_error(msg));
+}
+
+void request::error_occured(const std::string& msg)
+{
+    error_.reset(new io_error(msg));
+}
+
+bool request::overlaps_with(const request& o) const
+{
+    return (file_ == o.file_) && (
+        ((offset_ <= o.offset_) && (o.offset_ < (offset_ + bytes_))) ||
+        ((o.offset_ <= offset_) && (offset_ < (o.offset_ + o.bytes_))));
+}
+
+bool request::contains(const request& o) const
+{
+    return (file_ == o.file_) &&
+           (offset_ <= o.offset_) &&
+           ((offset_ + bytes_) >= (o.offset_ + o.bytes_));
+}
+
+const char* request::io_type() const
+{
+    return file_->io_type();
 }
 
 std::ostream& operator << (std::ostream& out, const request& req)

@@ -39,7 +39,7 @@ struct file_offset_match
         const request_ptr& b) const
     {
         // matching file and offset are enough to cause problems
-        return (a->get_offset() == b->get_offset()) &&
+        return (a->offset() == b->offset()) &&
                (a->get_file() == b->get_file());
     }
 };

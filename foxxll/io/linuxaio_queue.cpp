@@ -28,7 +28,6 @@
 #include <foxxll/mng/block_manager.hpp>
 #include <foxxll/verbose.hpp>
 
-
 #ifndef STXXL_CHECK_FOR_PENDING_REQUESTS_ON_SUBMISSION
 #define STXXL_CHECK_FOR_PENDING_REQUESTS_ON_SUBMISSION 1
 #endif
@@ -240,7 +239,7 @@ void linuxaio_queue::post_requests()
                 [](const queue_type& queue, const request& req) {
                     auto in_conflict = [&req](const request_ptr& o) {
                                            return req.overlaps_with(*(o.get()))
-                                                  && !(req.get_op() == request::READ && o.get()->get_op() == request::READ);
+                                                  && !(req.op() == request::READ && o.get()->op() == request::READ);
                                        };
 
                     auto it = std::find_if(queue.cbegin(), queue.cend(), in_conflict);

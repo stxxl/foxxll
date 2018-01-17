@@ -26,35 +26,35 @@ bool request_with_waiters::add_waiter(onoff_switch* sw)
     // condition might occur: the state might change and notify_waiters()
     // could be called between poll() and insert() resulting in waiter sw
     // never being notified
-    std::unique_lock<std::mutex> lock(m_waiters_mutex);
+    std::unique_lock<std::mutex> lock(waiters_mutex_);
 
     if (poll())                     // request already finished
     {
         return true;
     }
 
-    m_waiters.insert(sw);
+    waiters_.insert(sw);
 
     return false;
 }
 
 void request_with_waiters::delete_waiter(onoff_switch* sw)
 {
-    std::unique_lock<std::mutex> lock(m_waiters_mutex);
-    m_waiters.erase(sw);
+    std::unique_lock<std::mutex> lock(waiters_mutex_);
+    waiters_.erase(sw);
 }
 
 void request_with_waiters::notify_waiters()
 {
-    std::unique_lock<std::mutex> lock(m_waiters_mutex);
-    std::for_each(m_waiters.begin(), m_waiters.end(),
+    std::unique_lock<std::mutex> lock(waiters_mutex_);
+    std::for_each(waiters_.begin(), waiters_.end(),
                   std::mem_fun(&onoff_switch::on));
 }
 
 size_t request_with_waiters::num_waiters()
 {
-    std::unique_lock<std::mutex> lock(m_waiters_mutex);
-    return m_waiters.size();
+    std::unique_lock<std::mutex> lock(waiters_mutex_);
+    return waiters_.size();
 }
 
 } // namespace foxxll

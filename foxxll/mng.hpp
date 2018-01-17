@@ -14,9 +14,9 @@
 #ifndef FOXXLL_MNG_HEADER
 #define FOXXLL_MNG_HEADER
 
+#include <foxxll/common/new_alloc.hpp>
 #include <foxxll/mng/block_manager.hpp>
 #include <foxxll/mng/typed_block.hpp>
-#include <foxxll/common/new_alloc.hpp>
 
 //! \c STXXL library namespace
 namespace foxxll {
