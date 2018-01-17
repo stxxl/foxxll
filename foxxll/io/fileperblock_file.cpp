@@ -33,7 +33,6 @@
 #include <foxxll/io/syscall_file.hpp>
 #include <foxxll/io/ufs_platform.hpp>
 #include <foxxll/io/wincall_file.hpp>
-#include <foxxll/verbose.hpp>
 
 namespace foxxll {
 

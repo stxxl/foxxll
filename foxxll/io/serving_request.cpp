@@ -19,7 +19,6 @@
 #include <foxxll/io/request_interface.hpp>
 #include <foxxll/io/request_with_state.hpp>
 #include <foxxll/io/serving_request.hpp>
-#include <foxxll/verbose.hpp>
 
 namespace foxxll {
 

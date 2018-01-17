@@ -20,7 +20,6 @@
 #include <tlx/logger.hpp>
 
 #include <foxxll/common/utils.hpp>
-#include <foxxll/verbose.hpp>
 
 namespace foxxll {
 

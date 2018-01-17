@@ -20,7 +20,6 @@
 
 #include <foxxll/common/error_handling.hpp>
 #include <foxxll/io/disk_queues.hpp>
-#include <foxxll/verbose.hpp>
 
 namespace foxxll {
 

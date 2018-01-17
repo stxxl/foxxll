@@ -29,7 +29,6 @@
 #include <foxxll/common/types.hpp>
 #include <foxxll/io/file.hpp>
 #include <foxxll/mng/async_schedule.hpp>
-#include <foxxll/verbose.hpp>
 
 namespace foxxll {
 namespace async_schedule_local {

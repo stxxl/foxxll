@@ -24,7 +24,6 @@
 #include <foxxll/common/error_handling.hpp>
 #include <foxxll/io/linuxaio_request.hpp>
 #include <foxxll/mng/block_manager.hpp>
-#include <foxxll/verbose.hpp>
 
 namespace foxxll {
 

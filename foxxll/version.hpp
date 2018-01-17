@@ -19,7 +19,6 @@
 #include <tlx/die.hpp>
 
 #include <foxxll/config.hpp>
-#include <foxxll/verbose.hpp>
 
 namespace foxxll {
 

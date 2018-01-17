@@ -29,7 +29,6 @@
 #include <foxxll/io/file.hpp>
 #include <foxxll/mng/bid.hpp>
 #include <foxxll/mng/config.hpp>
-#include <foxxll/verbose.hpp>
 
 namespace foxxll {
 

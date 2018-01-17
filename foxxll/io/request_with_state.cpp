@@ -21,7 +21,6 @@
 #include <foxxll/io/request.hpp>
 #include <foxxll/io/request_with_state.hpp>
 #include <foxxll/singleton.hpp>
-#include <foxxll/verbose.hpp>
 
 namespace foxxll {
 

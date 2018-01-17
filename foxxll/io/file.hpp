@@ -29,7 +29,6 @@
 #include <foxxll/io/request.hpp>
 #include <foxxll/io/request_interface.hpp>
 #include <foxxll/libfoxxll.hpp>
-#include <foxxll/verbose.hpp>
 
 #include <tlx/counting_ptr.hpp>
 #include <tlx/unused.hpp>

@@ -17,7 +17,6 @@
 #include <tlx/logger.hpp>
 
 #include <foxxll/mng/async_schedule.hpp>
-#include <foxxll/verbose.hpp>
 
 // Test async schedule algorithm
 

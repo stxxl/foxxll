@@ -23,7 +23,6 @@
 
 #include <foxxll/io.hpp>
 #include <foxxll/mng.hpp>
-#include <foxxll/verbose.hpp>
 
 constexpr size_t BLOCK_SIZE = 512 * 1024;
 

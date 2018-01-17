@@ -20,7 +20,6 @@
 #include <foxxll/common/exceptions.hpp>
 #include <foxxll/common/types.hpp>
 #include <foxxll/mng/disk_block_allocator.hpp>
-#include <foxxll/verbose.hpp>
 
 namespace foxxll {
 

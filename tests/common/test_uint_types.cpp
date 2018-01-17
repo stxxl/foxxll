@@ -13,7 +13,6 @@
 #include <tlx/die.hpp>
 
 #include <foxxll/common/uint_types.hpp>
-#include <foxxll/verbose.hpp>
 
 // forced instantiation
 template class foxxll::uint_pair<uint8_t>;

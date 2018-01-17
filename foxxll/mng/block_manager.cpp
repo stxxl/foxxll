@@ -25,7 +25,6 @@
 #include <foxxll/io/file.hpp>
 #include <foxxll/mng/config.hpp>
 #include <foxxll/mng/disk_block_allocator.hpp>
-#include <foxxll/verbose.hpp>
 
 namespace foxxll {
 

@@ -25,7 +25,6 @@
 
 #include <foxxll/common/exceptions.hpp>
 #include <foxxll/io/request_interface.hpp>
-#include <foxxll/verbose.hpp>
 
 namespace foxxll {
 

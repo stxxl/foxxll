@@ -15,7 +15,6 @@
 set(LIBFOXXLL_SOURCES
 
   common/exithandler.cpp
-  common/verbose.cpp
   common/version.cpp
 
   io/create_file.cpp
