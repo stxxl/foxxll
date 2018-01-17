@@ -200,10 +200,11 @@ void linuxaio_queue::handle_events(io_event* events, long num_events, bool cance
 {
     for (int e = 0; e < num_events; ++e)
     {
-        request_ptr* r = reinterpret_cast<request_ptr*>(
+        request* r = reinterpret_cast<request*>(
             static_cast<uintptr_t>(events[e].data));
-        r->get()->completed(canceled);
-        delete r;                    // release counting_ptr reference
+        r->completed(canceled);
+        // release counting_ptr reference, this may delete the request object
+        r->dec_reference();
         num_free_events_.signal();
         num_posted_requests_.wait(); // will never block
     }
