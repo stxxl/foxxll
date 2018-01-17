@@ -47,7 +47,7 @@ int main(int argc, char* argv[])
     }
 
     for (size_t i = 0; i < D; i++)
-        std::cout << "Disk " << i << " has " << count[i] << " blocks" << std::endl;
+        LOG1 << "Disk " << i << " has " << count[i] << " blocks";
 
     foxxll::compute_prefetch_schedule(disks, disks + L, prefetch_order, m, D);
 

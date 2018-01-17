@@ -14,6 +14,8 @@
 #ifndef FOXXLL_IO_REQUEST_QUEUE_HEADER
 #define FOXXLL_IO_REQUEST_QUEUE_HEADER
 
+#include <tlx/unused.hpp>
+
 #include <foxxll/io/request.hpp>
 
 #include <tlx/unused.hpp>

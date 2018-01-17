@@ -83,11 +83,11 @@ void test1()
     block_scheduler_type* bs_ptr = new block_scheduler_type(internal_memory);
     block_scheduler_type& bs = *bs_ptr;
     // make sure is not just recording a prediction sequence
-    FOXXLL_CHECK(! bs.is_simulating());
+    die_unless(! bs.is_simulating());
 
     // allocate a swappable_block and store its identifier
     swappable_block_identifier_type sbi1 = bs.allocate_swappable_block();
-    FOXXLL_CHECK2(!bs.is_initialized(sbi1), "new block should not be initialized?");
+    die_with_message_unless(!bs.is_initialized(sbi1), "new block should not be initialized?");
 
     // initialize the swappable_block with the prepared external_block
     bs.initialize(sbi1, ext_bl);
@@ -99,7 +99,7 @@ void test1()
         size_t num_err = 0;
         for (size_t i = 0; i < block_size; ++i)
             num_err += (ib[i] != i);
-        FOXXLL_CHECK2(num_err == 0,
+        die_with_message_unless(num_err == 0,
                       "previously initialized block had " << num_err << " errors.");
     }
     {
@@ -116,7 +116,7 @@ void test1()
 
     // allocate a second swappable_block and store its identifier
     swappable_block_identifier_type sbi2 = bs.allocate_swappable_block();
-    FOXXLL_CHECK2(!bs.is_initialized(sbi2), "new block should not be initialized?");
+    die_with_message_unless(!bs.is_initialized(sbi2), "new block should not be initialized?");
 
     {
         // acquire the swappable_block to gain access
@@ -134,16 +134,16 @@ void test1()
     }
 
     // both blocks should now be initialized
-    FOXXLL_CHECK2(bs.is_initialized(sbi1), "block should not be initialized!");
-    FOXXLL_CHECK2(bs.is_initialized(sbi2), "block should not be initialized!");
+    die_with_message_unless(bs.is_initialized(sbi1), "block should not be initialized!");
+    die_with_message_unless(bs.is_initialized(sbi2), "block should not be initialized!");
 
     // get the external_block
     ext_bl = bs.extract_external_block(sbi2);
-    FOXXLL_CHECK2(!bs.is_initialized(sbi2), "block should not be initialized after extraction!");
+    die_with_message_unless(!bs.is_initialized(sbi2), "block should not be initialized after extraction!");
 
     // free external block 1
     bs.deinitialize(sbi1);
-    FOXXLL_CHECK2(!bs.is_initialized(sbi1), "block should not be initialized after deinitialize!");
+    die_with_message_unless(!bs.is_initialized(sbi1), "block should not be initialized after deinitialize!");
 
     // free the swappable_blocks
     bs.free_swappable_block(sbi1);
@@ -220,7 +220,7 @@ void test1()
     delete bs_ptr;
 
     int_bl->read(ext_bl)->wait();
-    FOXXLL_CHECK2(test_pattern_B(*int_bl) == 0,
+    die_with_message_unless(test_pattern_B(*int_bl) == 0,
                   "after extraction changed block should contain pattern B.");
     delete int_bl;
 }
@@ -263,9 +263,9 @@ void test2()
     ib[2] = &bs.acquire(sbi[2]); // this block can still be cached
     ib[3] = &bs.acquire(sbi[3]); // as can this
     ib[1] = &bs.acquire(sbi[1]); // but not this
-    FOXXLL_CHECK2(test_pattern_A(*ib[1]) == 0, "Block 1 had errors.");
-    FOXXLL_CHECK2(test_pattern_A(*ib[2]) == 0, "Block 2 had errors.");
-    FOXXLL_CHECK2(test_pattern_A(*ib[3]) == 0, "Block 3 had errors.");
+    die_with_message_unless(test_pattern_A(*ib[1]) == 0, "Block 1 had errors.");
+    die_with_message_unless(test_pattern_A(*ib[2]) == 0, "Block 2 had errors.");
+    die_with_message_unless(test_pattern_A(*ib[3]) == 0, "Block 3 had errors.");
 
     bs.release(sbi[1], false);
     bs.release(sbi[2], false);

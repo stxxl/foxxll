@@ -73,7 +73,7 @@ void testIO()
         reqs[i]->wait();
         for (size_t j = 0; j < block_type::size; ++j)
         {
-            FOXXLL_CHECK(j == block->elem[j].integer);
+            die_unless(j == block->elem[j].integer);
         }
     }
 
@@ -152,7 +152,7 @@ void testStreams()
         {
             int value;
             in >> value;
-            FOXXLL_CHECK(value == int(i));
+            die_unless(value == int(i));
         }
     }
     bm->delete_blocks(bids.begin(), bids.end());

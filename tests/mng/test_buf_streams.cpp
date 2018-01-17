@@ -55,9 +55,9 @@ int main()
             unsigned value;
             in >> value;
 
-            FOXXLL_CHECK2(value == i,
+            die_with_message_unless(value == i,
                           "Error at position " << std::hex << i << " (" << value << ") block " << (i / block_type::size));
-            FOXXLL_CHECK(prevalue == value);
+            die_unless(prevalue == value);
         }
     }
     {
@@ -68,9 +68,9 @@ int main()
             unsigned value;
             in >> value;
 
-            FOXXLL_CHECK2(value == nelements - i - 1,
+            die_with_message_unless(value == nelements - i - 1,
                           "Error at position " << std::hex << i << " (" << value << ") block " << (i / block_type::size));
-            FOXXLL_CHECK(prevalue == value);
+            die_unless(prevalue == value);
         }
     }
     bm->delete_blocks(bids.begin(), bids.end());

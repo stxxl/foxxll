@@ -71,7 +71,7 @@ int main()
         blk = w_pool.steal();
         p_pool.read(blk, bid)->wait();
 
-        FOXXLL_CHECK2((*blk)[0].integer == 23,
+        die_with_message_unless((*blk)[0].integer == 23,
                       "WRITE-AFTER-WRITE COHERENCE FAILURE");
 
         w_pool.add(blk);
@@ -103,7 +103,7 @@ int main()
         // get the hinted block
         p_pool.read(blk, bid)->wait();
 
-        FOXXLL_CHECK2((*blk)[0].integer == 23,
+        die_with_message_unless((*blk)[0].integer == 23,
                       "WRITE-AFTER-HINT COHERENCE FAILURE");
 
         w_pool.add(blk);
@@ -135,7 +135,7 @@ int main()
         // get the hinted block
         p_pool.read(blk, bid)->wait();
 
-        FOXXLL_CHECK2((*blk)[0].integer == 23,
+        die_with_message_unless((*blk)[0].integer == 23,
                       "WRITE-AFTER-HINT COHERENCE FAILURE");
 
         w_pool.add(blk);
