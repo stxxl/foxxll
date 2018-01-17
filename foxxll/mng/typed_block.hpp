@@ -28,7 +28,7 @@ namespace foxxll {
 #ifdef FOXXLL_VERBOSE_TYPED_BLOCK
 constexpr bool debug_typed_block = true;
 #else
-constexpr bool debug_typed_block = true;
+constexpr bool debug_typed_block = false;
 #endif
 
 //! \addtogroup mnglayer
