@@ -340,10 +340,10 @@ void disk_config::parse_line(const std::string& line)
 
     // path:
     path = expand_path(cmfield[0]);
-    // replace ### -> pid in path
+    // replace $$ -> pid in path
     {
         std::string::size_type pos;
-        if ((pos = path.find("###")) != std::string::npos)
+        if ((pos = path.find("$$")) != std::string::npos)
         {
 #if !STXXL_WINDOWS
             int pid = getpid();
