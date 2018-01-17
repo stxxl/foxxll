@@ -16,6 +16,7 @@
 
 #include <tlx/logger.hpp>
 
+#include <foxxll/common/die_with_message.hpp>
 #include <foxxll/mng.hpp>
 #include <foxxll/mng/prefetch_pool.hpp>
 #include <foxxll/mng/write_pool.hpp>

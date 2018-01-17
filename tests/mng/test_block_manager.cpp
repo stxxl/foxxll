@@ -19,8 +19,11 @@
 #include <memory>
 #include <vector>
 
+#include <tlx/die.hpp>
 #include <tlx/logger.hpp>
 
+
+#include <foxxll/common/die_with_message.hpp>
 #include <foxxll/io.hpp>
 #include <foxxll/mng.hpp>
 

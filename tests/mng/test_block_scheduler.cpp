@@ -18,6 +18,7 @@
 #include <tlx/die.hpp>
 #include <tlx/logger.hpp>
 
+#include <foxxll/common/die_with_message.hpp>
 #include <foxxll/mng/block_scheduler.hpp>
 
 using foxxll::external_size_type;

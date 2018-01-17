@@ -15,6 +15,7 @@
 
 #include <iostream>
 
+#include <foxxll/common/die_with_message.hpp>
 #include <foxxll/mng.hpp>
 #include <foxxll/mng/buf_istream.hpp>
 #include <foxxll/mng/buf_istream_reverse.hpp>
