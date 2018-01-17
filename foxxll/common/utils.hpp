@@ -32,16 +32,6 @@
 
 namespace foxxll {
 
-////////////////////////////////////////////////////////////////////////////
-
-#if defined(__GNUC__) && ((__GNUC__ > 4) || ((__GNUC__ == 4) && (__GNUC_MINOR__ >= 7)))
-#  define STXXL_ATTRIBUTE_UNUSED __attribute__ ((unused))
-#else
-#  define STXXL_ATTRIBUTE_UNUSED
-#endif
-
-////////////////////////////////////////////////////////////////////////////
-
 //! Format any ostream-able type into a string
 template <typename Type>
 std::string to_str(const Type& t)
@@ -50,8 +40,6 @@ std::string to_str(const Type& t)
     oss << t;
     return oss.str();
 }
-
-////////////////////////////////////////////////////////////////////////////
 
 inline int64_t atoi64(const char* s)
 {
@@ -62,8 +50,6 @@ inline int64_t atoi64(const char* s)
 #endif
 }
 
-////////////////////////////////////////////////////////////////////////////
-
 inline uint64_t atouint64(const char* s)
 {
 #if FOXXLL_MSVC
@@ -72,8 +58,6 @@ inline uint64_t atouint64(const char* s)
     return strtoull(s, nullptr, 10);
 #endif
 }
-
-////////////////////////////////////////////////////////////////////////////
 
 template <typename Integral, typename Integral2>
 inline
@@ -88,8 +72,6 @@ div_ceil(Integral n, Integral2 d)
     return n / d + ((n % d) != 0);
 #endif
 }
-
-////////////////////////////////////////////////////////////////////////////
 
 #ifdef __GNUC__
 #define HAVE_BUILTIN_EXPECT
@@ -107,8 +89,6 @@ div_ceil(Integral n, Integral2 d)
  #define UNLIKELY(c)   c
 #endif
 
-////////////////////////////////////////////////////////////////////////////
-
 inline size_t longhash1(uint64_t key_)
 {
     key_ += ~(key_ << 32);
@@ -122,8 +102,6 @@ inline size_t longhash1(uint64_t key_)
     return (size_t)key_;
 }
 
-////////////////////////////////////////////////////////////////////////////
-
 template <class Type>
 inline void swap_1D_arrays(Type* a, Type* b, size_t size)
 {
@@ -131,26 +109,23 @@ inline void swap_1D_arrays(Type* a, Type* b, size_t size)
         std::swap(a[i], b[i]);
 }
 
-////////////////////////////////////////////////////////////////////////////
-
 //! round n up to next larger multiple of 2^power. example: (48,4) = 64, (48,3) = 48.
 template <typename Integral>
 inline Integral round_up_to_power_of_two(Integral n, unsigned power)
 {
-    Integral pot = Integral(1) << power, // = 0..0 1 0^power
-        mask = pot - 1;                  // = 0..0 0 1^power
-    if (n & mask)                        // n not divisible by pot
+    auto pot = Integral(1) << power; // = 0..0 1 0^power
+    auto mask = pot - 1;             // = 0..0 0 1^power
+
+    if (n & mask)                    // n not divisible by pot
         return (n & ~mask) + pot;
     else
         return n;
 }
 
-////////////////////////////////////////////////////////////////////////////
-
 template <class Container>
 inline typename Container::value_type pop(Container& c)
 {
-    typename Container::value_type r = c.top();
+    const auto r = c.top();
     c.pop();
     return r;
 }
@@ -158,7 +133,7 @@ inline typename Container::value_type pop(Container& c)
 template <class Container>
 inline typename Container::value_type pop_front(Container& c)
 {
-    typename Container::value_type r = c.front();
+    const auto r = c.front();
     c.pop_front();
     return r;
 }
@@ -166,7 +141,7 @@ inline typename Container::value_type pop_front(Container& c)
 template <class Container>
 inline typename Container::value_type pop_back(Container& c)
 {
-    typename Container::value_type r = c.back();
+    const auto r = c.back();
     c.pop_back();
     return r;
 }
@@ -174,12 +149,10 @@ inline typename Container::value_type pop_back(Container& c)
 template <class Container>
 inline typename Container::value_type pop_begin(Container& c)
 {
-    typename Container::value_type r = *c.begin();
+    const auto r = *c.begin();
     c.erase(c.begin());
     return r;
 }
-
-////////////////////////////////////////////////////////////////////////////
 
 } // namespace foxxll
 
