@@ -62,7 +62,7 @@ file_ptr create_file(disk_config& cfg, int mode, int disk_allocator_id)
 
     if (cfg.device_id == file::DEFAULT_DEVICE_ID)
     {
-        cfg.device_id = config::get_instance()->get_next_device_id();
+        cfg.device_id = config::get_instance()->next_device_id();
     }
     else
     {

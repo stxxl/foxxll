@@ -66,7 +66,7 @@ public:
 #endif
     {
         const size_t ndisks = config::get_instance()->disks_number();
-        const size_t mdevid = config::get_instance()->get_max_device_id();
+        const size_t mdevid = config::get_instance()->max_device_id();
         const size_t seq_length = end - begin;
         prefetch_seq = new size_t[seq_length];
 

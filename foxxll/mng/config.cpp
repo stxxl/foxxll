@@ -14,6 +14,7 @@
  **************************************************************************/
 
 #include <fstream>
+#include <regex>
 
 #include <foxxll/common/error_handling.hpp>
 #include <foxxll/common/utils.hpp>
@@ -42,6 +43,14 @@ static inline bool exist_file(const std::string& path)
     return in.good();
 }
 
+config::config()
+    : is_initialized(false)
+{
+    logger::get_instance();
+    STXXL_MSG(get_version_string_long());
+    print_library_version_mismatch();
+}
+
 config::~config()
 {
     for (disk_list_type::const_iterator it = disks_list.begin();
@@ -63,7 +72,7 @@ void config::initialize()
         find_config();
     }
 
-    m_max_device_id = 0;
+    max_device_id_ = 0;
 
     is_initialized = true;
 }
@@ -177,23 +186,62 @@ void config::load_config_file(const std::string& config_path)
     }
 }
 
-//! Returns automatic physical device id counter
-unsigned int config::get_max_device_id()
+config& config::add_disk(const disk_config& cfg)
 {
-    return m_max_device_id;
+    disks_list.push_back(cfg);
+    return *this;
 }
 
-//! Returns next automatic physical device id counter
-unsigned int config::get_next_device_id()
+unsigned int config::max_device_id()
 {
-    return m_max_device_id++;
+    return max_device_id_;
 }
 
-//! Update the automatic physical device id counter
+unsigned int config::next_device_id()
+{
+    return max_device_id_++;
+}
+
 void config::update_max_device_id(unsigned int devid)
 {
-    if (m_max_device_id < devid + 1)
-        m_max_device_id = devid + 1;
+    if (max_device_id_ < devid + 1)
+        max_device_id_ = devid + 1;
+}
+
+std::pair<unsigned, unsigned> config::regular_disk_range() const
+{
+    assert(is_initialized);
+    return std::pair<unsigned, unsigned>(0, first_flash);
+}
+
+std::pair<unsigned, unsigned> config::flash_range() const
+{
+    assert(is_initialized);
+    return std::pair<unsigned, unsigned>(first_flash, (unsigned)disks_list.size());
+}
+
+disk_config& config::disk(size_t disk)
+{
+    check_initialized();
+    return disks_list[disk];
+}
+
+const std::string& config::disk_path(size_t disk) const
+{
+    assert(is_initialized);
+    return disks_list[disk].path;
+}
+
+external_size_type config::disk_size(size_t disk) const
+{
+    assert(is_initialized);
+    return disks_list[disk].size;
+}
+
+const std::string& config::disk_io_impl(size_t disk) const
+{
+    assert(is_initialized);
+    return disks_list[disk].io_impl;
 }
 
 external_size_type config::total_size() const
@@ -291,7 +339,7 @@ void disk_config::parse_line(const std::string& line)
     std::vector<std::string> cmfield = tlx::split(',', eqfield[1], 3, 3);
 
     // path:
-    path = cmfield[0];
+    path = expand_path(cmfield[0]);
     // replace ### -> pid in path
     {
         std::string::size_type pos;
@@ -503,6 +551,23 @@ std::string disk_config::fileio_string() const
     }
 
     return oss.str();
+}
+
+std::string disk_config::expand_path(std::string path) const
+{
+    std::regex var_matcher("\\$([A-Z]+(_[A-Z]+)*)");
+    std::smatch match;
+
+    std::stringstream ss;
+
+    while (std::regex_search(path, match, var_matcher)) {
+        ss << match.prefix().str();
+        ss << std::getenv(match[1].str().c_str());
+        path = match.suffix().str();
+    }
+    ss << path;
+
+    return ss.str();
 }
 
 } // namespace foxxll
