@@ -15,11 +15,20 @@
 #include <foxxll/common/exithandler.hpp>
 
 // 1. do nothing for default handler
-// 2. #define STXXL_NON_DEFAULT_EXIT_HANDLER for a handler that does not use atexit()
-// 3. #define STXXL_EXTERNAL_EXIT_HANDLER to provide your own implementation
+// 2. #define FOXXLL_NON_DEFAULT_EXIT_HANDLER for a handler that does not use atexit()
+// 3. #define FOXXLL_EXTERNAL_EXIT_HANDLER to provide your own implementation
 
-#ifndef STXXL_EXTERNAL_EXIT_HANDLER
-#ifndef STXXL_NON_DEFAULT_EXIT_HANDLER
+
+#ifdef STXXL_EXTERNAL_EXIT_HANDLER
+static_assert(false, "STXXL_EXTERNAL_EXIT_HANDLER was renamed to FOXXLL_EXTERNAL_EXIT_HANDLER");
+#endif
+
+#ifdef STXXL_NON_DEFAULT_EXIT_HANDLER
+static_assert(false, "STXXL_NON_DEFAULT_EXIT_HANDLER was renamed to FOXXLL_NON_DEFAULT_EXIT_HANDLER");
+#endif
+
+#ifndef FOXXLL_EXTERNAL_EXIT_HANDLER
+#ifndef FOXXLL_NON_DEFAULT_EXIT_HANDLER
 
 namespace foxxll {
 
@@ -37,7 +46,7 @@ void run_exit_handlers()
 
 } // namespace foxxll
 
-#else // STXXL_NON_DEFAULT_EXIT_HANDLER
+#else // FOXXLL_NON_DEFAULT_EXIT_HANDLER
 
 #include <mutex>
 #include <vector>
@@ -66,7 +75,7 @@ void run_exit_handlers()
 
 } // namespace foxxll
 
-#endif // STXXL_NON_DEFAULT_EXIT_HANDLER
-#endif // STXXL_EXTERNAL_EXIT_HANDLER
+#endif // FOXXLL_NON_DEFAULT_EXIT_HANDLER
+#endif // FOXXLL_EXTERNAL_EXIT_HANDLER
 
 // vim: et:ts=4:sw=4

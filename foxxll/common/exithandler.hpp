@@ -19,12 +19,12 @@ namespace foxxll {
 // implementation (which uses atexit()), nothing special has to be done.
 //
 // To work around problems with atexit() being used in a dll you may #define
-// STXXL_NON_DEFAULT_EXIT_HANDLER at library compilation time.  In this case
+// FOXXLL_NON_DEFAULT_EXIT_HANDLER at library compilation time.  In this case
 // the library/application should call foxxll::run_exit_handlers() during
 // shutdown.
 //
 // To provide your own exit handler implementation, #define
-// STXXL_EXTERNAL_EXIT_HANDLER and implement foxxll::register_exit_handler(void
+// FOXXLL_EXTERNAL_EXIT_HANDLER and implement foxxll::register_exit_handler(void
 // (*)(void)) and foxxll::run_exit_handlers() in your application.
 
 int register_exit_handler(void (* function)(void));
