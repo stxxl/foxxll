@@ -466,17 +466,17 @@ macro(add_define PROGNAME)
 endmacro(add_define TESTNAME)
 
 ###############################################################################
-# figure out STXXL_TMPDIR for tests
+# figure out FOXXLL_TEST_DISKDIR for tests
 
 if(FOXXLL_BUILD_TESTS)
 
-  if(DEFINED ENV{STXXL_TMPDIR})
-    set(STXXL_TMPDIR "$ENV{STXXL_TMPDIR}")
-  elseif(NOT DEFINED STXXL_TMPDIR)
-    set(STXXL_TMPDIR ".")
+  if(DEFINED ENV{FOXXLL_TEST_DISKDIR})
+    set(FOXXLL_TEST_DISKDIR "$ENV{FOXXLL_TEST_DISKDIR}")
+  elseif(NOT DEFINED FOXXLL_TEST_DISKDIR)
+    set(FOXXLL_TEST_DISKDIR ".")
   endif()
 
-  message(STATUS "Using STXXL_TMPDIR ${STXXL_TMPDIR} for tests")
+  message(STATUS "Using FOXXLL_TEST_DISKDIR ${FOXXLL_TEST_DISKDIR} for tests")
 
 endif(FOXXLL_BUILD_TESTS)
 
