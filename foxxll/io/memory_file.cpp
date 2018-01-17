@@ -17,6 +17,7 @@
 
 #include <foxxll/io/iostats.hpp>
 #include <foxxll/io/memory_file.hpp>
+#include <tlx/unused.hpp>
 
 namespace foxxll {
 
@@ -84,8 +85,8 @@ void memory_file::discard(offset_type offset, offset_type size)
         memcpy(ptr_ + offset, uninitialized, (size_t)size);
     free(uninitialized);
 #else
-    STXXL_UNUSED(offset);
-    STXXL_UNUSED(size);
+    tlx::unused(offset);
+    tlx::unused(size);
 #endif
 }
 

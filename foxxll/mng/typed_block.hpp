@@ -23,6 +23,8 @@
 #include <foxxll/io/request.hpp>
 #include <foxxll/mng/bid.hpp>
 
+#include <tlx/unused.hpp>
+
 #ifndef STXXL_VERBOSE_TYPED_BLOCK
 #define STXXL_VERBOSE_TYPED_BLOCK STXXL_VERBOSE2
 #endif
@@ -261,7 +263,7 @@ public:
         static_assert(sizeof(typed_block) == raw_size,
                       "sizeof(typed_block) == raw_size");
         STXXL_MSG("[" << (void*)this << "] typed_block is copy constructed from [" << (void*)&tb << "]");
-        STXXL_UNUSED(tb);
+        tlx::UNUSED(tb);
     }
 #endif
 

@@ -46,8 +46,14 @@ struct file_offset_match
 request_queue_impl_qwqr::request_queue_impl_qwqr(int n)
     : thread_state_(NOT_RUNNING), sem_(0)
 {
-    STXXL_UNUSED(n);
+    tlx::unused(n);
     start_thread(worker, static_cast<void*>(this), thread_, thread_state_);
+}
+
+void request_queue_impl_qwqr::set_priority_op(const priority_op& op)
+{
+    //_priority_op = op;
+    tlx::unused(op);
 }
 
 void request_queue_impl_qwqr::add_request(request_ptr& req)

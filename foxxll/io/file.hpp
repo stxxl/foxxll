@@ -31,6 +31,7 @@
 #include <foxxll/verbose.hpp>
 
 #include <tlx/counting_ptr.hpp>
+#include <tlx/unused.hpp>
 
 #if defined(__linux__)
  #define STXXL_CHECK_BLOCK_ALIGNING
@@ -157,16 +158,16 @@ public:
     //! Some specialized file types may need to know freed regions
     virtual void discard(offset_type offset, offset_type size)
     {
-        STXXL_UNUSED(offset);
-        STXXL_UNUSED(size);
+        tlx::unused(offset);
+        tlx::unused(size);
     }
 
     virtual void export_files(offset_type offset, offset_type length,
                               std::string prefix)
     {
-        STXXL_UNUSED(offset);
-        STXXL_UNUSED(length);
-        STXXL_UNUSED(prefix);
+        tlx::unused(offset);
+        tlx::unused(length);
+        tlx::unused(prefix);
     }
 
     //! close and remove file

@@ -18,6 +18,7 @@
 #include <string>
 
 #include <tlx/counting_ptr.hpp>
+#include <tlx/unused.hpp>
 
 #include <foxxll/common/aligned_alloc.hpp>
 #include <foxxll/common/error_handling.hpp>
@@ -103,7 +104,7 @@ void fileperblock_file<base_file_type>::lock()
 template <class base_file_type>
 void fileperblock_file<base_file_type>::discard(offset_type offset, offset_type length)
 {
-    STXXL_UNUSED(length);
+    tlx::unused(length);
 #ifdef STXXL_FILEPERBLOCK_NO_DELETE
     if (::truncate(filename_for_block(offset).c_str(), 0) != 0)
         STXXL_ERRMSG("truncate() error on path=" << filename_for_block(offset) << " error=" << strerror(errno));
@@ -132,7 +133,7 @@ void fileperblock_file<base_file_type>::export_files(offset_type offset, offset_
         STXXL_THROW_ERRNO(io_error, "Error doing truncate()");
     }
 #else
-    STXXL_UNUSED(length);
+    tlx::unused(length);
 #endif
 }
 
