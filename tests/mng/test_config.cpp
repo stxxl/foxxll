@@ -10,8 +10,9 @@
  *  http://www.boost.org/LICENSE_1_0.txt)
  **************************************************************************/
 
+#include <tlx/die.hpp>
+
 #include <foxxll/mng.hpp>
-#include <foxxll/verbose.hpp>
 
 void test1()
 {
@@ -21,19 +22,19 @@ void test1()
 
     cfg.parse_line("disk=/var/tmp/foxxll.tmp, 100 GiB , syscall unlink direct=on");
 
-    FOXXLL_CHECK_EQUAL(cfg.path, "/var/tmp/foxxll.tmp");
-    FOXXLL_CHECK_EQUAL(cfg.size, 100 * 1024 * 1024 * uint64_t(1024));
-    FOXXLL_CHECK_EQUAL(cfg.fileio_string(), "syscall direct=on unlink_on_open");
+    die_unequal(cfg.path, "/var/tmp/foxxll.tmp");
+    die_unequal(cfg.size, 100 * 1024 * 1024 * uint64_t(1024));
+    die_unequal(cfg.fileio_string(), "syscall direct=on unlink_on_open");
 
     // test disk_config parser:
 
     cfg.parse_line("disk=/var/tmp/foxxll.tmp, 100 , wincall queue=5 delete_on_exit direct=on");
 
-    FOXXLL_CHECK_EQUAL(cfg.path, "/var/tmp/foxxll.tmp");
-    FOXXLL_CHECK_EQUAL(cfg.size, 100 * 1024 * uint64_t(1024));
-    FOXXLL_CHECK_EQUAL(cfg.fileio_string(), "wincall delete_on_exit direct=on queue=5");
-    FOXXLL_CHECK_EQUAL(cfg.queue, 5);
-    FOXXLL_CHECK_EQUAL(cfg.direct, foxxll::disk_config::DIRECT_ON);
+    die_unequal(cfg.path, "/var/tmp/foxxll.tmp");
+    die_unequal(cfg.size, 100 * 1024 * uint64_t(1024));
+    die_unequal(cfg.fileio_string(), "wincall delete_on_exit direct=on queue=5");
+    die_unequal(cfg.queue, 5);
+    die_unequal(cfg.direct, foxxll::disk_config::DIRECT_ON);
 
     // bad configurations
 
@@ -59,10 +60,10 @@ void test2()
         disk1.unlink_on_open = true;
         disk1.direct = foxxll::disk_config::DIRECT_OFF;
 
-        FOXXLL_CHECK_EQUAL(disk1.path, "/tmp/foxxll-1.tmp");
-        FOXXLL_CHECK_EQUAL(disk1.size, 100 * 1024 * uint64_t(1024));
-        FOXXLL_CHECK_EQUAL(disk1.autogrow, 1);
-        FOXXLL_CHECK_EQUAL(disk1.fileio_string(),
+        die_unequal(disk1.path, "/tmp/foxxll-1.tmp");
+        die_unequal(disk1.size, 100 * 1024 * uint64_t(1024));
+        die_unequal(disk1.autogrow, 1);
+        die_unequal(disk1.fileio_string(),
                            "syscall direct=off unlink_on_open");
 
         config->add_disk(disk1);
@@ -71,24 +72,24 @@ void test2()
                                   "syscall autogrow=no direct=off");
         disk2.unlink_on_open = true;
 
-        FOXXLL_CHECK_EQUAL(disk2.path, "/tmp/foxxll-2.tmp");
-        FOXXLL_CHECK_EQUAL(disk2.size, 200 * 1024 * uint64_t(1024));
-        FOXXLL_CHECK_EQUAL(disk2.fileio_string(),
+        die_unequal(disk2.path, "/tmp/foxxll-2.tmp");
+        die_unequal(disk2.size, 200 * 1024 * uint64_t(1024));
+        die_unequal(disk2.fileio_string(),
                            "syscall autogrow=no direct=off unlink_on_open");
-        FOXXLL_CHECK_EQUAL(disk2.direct, 0);
+        die_unequal(disk2.direct, 0);
 
         config->add_disk(disk2);
     }
 
-    FOXXLL_CHECK_EQUAL(config->disks_number(), 2);
-    FOXXLL_CHECK_EQUAL(config->total_size(), 300 * 1024 * 1024);
+    die_unequal(config->disks_number(), 2u);
+    die_unequal(config->total_size(), 300u * 1024 * 1024);
 
     // construct block_manager with user-supplied config
 
     foxxll::block_manager* bm = foxxll::block_manager::get_instance();
 
-    FOXXLL_CHECK_EQUAL(bm->total_bytes(), 300 * 1024 * 1024);
-    FOXXLL_CHECK_EQUAL(bm->free_bytes(), 300 * 1024 * 1024);
+    die_unequal(bm->total_bytes(), 300u * 1024 * 1024);
+    die_unequal(bm->free_bytes(), 300u * 1024 * 1024);
 
 #endif
 }

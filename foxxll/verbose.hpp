@@ -163,20 +163,6 @@ void print_msg(const char* label, const std::string& msg, unsigned flags);
         }                                                                                  \
     } while (0)
 
-//! FOXXLL_CHECK_EQUAL(a,b) is an assertion macro for unit tests, similar to
-//! FOXXLL_CHECK(a==b). The difference is that FOXXLL_CHECK_EQUAL(a,b) also
-//! prints the values of a and b. Attention: a and b must be printable with
-//! std::cout!
-#define FOXXLL_CHECK_EQUAL(a, b)                                                \
-    do {                                                                        \
-        if (!(a == b)) {                                                        \
-            _STXXL_PRINT("STXXL-CHECK",                                         \
-                         "\"" << a << "\" = " #a " == " #b " = \"" << b << "\"" \
-                         " - FAILED @ " __FILE__ ":" << __LINE__,               \
-                         _STXXL_PRINT_FLAGS_ERROR); abort();                    \
-        }                                                                       \
-    } while (0)
-
 // FOXXLL_CHECK_THROW is an assertion macro for unit tests, which checks that
 // the enclosed code throws an exception.
 
