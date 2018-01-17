@@ -280,7 +280,7 @@ public:
                       "sizeof(typed_block) == raw_size");
         LOGC(debug_typed_block) << "[" << (void*)this << "] typed_block is constructed";
 #if 0
-        assert(((long)this) % STXXL_BLOCK_ALIGN == 0);
+        assert(((long)this) % FoxxllBlockAlignment == 0);
 #endif
     }
 
@@ -343,7 +343,7 @@ public:
         size_t meta_info_size = bytes % raw_size;
         LOGC(debug_typed_block) << "typed::block operator new[]: bytes=" << bytes << ", meta_info_size=" << meta_info_size;
 
-        void* result = aligned_alloc<STXXL_BLOCK_ALIGN>(
+        void* result = aligned_alloc<FoxxllBlockAlignment>(
             bytes - meta_info_size, meta_info_size);
 
 #if FOXXLL_WITH_VALGRIND || STXXL_TYPED_BLOCK_INITIALIZE_ZERO
@@ -357,7 +357,7 @@ public:
         size_t meta_info_size = bytes % raw_size;
         LOGC(debug_typed_block) << "typed::block operator new[]: bytes=" << bytes << ", meta_info_size=" << meta_info_size;
 
-        void* result = aligned_alloc<STXXL_BLOCK_ALIGN>(
+        void* result = aligned_alloc<FoxxllBlockAlignment>(
             bytes - meta_info_size, meta_info_size);
 
 #if FOXXLL_WITH_VALGRIND || STXXL_TYPED_BLOCK_INITIALIZE_ZERO
@@ -373,12 +373,12 @@ public:
 
     static void operator delete (void* ptr)
     {
-        aligned_dealloc<STXXL_BLOCK_ALIGN>(ptr);
+        aligned_dealloc<FoxxllBlockAlignment>(ptr);
     }
 
     static void operator delete[] (void* ptr)
     {
-        aligned_dealloc<STXXL_BLOCK_ALIGN>(ptr);
+        aligned_dealloc<FoxxllBlockAlignment>(ptr);
     }
 
     static void operator delete (void*, void*)

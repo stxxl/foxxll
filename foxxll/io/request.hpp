@@ -32,7 +32,7 @@ namespace foxxll {
 //! \addtogroup reqlayer
 //! \{
 
-#define STXXL_BLOCK_ALIGN 4096
+constexpr size_t FoxxllBlockAlignment = 4096;
 
 class file;
 class request;

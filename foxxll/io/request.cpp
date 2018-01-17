@@ -37,17 +37,17 @@ request::~request()
 
 void request::check_alignment() const
 {
-    if (offset_ % STXXL_BLOCK_ALIGN != 0)
+    if (offset_ % FoxxllBlockAlignment != 0)
         STXXL_ERRMSG("Offset is not aligned: modulo " <<
-                     STXXL_BLOCK_ALIGN << " = " << offset_ % STXXL_BLOCK_ALIGN);
+                     FoxxllBlockAlignment << " = " << offset_ % FoxxllBlockAlignment);
 
-    if (bytes_ % STXXL_BLOCK_ALIGN != 0)
+    if (bytes_ % FoxxllBlockAlignment != 0)
         STXXL_ERRMSG("Size is not a multiple of " <<
-                     STXXL_BLOCK_ALIGN << ", = " << bytes_ % STXXL_BLOCK_ALIGN);
+                     FoxxllBlockAlignment << ", = " << bytes_ % FoxxllBlockAlignment);
 
-    if (size_t(buffer_) % STXXL_BLOCK_ALIGN != 0)
+    if (size_t(buffer_) % FoxxllBlockAlignment != 0)
         STXXL_ERRMSG("Buffer is not aligned: modulo " <<
-                     STXXL_BLOCK_ALIGN << " = " << size_t(buffer_) % STXXL_BLOCK_ALIGN <<
+                     FoxxllBlockAlignment << " = " << size_t(buffer_) % FoxxllBlockAlignment <<
                      " (" << buffer_ << ")");
 }
 
