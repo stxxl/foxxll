@@ -19,7 +19,6 @@
 #include <sstream>
 #include <string>
 
-#include <foxxll/common/log.hpp>
 #include <foxxll/common/timer.hpp>
 #include <foxxll/common/types.hpp>
 #include <foxxll/io/iostats.hpp>
