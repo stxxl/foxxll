@@ -26,7 +26,7 @@
 #include <foxxll/io/iostats.hpp>
 #include <foxxll/io/request.hpp>
 #include <foxxll/io/request_interface.hpp>
-#include <foxxll/libstxxl.hpp>
+#include <foxxll/libfoxxll.hpp>
 #include <foxxll/unused.hpp>
 #include <foxxll/verbose.hpp>
 
