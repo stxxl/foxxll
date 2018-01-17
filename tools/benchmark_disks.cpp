@@ -288,6 +288,6 @@ int benchmark_disks(int argc, char* argv[])
         return -1;
     }
 
-    return benchmark_disks_alloc<STXXL_DEFAULT_ALLOC_STRATEGY>(
+    return benchmark_disks_alloc<foxxll::default_alloc_strategy>(
         length, offset, batch_size, block_size, optrw);
 }

@@ -36,7 +36,7 @@ template class foxxll::read_write_pool<block_type>;
 int main()
 {
     foxxll::block_manager* bm = foxxll::block_manager::get_instance();
-    STXXL_DEFAULT_ALLOC_STRATEGY alloc;
+    foxxll::default_alloc_strategy alloc;
 
     {
         LOG1 << "Write-After-Write coherence test";

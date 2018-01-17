@@ -252,7 +252,7 @@ int benchmark_disks_random(int argc, char* argv[])
         return -1;
     }
 
-    return run_alloc(STXXL_DEFAULT_ALLOC_STRATEGY);
+    return run_alloc(foxxll::default_alloc_strategy);
 #undef run_alloc
 }
 
