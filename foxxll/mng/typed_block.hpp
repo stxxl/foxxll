@@ -258,6 +258,8 @@ class typed_block
     : public mng_local::expand_struct<mng_local::block_w_info<Type, RawSize, NRef, MetaInfoType>, RawSize>
 {
     using Base = mng_local::expand_struct<mng_local::block_w_info<Type, RawSize, NRef, MetaInfoType>, RawSize>;
+    
+    constexpr static bool debug_block_life_cycle = false;
 
 public:
     using value_type = Type;
@@ -293,7 +295,7 @@ public:
     request_ptr write(const bid_type& bid,
                       completion_handler on_complete = completion_handler())
     {
-        FOXXLL_VERBOSE_BLOCK_LIFE_CYCLE("BLC:write  " << FMT_BID(bid));
+        LOGC(debug_block_life_cycle) << "BLC:write  " << FMT_BID(bid);
         return bid.storage->awrite(this, bid.offset, raw_size, on_complete);
     }
 
@@ -306,7 +308,7 @@ public:
     request_ptr read(const bid_type& bid,
                      completion_handler on_complete = completion_handler())
     {
-        FOXXLL_VERBOSE_BLOCK_LIFE_CYCLE("BLC:read   " << FMT_BID(bid));
+        LOGC(debug_block_life_cycle) << "BLC:read   " << FMT_BID(bid);
         return bid.storage->aread(this, bid.offset, raw_size, on_complete);
     }
 
@@ -319,7 +321,7 @@ public:
     request_ptr write(const BID<0>& bid,
                       completion_handler on_complete = completion_handler())
     {
-        FOXXLL_VERBOSE_BLOCK_LIFE_CYCLE("BLC:write  " << FMT_BID(bid));
+        LOGC(debug_block_life_cycle) << "BLC:write  " << FMT_BID(bid);
         assert(bid.size >= raw_size);
         return bid.storage->awrite(this, bid.offset, raw_size, on_complete);
     }
@@ -333,7 +335,7 @@ public:
     request_ptr read(const BID<0>& bid,
                      completion_handler on_complete = completion_handler())
     {
-        FOXXLL_VERBOSE_BLOCK_LIFE_CYCLE("BLC:read   " << FMT_BID(bid));
+        LOGC(debug_block_life_cycle) << "BLC:read   " << FMT_BID(bid);
         assert(bid.size >= raw_size);
         return bid.storage->aread(this, bid.offset, raw_size, on_complete);
     }

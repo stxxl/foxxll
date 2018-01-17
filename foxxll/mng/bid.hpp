@@ -20,13 +20,12 @@
 #include <iomanip>
 #include <ostream>
 
+#include <foxxll/common/utils.hpp>
 #include <foxxll/io/file.hpp>
 #include <foxxll/io/request.hpp>
 #include <tlx/simple_vector.hpp>
 
-#ifndef FOXXLL_VERBOSE_BLOCK_LIFE_CYCLE
-#define FOXXLL_VERBOSE_BLOCK_LIFE_CYCLE FOXXLL_VERBOSE2
-#endif
+#define FMT_BID(_bid_) "[" << (_bid_).storage->get_allocator_id() << "]0x" << std::hex << std::setfill('0') << std::setw(8) << (_bid_).offset << "/0x" << std::setw(8) << (_bid_).size
 
 namespace foxxll {
 
