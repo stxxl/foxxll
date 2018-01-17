@@ -23,6 +23,8 @@
 #include <foxxll/io/request.hpp>
 #include <foxxll/mng/bid.hpp>
 
+#include <tlx/unused.hpp>
+
 #ifndef STXXL_VERBOSE_TYPED_BLOCK
 #define STXXL_VERBOSE_TYPED_BLOCK STXXL_VERBOSE2
 #endif
@@ -261,7 +263,7 @@ public:
         static_assert(sizeof(typed_block) == raw_size,
                       "sizeof(typed_block) == raw_size");
         STXXL_MSG("[" << (void*)this << "] typed_block is copy constructed from [" << (void*)&tb << "]");
-        STXXL_UNUSED(tb);
+        tlx::UNUSED(tb);
     }
 #endif
 
@@ -274,7 +276,7 @@ public:
     request_ptr write(const bid_type& bid,
                       completion_handler on_complete = completion_handler())
     {
-        STXXL_VERBOSE_BLOCK_LIFE_CYCLE("BLC:write  " << FMT_BID(bid));
+        STXXL_VERBOSE_BLOCK_LIFE_CYCLE("BLC:write  " << bid);
         return bid.storage->awrite(this, bid.offset, raw_size, on_complete);
     }
 
@@ -287,7 +289,7 @@ public:
     request_ptr read(const bid_type& bid,
                      completion_handler on_complete = completion_handler())
     {
-        STXXL_VERBOSE_BLOCK_LIFE_CYCLE("BLC:read   " << FMT_BID(bid));
+        STXXL_VERBOSE_BLOCK_LIFE_CYCLE("BLC:read   " << bid);
         return bid.storage->aread(this, bid.offset, raw_size, on_complete);
     }
 
@@ -300,7 +302,7 @@ public:
     request_ptr write(const BID<0>& bid,
                       completion_handler on_complete = completion_handler())
     {
-        STXXL_VERBOSE_BLOCK_LIFE_CYCLE("BLC:write  " << FMT_BID(bid));
+        STXXL_VERBOSE_BLOCK_LIFE_CYCLE("BLC:write  " << bid);
         assert(bid.size >= raw_size);
         return bid.storage->awrite(this, bid.offset, raw_size, on_complete);
     }
@@ -314,7 +316,7 @@ public:
     request_ptr read(const BID<0>& bid,
                      completion_handler on_complete = completion_handler())
     {
-        STXXL_VERBOSE_BLOCK_LIFE_CYCLE("BLC:read   " << FMT_BID(bid));
+        STXXL_VERBOSE_BLOCK_LIFE_CYCLE("BLC:read   " << bid);
         assert(bid.size >= raw_size);
         return bid.storage->aread(this, bid.offset, raw_size, on_complete);
     }

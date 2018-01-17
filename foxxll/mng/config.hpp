@@ -69,6 +69,9 @@ public:
     //! return formatted fileio name and optional configuration parameters
     std::string fileio_string() const;
 
+    //! expand environmental variables in path
+    std::string expand_path(std::string) const;
+
 public:
     //! \name Optional Disk / File I/O Implementation Parameters
     //! \{
@@ -128,13 +131,7 @@ class config : public singleton<config>
 
     //! Constructor: this must be inlined to print the header version
     //! string.
-    inline config()
-        : is_initialized(false)
-    {
-        logger::get_instance();
-        STXXL_MSG(get_version_string_long());
-        print_library_version_mismatch();
-    }
+    config();
 
     //! deletes autogrow files
     ~config();
@@ -168,11 +165,7 @@ public:
     //!
     //! \warning This function should only be used during initialization, as it
     //! has no effect after construction of block_manager.
-    inline config & add_disk(const disk_config& cfg)
-    {
-        disks_list.push_back(cfg);
-        return *this;
-    }
+    config & add_disk(const disk_config& cfg);
 
     //! \}
 
@@ -181,14 +174,14 @@ protected:
     //! \{
 
     //! static counter for automatic physical device enumeration
-    unsigned int m_max_device_id;
+    unsigned int max_device_id_;
 
 public:
     //! Returns automatic physical device id counter
-    unsigned int get_max_device_id();
+    unsigned int max_device_id();
 
     //! Returns next automatic physical device id counter
-    unsigned int get_next_device_id();
+    unsigned int next_device_id();
 
     //! Update the automatic physical device id counter
     void update_max_device_id(unsigned int devid);
@@ -201,67 +194,43 @@ public:
 
     //! Returns number of disks available to user.
     //! \return number of disks
-    inline size_t disks_number()
+    size_t disks_number()
     {
         check_initialized();
         return disks_list.size();
     }
 
-    //! Returns contiguous range of regular disks w/o flash devices in the array of all disks.
-    //! \return range [begin, end) of regular disk indices
-    inline std::pair<unsigned, unsigned> regular_disk_range() const
-    {
-        assert(is_initialized);
-        return std::pair<unsigned, unsigned>(0, first_flash);
-    }
+    /*!
+     * Returns contiguous range of regular disks w/o flash devices in the array
+     * of all disks.
+     *
+     * \return range [begin, end) of regular disk indices
+     */
+    std::pair<unsigned, unsigned> regular_disk_range() const;
 
     //! Returns contiguous range of flash devices in the array of all disks.
     //! \return range [begin, end) of flash device indices
-    inline std::pair<unsigned, unsigned> flash_range() const
-    {
-        assert(is_initialized);
-        return std::pair<unsigned, unsigned>(first_flash, (unsigned)disks_list.size());
-    }
+    std::pair<unsigned, unsigned> flash_range() const;
 
     //! Returns mutable disk_config structure for additional disk parameters
-    inline disk_config & disk(size_t disk)
-    {
-        check_initialized();
-        return disks_list[disk];
-    }
+    disk_config & disk(size_t disk);
 
     //! Returns constant disk_config structure for additional disk parameters
-    inline const disk_config & disk(size_t disk) const
-    {
-        assert(is_initialized);
-        return disks_list[disk];
-    }
+    const disk_config & disk(size_t disk) const;
 
     //! Returns path of disks.
     //! \param disk disk's identifier
     //! \return string that contains the disk's path name
-    inline const std::string & disk_path(size_t disk) const
-    {
-        assert(is_initialized);
-        return disks_list[disk].path;
-    }
+    const std::string & disk_path(size_t disk) const;
 
     //! Returns disk size.
     //! \param disk disk's identifier
     //! \return disk size in bytes
-    inline external_size_type disk_size(size_t disk) const
-    {
-        assert(is_initialized);
-        return disks_list[disk].size;
-    }
+    external_size_type disk_size(size_t disk) const;
 
     //! Returns name of I/O implementation of particular disk.
     //! \param disk disk's identifier
-    inline const std::string & disk_io_impl(size_t disk) const
-    {
-        assert(is_initialized);
-        return disks_list[disk].io_impl;
-    }
+    const std::string & disk_io_impl(size_t disk) const;
 
     //! Returns the total size over all disks
     external_size_type total_size() const;

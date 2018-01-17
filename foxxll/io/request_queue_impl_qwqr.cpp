@@ -38,7 +38,7 @@ struct file_offset_match
         const request_ptr& b) const
     {
         // matching file and offset are enough to cause problems
-        return (a->get_offset() == b->get_offset()) &&
+        return (a->offset() == b->offset()) &&
                (a->get_file() == b->get_file());
     }
 };
@@ -46,8 +46,14 @@ struct file_offset_match
 request_queue_impl_qwqr::request_queue_impl_qwqr(int n)
     : thread_state_(NOT_RUNNING), sem_(0)
 {
-    STXXL_UNUSED(n);
+    tlx::unused(n);
     start_thread(worker, static_cast<void*>(this), thread_, thread_state_);
+}
+
+void request_queue_impl_qwqr::set_priority_op(const priority_op& op)
+{
+    //_priority_op = op;
+    tlx::unused(op);
 }
 
 void request_queue_impl_qwqr::add_request(request_ptr& req)
@@ -59,7 +65,7 @@ void request_queue_impl_qwqr::add_request(request_ptr& req)
     if (!dynamic_cast<serving_request*>(req.get()))
         STXXL_ERRMSG("Incompatible request submitted to running queue.");
 
-    if (req.get()->get_op() == request::READ)
+    if (req.get()->op() == request::READ)
     {
 #if STXXL_CHECK_FOR_PENDING_REQUESTS_ON_SUBMISSION
         {
@@ -105,7 +111,7 @@ bool request_queue_impl_qwqr::cancel_request(request_ptr& req)
         STXXL_ERRMSG("Incompatible request submitted to running queue.");
 
     bool was_still_in_queue = false;
-    if (req.get()->get_op() == request::READ)
+    if (req.get()->op() == request::READ)
     {
         std::unique_lock<std::mutex> lock(read_mutex_);
         queue_type::iterator pos

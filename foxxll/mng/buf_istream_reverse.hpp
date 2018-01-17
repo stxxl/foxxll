@@ -78,7 +78,7 @@ public:
 
         // calculate prefetch sequence
         const size_t ndisks = config::get_instance()->disks_number();
-        const size_t mdevid = config::get_instance()->get_max_device_id();
+        const size_t mdevid = config::get_instance()->max_device_id();
 
         prefetch_seq = new size_t[bids_.size()];
 

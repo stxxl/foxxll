@@ -21,6 +21,7 @@ set(LIBFOXXLL_SOURCES
 
   io/create_file.cpp
   io/disk_queued_file.cpp
+  io/disk_queues.cpp
   io/file.cpp
   io/fileperblock_file.cpp
   io/iostats.cpp

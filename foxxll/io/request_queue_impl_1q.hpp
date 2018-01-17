@@ -19,6 +19,7 @@
 #include <mutex>
 
 #include <foxxll/io/request_queue_impl_worker.hpp>
+#include <tlx/unused.hpp>
 
 namespace foxxll {
 
@@ -52,11 +53,7 @@ public:
     // also there were race conditions possible
     // and actually an old value was never restored once a new one was set ...
     // so just disable it and all it's nice implications
-    void set_priority_op(const priority_op& op) final
-    {
-        //_priority_op = op;
-        STXXL_UNUSED(op);
-    }
+    void set_priority_op(const priority_op& op) final;
 
     void add_request(request_ptr& req) final;
     bool cancel_request(request_ptr& req) final;

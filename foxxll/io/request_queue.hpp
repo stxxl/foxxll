@@ -16,6 +16,8 @@
 
 #include <foxxll/io/request.hpp>
 
+#include <tlx/unused.hpp>
+
 namespace foxxll {
 
 //! \addtogroup reqlayer
@@ -34,11 +36,16 @@ public:
     request_queue(const request_queue&) = delete;
     //! non-copyable: delete assignment operator
     request_queue& operator = (const request_queue&) = delete;
+    //! move-constructor: default
+    request_queue(request_queue&&) = default;
+    //! move-assignment operator: default
+    request_queue& operator = (request_queue&&) = default;
 
+public:
     virtual void add_request(request_ptr& req) = 0;
     virtual bool cancel_request(request_ptr& req) = 0;
     virtual ~request_queue() { }
-    virtual void set_priority_op(const priority_op& p) { STXXL_UNUSED(p); }
+    virtual void set_priority_op(const priority_op& p) { tlx::unused(p); }
 };
 
 //! \}

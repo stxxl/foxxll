@@ -21,6 +21,7 @@
 #include <string>
 
 #include <tlx/counting_ptr.hpp>
+#include <tlx/delegate.hpp>
 
 #include <foxxll/common/exceptions.hpp>
 #include <foxxll/io/request_interface.hpp>
@@ -42,7 +43,8 @@ using file_ptr = tlx::counting_ptr<file>;
 //! A reference counting pointer for \c request.
 using request_ptr = tlx::counting_ptr<request>;
 
-using completion_handler = std::function<void(request* r, bool success)>;
+//! completion handler
+using completion_handler = tlx::delegate<void(request* r, bool success)>;
 
 //! Request object encapsulating basic properties like file and offset.
 class request : virtual public request_interface, public tlx::reference_counter
@@ -54,24 +56,47 @@ protected:
     std::unique_ptr<io_error> error_;
 
 protected:
+    //! \name Base Parameter of an I/O Request
+    //! \{
+
+    //! file implementation to perform I/O with
     file* file_;
+    //! data buffer to transfer
     void* buffer_;
+    //! offset within file
     offset_type offset_;
+    //! number of bytes at buffer_ to transfer
     size_type bytes_;
+    //! READ or WRITE
     read_or_write op_;
+
+    //! \}
 
 public:
     request(const completion_handler& on_complete,
             file* file, void* buffer, offset_type offset, size_type bytes,
             read_or_write op);
 
+    //! non-copyable: delete copy-constructor
+    request(const request&) = delete;
+    //! non-copyable: delete assignment operator
+    request& operator = (const request&) = delete;
+    //! move-constructor: default
+    request(request&&) = default;
+    //! move-assignment operator: default
+    request& operator = (request&&) = default;
+
     virtual ~request();
 
+public:
+    //! \name Accessors
+    //! \{
+
     file * get_file() const { return file_; }
-    void * get_buffer() const { return buffer_; }
-    offset_type get_offset() const { return offset_; }
-    size_type get_size() const { return bytes_; }
-    read_or_write get_op() const { return op_; }
+    void * buffer() const { return buffer_; }
+    offset_type offset() const { return offset_; }
+    size_type bytes() const { return bytes_; }
+    read_or_write op() const { return op_; }
 
     void check_alignment() const;
 
@@ -79,17 +104,11 @@ public:
 
     //! Inform the request object that an error occurred during the I/O
     //! execution.
-    void error_occured(const char* msg)
-    {
-        error_.reset(new io_error(msg));
-    }
+    void error_occured(const char* msg);
 
     //! Inform the request object that an error occurred during the I/O
     //! execution.
-    void error_occured(const std::string& msg)
-    {
-        error_.reset(new io_error(msg));
-    }
+    void error_occured(const std::string& msg);
 
     //! Rises an exception if there were error with the I/O.
     void check_errors()
@@ -98,21 +117,9 @@ public:
             throw *(error_.get());
     }
 
-    bool overlaps_with(const request& o) const
-    {
-        return (file_ == o.file_) && (
-            ((offset_ <= o.offset_) && (o.offset_ < (offset_ + bytes_)))
-            || ((o.offset_ <= offset_) && (offset_ < (o.offset_ + o.bytes_))));
-    }
-
-    bool contains(const request& o) const
-    {
-        return (file_ == o.file_)
-               && (offset_ <= o.offset_)
-               && ((offset_ + bytes_) >= (o.offset_ + o.bytes_));
-    }
-
     const char * io_type() const override;
+
+    //! \}
 
 protected:
     void check_nref(bool after = false)

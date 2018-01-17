@@ -29,6 +29,7 @@
 #include <foxxll/unused.hpp>
 #include <foxxll/verbose.hpp>
 #include <tlx/simple_vector.hpp>
+#include <tlx/unused.hpp>
 
 namespace foxxll {
 namespace async_schedule_local {
@@ -198,7 +199,7 @@ void compute_prefetch_schedule(
     }
 
     delete[] write_order;
-    STXXL_UNUSED(w_steps);
+    tlx::unused(w_steps);
 }
 
 } // namespace foxxll
