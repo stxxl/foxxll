@@ -16,6 +16,8 @@
 
 #include <string>
 
+#include <tlx/die.hpp>
+
 #include <foxxll/config.hpp>
 #include <foxxll/verbose.hpp>
 
@@ -84,9 +86,9 @@ inline void print_library_version_mismatch()
 {
     if (foxxll::check_library_version() != 0)
     {
-        STXXL_ERRMSG("version mismatch between headers" <<
-                     " (" << FOXXLL_VERSION_STRING ") and library" <<
-                     " (" << get_library_version_string() << ")");
+        die("version mismatch between headers"
+             " (" << FOXXLL_VERSION_STRING ") and library"
+             " (" << get_library_version_string() << ")");
     }
 }
 
