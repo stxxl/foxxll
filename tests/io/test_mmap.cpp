@@ -11,6 +11,7 @@
  *  http://www.boost.org/LICENSE_1_0.txt)
  **************************************************************************/
 
+#include <tlx/die.hpp>
 #include <tlx/logger.hpp>
 
 #include <foxxll/common/aligned_alloc.hpp>
@@ -60,8 +61,8 @@ void testIOException()
 {
     foxxll::file::unlink("TestFile");
     // try to open non-existing files
-    FOXXLL_CHECK_THROW(foxxll::mmap_file file1("TestFile", foxxll::file::RDWR, 0), foxxll::io_error);
-    FOXXLL_CHECK_THROW(foxxll::syscall_file file1("TestFile", foxxll::file::RDWR, 0), foxxll::io_error);
+    die_unless_throws(foxxll::mmap_file file1("TestFile", foxxll::file::RDWR, 0), foxxll::io_error);
+    die_unless_throws(foxxll::syscall_file file1("TestFile", foxxll::file::RDWR, 0), foxxll::io_error);
 }
 
 int main()

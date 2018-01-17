@@ -163,22 +163,5 @@ void print_msg(const char* label, const std::string& msg, unsigned flags);
         }                                                                                  \
     } while (0)
 
-// FOXXLL_CHECK_THROW is an assertion macro for unit tests, which checks that
-// the enclosed code throws an exception.
-
-#define FOXXLL_CHECK_THROW(code, exception_type)              \
-    do {                                                      \
-        bool t_ = false; try { code; }                        \
-        catch (const exception_type&) { t_ = true; }          \
-        if (t_) break;                                        \
-        _STXXL_PRINT("STXXL-CHECK-THROW",                     \
-                     #code " - NO EXCEPTION " #exception_type \
-                     " @ " __FILE__ ":" << __LINE__,          \
-                     _STXXL_PRINT_FLAGS_ERROR);               \
-        abort();                                              \
-    } while (0)
-
-////////////////////////////////////////////////////////////////////////////
-
 #endif // !FOXXLL_VERBOSE_HEADER
 // vim: et:ts=4:sw=4

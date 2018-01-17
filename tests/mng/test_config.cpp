@@ -38,11 +38,11 @@ void test1()
 
     // bad configurations
 
-    FOXXLL_CHECK_THROW(
+    die_unless_throws(
         cfg.parse_line("disk=/var/tmp/foxxll.tmp, 100 GiB, wincall_fileperblock unlink direct=on"),
         std::runtime_error);
 
-    FOXXLL_CHECK_THROW(
+    die_unless_throws(
         cfg.parse_line("disk=/var/tmp/foxxll.tmp,0x,syscall"),
         std::runtime_error);
 }
