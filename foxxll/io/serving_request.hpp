@@ -24,6 +24,8 @@ namespace foxxll {
 //! Request which serves an I/O by calling the synchronous routine of the file.
 class serving_request : public request_with_state
 {
+    constexpr static bool debug = false;
+
     template <class base_file_type>
     friend class fileperblock_file;
 

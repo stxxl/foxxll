@@ -36,6 +36,8 @@ namespace foxxll {
 //! Only one queue exists in a program, i.e. it is a singleton.
 class linuxaio_queue : public request_queue_impl_worker
 {
+    constexpr static bool debug = false;
+
     friend class linuxaio_request;
 
     using self_type = linuxaio_queue;

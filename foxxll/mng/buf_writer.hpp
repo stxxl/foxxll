@@ -34,6 +34,7 @@ namespace foxxll {
 template <typename BlockType>
 class buffered_writer
 {
+    constexpr static bool debug = false;
     using block_type = BlockType;
     using bid_type = typename block_type::bid_type;
 

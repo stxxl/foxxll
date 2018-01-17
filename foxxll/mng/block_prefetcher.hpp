@@ -55,6 +55,8 @@ public:
 template <typename BlockType, typename BidIteratorType>
 class block_prefetcher
 {
+    constexpr static bool debug = false;
+
 public:
     using block_type = BlockType;
     using bid_iterator_type = BidIteratorType;

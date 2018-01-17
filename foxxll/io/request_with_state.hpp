@@ -26,6 +26,8 @@ namespace foxxll {
 //! Request with completion shared_state.
 class request_with_state : public request_with_waiters
 {
+    constexpr static bool debug = false;
+
 protected:
     //! states of request.
     //! OP - operating, DONE - request served, READY2DIE - can be destroyed

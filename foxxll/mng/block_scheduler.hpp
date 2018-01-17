@@ -50,6 +50,8 @@ namespace foxxll {
 template <typename ValueType, size_t BlockSize>
 class swappable_block
 {
+    constexpr static bool debug = false;
+
 protected:
     static const size_t raw_block_size = BlockSize * sizeof(ValueType);
 
@@ -262,6 +264,8 @@ class block_scheduler_algorithm_online_lru;
 template <class SwappableBlockType>
 class block_scheduler
 {
+    constexpr static bool debug = false;
+
 protected:
     // tuning-parameter: To acquire blocks, internal memory has to be allocated.
     // This constant limits the number of internal_blocks allocated at once.

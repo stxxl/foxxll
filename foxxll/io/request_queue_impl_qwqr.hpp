@@ -33,6 +33,8 @@ namespace foxxll {
 //! implementation.
 class request_queue_impl_qwqr final : public request_queue_impl_worker
 {
+    constexpr static bool debug = false;
+
 private:
     using self = request_queue_impl_qwqr;
     using queue_type = std::list<request_ptr>;

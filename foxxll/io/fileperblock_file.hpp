@@ -27,6 +27,8 @@ namespace foxxll {
 template <class base_file_type>
 class fileperblock_file : public disk_queued_file
 {
+    constexpr static bool debug = false;
+
 private:
     std::string filename_prefix_;
     int mode_;

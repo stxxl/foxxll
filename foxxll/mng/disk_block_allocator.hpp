@@ -42,6 +42,8 @@ namespace foxxll {
  */
 class disk_block_allocator
 {
+    constexpr static bool debug = false;
+
     //! pair (offset, size) used for free space calculation
     using place = std::pair<uint64_t, uint64_t>;
     using space_map_type = std::map<uint64_t, uint64_t>;

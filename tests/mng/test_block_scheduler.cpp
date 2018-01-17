@@ -14,10 +14,11 @@
 #include <iostream>
 #include <limits>
 
+#include <tlx/cmdline_parser.hpp>
+#include <tlx/die.hpp>
 #include <tlx/logger.hpp>
 
 #include <foxxll/mng/block_scheduler.hpp>
-#include <tlx/cmdline_parser.hpp>
 
 using foxxll::external_size_type;
 

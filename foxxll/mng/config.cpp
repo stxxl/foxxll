@@ -40,7 +40,7 @@ namespace foxxll {
 
 static inline bool exist_file(const std::string& path)
 {
-    LOG << "Checking " << path << " for disk configuration.";
+    LOG0 << "Checking " << path << " for disk configuration.";
     std::ifstream in(path.c_str());
     return in.good();
 }

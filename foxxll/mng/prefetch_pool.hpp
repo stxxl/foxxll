@@ -33,6 +33,8 @@ namespace foxxll {
 template <class BlockType>
 class prefetch_pool
 {
+    constexpr static bool debug = false;
+
 public:
     using block_type = BlockType;
     using bid_type = typename block_type::bid_type;

@@ -32,6 +32,7 @@
 
 namespace foxxll {
 namespace async_schedule_local {
+constexpr static bool debug = false;
 
 // only one type of event: WRITE COMPLETED
 struct sim_event
@@ -170,6 +171,8 @@ void compute_prefetch_schedule(
     size_t m,
     size_t D)
 {
+    constexpr bool debug = false;
+
     using pair_type = std::pair<size_t, size_t>;
     size_t L = last - first;
     if (L <= D)

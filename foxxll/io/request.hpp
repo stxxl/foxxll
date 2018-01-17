@@ -48,6 +48,7 @@ using completion_handler = tlx::delegate<void(request* r, bool success)>;
 //! Request object encapsulating basic properties like file and offset.
 class request : virtual public request_interface, public tlx::reference_counter
 {
+    constexpr static bool debug = false;
     friend class linuxaio_queue;
 
 protected:

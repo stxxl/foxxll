@@ -52,6 +52,8 @@ namespace foxxll {
  */
 class block_manager : public singleton<block_manager>
 {
+    constexpr static bool debug = false;
+
 public:
     /*!
      * Allocates new blocks.
