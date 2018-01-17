@@ -23,13 +23,13 @@
 #include <utility>
 #include <vector>
 
+#include <tlx/simple_vector.hpp>
+#include <tlx/unused.hpp>
+
 #include <foxxll/common/types.hpp>
 #include <foxxll/io/file.hpp>
 #include <foxxll/mng/async_schedule.hpp>
-#include <foxxll/unused.hpp>
 #include <foxxll/verbose.hpp>
-#include <tlx/simple_vector.hpp>
-#include <tlx/unused.hpp>
 
 namespace foxxll {
 namespace async_schedule_local {

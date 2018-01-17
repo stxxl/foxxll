@@ -20,6 +20,8 @@
 #include <ostream>
 #include <string>
 
+#include <tlx/unused.hpp>
+
 #include <foxxll/common/exceptions.hpp>
 #include <foxxll/common/types.hpp>
 #include <foxxll/config.hpp>
@@ -27,7 +29,6 @@
 #include <foxxll/io/request.hpp>
 #include <foxxll/io/request_interface.hpp>
 #include <foxxll/libfoxxll.hpp>
-#include <foxxll/unused.hpp>
 #include <foxxll/verbose.hpp>
 
 #include <tlx/counting_ptr.hpp>

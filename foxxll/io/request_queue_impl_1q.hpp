@@ -18,8 +18,9 @@
 #include <list>
 #include <mutex>
 
-#include <foxxll/io/request_queue_impl_worker.hpp>
 #include <tlx/unused.hpp>
+
+#include <foxxll/io/request_queue_impl_worker.hpp>
 
 namespace foxxll {
 
