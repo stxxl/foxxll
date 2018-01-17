@@ -284,20 +284,6 @@ include(CheckIncludeFileCXX)
 
 check_include_file_cxx(pthread.h HAVE_PTHREAD_H)
 
-# check for std::mutex and std::threads avalability
-check_cxx_source_compiles(
-  "#include <mutex>
-    int main() { std::mutex mutex; mutex.lock(); return 0; }"
-  HAVE_STD_MUTEX)
-
-check_cxx_source_compiles(
-  "#include <thread>
-    int main() { std::thread t; return 0; }"
-  HAVE_STD_THREAD)
-
-# also check for <random>
-check_include_file_cxx(random FOXXLL_STD_RANDOM)
-
 ###############################################################################
 # determine large file support
 #     note: these flags need not be exported, all file operations must be
@@ -367,27 +353,6 @@ check_cxx_source_compiles(
        return (r == 0) ? 0 : -1;
    }"
    FOXXLL_HAVE_LINUXAIO_FILE)
-
-###############################################################################
-# optional OpenMP parallelization
-
-if(USE_OPENMP)
-
-  include(FindOpenMP)
-
-  if(NOT OPENMP_FOUND)
-    message(STATUS "OpenMP not found. Continuing without parallel algorithm support.")
-  else()
-    message(STATUS "OpenMP found, enabling built-in parallel algorithms.")
-
-    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${OpenMP_C_FLAGS}")
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OpenMP_CXX_FLAGS}")
-    set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${OpenMP_EXE_LINKER_FLAGS}")
-  endif()
-
-else()
-  message(STATUS "OpenMP disabled in FOXXLL (no parallelism is used).")
-endif(USE_OPENMP)
 
 ###############################################################################
 # test for additional includes and features used by some foxxll_tool components
