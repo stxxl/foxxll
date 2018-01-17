@@ -30,7 +30,7 @@ void syscall_file::serve(void* buffer, offset_type offset, size_type bytes,
 {
     std::unique_lock<std::mutex> fd_lock(fd_mutex_);
 
-    char* cbuffer = static_cast<char*>(buffer);
+    auto* cbuffer = static_cast<char*>(buffer);
 
     file_stats::scoped_read_write_timer read_write_timer(
         file_stats_, bytes, op == request::WRITE);

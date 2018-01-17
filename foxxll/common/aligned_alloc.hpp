@@ -56,7 +56,7 @@ inline void * aligned_alloc(size_t size, size_t meta_info_size = 0)
     // accesses can't be detected easily.
     // Overhead: about Alignment bytes.
     size_t alloc_size = Alignment + sizeof(char*) + meta_info_size + size;
-    char* buffer = static_cast<char*>(std::malloc(alloc_size));
+    auto* buffer = static_cast<char*>(std::malloc(alloc_size));
 #else
     // More space consuming and memory fragmenting variant using
     // posix_memalign() instead of malloc()/realloc(). Ensures that the end
@@ -89,7 +89,7 @@ inline void * aligned_alloc(size_t size, size_t meta_info_size = 0)
     // so access behind the requested size can be recognized
     size_t realloc_size = static_cast<size_t>(result - buffer) + meta_info_size + size;
     if (realloc_size < alloc_size && aligned_alloc_settings<int>::may_use_realloc) {
-        char* realloced = static_cast<char*>(std::realloc(buffer, realloc_size));
+        auto* realloced = static_cast<char*>(std::realloc(buffer, realloc_size));
         if (buffer != realloced) {
             // hmm, realloc does move the memory block around while shrinking,
             // might run under valgrind, so disable realloc and retry

@@ -57,8 +57,8 @@ int main()
     std::unique_ptr<block_type[]> block(new block_type[nblocks]);
 
     STXXL_MSG(std::hex);
-    STXXL_MSG("Allocated block address    : " << (size_t)(block.get()));
-    STXXL_MSG("Allocated block address + 1: " << (size_t)(block.get() + 1));
+    STXXL_MSG("Allocated block address    : " << reinterpret_cast<size_t>(block.get()));
+    STXXL_MSG("Allocated block address + 1: " << reinterpret_cast<size_t>(block.get() + 1));
     STXXL_MSG(std::dec);
 
     for (size_t i = 0; i < nblocks; i++) {

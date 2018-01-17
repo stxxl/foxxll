@@ -41,7 +41,7 @@ int main(int argc, char** argv)
     constexpr size_t size = 16 * 1024 * 1024;
     constexpr size_t kNumBlocks = 16;
 
-    char* buffer = (char*)foxxll::aligned_alloc<4096>(size);
+    auto* buffer = static_cast<char*>(foxxll::aligned_alloc<4096>(size));
     memset(buffer, 0, size);
 
     foxxll::file_ptr file = foxxll::create_file(

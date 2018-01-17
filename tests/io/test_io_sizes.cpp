@@ -25,7 +25,7 @@ int main(int argc, char** argv)
     }
 
     size_t max_size = atoi(argv[3]);
-    size_t* buffer = (size_t*)foxxll::aligned_alloc<4096>(max_size);
+    auto* buffer = static_cast<size_t*>(foxxll::aligned_alloc<4096>(max_size));
 
     try
     {
