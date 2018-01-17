@@ -206,7 +206,7 @@ stats::stats()
       acc_wait_read_(0.0), acc_wait_write_(0.0)
 { }
 
-#ifndef STXXL_DO_NOT_COUNT_WAIT_TIME
+#ifndef FOXXLL_DO_NOT_COUNT_WAIT_TIME
 void stats::wait_started(wait_op_type wait_op)
 {
     const double now = timestamp();
@@ -769,7 +769,7 @@ void stats_data::to_ostream(std::ostream& o, const std::string line_prefix) cons
           << "max: " << pio_speed_summary.max / one_mib << " MiB/s"
           << "\n" << line_prefix;
     }
-#ifndef STXXL_DO_NOT_COUNT_WAIT_TIME
+#ifndef FOXXLL_DO_NOT_COUNT_WAIT_TIME
     o << " I/O wait time                              : "
       << get_io_wait_time() << " s\n" << line_prefix;
     if (get_wait_read_time() != 0.0)

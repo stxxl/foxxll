@@ -36,7 +36,7 @@
 //          for the same block, usually causing coherency problems on
 //          out-of-order execution
 
-//#define STXXL_DO_NOT_COUNT_WAIT_TIME
+//#define FOXXLL_DO_NOT_COUNT_WAIT_TIME
 // default: not defined
 // used in: io/iostats.{h,cpp}
 // effect:  makes calls to wait time counting functions no-ops

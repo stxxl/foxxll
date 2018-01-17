@@ -366,14 +366,14 @@ public:
 
     class scoped_wait_timer
     {
-#ifndef STXXL_DO_NOT_COUNT_WAIT_TIME
+#ifndef FOXXLL_DO_NOT_COUNT_WAIT_TIME
         bool running_ = false;
         wait_op_type wait_op_;
 #endif
 
     public:
         explicit scoped_wait_timer(wait_op_type wait_op, bool measure_time = true)
-#ifndef STXXL_DO_NOT_COUNT_WAIT_TIME
+#ifndef FOXXLL_DO_NOT_COUNT_WAIT_TIME
             : wait_op_(wait_op)
 #endif
         {
@@ -388,7 +388,7 @@ public:
 
         void start()
         {
-#ifndef STXXL_DO_NOT_COUNT_WAIT_TIME
+#ifndef FOXXLL_DO_NOT_COUNT_WAIT_TIME
             if (!running_) {
                 running_ = true;
                 stats::get_instance()->wait_started(wait_op_);
@@ -398,7 +398,7 @@ public:
 
         void stop()
         {
-#ifndef STXXL_DO_NOT_COUNT_WAIT_TIME
+#ifndef FOXXLL_DO_NOT_COUNT_WAIT_TIME
             if (running_) {
                 stats::get_instance()->wait_finished(wait_op_);
                 running_ = false;
@@ -475,7 +475,7 @@ public:
     void wait_finished(wait_op_type wait_op_);
 };
 
-#ifdef STXXL_DO_NOT_COUNT_WAIT_TIME
+#ifdef FOXXLL_DO_NOT_COUNT_WAIT_TIME
 inline void stats::wait_started(wait_op_type) { }
 inline void stats::wait_finished(wait_op_type) { }
 #endif
