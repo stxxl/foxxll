@@ -171,7 +171,7 @@ file_ptr create_file(disk_config& cfg, int mode, int disk_allocator_id)
         return result;
     }
 #endif
-#if STXXL_HAVE_WINCALL_FILE
+#if FOXXLL_HAVE_WINCALL_FILE
     else if (cfg.io_impl == "wincall")
     {
         tlx::counting_ptr<wfs_file_base> result =

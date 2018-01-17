@@ -16,7 +16,7 @@
 #define FOXXLL_DEFINES_HEADER
 
 //#define FOXXLL_HAVE_MMAP_FILE 0/1
-//#define STXXL_HAVE_WINCALL_FILE 0/1
+//#define FOXXLL_HAVE_WINCALL_FILE 0/1
 //#define FOXXLL_HAVE_LINUXAIO_FILE 0/1
 // default: 0/1 (platform and type dependent)
 // used in: io/*_file.h, io/*_file.cpp, mng/mng.cpp

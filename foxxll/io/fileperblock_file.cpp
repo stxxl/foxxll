@@ -151,7 +151,7 @@ template class fileperblock_file<syscall_file>;
 template class fileperblock_file<mmap_file>;
 #endif
 
-#if STXXL_HAVE_WINCALL_FILE
+#if FOXXLL_HAVE_WINCALL_FILE
 template class fileperblock_file<wincall_file>;
 #endif
 

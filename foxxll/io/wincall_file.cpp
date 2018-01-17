@@ -13,7 +13,7 @@
 
 #include <foxxll/io/wincall_file.hpp>
 
-#if STXXL_HAVE_WINCALL_FILE
+#if FOXXLL_HAVE_WINCALL_FILE
 
 #include <limits>
 
@@ -105,5 +105,5 @@ const char* wincall_file::io_type() const
 
 } // namespace foxxll
 
-#endif // #if STXXL_HAVE_WINCALL_FILE
+#endif // #if FOXXLL_HAVE_WINCALL_FILE
 // vim: et:ts=4:sw=4

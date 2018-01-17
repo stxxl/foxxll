@@ -17,15 +17,15 @@
 
 #include <foxxll/config.hpp>
 
-#ifndef STXXL_HAVE_WINCALL_FILE
+#ifndef FOXXLL_HAVE_WINCALL_FILE
 #if FOXXLL_WINDOWS
- #define STXXL_HAVE_WINCALL_FILE 1
+ #define FOXXLL_HAVE_WINCALL_FILE 1
 #else
- #define STXXL_HAVE_WINCALL_FILE 0
+ #define FOXXLL_HAVE_WINCALL_FILE 0
 #endif
 #endif
 
-#if STXXL_HAVE_WINCALL_FILE
+#if FOXXLL_HAVE_WINCALL_FILE
 
 #include <string>
 
@@ -67,6 +67,6 @@ public:
 
 } // namespace foxxll
 
-#endif // #if STXXL_HAVE_WINCALL_FILE
+#endif // #if FOXXLL_HAVE_WINCALL_FILE
 
 #endif // !FOXXLL_IO_WINCALL_FILE_HEADER
