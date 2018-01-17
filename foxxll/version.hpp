@@ -87,8 +87,8 @@ inline void print_library_version_mismatch()
     if (foxxll::check_library_version() != 0)
     {
         die("version mismatch between headers"
-             " (" << FOXXLL_VERSION_STRING ") and library"
-             " (" << get_library_version_string() << ")");
+            " (" << FOXXLL_VERSION_STRING ") and library"
+            " (" << get_library_version_string() << ")");
     }
 }
 

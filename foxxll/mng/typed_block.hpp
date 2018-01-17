@@ -258,7 +258,7 @@ class typed_block
     : public mng_local::expand_struct<mng_local::block_w_info<Type, RawSize, NRef, MetaInfoType>, RawSize>
 {
     using Base = mng_local::expand_struct<mng_local::block_w_info<Type, RawSize, NRef, MetaInfoType>, RawSize>;
-    
+
     constexpr static bool debug_block_life_cycle = false;
 
 public:

@@ -25,7 +25,7 @@
 #include <foxxll/config.hpp>
 #include <foxxll/io/request_operations.hpp>
 
-#define FOXXLL_VERBOSE_WPOOL(msg) FOXXLL_VERBOSE1("write_pool[" << static_cast<void*>(this) << "]" << msg)
+#define FOXXLL_VERBOSE_WPOOL(msg) LOG << "write_pool[" << static_cast<void*>(this) << "]" << msg
 
 namespace foxxll {
 
@@ -279,6 +279,8 @@ protected:
                              " are completed out of " << busy_blocks.size() + cnt << " busy blocks");
     }
 };
+
+#undef FOXXLL_VERBOSE_WPOOL
 
 //! \}
 

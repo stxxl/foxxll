@@ -26,52 +26,52 @@ request::request(
       file_(file), buffer_(buffer), offset_(offset), bytes_(bytes),
       op_(op)
 {
-    FOXXLL_VERBOSE3_THIS("request::(...), ref_cnt=" << reference_count());
+    LOG << "request_with_state[" << static_cast<void*>(this) << "]::request(...), ref_cnt=" << reference_count();
     file_->add_request_ref();
 }
 
 request::~request()
 {
-    FOXXLL_VERBOSE3_THIS("request::~request(), ref_cnt=" << reference_count());
+    LOG << "request_with_state[" << static_cast<void*>(this) << "]::~request(), ref_cnt=" << reference_count();
 }
 
 void request::check_alignment() const
 {
     if (offset_ % FoxxllBlockAlignment != 0)
-        STXXL_ERRMSG("Offset is not aligned: modulo " <<
-                     FoxxllBlockAlignment << " = " << offset_ % FoxxllBlockAlignment);
+        LOG1 << "Offset is not aligned: modulo " <<
+            FoxxllBlockAlignment << " = " << offset_ % FoxxllBlockAlignment;
 
     if (bytes_ % FoxxllBlockAlignment != 0)
-        STXXL_ERRMSG("Size is not a multiple of " <<
-                     FoxxllBlockAlignment << ", = " << bytes_ % FoxxllBlockAlignment);
+        LOG1 << "Size is not a multiple of " <<
+            FoxxllBlockAlignment << ", = " << bytes_ % FoxxllBlockAlignment;
 
     if (size_t(buffer_) % FoxxllBlockAlignment != 0)
-        STXXL_ERRMSG("Buffer is not aligned: modulo " <<
-                     FoxxllBlockAlignment << " = " << size_t(buffer_) % FoxxllBlockAlignment <<
-                     " (" << buffer_ << ")");
+        LOG1 << "Buffer is not aligned: modulo " <<
+            FoxxllBlockAlignment << " = " << size_t(buffer_) % FoxxllBlockAlignment <<
+            " (" << buffer_ << ")";
 }
 
 void request::check_nref_failed(bool after)
 {
-    STXXL_ERRMSG("WARNING: serious error, reference to the request is lost " <<
-                 (after ? "after" : "before") << " serve()" <<
-                 " nref=" << reference_count() <<
-                 " this=" << this <<
-                 " offset=" << offset_ <<
-                 " buffer=" << buffer_ <<
-                 " bytes=" << bytes_ <<
-                 " op=" << ((op_ == READ) ? "READ" : "WRITE") <<
-                 " file=" << file_ <<
-                 " iotype=" << file_->io_type());
+    LOG1 << "WARNING: serious error, reference to the request is lost " <<
+    (after ? "after" : "before") << " serve()" <<
+        " nref=" << reference_count() <<
+        " this=" << this <<
+        " offset=" << offset_ <<
+        " buffer=" << buffer_ <<
+        " bytes=" << bytes_ <<
+        " op=" << ((op_ == READ) ? "READ" : "WRITE") <<
+        " file=" << file_ <<
+        " iotype=" << file_->io_type();
 }
 
 std::ostream& request::print(std::ostream& out) const
 {
-    out << "File object address: " << file_;
-    out << " Buffer address: " << static_cast<void*>(buffer_);
-    out << " File offset: " << offset_;
-    out << " Transfer size: " << bytes_ << " bytes";
-    out << " Type of transfer: " << ((op_ == READ) ? "READ" : "WRITE");
+    out << "File object address: " << file_
+        << " Buffer address: " << static_cast<void*>(buffer_)
+        << " File offset: " << offset_
+        << " Transfer size: " << bytes_ << " bytes"
+        " Type of transfer: " << ((op_ == READ) ? "READ" : "WRITE");
     return out;
 }
 

@@ -49,7 +49,7 @@ template <size_t Alignment>
 inline void * aligned_alloc(size_t size, size_t meta_info_size = 0)
 {
     LOGC(debug_aligned_alloc) << "foxxll::aligned_alloc<" << Alignment << ">(), "
-         "size = " << size << ", meta info size = " << meta_info_size;
+        "size = " << size << ", meta info size = " << meta_info_size;
 #if !defined(STXXL_WASTE_MORE_MEMORY_FOR_IMPROVED_ACCESS_AFTER_ALLOCATED_MEMORY_CHECKS)
     // malloc()/realloc() variant that frees the unused amount of memory
     // after the data area of size 'size'. realloc() from valgrind does not
@@ -105,12 +105,12 @@ inline void * aligned_alloc(size_t size, size_t meta_info_size = 0)
 
     *(((char**)result) - 1) = buffer;
     LOGC(debug_aligned_alloc) << "foxxll::aligned_alloc<" << Alignment << ">(), allocated at " <<
-        (void*)buffer << " returning " << (void*)result;
+    (void*)buffer << " returning " << (void*)result;
 
     LOGC(debug_aligned_alloc) <<
         "foxxll::aligned_alloc<" << Alignment <<
-            ">(size = " << size << ", meta info size = " << meta_info_size <<
-            ") => buffer = " << (void*)buffer << ", ptr = " << (void*)result;
+        ">(size = " << size << ", meta info size = " << meta_info_size <<
+        ") => buffer = " << (void*)buffer << ", ptr = " << (void*)result;
 
     return result;
 }

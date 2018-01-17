@@ -176,11 +176,11 @@ public:
 
     virtual ~file()
     {
-        size_t nr = get_request_nref();
-        if (nr != 0)
-            STXXL_ERRMSG("foxxll::file is being deleted while there are "
-                         "still " << nr << " (unfinished) requests "
-                         "referencing it");
+        const size_t nr = get_request_nref();
+        if (nr != 0) {
+            LOG1 << "foxxll::file is being deleted while there are still "
+                 << nr << " (unfinished) requests referencing it";
+        }
     }
 
     //! Identifies the type of I/O implementation.

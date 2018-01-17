@@ -84,15 +84,15 @@ protected:
 
     block_type * wait(size_t iblock)
     {
-        FOXXLL_VERBOSE1("block_prefetcher: waiting block " << iblock);
+        LOG << "block_prefetcher: waiting block " << iblock;
         {
             stats::scoped_wait_timer wait_timer(stats::WAIT_OP_READ);
 
             completed[iblock].wait_for_on();
         }
-        FOXXLL_VERBOSE1("block_prefetcher: finished waiting block " << iblock);
+        LOG << "block_prefetcher: finished waiting block " << iblock;
         size_t ibuffer = pref_buffer[iblock];
-        FOXXLL_VERBOSE1("block_prefetcher: returning buffer " << ibuffer);
+        LOG << "block_prefetcher: returning buffer " << ibuffer;
         assert(ibuffer >= 0 && ibuffer < nreadblocks);
         return (read_buffers + ibuffer);
     }
@@ -120,8 +120,8 @@ public:
           nreadblocks(nextread),
           do_after_fetch(do_after_fetch)
     {
-        FOXXLL_VERBOSE1("block_prefetcher: seq_length=" << seq_length);
-        FOXXLL_VERBOSE1("block_prefetcher: _prefetch_buf_size=" << _prefetch_buf_size);
+        LOG << "block_prefetcher: seq_length=" << seq_length;
+        LOG << "block_prefetcher: _prefetch_buf_size=" << _prefetch_buf_size;
         assert(seq_length > 0);
         assert(_prefetch_buf_size > 0);
         size_t i;
@@ -138,10 +138,10 @@ public:
         {
             assert(prefetch_seq[i] < seq_length);
             read_bids[i] = *(consume_seq_begin + prefetch_seq[i]);
-            FOXXLL_VERBOSE1("block_prefetcher: reading block " << i <<
-                            " prefetch_seq[" << i << "]=" << prefetch_seq[i] <<
-                            " @ " << &read_buffers[i] <<
-                            " @ " << read_bids[i]);
+            LOG << "block_prefetcher: reading block " << i <<
+                " prefetch_seq[" << i << "]=" << prefetch_seq[i] <<
+                " @ " << &read_buffers[i] <<
+                " @ " << read_bids[i];
             read_reqs[i] = read_buffers[i].read(
                 read_bids[i],
                 set_switch_handler(*(completed + prefetch_seq[i]), do_after_fetch));
@@ -158,7 +158,7 @@ public:
     //! \return Pointer to the already prefetched block from the internal buffer pool
     block_type * pull_block()
     {
-        FOXXLL_VERBOSE1("block_prefetcher: pulling a block");
+        LOG << "block_prefetcher: pulling a block";
         return wait(nextconsume++);
     }
     //! Exchanges buffers between prefetcher and application.
@@ -169,7 +169,7 @@ public:
     bool block_consumed(block_type*& buffer)
     {
         size_t ibuffer = buffer - read_buffers;
-        FOXXLL_VERBOSE1("block_prefetcher: buffer " << ibuffer << " consumed");
+        LOG << "block_prefetcher: buffer " << ibuffer << " consumed";
         if (read_reqs[ibuffer].valid())
             read_reqs[ibuffer]->wait();
 
@@ -179,7 +179,7 @@ public:
         {
             assert(ibuffer >= 0 && ibuffer < nreadblocks);
             size_t next_2_prefetch = prefetch_seq[nextread++];
-            FOXXLL_VERBOSE1("block_prefetcher: prefetching block " << next_2_prefetch);
+            LOG << "block_prefetcher: prefetching block " << next_2_prefetch;
 
             assert(next_2_prefetch < seq_length);
             assert(!completed[next_2_prefetch].is_on());

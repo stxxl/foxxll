@@ -112,7 +112,7 @@ void fileperblock_file<base_file_type>::discard(offset_type offset, offset_type 
         LOG1 << "remove() error on path=" << filename_for_block(offset) << " error=" << strerror(errno);
 #endif
 
-    FOXXLL_VERBOSE2("discard " << offset << " + " << length);
+    LOG << "discard " << offset << " + " << length;
 }
 
 template <class base_file_type>

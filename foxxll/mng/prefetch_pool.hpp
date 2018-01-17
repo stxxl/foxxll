@@ -19,6 +19,8 @@
 #include <unordered_map>
 #include <utility>
 
+#include <tlx/logger.hpp>
+
 #include <foxxll/config.hpp>
 #include <foxxll/mng/write_pool.hpp>
 
@@ -171,7 +173,7 @@ public:
     {
         // if block is already hinted, no need to hint it again
         if (in_prefetching(bid)) {
-            FOXXLL_VERBOSE2("prefetch_pool::hint2 bid=" << bid << " was already cached");
+            LOG << "prefetch_pool::hint2 bid=" << bid << " was already cached";
             return true;
         }
 
@@ -180,12 +182,12 @@ public:
             --free_blocks_size;
             block_type* block = free_blocks.back();
             free_blocks.pop_back();
-            FOXXLL_VERBOSE2("prefetch_pool::hint bid=" << bid << " => prefetching");
+            LOG << "prefetch_pool::hint bid=" << bid << " => prefetching";
             request_ptr req = block->read(bid);
             busy_blocks[bid] = busy_entry(block, req);
             return true;
         }
-        FOXXLL_VERBOSE2("prefetch_pool::hint bid=" << bid << " => no free blocks for prefetching");
+        LOG << "prefetch_pool::hint bid=" << bid << " => no free blocks for prefetching";
         return false;
     }
 
@@ -209,7 +211,7 @@ public:
     {
         // if block is already hinted, no need to hint it again
         if (in_prefetching(bid)) {
-            FOXXLL_VERBOSE2("prefetch_pool::hint2 bid=" << bid << " was already cached");
+            LOG << "prefetch_pool::hint2 bid=" << bid << " was already cached";
             return true;
         }
 
@@ -221,18 +223,18 @@ public:
             if (w_pool.has_request(bid))
             {
                 busy_entry wp_request = w_pool.steal_request(bid);
-                FOXXLL_VERBOSE1("prefetch_pool::hint2 bid=" << bid << " was in write cache at " << wp_request.first);
+                LOG << "prefetch_pool::hint2 bid=" << bid << " was in write cache at " << wp_request.first;
                 assert(wp_request.first != 0);
                 w_pool.add(block);  //in exchange
                 busy_blocks[bid] = wp_request;
                 return true;
             }
-            FOXXLL_VERBOSE2("prefetch_pool::hint2 bid=" << bid << " => prefetching");
+            LOG << "prefetch_pool::hint2 bid=" << bid << " => prefetching";
             request_ptr req = block->read(bid);
             busy_blocks[bid] = busy_entry(block, req);
             return true;
         }
-        FOXXLL_VERBOSE2("prefetch_pool::hint2 bid=" << bid << " => no free blocks for prefetching");
+        LOG << "prefetch_pool::hint2 bid=" << bid << " => no free blocks for prefetching";
         return false;
     }
 
@@ -300,12 +302,12 @@ public:
         if (cache_el == busy_blocks.end())
         {
             // not cached
-            FOXXLL_VERBOSE1("prefetch_pool::read bid=" << bid << " => no copy in cache, retrieving to " << block);
+            LOG << "prefetch_pool::read bid=" << bid << " => no copy in cache, retrieving to " << block;
             return block->read(bid);
         }
 
         // cached
-        FOXXLL_VERBOSE1("prefetch_pool::read bid=" << bid << " => copy in cache exists");
+        LOG << "prefetch_pool::read bid=" << bid << " => copy in cache exists";
         ++free_blocks_size;
         free_blocks.push_back(block);
         block = cache_el->second.first;
@@ -321,7 +323,7 @@ public:
         if (cache_el != busy_blocks.end())
         {
             // cached
-            FOXXLL_VERBOSE1("prefetch_pool::read bid=" << bid << " => copy in cache exists");
+            LOG << "prefetch_pool::read bid=" << bid << " => copy in cache exists";
             ++free_blocks_size;
             free_blocks.push_back(block);
             block = cache_el->second.first;
@@ -334,7 +336,7 @@ public:
         if (w_pool.has_request(bid))
         {
             busy_entry wp_request = w_pool.steal_request(bid);
-            FOXXLL_VERBOSE1("prefetch_pool::read bid=" << bid << " was in write cache at " << wp_request.first);
+            LOG << "prefetch_pool::read bid=" << bid << " was in write cache at " << wp_request.first;
             assert(wp_request.first != 0);
             w_pool.add(block);  //in exchange
             block = wp_request.first;
@@ -342,7 +344,7 @@ public:
         }
 
         // not cached
-        FOXXLL_VERBOSE1("prefetch_pool::read bid=" << bid << " => no copy in cache, retrieving to " << block);
+        LOG << "prefetch_pool::read bid=" << bid << " => no copy in cache, retrieving to " << block;
         return block->read(bid);
     }
 

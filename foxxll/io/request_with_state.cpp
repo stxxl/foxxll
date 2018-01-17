@@ -27,20 +27,14 @@ namespace foxxll {
 
 request_with_state::~request_with_state()
 {
-    FOXXLL_VERBOSE3_THIS("request_with_state::~(), ref_cnt: " << reference_count());
+    LOG << "request_with_state[" << static_cast<void*>(this) << "]::~(), ref_cnt: " << reference_count();
 
     assert(state_() == DONE || state_() == READY2DIE);
-
-    // if(state_() != DONE && state_()!= READY2DIE )
-    // STXXL_ERRMSG("WARNING: serious stxxl inconsistency: Request is being deleted while I/O not finished. "<<
-    //              "Please submit a bug report.");
-
-    // state_.wait_for (READY2DIE); // does not make sense ?
 }
 
 void request_with_state::wait(bool measure_time)
 {
-    FOXXLL_VERBOSE3_THIS("request_with_state::wait()");
+    LOG << "request_with_state[" << static_cast<void*>(this) << "]::wait()";
 
     stats::scoped_wait_timer wait_timer(
         op_ == READ ? stats::WAIT_OP_READ : stats::WAIT_OP_WRITE, measure_time);
@@ -52,8 +46,8 @@ void request_with_state::wait(bool measure_time)
 
 bool request_with_state::cancel()
 {
-    FOXXLL_VERBOSE3_THIS("request_with_state::cancel() "
-                         << file_ << " " << buffer_ << " " << offset_);
+    LOG << "request_with_state[" << static_cast<void*>(this) << "]::cancel() "
+        << file_ << " " << buffer_ << " " << offset_;
 
     if (!file_) return false;
 
@@ -84,7 +78,7 @@ bool request_with_state::poll()
 
 void request_with_state::completed(bool canceled)
 {
-    FOXXLL_VERBOSE3_THIS("request_with_state::completed()");
+    LOG << "request_with_state[" << static_cast<void*>(this) << "]::completed()";
     // change state
     state_.set_to(DONE);
     // user callback

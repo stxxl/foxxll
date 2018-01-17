@@ -194,12 +194,12 @@ void* request_queue_impl_qwqr::worker(void* arg)
 
                 read_lock.unlock();
 
-                FOXXLL_VERBOSE2("queue: before serve request has "
-                                << req->reference_count() << " references ");
+                LOG << "queue: before serve request has "
+                    << req->reference_count() << " references ";
                 //assert(req->get_reference_count() > 1);
                 dynamic_cast<serving_request*>(req.get())->serve();
-                FOXXLL_VERBOSE2("queue: after serve request has "
-                                << req->reference_count() << " references ");
+                LOG << "queue: after serve request has "
+                    << req->reference_count() << " references ";
             }
             else
             {

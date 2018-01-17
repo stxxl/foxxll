@@ -26,8 +26,8 @@ namespace foxxll {
 
 void linuxaio_request::completed(bool posted, bool canceled)
 {
-    FOXXLL_VERBOSE_LINUXAIO("linuxaio_request[" << this << "] completed(" <<
-                            posted << "," << canceled << ")");
+    LOG << "linuxaio_request[" << this << "] completed(" <<
+        posted << "," << canceled << ")";
 
     auto* stats = file_->get_file_stats();
     const double duration = timestamp() - time_posted_;
@@ -98,7 +98,7 @@ bool linuxaio_request::post()
 //! Routine is called by user, as part of the request interface.
 bool linuxaio_request::cancel()
 {
-    FOXXLL_VERBOSE_LINUXAIO("linuxaio_request[" << this << "] cancel()");
+    LOG << "linuxaio_request[" << this << "] cancel()";
 
     if (!file_) return false;
 

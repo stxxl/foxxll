@@ -10,10 +10,6 @@
  *  http://www.boost.org/LICENSE_1_0.txt)
  **************************************************************************/
 
-#define FOXXLL_VERBOSE_LEVEL 0
-#define FOXXLL_VERBOSE_ALIGNED_ALLOC FOXXLL_VERBOSE0
-#define FOXXLL_VERBOSE_TYPED_BLOCK FOXXLL_VERBOSE0
-
 #include <iostream>
 #include <vector>
 
