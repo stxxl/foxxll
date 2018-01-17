@@ -21,6 +21,7 @@
 #include <string>
 
 #include <tlx/counting_ptr.hpp>
+#include <tlx/delegate.hpp>
 
 #include <foxxll/common/exceptions.hpp>
 #include <foxxll/io/request_interface.hpp>
@@ -42,7 +43,8 @@ using file_ptr = tlx::counting_ptr<file>;
 //! A reference counting pointer for \c request.
 using request_ptr = tlx::counting_ptr<request>;
 
-using completion_handler = std::function<void(request* r, bool success)>;
+//! completion handler
+using completion_handler = tlx::delegate<void(request* r, bool success)>;
 
 //! Request object encapsulating basic properties like file and offset.
 class request : virtual public request_interface, public tlx::reference_counter
