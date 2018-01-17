@@ -7,7 +7,7 @@
  *  Copyright (C) 2008-2010 Andreas Beckmann <beckmann@cs.uni-frankfurt.de>
  *  Copyright (C) 2009, 2010 Johannes Singler <singler@kit.edu>
  *  Copyright (C) 2016 Alex Schickedanz <alex@ae.cs.uni-frankfurt.de>
- *  Copyright (C) 2018 Manuel Penschuck <foxxll@manuel.jetzt>
+ *  Copyright (C) 2017 Manuel Penschuck <manuel@ae.cs.uni-frankfurt.de>
  *
  *  Distributed under the Boost Software License, Version 1.0.
  *  (See accompanying file LICENSE_1_0.txt or copy at

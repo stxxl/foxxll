@@ -38,11 +38,8 @@ protected:
 
 protected:
     void start_thread(
-        std::function<void*(void*)> worker, void* arg,
+        void* (*worker)(void*), void* arg,
         std::thread& t, shared_state<thread_state>& s);
-
-    void stop_thread_with_callback(
-        std::thread& t, shared_state<thread_state>& s, std::function<void()> f);
 
     void stop_thread(
         std::thread& t, shared_state<thread_state>& s, semaphore& sem);

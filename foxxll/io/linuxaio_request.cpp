@@ -57,8 +57,8 @@ void linuxaio_request::fill_control_block()
     linuxaio_file* af = dynamic_cast<linuxaio_file*>(file_);
 
     memset(&cb_, 0, sizeof(cb_));
-
-    cb_.aio_data = reinterpret_cast<__u64>(this);
+    // indirection, so the I/O system retains a counting_ptr reference
+    cb_.aio_data = reinterpret_cast<__u64>(new request_ptr(this));
     cb_.aio_fildes = af->file_des_;
     cb_.aio_lio_opcode = (op_ == READ) ? IOCB_CMD_PREAD : IOCB_CMD_PWRITE;
     cb_.aio_reqprio = 0;
@@ -67,10 +67,29 @@ void linuxaio_request::fill_control_block()
     cb_.aio_offset = offset_;
 }
 
-void linuxaio_request::prepare_post()
+//! Submits an I/O request to the OS
+//! \returns false if submission fails
+bool linuxaio_request::post()
 {
+    STXXL_VERBOSE_LINUXAIO("linuxaio_request[" << this << "] post()");
+
     fill_control_block();
+    iocb* cb_pointer = &cb_;
+    // io_submit might considerable time, so we have to remember the current
+    // time before the call.
     time_posted_ = timestamp();
+    linuxaio_queue* queue = dynamic_cast<linuxaio_queue*>(
+        disk_queues::get_instance()->get_queue(file_->get_queue_id()));
+
+    long success = syscall(SYS_io_submit, queue->get_io_context(), 1, &cb_pointer);
+    // At this point another thread may have already called complete(),
+    // so consider most values as invalidated!
+
+    if (success == -1 && errno != EAGAIN)
+        STXXL_THROW_ERRNO(io_error, "linuxaio_request::post"
+                          " io_submit()");
+
+    return success == 1;
 }
 
 //! Cancel the request
@@ -86,6 +105,22 @@ bool linuxaio_request::cancel()
     linuxaio_queue* queue = dynamic_cast<linuxaio_queue*>(
         disk_queues::get_instance()->get_queue(file_->get_queue_id()));
     return queue->cancel_request(req);
+}
+
+//! Cancel already posted request
+bool linuxaio_request::cancel_aio()
+{
+    STXXL_VERBOSE_LINUXAIO("linuxaio_request[" << this << "] cancel_aio()");
+
+    if (!file_) return false;
+
+    io_event event;
+    linuxaio_queue* queue = dynamic_cast<linuxaio_queue*>(
+        disk_queues::get_instance()->get_queue(file_->get_queue_id()));
+    long result = syscall(SYS_io_cancel, queue->get_io_context(), &cb_, &event);
+    if (result == 0)    //successfully canceled
+        queue->handle_events(&event, 1, true);
+    return result == 0;
 }
 
 } // namespace foxxll

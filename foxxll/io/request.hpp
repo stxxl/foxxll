@@ -117,12 +117,6 @@ public:
             throw *(error_.get());
     }
 
-    //! true if range overlaps with this request's range
-    bool overlaps_with(const request& o) const;
-
-    //! true if range contains this request's range
-    bool contains(const request& o) const;
-
     const char * io_type() const override;
 
     //! \}

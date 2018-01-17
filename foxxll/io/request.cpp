@@ -85,20 +85,6 @@ void request::error_occured(const std::string& msg)
     error_.reset(new io_error(msg));
 }
 
-bool request::overlaps_with(const request& o) const
-{
-    return (file_ == o.file_) && (
-        ((offset_ <= o.offset_) && (o.offset_ < (offset_ + bytes_))) ||
-        ((o.offset_ <= offset_) && (offset_ < (o.offset_ + o.bytes_))));
-}
-
-bool request::contains(const request& o) const
-{
-    return (file_ == o.file_) &&
-           (offset_ <= o.offset_) &&
-           ((offset_ + bytes_) >= (o.offset_ + o.bytes_));
-}
-
 const char* request::io_type() const
 {
     return file_->io_type();
