@@ -18,8 +18,6 @@
 
 #include <foxxll/io/request.hpp>
 
-#include <tlx/unused.hpp>
-
 namespace foxxll {
 
 //! \addtogroup reqlayer

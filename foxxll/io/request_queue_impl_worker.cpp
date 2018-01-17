@@ -23,7 +23,7 @@
 #include <foxxll/config.hpp>
 #include <foxxll/io/request_queue_impl_worker.hpp>
 
-#if STXXL_MSVC >= 1700
+#if FOXXLL_MSVC >= 1700
  #include <windows.hpp>
 #endif
 
@@ -44,7 +44,7 @@ void request_queue_impl_worker::stop_thread(
     assert(s() == RUNNING);
     s.set_to(TERMINATING);
     sem.signal();
-#if STXXL_MSVC >= 1700
+#if FOXXLL_MSVC >= 1700
     // In the Visual C++ Runtime 2012 and 2013, there is a deadlock bug, which
     // occurs when threads are joined after main() exits. Apparently, Microsoft
     // thinks this is not a big issue. It has not been fixed in VC++RT 2013.

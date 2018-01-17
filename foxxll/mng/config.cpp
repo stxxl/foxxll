@@ -48,8 +48,7 @@ static inline bool exist_file(const std::string& path)
 config::config()
     : is_initialized(false)
 {
-    logger::get_instance();
-    STXXL_MSG(get_version_string_long());
+    LOG1 << get_version_string_long();
     print_library_version_mismatch();
 }
 

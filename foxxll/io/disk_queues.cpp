@@ -1,7 +1,7 @@
 /***************************************************************************
  *  foxxll/io/disk_queues.cpp
  *
- *  Part of the STXXL. See http://stxxl.org
+ *  Part of FOXXLL. See http://foxxll.org
  *
  *  Copyright (C) 2002 Roman Dementiev <dementiev@mpi-sb.mpg.de>
  *  Copyright (C) 2008-2010 Andreas Beckmann <beckmann@cs.uni-frankfurt.de>
@@ -44,7 +44,7 @@ void disk_queues::make_queue(file* file)
         return;
 
     // create new request queue
-#if STXXL_HAVE_LINUXAIO_FILE
+#if FOXXLL_HAVE_LINUXAIO_FILE
     if (const linuxaio_file* af =
             dynamic_cast<const linuxaio_file*>(file)) {
         queues_[queue_id] = new linuxaio_queue(af->get_desired_queue_length());
@@ -56,7 +56,7 @@ void disk_queues::make_queue(file* file)
 
 void disk_queues::add_request(request_ptr& req, disk_id_type disk)
 {
-#ifdef STXXL_HACK_SINGLE_IO_THREAD
+#ifdef FOXXLL_HACK_SINGLE_IO_THREAD
     disk = 42;
 #endif
     request_queue_map::iterator qi = queues_.find(disk);
@@ -64,7 +64,7 @@ void disk_queues::add_request(request_ptr& req, disk_id_type disk)
     if (qi == queues_.end())
     {
         // create new request queue
-#if STXXL_HAVE_LINUXAIO_FILE
+#if FOXXLL_HAVE_LINUXAIO_FILE
         if (dynamic_cast<linuxaio_request*>(req.get()))
             q = queues_[disk] = new linuxaio_queue(
                     dynamic_cast<linuxaio_file*>(req->get_file())->get_desired_queue_length());
@@ -80,7 +80,7 @@ void disk_queues::add_request(request_ptr& req, disk_id_type disk)
 
 bool disk_queues::cancel_request(request_ptr& req, disk_id_type disk)
 {
-#ifdef STXXL_HACK_SINGLE_IO_THREAD
+#ifdef FOXXLL_HACK_SINGLE_IO_THREAD
     disk = 42;
 #endif
     if (queues_.find(disk) != queues_.end())

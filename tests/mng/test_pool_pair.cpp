@@ -73,7 +73,7 @@ int main()
         p_pool.read(blk, bid)->wait();
 
         die_with_message_unless((*blk)[0].integer == 23,
-                      "WRITE-AFTER-WRITE COHERENCE FAILURE");
+                                "WRITE-AFTER-WRITE COHERENCE FAILURE");
 
         w_pool.add(blk);
         bm->delete_block(bid);
@@ -105,7 +105,7 @@ int main()
         p_pool.read(blk, bid)->wait();
 
         die_with_message_unless((*blk)[0].integer == 23,
-                      "WRITE-AFTER-HINT COHERENCE FAILURE");
+                                "WRITE-AFTER-HINT COHERENCE FAILURE");
 
         w_pool.add(blk);
         bm->delete_block(bid);
@@ -137,7 +137,7 @@ int main()
         p_pool.read(blk, bid)->wait();
 
         die_with_message_unless((*blk)[0].integer == 23,
-                      "WRITE-AFTER-HINT COHERENCE FAILURE");
+                                "WRITE-AFTER-HINT COHERENCE FAILURE");
 
         w_pool.add(blk);
         bm->delete_block(bid);

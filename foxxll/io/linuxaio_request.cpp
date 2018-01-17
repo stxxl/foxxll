@@ -71,7 +71,7 @@ void linuxaio_request::fill_control_block()
 //! \returns false if submission fails
 bool linuxaio_request::post()
 {
-    STXXL_VERBOSE_LINUXAIO("linuxaio_request[" << this << "] post()");
+    LOG << "linuxaio_request[" << this << "] post()";
 
     fill_control_block();
     iocb* cb_pointer = &cb_;
@@ -86,8 +86,8 @@ bool linuxaio_request::post()
     // so consider most values as invalidated!
 
     if (success == -1 && errno != EAGAIN)
-        STXXL_THROW_ERRNO(io_error, "linuxaio_request::post"
-                          " io_submit()");
+        FOXXLL_THROW_ERRNO(io_error, "linuxaio_request::post"
+                           " io_submit()");
 
     return success == 1;
 }
@@ -110,7 +110,7 @@ bool linuxaio_request::cancel()
 //! Cancel already posted request
 bool linuxaio_request::cancel_aio()
 {
-    STXXL_VERBOSE_LINUXAIO("linuxaio_request[" << this << "] cancel_aio()");
+    LOG << "linuxaio_request[" << this << "] cancel_aio()";
 
     if (!file_) return false;
 

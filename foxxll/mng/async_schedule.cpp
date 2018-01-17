@@ -32,6 +32,7 @@
 
 namespace foxxll {
 namespace async_schedule_local {
+
 constexpr static bool debug = false;
 
 // only one type of event: WRITE COMPLETED

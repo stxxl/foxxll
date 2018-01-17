@@ -14,12 +14,15 @@
 
 #include <foxxll/io/linuxaio_queue.hpp>
 
-#if STXXL_HAVE_LINUXAIO_FILE
+#if FOXXLL_HAVE_LINUXAIO_FILE
 
 #include <sys/syscall.h>
 #include <unistd.h>
 
 #include <algorithm>
+
+#include <tlx/die.hpp>
+#include <tlx/logger.hpp>
 
 #include <foxxll/common/error_handling.hpp>
 #include <foxxll/io/linuxaio_request.hpp>
@@ -48,13 +51,13 @@ linuxaio_queue::linuxaio_queue(int desired_queue_length)
         max_events_ <<= 1;               // try with half as many events
     }
     if (result != 0) {
-        STXXL_THROW_ERRNO(io_error, "linuxaio_queue::linuxaio_queue"
-                          " io_setup() nr_events=" << max_events_);
+        FOXXLL_THROW_ERRNO(io_error, "linuxaio_queue::linuxaio_queue"
+                           " io_setup() nr_events=" << max_events_);
     }
 
     num_free_events_.signal(max_events_);
 
-    STXXL_MSG("Set up an linuxaio queue with " << max_events_ << " entries.");
+    LOG1 << "Set up an linuxaio queue with " << max_events_ << " entries.";
 
     start_thread(post_async, static_cast<void*>(this), post_thread_, post_thread_state_);
     start_thread(wait_async, static_cast<void*>(this), wait_thread_, wait_thread_state_);
@@ -70,11 +73,11 @@ linuxaio_queue::~linuxaio_queue()
 void linuxaio_queue::add_request(request_ptr& req)
 {
     if (req.empty())
-        STXXL_THROW_INVALID_ARGUMENT("Empty request submitted to disk_queue.");
+        FOXXLL_THROW_INVALID_ARGUMENT("Empty request submitted to disk_queue.");
     if (post_thread_state_() != RUNNING)
-        STXXL_ERRMSG("Request submitted to stopped queue.");
+        die("Request submitted to stopped queue.");
     if (!dynamic_cast<linuxaio_request*>(req.get()))
-        STXXL_ERRMSG("Non-LinuxAIO request submitted to LinuxAIO queue.");
+        die("Non-LinuxAIO request submitted to LinuxAIO queue.");
 
     std::unique_lock<std::mutex> lock(waiting_mtx_);
 
@@ -85,13 +88,13 @@ void linuxaio_queue::add_request(request_ptr& req)
 bool linuxaio_queue::cancel_request(request_ptr& req)
 {
     if (req.empty())
-        STXXL_THROW_INVALID_ARGUMENT("Empty request canceled disk_queue.");
+        FOXXLL_THROW_INVALID_ARGUMENT("Empty request canceled disk_queue.");
     if (post_thread_state_() != RUNNING)
-        STXXL_ERRMSG("Request canceled in stopped queue.");
+        die("Request canceled in stopped queue.");
 
     linuxaio_request* areq = dynamic_cast<linuxaio_request*>(req.get());
     if (!areq)
-        STXXL_ERRMSG("Non-LinuxAIO request submitted to LinuxAIO queue.");
+        die("Non-LinuxAIO request submitted to LinuxAIO queue.");
 
     queue_type::iterator pos;
     {
@@ -170,8 +173,8 @@ void linuxaio_queue::post_requests()
                 long num_events = syscall(
                     SYS_io_getevents, context_, 1, max_events_, events, nullptr);
                 if (num_events < 0) {
-                    STXXL_THROW_ERRNO(io_error, "linuxaio_queue::post_requests"
-                                      " io_getevents() nr_events=" << num_events);
+                    FOXXLL_THROW_ERRNO(io_error, "linuxaio_queue::post_requests"
+                                       " io_getevents() nr_events=" << num_events);
                 }
 
                 handle_events(events, num_events, false);
@@ -234,8 +237,8 @@ void linuxaio_queue::wait_requests()
                     continue;
                 }
 
-                STXXL_THROW_ERRNO(io_error, "linuxaio_queue::wait_requests"
-                                  " io_getevents() nr_events=" << max_events_);
+                FOXXLL_THROW_ERRNO(io_error, "linuxaio_queue::wait_requests"
+                                   " io_getevents() nr_events=" << max_events_);
             }
             break;
         }
@@ -255,7 +258,7 @@ void* linuxaio_queue::post_async(void* arg)
     self_type* pthis = static_cast<self_type*>(arg);
     pthis->post_thread_state_.set_to(TERMINATED);
 
-#if STXXL_MSVC >= 1700
+#if FOXXLL_MSVC >= 1700
     // Workaround for deadlock bug in Visual C++ Runtime 2012 and 2013, see
     // request_queue_impl_worker.cpp. -tb
     ExitThread(nullptr);
@@ -271,7 +274,7 @@ void* linuxaio_queue::wait_async(void* arg)
     self_type* pthis = static_cast<self_type*>(arg);
     pthis->wait_thread_state_.set_to(TERMINATED);
 
-#if STXXL_MSVC >= 1700
+#if FOXXLL_MSVC >= 1700
     // Workaround for deadlock bug in Visual C++ Runtime 2012 and 2013, see
     // request_queue_impl_worker.cpp. -tb
     ExitThread(nullptr);
@@ -282,5 +285,5 @@ void* linuxaio_queue::wait_async(void* arg)
 
 } // namespace foxxll
 
-#endif // #if STXXL_HAVE_LINUXAIO_FILE
+#endif // #if FOXXLL_HAVE_LINUXAIO_FILE
 // vim: et:ts=4:sw=4

@@ -20,9 +20,9 @@
 
 #include <linux/aio_abi.h>
 
-#include <foxxll/io/request_with_state.hpp>
+#include <tlx/logger.hpp>
 
-#define STXXL_VERBOSE_LINUXAIO(msg) STXXL_VERBOSE2(msg)
+#include <foxxll/io/request_with_state.hpp>
 
 namespace foxxll {
 
@@ -51,12 +51,11 @@ public:
         : request_with_state(on_complete, file, buffer, offset, bytes, op)
     {
         assert(dynamic_cast<linuxaio_file*>(file));
-        STXXL_VERBOSE_LINUXAIO(
-            "linuxaio_request[" << this << "]" <<
-                " linuxaio_request" <<
-                "(file=" << file << " buffer=" << buffer <<
-                " offset=" << offset << " bytes=" << bytes <<
-                " op=" << op << ")");
+        LOG << "linuxaio_request[" << this << "]" <<
+            " linuxaio_request" <<
+            "(file=" << file << " buffer=" << buffer <<
+            " offset=" << offset << " bytes=" << bytes <<
+            " op=" << op << ")";
     }
 
     bool post();

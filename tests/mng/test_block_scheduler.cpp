@@ -102,7 +102,7 @@ void test1()
         for (size_t i = 0; i < block_size; ++i)
             num_err += (ib[i] != i);
         die_with_message_unless(num_err == 0,
-                      "previously initialized block had " << num_err << " errors.");
+                                "previously initialized block had " << num_err << " errors.");
     }
     {
         // get a new reference to the already allocated block (because we forgot the old one)
@@ -223,7 +223,7 @@ void test1()
 
     int_bl->read(ext_bl)->wait();
     die_with_message_unless(test_pattern_B(*int_bl) == 0,
-                  "after extraction changed block should contain pattern B.");
+                            "after extraction changed block should contain pattern B.");
     delete int_bl;
 }
 

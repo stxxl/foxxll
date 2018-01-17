@@ -64,7 +64,7 @@ void test2()
         die_unequal(disk1.size, 100 * 1024 * uint64_t(1024));
         die_unequal(disk1.autogrow, 1);
         die_unequal(disk1.fileio_string(),
-                           "syscall direct=off unlink_on_open");
+                    "syscall direct=off unlink_on_open");
 
         config->add_disk(disk1);
 
@@ -75,7 +75,7 @@ void test2()
         die_unequal(disk2.path, "/tmp/foxxll-2.tmp");
         die_unequal(disk2.size, 200 * 1024 * uint64_t(1024));
         die_unequal(disk2.fileio_string(),
-                           "syscall autogrow=no direct=off unlink_on_open");
+                    "syscall autogrow=no direct=off unlink_on_open");
         die_unequal(disk2.direct, 0);
 
         config->add_disk(disk2);

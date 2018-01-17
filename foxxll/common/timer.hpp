@@ -90,14 +90,14 @@ public:
         running = false;
         auto delta = timestamp() - last_clock;
 
-        std::unique_lock<std::mutex> (mutex_accumulated);
+        std::unique_lock<std::mutex>(mutex_accumulated);
         accumulated += delta;
     }
 
     //! return accumulated time
     void reset()
     {
-        std::unique_lock<std::mutex> (mutex_accumulated);
+        std::unique_lock<std::mutex>(mutex_accumulated);
         accumulated = 0.;
         last_clock = timestamp();
     }
@@ -105,7 +105,7 @@ public:
     //! return currently accumulated time in milliseconds
     double mseconds() const
     {
-        std::unique_lock<std::mutex> (mutex_accumulated);
+        std::unique_lock<std::mutex>(mutex_accumulated);
 
         if (running)
             return (accumulated + timestamp() - last_clock) * 1000.;
@@ -118,7 +118,7 @@ public:
     {
         auto delta = timestamp() - last_clock;
 
-        std::unique_lock<std::mutex> (mutex_accumulated);
+        std::unique_lock<std::mutex>(mutex_accumulated);
 
         if (running)
             return (accumulated + delta) * 1000000.;
@@ -131,7 +131,7 @@ public:
     {
         auto delta = timestamp() - last_clock;
 
-        std::unique_lock<std::mutex> (mutex_accumulated);
+        std::unique_lock<std::mutex>(mutex_accumulated);
 
         if (running)
             return (accumulated + delta);
@@ -143,7 +143,7 @@ public:
     timer& operator += (const timer& tm)
     {
         auto delta = tm.seconds();
-        std::unique_lock<std::mutex> (mutex_accumulated);
+        std::unique_lock<std::mutex>(mutex_accumulated);
 
         accumulated += delta;
         return *this;

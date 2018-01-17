@@ -20,6 +20,7 @@
 #include <ostream>
 #include <string>
 
+#include <tlx/counting_ptr.hpp>
 #include <tlx/unused.hpp>
 
 #include <foxxll/common/exceptions.hpp>
@@ -29,9 +30,6 @@
 #include <foxxll/io/request.hpp>
 #include <foxxll/io/request_interface.hpp>
 #include <foxxll/libfoxxll.hpp>
-
-#include <tlx/counting_ptr.hpp>
-#include <tlx/unused.hpp>
 
 #if defined(__linux__)
  #define FOXXLL_CHECK_BLOCK_ALIGNING
