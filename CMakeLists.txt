@@ -650,9 +650,9 @@ if(FOXXLL_TRY_COMPILE_HEADERS)
 
   file(MAKE_DIRECTORY "${PROJECT_BINARY_DIR}/try_compile")
 
+  set(header_files "")
   file(GLOB_RECURSE header_files
-    RELATIVE "${PROJECT_SOURCE_DIR}/include" FOLLOW_SYMLINKS "include/*")
-  list(REMOVE_ITEM header_files "stxxl/bits/config.h.in")
+    RELATIVE "${PROJECT_SOURCE_DIR}"  "${PROJECT_SOURCE_DIR}/foxxll/*.hpp")
 
   foreach(header_file ${header_files})
     # replace / and . with _ to get a valid target and file name
