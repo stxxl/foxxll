@@ -27,7 +27,6 @@
 #ifndef STXXL_VERBOSE_BLOCK_LIFE_CYCLE
 #define STXXL_VERBOSE_BLOCK_LIFE_CYCLE STXXL_VERBOSE2
 #endif
-#define FMT_BID(_bid_) "[" << (_bid_).storage->get_allocator_id() << "]0x" << std::hex << std::setfill('0') << std::setw(8) << (_bid_).offset << "/0x" << std::setw(8) << (_bid_).size
 
 namespace foxxll {
 
@@ -38,8 +37,9 @@ namespace foxxll {
 //!
 //! Stores block identity, given by file and offset within the file
 template <size_t Size>
-struct BID
+class BID
 {
+public:
     //! Block size
     static constexpr size_t size = Size;
     //! Blocks size, given by the parameter
@@ -54,10 +54,12 @@ struct BID
 
     BID(file* s, const external_size_type& o) : storage(s), offset(o) { }
 
+    //! construction from another block size
     template <size_t BlockSize>
     explicit BID(const BID<BlockSize>& obj)
         : storage(obj.storage), offset(obj.offset) { }
 
+    //! assignment from another block size
     template <size_t BlockSize>
     BID& operator = (const BID<BlockSize>& obj)
     {
@@ -108,8 +110,9 @@ struct BID
  * block
  */
 template <>
-struct BID<0>
+class BID<0>
 {
+public:
     //! pointer to the file of the block
     file* storage = nullptr;
     //! offset within the file of the block (uint64_t)
