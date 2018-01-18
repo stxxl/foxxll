@@ -55,7 +55,7 @@ private:
     //! max number of OS requests
     int max_events_;
     //! number of requests in waitings_requests
-    semaphore num_waiting_requests_, num_free_events_, num_posted_requests_;
+    tlx::semaphore num_waiting_requests_, num_free_events_, num_posted_requests_;
 
     // two threads, one for posting, one for waiting
     std::thread post_thread_, wait_thread_;
