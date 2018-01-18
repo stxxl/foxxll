@@ -96,6 +96,7 @@ ufs_file_base::ufs_file_base(const std::string& filename, int mode)
 
     if ((file_des_ = ::open(filename_.c_str(), flags, perms)) >= 0)
     {
+        need_alignment_ = (mode & DIRECT) != 0;
         _after_open();
         return;
     }

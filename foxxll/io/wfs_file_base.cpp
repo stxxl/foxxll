@@ -116,6 +116,7 @@ wfs_file_base::wfs_file_base(const std::string& filename, int mode)
       mode_(mode), filename(filename), locked(false)
 {
     file_des_ = open_file_impl(filename, mode);
+    need_alignment_ = (mode& file::DIRECT) != 0;
 
     if (!(mode & NO_LOCK))
     {
