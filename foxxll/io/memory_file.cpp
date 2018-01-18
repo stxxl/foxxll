@@ -82,7 +82,7 @@ void memory_file::discard(offset_type offset, offset_type size)
     }
     assert(size <= std::numeric_limits<offset_type>::max());
     if (size > 0)
-        memcpy(ptr_ + offset, uninitialized, (size_t)size);
+        memcpy(ptr_ + offset, uninitialized, static_cast<size_t>(size));
     free(uninitialized);
 #else
     tlx::unused(offset);

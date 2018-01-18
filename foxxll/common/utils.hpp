@@ -119,7 +119,7 @@ inline size_t longhash1(uint64_t key_)
     key_ ^= (key_ >> 15);
     key_ += ~(key_ << 27);
     key_ ^= (key_ >> 31);
-    return (size_t)key_;
+    return static_cast<size_t>(key_);
 }
 
 ////////////////////////////////////////////////////////////////////////////

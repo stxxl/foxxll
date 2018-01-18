@@ -246,7 +246,7 @@ public:
         }
         STXXL_VERBOSE_WPOOL("::steal_request NOT FOUND");
         // not matching request found, return a dummy
-        return std::pair<block_type*, request_ptr>((block_type*)nullptr, request_ptr());
+        return std::pair<block_type*, request_ptr>(nullptr, request_ptr());
     }
 
     void add(block_type*& block)

@@ -49,7 +49,7 @@ class filler_struct
     byte_type filler_array[Bytes];
 
 public:
-    filler_struct() { STXXL_VERBOSE_TYPED_BLOCK("[" << (void*)this << "] filler_struct is constructed"); }
+    filler_struct() { STXXL_VERBOSE_TYPED_BLOCK("[" << static_cast<void*>(this) << "] filler_struct is constructed"); }
 };
 
 template <>
@@ -58,7 +58,7 @@ class filler_struct<0>
     using byte_type = unsigned char;
 
 public:
-    filler_struct() { STXXL_VERBOSE_TYPED_BLOCK("[" << (void*)this << "] filler_struct<> is constructed"); }
+    filler_struct() { STXXL_VERBOSE_TYPED_BLOCK("[" << static_cast<void*>(this) << "] filler_struct<> is constructed"); }
 };
 
 //! Contains data elements for \c foxxll::typed_block , not intended for direct use.
@@ -79,7 +79,7 @@ public:
     //! Array of elements of type Type
     value_type elem[kSize];
 
-    element_block() { STXXL_VERBOSE_TYPED_BLOCK("[" << (void*)this << "] element_block is constructed"); }
+    element_block() { STXXL_VERBOSE_TYPED_BLOCK("[" << static_cast<void*>(this) << "] element_block is constructed"); }
 
     //! An operator to access elements in the block
     reference operator [] (size_t i)
@@ -143,7 +143,7 @@ public:
         return ref[i];
     }
 
-    block_w_bids() { STXXL_VERBOSE_TYPED_BLOCK("[" << (void*)this << "] block_w_bids is constructed"); }
+    block_w_bids() { STXXL_VERBOSE_TYPED_BLOCK("[" << static_cast<void*>(this) << "] block_w_bids is constructed"); }
 };
 
 template <typename Type, size_t Size, size_t RawSize>
@@ -156,7 +156,7 @@ public:
 
     using bid_type = BID<raw_size>;
 
-    block_w_bids() { STXXL_VERBOSE_TYPED_BLOCK("[" << (void*)this << "] block_w_bids<> is constructed"); }
+    block_w_bids() { STXXL_VERBOSE_TYPED_BLOCK("[" << static_cast<void*>(this) << "] block_w_bids<> is constructed"); }
 };
 
 //! Contains per block information for \c foxxll::typed_block , not intended for direct use.
@@ -171,7 +171,7 @@ public:
     //! Per block information element.
     info_type info;
 
-    block_w_info() { STXXL_VERBOSE_TYPED_BLOCK("[" << (void*)this << "] block_w_info is constructed"); }
+    block_w_info() { STXXL_VERBOSE_TYPED_BLOCK("[" << static_cast<void*>(this) << "] block_w_info is constructed"); }
 };
 
 template <typename Type, size_t RawSize, size_t NBids>
@@ -181,7 +181,7 @@ class block_w_info<Type, RawSize, NBids, void>
 public:
     using info_type = void;
 
-    block_w_info() { STXXL_VERBOSE_TYPED_BLOCK("[" << (void*)this << "] block_w_info<> is constructed"); }
+    block_w_info() { STXXL_VERBOSE_TYPED_BLOCK("[" << static_cast<void*>(this) << "] block_w_info<> is constructed"); }
 };
 
 //! Contains per block filler for \c foxxll::typed_block , not intended for direct use.
@@ -193,7 +193,7 @@ private:
     filler_struct<FillSize> filler;
 
 public:
-    add_filler() { STXXL_VERBOSE_TYPED_BLOCK("[" << (void*)this << "] add_filler is constructed"); }
+    add_filler() { STXXL_VERBOSE_TYPED_BLOCK("[" << static_cast<void*>(this) << "] add_filler is constructed"); }
 };
 
 template <typename BaseType>
@@ -201,7 +201,7 @@ class add_filler<BaseType, 0>
     : public BaseType
 {
 public:
-    add_filler() { STXXL_VERBOSE_TYPED_BLOCK("[" << (void*)this << "] add_filler<> is constructed"); }
+    add_filler() { STXXL_VERBOSE_TYPED_BLOCK("[" << static_cast<void*>(this) << "] add_filler<> is constructed"); }
 };
 
 //! Helper to compute the size of the filler , not intended for direct use.
@@ -251,7 +251,7 @@ public:
     {
         static_assert(sizeof(typed_block) == raw_size,
                       "sizeof(typed_block) == raw_size");
-        STXXL_VERBOSE_TYPED_BLOCK("[" << (void*)this << "] typed_block is constructed");
+        STXXL_VERBOSE_TYPED_BLOCK("[" << static_cast<void*>(this) << "] typed_block is constructed");
 #if 0
         assert(((long)this) % STXXL_BLOCK_ALIGN == 0);
 #endif
@@ -379,7 +379,7 @@ public:
     //  be 8 bytes long in g++."
     ~typed_block()
     {
-        STXXL_VERBOSE_TYPED_BLOCK("[" << (void*)this << "] typed_block is destructed");
+        STXXL_VERBOSE_TYPED_BLOCK("[" << static_cast<void*>(this) << "] typed_block is destructed");
     }
 #endif
 };

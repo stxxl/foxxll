@@ -89,7 +89,7 @@ public:
     static const int DEFAULT_QUEUE = -1;
     static const int DEFAULT_LINUXAIO_QUEUE = -2;
     static const int NO_ALLOCATOR = -1;
-    static const unsigned int DEFAULT_DEVICE_ID = (unsigned int)(-1);
+    static const unsigned int DEFAULT_DEVICE_ID = std::numeric_limits<unsigned int>::max();
 
     //! Construct a new file, usually called by a subclass.
     explicit file(unsigned int device_id = DEFAULT_DEVICE_ID,

@@ -25,7 +25,7 @@ struct my_handler
 void testIO()
 {
     const int size = 1024 * 384;
-    char* buffer = static_cast<char*>(foxxll::aligned_alloc<STXXL_BLOCK_ALIGN>(size));
+    auto* buffer = static_cast<char*>(foxxll::aligned_alloc<STXXL_BLOCK_ALIGN>(size));
     memset(buffer, 0, size);
 #if STXXL_WINDOWS
     const char* paths[2] = { "data1", "data2" };

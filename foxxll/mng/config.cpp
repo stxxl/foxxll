@@ -148,7 +148,7 @@ void config::load_default_config()
     disks_list.push_back(entry1);
 
     // no flash disks
-    first_flash = (unsigned int)disks_list.size();
+    first_flash = static_cast<unsigned int>(disks_list.size());
 }
 
 void config::load_config_file(const std::string& config_path)
@@ -177,7 +177,7 @@ void config::load_config_file(const std::string& config_path)
     cfg_file.close();
 
     // put flash devices after regular disks
-    first_flash = (unsigned int)disks_list.size();
+    first_flash = static_cast<unsigned int>(disks_list.size());
     disks_list.insert(disks_list.end(), flash_list.begin(), flash_list.end());
 
     if (disks_list.empty()) {
@@ -444,7 +444,7 @@ void disk_config::parse_fileio()
             }
 
             char* endp;
-            queue = (int)strtoul(eq[1].c_str(), &endp, 10);
+            queue = static_cast<int>(strtoul(eq[1].c_str(), &endp, 10));
             if (endp && *endp != 0) {
                 STXXL_THROW(std::runtime_error,
                             "Invalid parameter '" << *p << "' in disk configuration file.");
@@ -459,7 +459,7 @@ void disk_config::parse_fileio()
             }
 
             char* endp;
-            queue_length = (int)strtoul(eq[1].c_str(), &endp, 10);
+            queue_length = static_cast<int>(strtoul(eq[1].c_str(), &endp, 10));
             if (endp && *endp != 0) {
                 STXXL_THROW(std::runtime_error,
                             "Invalid parameter '" << *p << "' in disk configuration file.");
@@ -468,7 +468,7 @@ void disk_config::parse_fileio()
         else if (eq[0] == "device_id" || eq[0] == "devid")
         {
             char* endp;
-            device_id = (int)strtoul(eq[1].c_str(), &endp, 10);
+            device_id = static_cast<int>(strtoul(eq[1].c_str(), &endp, 10));
             if (endp && *endp != 0) {
                 STXXL_THROW(std::runtime_error,
                             "Invalid parameter '" << *p << "' in disk configuration file.");
