@@ -23,7 +23,7 @@
 #include <foxxll/io/serving_request.hpp>
 
 #if FOXXLL_MSVC >= 1700 && FOXXLL_MSVC <= 1800
- #include <windows.hpp>
+ #include <windows.h>
 #endif
 
 #ifndef FOXXLL_CHECK_FOR_PENDING_REQUESTS_ON_SUBMISSION

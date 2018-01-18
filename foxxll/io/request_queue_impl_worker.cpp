@@ -24,7 +24,7 @@
 #include <tlx/semaphore.hpp>
 
 #if FOXXLL_MSVC >= 1700 && FOXXLL_MSVC <= 1800
- #include <windows.hpp>
+ #include <windows.h>
 #endif
 
 namespace foxxll {

@@ -22,7 +22,7 @@
 #ifndef NOMINMAX
   #define NOMINMAX
 #endif
-#include <windows.hpp>
+#include <windows.h>
 
 namespace foxxll {
 

@@ -36,7 +36,7 @@
 #include <tlx/simple_vector.hpp>
 
 #if FOXXLL_MSVC
-#include <memory.hpp>
+#include <memory.h>
 #endif
 
 namespace foxxll {
