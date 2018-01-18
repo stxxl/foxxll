@@ -86,15 +86,15 @@ void fileperblock_file<base_file_type>::lock()
             filename_prefix_ + "_fpb_lock", mode_, get_queue_id());
 
         //create lock file and fill it with one page, an empty file cannot be locked
-        const int page_size = FoxxllBlockAlignment;
-        void* one_page = aligned_alloc<FoxxllBlockAlignment>(page_size);
+        const int page_size = BlockAlignment;
+        void* one_page = aligned_alloc<BlockAlignment>(page_size);
 #if FOXXLL_WITH_VALGRIND
         memset(one_page, 0, page_size);
 #endif
         lock_file_->set_size(page_size);
         request_ptr r = lock_file_->awrite(one_page, 0, page_size);
         r->wait();
-        aligned_dealloc<FoxxllBlockAlignment>(one_page);
+        aligned_dealloc<BlockAlignment>(one_page);
     }
     lock_file_->lock();
 }

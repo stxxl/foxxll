@@ -28,7 +28,7 @@ struct my_handler
 void testIO()
 {
     const int size = 1024 * 384;
-    char* buffer = static_cast<char*>(foxxll::aligned_alloc<foxxll::FoxxllBlockAlignment>(size));
+    char* buffer = static_cast<char*>(foxxll::aligned_alloc<foxxll::BlockAlignment>(size));
     memset(buffer, 0, size);
 #if FOXXLL_WINDOWS
     const char* paths[2] = { "data1", "data2" };
@@ -49,7 +49,7 @@ void testIO()
 
     foxxll::wait_all(req, 16);
 
-    foxxll::aligned_dealloc<foxxll::FoxxllBlockAlignment>(buffer);
+    foxxll::aligned_dealloc<foxxll::BlockAlignment>(buffer);
 
 #if !FOXXLL_WINDOWS
     file1->close_remove();

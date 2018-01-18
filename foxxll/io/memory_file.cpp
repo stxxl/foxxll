@@ -74,11 +74,11 @@ void memory_file::discard(offset_type offset, offset_type size)
 #ifndef FOXXLL_MEMFILE_DONT_CLEAR_FREED_MEMORY
     // overwrite the freed region with uninitialized memory
     LOG1 << "discard at " << offset << " len " << size;
-    void* uninitialized = malloc(FoxxllBlockAlignment);
-    while (size >= FoxxllBlockAlignment) {
-        memcpy(ptr_ + offset, uninitialized, FoxxllBlockAlignment);
-        offset += FoxxllBlockAlignment;
-        size -= FoxxllBlockAlignment;
+    void* uninitialized = malloc(BlockAlignment);
+    while (size >= BlockAlignment) {
+        memcpy(ptr_ + offset, uninitialized, BlockAlignment);
+        offset += BlockAlignment;
+        size -= BlockAlignment;
     }
     assert(size <= std::numeric_limits<offset_type>::max());
     if (size > 0)

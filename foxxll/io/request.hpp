@@ -31,7 +31,7 @@ namespace foxxll {
 //! \addtogroup reqlayer
 //! \{
 
-constexpr size_t FoxxllBlockAlignment = 4096;
+constexpr size_t BlockAlignment = 4096;
 
 class file;
 class request;
