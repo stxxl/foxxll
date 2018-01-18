@@ -21,6 +21,7 @@
 
 #if FOXXLL_WINDOWS
 
+#include <mutex>
 #include <string>
 
 #include <foxxll/io/file.hpp>
@@ -37,7 +38,7 @@ class wfs_file_base : public virtual file
 protected:
     using HANDLE = void*;
 
-    mutex fd_mutex_;       // sequentialize function calls involving file_des_
+    std::mutex fd_mutex_;       // sequentialize function calls involving file_des_
     HANDLE file_des_;      // file descriptor
     int mode_;             // open mode
     const std::string filename_;
