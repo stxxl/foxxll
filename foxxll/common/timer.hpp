@@ -251,13 +251,13 @@ public:
                  << " after " << m_timer.seconds() << " seconds";
         }
         else {
-            double bps = (double)m_bytes / m_timer.seconds();
+            double bps = static_cast<double>(m_bytes) / m_timer.seconds();
 
             LOG1 << "Finished "
                  << m_message
                  << " after " << m_timer.seconds() << " seconds. "
                  << "Processed " << tlx::format_iec_units(m_bytes) << "B"
-                 << " @ " << tlx::format_iec_units((uint64_t)bps) << "B/s";
+    		 << " @ " << tlx::format_iec_units(static_cast<uint64_t>(bps)) << "B/s";
         }
     }
 

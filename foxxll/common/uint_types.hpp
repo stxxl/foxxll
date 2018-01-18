@@ -119,13 +119,13 @@ public:
         if (a >= 0)
             low = a;
         else
-            low = a, high = (high_type)high_max();
+            low = a, high = high_max();
     }
 
     //! implicit conversion from an uint64_t (unsigned long long)
     uint_pair(const uint64_t& a) // NOLINT
-        : low((low_type)(a & low_max())),
-          high((high_type)((a >> low_bits) & high_max()))
+        : low(static_cast<low_type>(a & low_max())),
+          high(static_cast<high_type>((a >> low_bits) & high_max()))
     {
         // check for overflow
         assert((a >> (low_bits + high_bits)) == 0);
@@ -134,7 +134,7 @@ public:
     //! return the number as an uint64_t (unsigned long long)
     uint64_t ull() const
     {
-        return ((uint64_t)high) << low_bits | (uint64_t)low;
+        return static_cast<uint64_t>(high) << low_bits | static_cast<uint64_t>(low);
     }
 
     //! implicit cast to an unsigned long long
@@ -146,7 +146,7 @@ public:
     //! return the number as a uint64_t
     uint64_t u64() const
     {
-        return ((uint64_t)high) << low_bits | (uint64_t)low;
+        return static_cast<uint64_t>(high) << low_bits | static_cast<uint64_t>(low);
     }
 
     //! prefix increment operator (directly manipulates the integer parts)
@@ -163,7 +163,7 @@ public:
     uint_pair& operator -- ()
     {
         if (UNLIKELY(low == 0))
-            --high, low = (low_type)low_max();
+            --high, low = low_max();
         else
             --low;
         return *this;
@@ -172,9 +172,9 @@ public:
     //! addition operator (uses 64-bit arithmetic)
     uint_pair& operator += (const uint_pair& b)
     {
-        uint64_t add = (uint64_t)low + b.low;
-        low = (low_type)(add & low_max());
-        high = (high_type)(high + b.high + ((add >> low_bits) & high_max()));
+        uint64_t add = static_cast<uint64_t>(low) + b.low;
+        low = static_cast<low_type>(add & low_max());
+        high = static_cast<high_type>(high + b.high + ((add >> low_bits) & high_max()));
         return *this;
     }
 

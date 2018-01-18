@@ -12,6 +12,7 @@
 
 #include <foxxll/io.hpp>
 #include <foxxll/mng.hpp>
+#include <tlx/string/format_si_iec_units.hpp>
 
 //! \example io/test_io_sizes.cpp
 //! This tests the maximum chunk size that a file type can handle with a single request.
@@ -25,7 +26,7 @@ int main(int argc, char** argv)
     }
 
     size_t max_size = atoi(argv[3]);
-    size_t* buffer = (size_t*)foxxll::aligned_alloc<4096>(max_size);
+    auto* buffer = static_cast<size_t*>(foxxll::aligned_alloc<4096>(max_size));
 
     try
     {
@@ -43,7 +44,7 @@ int main(int argc, char** argv)
                 buffer[i] = i;
 
             //write
-            LOG1 << foxxll::add_IEC_binary_multiplier(size, "B") << "are being written at once";
+            LOG1 << tlx::format_iec_units(size) << "are being written at once";
             req = file->awrite(buffer, 0, size);
             wait_all(&req, 1);
 
@@ -52,7 +53,7 @@ int main(int argc, char** argv)
                 buffer[i] = 0xFFFFFFFFFFFFFFFFull;
 
             //read again
-            LOG1 << foxxll::add_IEC_binary_multiplier(size, "B") << "are being read at once";
+            LOG1 << tlx::format_iec_units(size) << "are being read at once";
             req = file->aread(buffer, 0, size);
             wait_all(&req, 1);
 

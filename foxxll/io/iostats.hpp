@@ -326,6 +326,8 @@ class stats : public singleton<stats>
     //! enclosed file_stats objects and this list may grow.
     std::list<file_stats> file_stats_list_;
 
+    mutable std::mutex list_mutex_;
+
     // *** parallel times have to be counted globally ***
 
     //! seconds spent in parallel operations

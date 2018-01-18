@@ -40,7 +40,7 @@ private:
 
     shared_state<thread_state> thread_state_;
     std::thread thread_;
-    semaphore sem_;
+    tlx::semaphore sem_;
 
     static const priority_op priority_op_ = WRITE;
 

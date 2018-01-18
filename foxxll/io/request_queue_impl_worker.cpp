@@ -18,10 +18,10 @@
 #include <thread>
 
 #include <foxxll/common/error_handling.hpp>
-#include <foxxll/common/semaphore.hpp>
 #include <foxxll/common/shared_state.hpp>
 #include <foxxll/config.hpp>
 #include <foxxll/io/request_queue_impl_worker.hpp>
+#include <tlx/semaphore.hpp>
 
 #if FOXXLL_MSVC >= 1700
  #include <windows.hpp>
@@ -39,7 +39,7 @@ void request_queue_impl_worker::start_thread(
 }
 
 void request_queue_impl_worker::stop_thread(
-    std::thread& t, shared_state<thread_state>& s, semaphore& sem)
+    std::thread& t, shared_state<thread_state>& s, tlx::semaphore& sem)
 {
     assert(s() == RUNNING);
     s.set_to(TERMINATING);

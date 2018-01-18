@@ -29,8 +29,7 @@ int main()
     for (size_t i = 0; i < config->disks_number(); ++i)
         totalsize += config->disk_size(i);
 
-    size_t totalblocks =
-        (size_t)(totalsize / block_type::raw_size);
+    size_t totalblocks = totalsize / block_type::raw_size;
 
     LOG1 << "external memory: " << totalsize << " bytes  ==  " << totalblocks << " blocks";
 

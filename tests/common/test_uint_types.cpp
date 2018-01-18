@@ -68,7 +68,7 @@ void dotest(unsigned int nbytes)
     die_unless(a.ull() == 84);
 
     a += uint(0xFFFFFF00);
-    die_unless(a.ull() == 84 + (unsigned long long)(0xFFFFFF00));
+    die_unless(a.ull() == 84 + static_cast<unsigned long long>(0xFFFFFF00));
 }
 
 int main()

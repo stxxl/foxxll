@@ -88,7 +88,7 @@ public:
     static const int DEFAULT_QUEUE = -1;
     static const int DEFAULT_LINUXAIO_QUEUE = -2;
     static const int NO_ALLOCATOR = -1;
-    static const unsigned int DEFAULT_DEVICE_ID = (unsigned int)(-1);
+    static const unsigned int DEFAULT_DEVICE_ID = std::numeric_limits<unsigned int>::max();
 
     //! Construct a new file, usually called by a subclass.
     explicit file(unsigned int device_id = DEFAULT_DEVICE_ID,
@@ -187,6 +187,9 @@ public:
     virtual const char * io_type() const = 0;
 
 protected:
+    //! Flag whether read/write operations REQUIRE alignment
+    bool need_alignment_ = false;
+
     //! The file's physical device id (e.g. used for prefetching sequence
     //! calculation)
     unsigned int device_id_;
@@ -196,6 +199,9 @@ protected:
     file_stats* file_stats_;
 
 public:
+    //! Returns need_alignment_
+    bool need_alignment() const { return need_alignment_; }
+
     //! Returns the file's physical device id
     unsigned int get_device_id() const
     {

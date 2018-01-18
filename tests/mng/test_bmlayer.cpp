@@ -52,8 +52,8 @@ void testIO()
 
     block_type* block = new block_type;
     LOG1 << std::hex;
-    LOG1 << "Allocated block address    : " << (size_t)(block);
-    LOG1 << "Allocated block address + 1: " << (size_t)(block + 1);
+    LOG1 << "Allocated block address    : " << reinterpret_cast<size_t>(block);
+    LOG1 << "Allocated block address + 1: " << reinterpret_cast<size_t>(block + 1);
     LOG1 << std::dec;
     size_t i = 0;
     for (i = 0; i < block_type::size; ++i)

@@ -47,7 +47,7 @@ int main(int argc, char** argv)
 
     std::cout << sizeof(void*) << std::endl;
     const int size = 1024 * 384;
-    char* buffer = (char*)foxxll::aligned_alloc<4096>(size);
+    auto* buffer = static_cast<char*>(foxxll::aligned_alloc<4096>(size));
     memset(buffer, 0, size);
 
 #if FOXXLL_HAVE_MMAP_FILE

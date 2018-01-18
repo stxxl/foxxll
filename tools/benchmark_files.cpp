@@ -96,7 +96,7 @@ static inline double throughput(external_size_type bytes, double seconds)
 {
     if (seconds == 0.0)
         return 0.0;
-    return (double)bytes / (1024 * 1024) / seconds;
+    return static_cast<double>(bytes) / (1024 * 1024) / seconds;
 }
 
 int benchmark_files(int argc, char* argv[])
@@ -210,7 +210,7 @@ int benchmark_files(int argc, char* argv[])
     const size_t block_size_int = block_size / sizeof(uint32_t);
     const size_t step_size_int = step_size / sizeof(uint32_t);
 
-    uint32_t* buffer = (uint32_t*)foxxll::aligned_alloc<BLOCK_ALIGN>(step_size * nfiles);
+    uint32_t* buffer = static_cast<uint32_t*>(foxxll::aligned_alloc<BLOCK_ALIGN>(step_size * nfiles));
     std::vector<foxxll::file_ptr> files(nfiles);
     std::vector<request_ptr> reqs(nfiles* batch_size);
 
@@ -269,7 +269,7 @@ int benchmark_files(int argc, char* argv[])
                 for (external_size_type j = 42, b = offset >> 9; j < current_step_size_int; j += 512 / sizeof(uint32_t), ++b)
                 {
                     for (size_t i = 0; i < nfiles; i++)
-                        buffer[current_step_size_int * i + j] = (uint32_t)b;
+                        buffer[current_step_size_int * i + j] = static_cast<uint32_t>(b);
                 }
 
                 for (size_t i = 0; i < nfiles; i++)
@@ -312,7 +312,7 @@ int benchmark_files(int argc, char* argv[])
                       << std::setw(8) << std::setprecision(3)
                       << (throughput(current_step_size, elapsed)) << " = "
                       << std::setw(8) << std::setprecision(3)
-                      << (throughput(current_step_size, elapsed) * (double)nfiles) << " MiB/s write,";
+                      << (throughput(current_step_size, elapsed) * nfiles) << " MiB/s write,";
 
             begin = end = timestamp();
 
@@ -355,7 +355,7 @@ int benchmark_files(int argc, char* argv[])
                       << std::setw(8) << std::setprecision(3)
                       << (throughput(current_step_size, elapsed)) << " = "
                       << std::setw(8) << std::setprecision(3)
-                      << (throughput(current_step_size, elapsed) * (double)nfiles) << " MiB/s read";
+                      << (throughput(current_step_size, elapsed) * nfiles) << " MiB/s read";
 
 #ifdef WATCH_TIMES
             out_stat(begin, end, r_finish_times, nfiles, files_arr);
@@ -375,7 +375,7 @@ int benchmark_files(int argc, char* argv[])
                                       << " got: " << std::hex << std::setw(8) << buffer[i] << " wanted: " << std::hex << std::setw(8) << b
                                       << std::dec << std::endl;
                         }
-                        buffer[i] = (pattern ? pattern : (uint32_t)i);
+                        buffer[i] = (pattern ? pattern : static_cast<int32_t>(i));
                     }
                 }
 
@@ -416,13 +416,13 @@ int benchmark_files(int argc, char* argv[])
               << std::setw(8) << std::setprecision(3)
               << (throughput(totalsizewrite, totaltimewrite)) << " = "
               << std::setw(8) << std::setprecision(3)
-              << (throughput(totalsizewrite, totaltimewrite) * (double)nfiles) << " MiB/s write,";
+              << (throughput(totalsizewrite, totaltimewrite) * nfiles) << " MiB/s write,";
 
     std::cout << std::setw(2) << nfiles << " * "
               << std::setw(8) << std::setprecision(3)
               << (throughput(totalsizeread, totaltimeread)) << " = "
               << std::setw(8) << std::setprecision(3)
-              << (throughput(totalsizeread, totaltimeread) * (double)nfiles) << " MiB/s read"
+              << (throughput(totalsizeread, totaltimeread) * nfiles) << " MiB/s read"
               << std::endl;
 
     if (totaltimewrite != 0.0)
@@ -433,12 +433,12 @@ int benchmark_files(int argc, char* argv[])
     std::cout << "# Non-I/O time " << std::setw(8) << std::setprecision(3)
               << (t_total.seconds() - totaltimewrite - totaltimeread) << " s, average throughput "
               << std::setw(8) << std::setprecision(3)
-              << (throughput(totalsizewrite + totalsizeread, t_total.seconds() - totaltimewrite - totaltimeread) * (double)nfiles) << " MiB/s"
+              << (throughput(totalsizewrite + totalsizeread, t_total.seconds() - totaltimewrite - totaltimeread) * nfiles) << " MiB/s"
               << std::endl;
 
     std::cout << "# Total time   " << std::setw(8) << std::setprecision(3) << t_total.seconds() << " s, average throughput "
               << std::setw(8) << std::setprecision(3)
-              << (throughput(totalsizewrite + totalsizeread, t_total.seconds()) * (double)nfiles) << " MiB/s"
+              << (throughput(totalsizewrite + totalsizeread, t_total.seconds()) * nfiles) << " MiB/s"
               << std::endl;
 
     if (do_verify)

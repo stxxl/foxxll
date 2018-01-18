@@ -62,7 +62,7 @@ void linuxaio_request::fill_control_block()
     cb_.aio_fildes = af->file_des_;
     cb_.aio_lio_opcode = (op_ == READ) ? IOCB_CMD_PREAD : IOCB_CMD_PWRITE;
     cb_.aio_reqprio = 0;
-    cb_.aio_buf = static_cast<__u64>((unsigned long)(buffer_));
+    cb_.aio_buf = static_cast<__u64>(reinterpret_cast<unsigned long>(buffer_));
     cb_.aio_nbytes = bytes_;
     cb_.aio_offset = offset_;
 }
@@ -108,15 +108,13 @@ bool linuxaio_request::cancel()
 }
 
 //! Cancel already posted request
-bool linuxaio_request::cancel_aio()
+bool linuxaio_request::cancel_aio(linuxaio_queue* queue)
 {
     LOG << "linuxaio_request[" << this << "] cancel_aio()";
 
     if (!file_) return false;
 
     io_event event;
-    linuxaio_queue* queue = dynamic_cast<linuxaio_queue*>(
-        disk_queues::get_instance()->get_queue(file_->get_queue_id()));
     long result = syscall(SYS_io_cancel, queue->get_io_context(), &cb_, &event);
     if (result == 0)    //successfully canceled
         queue->handle_events(&event, 1, true);

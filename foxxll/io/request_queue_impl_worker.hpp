@@ -18,10 +18,10 @@
 
 #include <thread>
 
-#include <foxxll/common/semaphore.hpp>
 #include <foxxll/common/shared_state.hpp>
 #include <foxxll/config.hpp>
 #include <foxxll/io/request_queue.hpp>
+#include <tlx/semaphore.hpp>
 
 namespace foxxll {
 
@@ -42,7 +42,7 @@ protected:
         std::thread& t, shared_state<thread_state>& s);
 
     void stop_thread(
-        std::thread& t, shared_state<thread_state>& s, semaphore& sem);
+        std::thread& t, shared_state<thread_state>& s, tlx::semaphore& sem);
 };
 
 //! \}

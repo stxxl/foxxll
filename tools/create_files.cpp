@@ -122,7 +122,7 @@ int create_files(int argc, char* argv[])
 
     size_t i = 0, j = 0;
 
-    int* buffer = (int*)foxxll::aligned_alloc<BLOCK_ALIGN>(buffer_size * ndisks);
+    auto* buffer = static_cast<int*>(foxxll::aligned_alloc<BLOCK_ALIGN>(buffer_size * ndisks));
     file** disks = new file*[ndisks];
     request_ptr* reqs = new request_ptr[ndisks * chunks];
 #ifdef WATCH_TIMES

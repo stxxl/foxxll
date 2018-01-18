@@ -96,13 +96,13 @@ public:
     void construct(pointer p, const Type& value)
     {
         // initialize memory with placement new
-        ::new ((void*)p)Type(value);
+        ::new (static_cast<void*>(p))Type(value);
     }
 
     template <typename... Args>
     void construct(pointer p, Args&& ... args)
     {
-        ::new ((void*)p)Type(std::forward<Args>(args) ...);
+        ::new (static_cast<void*>(p))Type(std::forward<Args>(args) ...);
     }
 
     // destroy elements of initialized storage p

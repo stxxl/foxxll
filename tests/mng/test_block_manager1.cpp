@@ -29,7 +29,7 @@ int main()
     for (int vIndex = 0; vIndex < 32; ++vIndex) {
         requests.push_back(blocks[vIndex].write(bids[vIndex]));
     }
-    foxxll::wait_all(requests.begin(), requests.end());
+    wait_all(requests.begin(), requests.end());
     bm->delete_blocks(bids.begin(), bids.end());
     return 0;
 }

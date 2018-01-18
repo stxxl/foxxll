@@ -51,7 +51,7 @@ class filler_struct
 public:
     filler_struct()
     {
-        LOGC(debug_typed_block) << "[" << (void*)this << "] filler_struct is constructed";
+        LOGC(debug_typed_block) << "[" << static_cast<void*>(this) << "] filler_struct is constructed";
     }
 };
 
@@ -63,7 +63,7 @@ class filler_struct<0>
 public:
     filler_struct()
     {
-        LOGC(debug_typed_block) << "[" << (void*)this << "] filler_struct<> is constructed";
+        LOGC(debug_typed_block) << "[" << static_cast<void*>(this) << "] filler_struct<> is constructed";
     }
 };
 
@@ -87,7 +87,7 @@ public:
 
     element_block()
     {
-        LOGC(debug_typed_block) << "[" << (void*)this << "] element_block is constructed";
+        LOGC(debug_typed_block) << "[" << static_cast<void*>(this) << "] element_block is constructed";
     }
 
     //! An operator to access elements in the block
@@ -154,7 +154,7 @@ public:
 
     block_w_bids()
     {
-        LOGC(debug_typed_block) << "[" << (void*)this << "] block_w_bids is constructed";
+        LOGC(debug_typed_block) << "[" << static_cast<void*>(this) << "] block_w_bids is constructed";
     }
 };
 
@@ -170,7 +170,7 @@ public:
 
     block_w_bids()
     {
-        LOGC(debug_typed_block) << "[" << (void*)this << "] block_w_bids<> is constructed";
+        LOGC(debug_typed_block) << "[" << static_cast<void*>(this) << "] block_w_bids<> is constructed";
     }
 };
 
@@ -188,7 +188,7 @@ public:
 
     block_w_info()
     {
-        LOGC(debug_typed_block) << "[" << (void*)this << "] block_w_info is constructed";
+        LOGC(debug_typed_block) << "[" << static_cast<void*>(this) << "] block_w_info is constructed";
     }
 };
 
@@ -201,7 +201,7 @@ public:
 
     block_w_info()
     {
-        LOGC(debug_typed_block) << "[" << (void*)this << "] block_w_info<> is constructed";
+        LOGC(debug_typed_block) << "[" << static_cast<void*>(this) << "] block_w_info<> is constructed";
     }
 };
 
@@ -216,7 +216,7 @@ private:
 public:
     add_filler()
     {
-        LOGC(debug_typed_block) << "[" << (void*)this << "] add_filler is constructed";
+        LOGC(debug_typed_block) << "[" << static_cast<void*>(this) << "] add_filler is constructed";
     }
 };
 
@@ -227,7 +227,7 @@ class add_filler<BaseType, 0>
 public:
     add_filler()
     {
-        LOGC(debug_typed_block) << "[" << (void*)this << "] add_filler<> is constructed";
+         LOGC(debug_typed_block) << "[" << static_cast<void*>(this) << "] add_filler<> is constructed";
     }
 };
 
@@ -280,7 +280,7 @@ public:
     {
         static_assert(sizeof(typed_block) == raw_size,
                       "sizeof(typed_block) == raw_size");
-        LOGC(debug_typed_block) << "[" << (void*)this << "] typed_block is constructed";
+        LOGC(debug_typed_block) << "[" << static_cast<void*>(this) << "] typed_block is constructed";
 #if 0
         assert(((long)this) % BlockAlignment == 0);
 #endif
@@ -398,7 +398,7 @@ public:
     //  be 8 bytes long in g++."
     ~typed_block()
     {
-        LOGC(debug_typed_block) << "[" << (void*)this << "] typed_block is destructed";
+        LOGC(debug_typed_block) << "[" << static_cast<void*>(this) << "] typed_block is destructed";
     }
 #endif
 };

@@ -30,6 +30,7 @@ disk_queues::disk_queues()
 
 disk_queues::~disk_queues()
 {
+    std::unique_lock<std::mutex> lock(mutex_);
     // deallocate all queues_
     for (request_queue_map::iterator i = queues_.begin(); i != queues_.end(); i++)
         delete (*i).second;
@@ -37,6 +38,8 @@ disk_queues::~disk_queues()
 
 void disk_queues::make_queue(file* file)
 {
+    std::unique_lock<std::mutex> lock(mutex_);
+
     int queue_id = file->get_queue_id();
 
     request_queue_map::iterator qi = queues_.find(queue_id);
@@ -56,6 +59,8 @@ void disk_queues::make_queue(file* file)
 
 void disk_queues::add_request(request_ptr& req, disk_id_type disk)
 {
+    std::unique_lock<std::mutex> lock(mutex_);
+
 #ifdef FOXXLL_HACK_SINGLE_IO_THREAD
     disk = 42;
 #endif
@@ -80,6 +85,8 @@ void disk_queues::add_request(request_ptr& req, disk_id_type disk)
 
 bool disk_queues::cancel_request(request_ptr& req, disk_id_type disk)
 {
+    std::unique_lock<std::mutex> lock(mutex_);
+
 #ifdef FOXXLL_HACK_SINGLE_IO_THREAD
     disk = 42;
 #endif
@@ -91,6 +98,8 @@ bool disk_queues::cancel_request(request_ptr& req, disk_id_type disk)
 
 request_queue* disk_queues::get_queue(disk_id_type disk)
 {
+    std::unique_lock<std::mutex> lock(mutex_);
+
     if (queues_.find(disk) != queues_.end())
         return queues_[disk];
     else
@@ -99,6 +108,8 @@ request_queue* disk_queues::get_queue(disk_id_type disk)
 
 void disk_queues::set_priority_op(const request_queue::priority_op& op)
 {
+    std::unique_lock<std::mutex> lock(mutex_);
+
     for (request_queue_map::iterator i = queues_.begin(); i != queues_.end(); i++)
         i->second->set_priority_op(op);
 }
