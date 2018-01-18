@@ -17,6 +17,7 @@
 #define FOXXLL_IO_DISK_QUEUES_HEADER
 
 #include <map>
+#include <mutex>
 
 #include <foxxll/io/request.hpp>
 #include <foxxll/io/request_queue.hpp>
@@ -37,6 +38,8 @@ class disk_queues : public singleton<disk_queues>
     using request_queue_map = std::map<disk_id_type, request_queue*>;
 
 protected:
+    std::mutex mutex_;
+
     request_queue_map queues_;
 
     disk_queues();

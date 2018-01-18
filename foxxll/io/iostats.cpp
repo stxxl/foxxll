@@ -327,11 +327,15 @@ void stats::p_read_started(const double now)
 void stats::p_read_finished(const double now)
 {
     {
+        std::unique_lock<std::mutex> read_lock(read_mutex_);
+
         const double diff = now - p_begin_read_;
         p_begin_read_ = now;
         p_reads_ += (acc_reads_--) ? diff : 0.0;
     }
     {
+        std::unique_lock<std::mutex> io_lock(io_mutex_);
+
         const double diff = now - p_begin_io_;
         p_ios_ += (acc_ios_--) ? diff : 0.0;
         p_begin_io_ = now;
@@ -340,12 +344,14 @@ void stats::p_read_finished(const double now)
 
 file_stats* stats::create_file_stats(unsigned int device_id)
 {
+    std::unique_lock<std::mutex> lock(list_mutex_);
     file_stats_list_.emplace_back(device_id);
     return &file_stats_list_.back();
 }
 
 std::vector<file_stats_data> stats::deepcopy_file_stats_data_list() const
 {
+    std::unique_lock<std::mutex> lock(list_mutex_);
     return {
                file_stats_list_.cbegin(), file_stats_list_.cend()
     };
