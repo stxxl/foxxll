@@ -217,7 +217,7 @@ std::pair<unsigned, unsigned> config::regular_disk_range() const
 std::pair<unsigned, unsigned> config::flash_range() const
 {
     assert(is_initialized);
-    return std::pair<unsigned, unsigned>(first_flash, (unsigned)disks_list.size());
+    return std::pair<unsigned, unsigned>(first_flash, static_cast<unsigned>(disks_list.size()));
 }
 
 disk_config& config::disk(size_t disk)
