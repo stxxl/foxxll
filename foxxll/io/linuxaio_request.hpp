@@ -29,6 +29,9 @@ namespace foxxll {
 //! \addtogroup reqlayer
 //! \{
 
+// forward declarations
+class linuxaio_queue;
+
 //! Request for an linuxaio_file.
 class linuxaio_request : public request_with_state
 {
@@ -59,7 +62,7 @@ public:
 
     bool post();
     bool cancel() final;
-    bool cancel_aio();
+    bool cancel_aio(linuxaio_queue* queue);
     void completed(bool posted, bool canceled);
     void completed(bool canceled) { completed(true, canceled); }
 };

@@ -109,15 +109,13 @@ bool linuxaio_request::cancel()
 }
 
 //! Cancel already posted request
-bool linuxaio_request::cancel_aio()
+bool linuxaio_request::cancel_aio(linuxaio_queue* queue)
 {
     STXXL_VERBOSE_LINUXAIO("linuxaio_request[" << this << "] cancel_aio()");
 
     if (!file_) return false;
 
     io_event event;
-    linuxaio_queue* queue = dynamic_cast<linuxaio_queue*>(
-        disk_queues::get_instance()->get_queue(file_->get_queue_id()));
     long result = syscall(SYS_io_cancel, queue->get_io_context(), &cb_, &event);
     if (result == 0)    //successfully canceled
         queue->handle_events(&event, 1, true);

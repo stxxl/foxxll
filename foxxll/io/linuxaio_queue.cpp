@@ -108,7 +108,6 @@ bool linuxaio_queue::cancel_request(request_ptr& req)
             waiting_requests_.erase(pos);
             lock.unlock();
 
-            // polymorphic_downcast to linuxaio_request,
             // request is canceled, but was not yet posted.
             areq->completed(false, true);
 
@@ -119,16 +118,14 @@ bool linuxaio_queue::cancel_request(request_ptr& req)
 
     std::unique_lock<std::mutex> lock(waiting_mtx_);
 
-    // polymorphic_downcast to linuxaio_request,
-    bool canceled_io_operation = areq->cancel_aio();
+    // perform syscall to cancel I/O
+    bool canceled_io_operation = areq->cancel_aio(this);
 
     if (canceled_io_operation)
     {
         lock.unlock();
 
-        // polymorphic_downcast to linuxaio_request,
-
-        // request is canceled, already posted
+        // request is canceled, already posted, but canceled in kernel
         areq->completed(true, true);
 
         num_free_events_.signal();
