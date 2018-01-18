@@ -13,6 +13,8 @@
 
 #include <ostream>
 
+#include <tlx/logger.hpp>
+
 #include <foxxll/io/file.hpp>
 #include <foxxll/io/request.hpp>
 

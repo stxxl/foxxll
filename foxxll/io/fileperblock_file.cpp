@@ -18,6 +18,7 @@
 #include <string>
 
 #include <tlx/counting_ptr.hpp>
+#include <tlx/logger.hpp>
 #include <tlx/unused.hpp>
 
 #include <foxxll/common/aligned_alloc.hpp>

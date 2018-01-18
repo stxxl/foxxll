@@ -27,11 +27,13 @@
 #include <iomanip>
 #include <vector>
 
+#include <tlx/cmdline_parser.hpp>
+#include <tlx/logger.hpp>
+
 #include <foxxll/common/aligned_alloc.hpp>
 #include <foxxll/common/timer.hpp>
 #include <foxxll/io.hpp>
 #include <foxxll/version.hpp>
-#include <tlx/cmdline_parser.hpp>
 
 using foxxll::request_ptr;
 using foxxll::file;

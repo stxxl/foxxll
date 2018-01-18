@@ -15,9 +15,11 @@
 #include <cstring>
 #include <limits>
 
+#include <tlx/logger.hpp>
+#include <tlx/unused.hpp>
+
 #include <foxxll/io/iostats.hpp>
 #include <foxxll/io/memory_file.hpp>
-#include <tlx/unused.hpp>
 
 namespace foxxll {
 

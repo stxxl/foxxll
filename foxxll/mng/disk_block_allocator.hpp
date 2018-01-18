@@ -23,6 +23,8 @@
 #include <ostream>
 #include <utility>
 
+#include <tlx/logger.hpp>
+
 #include <foxxll/common/error_handling.hpp>
 #include <foxxll/common/exceptions.hpp>
 #include <foxxll/common/types.hpp>

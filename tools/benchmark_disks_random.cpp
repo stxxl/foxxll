@@ -26,6 +26,8 @@
 #include <iomanip>
 #include <vector>
 
+#include <tlx/logger.hpp>
+
 #include <foxxll/io.hpp>
 #include <foxxll/mng.hpp>
 #include <tlx/cmdline_parser.hpp>

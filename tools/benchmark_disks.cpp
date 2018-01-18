@@ -32,9 +32,11 @@
 #include <string>
 #include <vector>
 
+#include <tlx/logger.hpp>
+#include <tlx/cmdline_parser.hpp>
+
 #include <foxxll/io.hpp>
 #include <foxxll/mng.hpp>
-#include <tlx/cmdline_parser.hpp>
 
 using foxxll::timestamp;
 using foxxll::external_size_type;

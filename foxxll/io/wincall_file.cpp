@@ -22,6 +22,8 @@
 #endif
 #include <windows.hpp>
 
+#include <tlx/logger.hpp>
+
 #include <foxxll/common/error_handling.hpp>
 #include <foxxll/io/iostats.hpp>
 
