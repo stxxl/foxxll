@@ -22,7 +22,7 @@
 #include <foxxll/io/request_queue_impl_qwqr.hpp>
 #include <foxxll/io/serving_request.hpp>
 
-#if FOXXLL_MSVC >= 1700
+#if FOXXLL_MSVC >= 1700 && FOXXLL_MSVC <= 1800
  #include <windows.hpp>
 #endif
 
@@ -226,7 +226,7 @@ void* request_queue_impl_qwqr::worker(void* arg)
 
     pthis->thread_state_.set_to(TERMINATED);
 
-#if FOXXLL_MSVC >= 1700
+#if FOXXLL_MSVC >= 1700 && FOXXLL_MSVC <= 1800
     // Workaround for deadlock bug in Visual C++ Runtime 2012 and 2013, see
     // request_queue_impl_worker.cpp. -tb
     ExitThread(nullptr);
