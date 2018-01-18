@@ -19,6 +19,7 @@
 #include <map>
 #include <mutex>
 
+#include <foxxll/io/file.hpp>
 #include <foxxll/io/iostats.hpp>
 #include <foxxll/io/linuxaio_queue.hpp>
 #include <foxxll/io/linuxaio_request.hpp>
