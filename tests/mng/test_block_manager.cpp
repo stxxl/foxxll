@@ -40,6 +40,9 @@ struct my_handler
     }
 };
 
+template class foxxll::typed_block<BLOCK_SIZE, int>;    // forced instantiation
+template class foxxll::typed_block<BLOCK_SIZE, MyType>; // forced instantiation
+
 using block_type = foxxll::typed_block<BLOCK_SIZE, MyType>;
 
 int main()
@@ -71,7 +74,7 @@ int main()
         reqs[i] = block[i].write(bids[i], my_handler());
 
     std::cout << "Waiting " << std::endl;
-    foxxll::wait_all(reqs.get(), nblocks);
+    wait_all(reqs.get(), nblocks);
 
     for (size_t i = 0; i < nblocks; i++) {
         for (size_t j = 0; j < block_type::size; ++j) {
