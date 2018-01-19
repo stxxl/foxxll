@@ -25,6 +25,7 @@
 #include <foxxll/common/timer.hpp>
 #include <foxxll/common/types.hpp>
 #include <foxxll/io/iostats.hpp>
+#include <tlx/algorithm/merge_combine.hpp>
 
 namespace foxxll {
 
@@ -345,7 +346,15 @@ void stats::p_read_finished(const double now)
 file_stats* stats::create_file_stats(unsigned int device_id)
 {
     std::unique_lock<std::mutex> lock(list_mutex_);
-    file_stats_list_.emplace_back(device_id);
+    auto it = std::lower_bound(
+        file_stats_list_.begin(), file_stats_list_.end(),
+        device_id, [](const file_stats& fs, unsigned id) {
+            return fs.get_device_id() < id;
+        });
+    if (it != file_stats_list_.end() && it->get_device_id())
+        return &*it;
+
+    file_stats_list_.emplace(it, /* construction: */ device_id);
     return &file_stats_list_.back();
 }
 
@@ -369,8 +378,9 @@ std::ostream& operator << (std::ostream& o, const stats& s)
 template <typename T, typename Functor>
 T stats_data::fetch_sum(const Functor& get_value) const
 {
-    return std::accumulate(file_stats_data_list_.cbegin(), file_stats_data_list_.cend(), T(0),
-                           [get_value](T sum, const auto& x) { return sum + get_value(x); });
+    return std::accumulate(
+        file_stats_data_list_.cbegin(), file_stats_data_list_.cend(), T(0),
+        [get_value](T sum, const auto& x) { return sum + get_value(x); });
 }
 
 template <typename T>
@@ -414,32 +424,25 @@ stats_data::summary<T>::summary(
     }
 }
 
+struct FileStatsDataCompare {
+    long long operator () (const file_stats_data& a, const file_stats_data& b) const {
+        return static_cast<long long>(a.get_device_id())
+            - static_cast<long long>(b.get_device_id());
+    }
+};
+
 stats_data stats_data::operator + (const stats_data& a) const
 {
     stats_data s;
 
-    if (a.file_stats_data_list_.size() == 0)
-    {
-        s.file_stats_data_list_ = file_stats_data_list_;
-    }
-    else if (file_stats_data_list_.size() == 0)
-    {
-        s.file_stats_data_list_ = a.file_stats_data_list_;
-    }
-    else if (file_stats_data_list_.size() == a.file_stats_data_list_.size())
-    {
-        for (auto it1 = file_stats_data_list_.cbegin(),
-             it2 = a.file_stats_data_list_.cbegin();
-             it1 != file_stats_data_list_.cend(); it1++, it2++)
-        {
-            s.file_stats_data_list_.push_back((*it1) + (*it2));
-        }
-    }
-    else
-    {
-        FOXXLL_THROW(std::runtime_error,
-                     "The number of files has changed between the snapshots.");
-    }
+    tlx::merge_combine(
+        file_stats_data_list_.cbegin(), file_stats_data_list_.cend(),
+        a.file_stats_data_list_.cbegin(), a.file_stats_data_list_.cend(),
+        std::back_inserter(s.file_stats_data_list_),
+        FileStatsDataCompare(),
+        [](const file_stats_data& a, const file_stats_data& b) {
+            return a + b;
+        });
 
     s.p_reads_ = p_reads_ + a.p_reads_;
     s.p_writes_ = p_writes_ + a.p_writes_;
@@ -455,24 +458,14 @@ stats_data stats_data::operator - (const stats_data& a) const
 {
     stats_data s;
 
-    if (a.file_stats_data_list_.size() == 0)
-    {
-        s.file_stats_data_list_ = file_stats_data_list_;
-    }
-    else if (file_stats_data_list_.size() == a.file_stats_data_list_.size())
-    {
-        for (auto it1 = file_stats_data_list_.cbegin(),
-             it2 = a.file_stats_data_list_.cbegin();
-             it1 != file_stats_data_list_.cend(); it1++, it2++)
-        {
-            s.file_stats_data_list_.push_back((*it1) - (*it2));
-        }
-    }
-    else
-    {
-        FOXXLL_THROW(std::runtime_error,
-                     "The number of files has changed between the snapshots.");
-    }
+    tlx::merge_combine(
+        file_stats_data_list_.cbegin(), file_stats_data_list_.cend(),
+        a.file_stats_data_list_.cbegin(), a.file_stats_data_list_.cend(),
+        std::back_inserter(s.file_stats_data_list_),
+        FileStatsDataCompare(),
+        [](const file_stats_data& a, const file_stats_data& b) {
+            return a - b;
+        });
 
     s.p_reads_ = p_reads_ - a.p_reads_;
     s.p_writes_ = p_writes_ - a.p_writes_;
