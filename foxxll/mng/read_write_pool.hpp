@@ -54,10 +54,6 @@ public:
         p_pool = new prefetch_pool_type(init_size_prefetch);
     }
 
-    TLX_DEPRECATED(read_write_pool(prefetch_pool_type & p_pool, write_pool_type & w_pool))
-        : w_pool(&w_pool), p_pool(&p_pool), delete_pools(false)
-    { }
-
     //! non-copyable: delete copy-constructor
     read_write_pool(const read_write_pool&) = delete;
     //! non-copyable: delete assignment operator

@@ -169,12 +169,6 @@ public:
         return p;
     }
 
-    // deprecated name for the steal()
-    TLX_DEPRECATED(block_type * get())
-    {
-        return steal();
-    }
-
     //! Resizes size of the pool.
     //! \param new_size new size of the pool after the call
     void resize(size_t new_size)
@@ -195,17 +189,6 @@ public:
             delete steal();
     }
 
-    TLX_DEPRECATED(request_ptr get_request(bid_type bid))
-    {
-        busy_blocks_iterator i2 = busy_blocks.begin();
-        for ( ; i2 != busy_blocks.end(); ++i2)
-        {
-            if (i2->bid == bid)
-                return i2->req;
-        }
-        return request_ptr();
-    }
-
     bool has_request(bid_type bid)
     {
         for (busy_blocks_iterator i2 = busy_blocks.begin(); i2 != busy_blocks.end(); ++i2)
@@ -214,22 +197,6 @@ public:
                 return true;
         }
         return false;
-    }
-
-    TLX_DEPRECATED(block_type * steal(bid_type bid))
-    {
-        busy_blocks_iterator i2 = busy_blocks.begin();
-        for ( ; i2 != busy_blocks.end(); ++i2)
-        {
-            if (i2->bid == bid)
-            {
-                block_type* p = i2->block;
-                i2->req->wait();
-                busy_blocks.erase(i2);
-                return p;
-            }
-        }
-        return nullptr;
     }
 
     // returns a block and a (potentially unfinished) I/O request associated with it
