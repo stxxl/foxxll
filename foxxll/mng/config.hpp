@@ -224,6 +224,10 @@ public:
     //! \return string that contains the disk's path name
     const std::string & disk_path(size_t disk) const;
 
+    //! Returns default path of disk.
+    //! \return string that contains the disk's path name
+    static std::string default_disk_path();
+
     //! Returns disk size.
     //! \param disk disk's identifier
     //! \return disk size in bytes
@@ -232,6 +236,9 @@ public:
     //! Returns name of I/O implementation of particular disk.
     //! \param disk disk's identifier
     const std::string & disk_io_impl(size_t disk) const;
+
+    //! Returns name of the default I/O implementation
+    static std::string default_disk_io_impl();
 
     //! Returns the total size over all disks
     external_size_type total_size() const;
