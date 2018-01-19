@@ -255,7 +255,7 @@ void* linuxaio_queue::post_async(void* arg)
     self_type* pthis = static_cast<self_type*>(arg);
     pthis->post_thread_state_.set_to(TERMINATED);
 
-#if FOXXLL_MSVC >= 1700
+#if FOXXLL_MSVC >= 1700 && FOXXLL_MSVC <= 1800
     // Workaround for deadlock bug in Visual C++ Runtime 2012 and 2013, see
     // request_queue_impl_worker.cpp. -tb
     ExitThread(nullptr);
@@ -271,7 +271,7 @@ void* linuxaio_queue::wait_async(void* arg)
     self_type* pthis = static_cast<self_type*>(arg);
     pthis->wait_thread_state_.set_to(TERMINATED);
 
-#if FOXXLL_MSVC >= 1700
+#if FOXXLL_MSVC >= 1700 && FOXXLL_MSVC <= 1800
     // Workaround for deadlock bug in Visual C++ Runtime 2012 and 2013, see
     // request_queue_impl_worker.cpp. -tb
     ExitThread(nullptr);

@@ -22,7 +22,7 @@
 #ifndef NOMINMAX
   #define NOMINMAX
 #endif
-#include <windows.hpp>
+#include <windows.h>
 
 namespace foxxll {
 
@@ -115,7 +115,7 @@ static HANDLE open_file_impl(const std::string& filename, int mode)
 
 wfs_file_base::wfs_file_base(const std::string& filename, int mode)
     : file_des_(INVALID_HANDLE_VALUE),
-      mode_(mode), filename(filename), locked(false)
+      mode_(mode), filename_(filename), locked_(false)
 {
     file_des_ = open_file_impl(filename, mode);
     need_alignment_ = (mode& file::DIRECT) != 0;
@@ -131,7 +131,7 @@ wfs_file_base::wfs_file_base(const std::string& filename, int mode)
         if (!GetFullPathNameA(filename.c_str(), sizeof(buf), buf, &part))
         {
             LOG1 << "wfs_file_base::wfs_file_base(): GetFullPathNameA() error for file " << filename;
-            bytes_per_sector = 512;
+            bytes_per_sector_ = 512;
         }
         else
         {
@@ -140,10 +140,10 @@ wfs_file_base::wfs_file_base(const std::string& filename, int mode)
             if (!GetDiskFreeSpaceA(buf, nullptr, &bytes_per_sector_, nullptr, nullptr))
             {
                 LOG1 << "wfs_file_base::wfs_file_base(): GetDiskFreeSpaceA() error for path " << buf;
-                bytes_per_sector = 512;
+                bytes_per_sector_ = 512;
             }
             else
-                bytes_per_sector = bytes_per_sector_;
+                bytes_per_sector_ = bytes_per_sector_;
         }
     }
 }
@@ -169,11 +169,11 @@ void wfs_file_base::close()
 void wfs_file_base::lock()
 {
     std::unique_lock<std::mutex> fd_lock(fd_mutex_);
-    if (locked)
+    if (locked_)
         return;  // already locked
     if (LockFile(file_des_, 0, 0, 0xffffffff, 0xffffffff) == 0)
         FOXXLL_THROW_WIN_LASTERROR(io_error, "LockFile() fd=" << file_des_);
-    locked = true;
+    locked_ = true;
 }
 
 file::offset_type wfs_file_base::_size()
@@ -201,14 +201,14 @@ void wfs_file_base::set_size(offset_type newsize)
         LARGE_INTEGER desired_pos;
         desired_pos.QuadPart = newsize;
 
-        bool direct_with_bad_size = (mode_& file::DIRECT) && (newsize % bytes_per_sector);
+        bool direct_with_bad_size = (mode_& file::DIRECT) && (newsize % bytes_per_sector_);
         if (direct_with_bad_size)
         {
             if (!CloseHandle(file_des_))
                 FOXXLL_THROW_WIN_LASTERROR(io_error, "closing file (call of ::CloseHandle() from set_size) ");
 
             file_des_ = INVALID_HANDLE_VALUE;
-            file_des_ = open_file_impl(filename, WRONLY);
+            file_des_ = open_file_impl(filename_, WRONLY);
         }
 
         if (!SetFilePointerEx(file_des_, desired_pos, nullptr, FILE_BEGIN))
@@ -226,7 +226,7 @@ void wfs_file_base::set_size(offset_type newsize)
                 FOXXLL_THROW_WIN_LASTERROR(io_error, "closing file (call of ::CloseHandle() from set_size) ");
 
             file_des_ = INVALID_HANDLE_VALUE;
-            file_des_ = open_file_impl(filename, mode_ & ~TRUNC);
+            file_des_ = open_file_impl(filename_, mode_ & ~TRUNC);
         }
     }
 }
@@ -234,7 +234,7 @@ void wfs_file_base::set_size(offset_type newsize)
 void wfs_file_base::close_remove()
 {
     close();
-    ::DeleteFileA(filename.c_str());
+    ::DeleteFileA(filename_.c_str());
 }
 
 } // namespace foxxll

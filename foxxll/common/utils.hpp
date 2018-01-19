@@ -28,7 +28,6 @@
 
 #include <foxxll/common/types.hpp>
 #include <foxxll/config.hpp>
-#include <foxxll/msvc_compatibility.hpp>
 
 namespace foxxll {
 

@@ -13,6 +13,7 @@
  *  http://www.boost.org/LICENSE_1_0.txt)
  **************************************************************************/
 
+#include <array>
 #include <iomanip>
 #include <mutex>
 #include <numeric>

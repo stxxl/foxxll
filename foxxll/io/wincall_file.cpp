@@ -20,7 +20,7 @@
 #ifndef NOMINMAX
   #define NOMINMAX
 #endif
-#include <windows.hpp>
+#include <windows.h>
 
 #include <tlx/logger.hpp>
 

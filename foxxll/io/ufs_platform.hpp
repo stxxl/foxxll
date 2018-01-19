@@ -17,6 +17,8 @@
 #ifndef FOXXLL_IO_UFS_PLATFORM_HEADER
 #define FOXXLL_IO_UFS_PLATFORM_HEADER
 
+#include <foxxll/config.hpp>
+
 #if FOXXLL_WINDOWS || defined(__MINGW32__)
   #ifndef NOMINMAX
     #define NOMINMAX
