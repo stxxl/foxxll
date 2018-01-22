@@ -28,6 +28,7 @@
 
 #include <tlx/logger.hpp>
 #include <tlx/unused.hpp>
+#include <tlx/string.hpp>
 
 #include <foxxll/common/error_handling.hpp>
 #include <foxxll/common/timer.hpp>
@@ -638,21 +639,18 @@ public:
     }
 };
 
-std::string format_with_SI_IEC_unit_multiplier(
-    const external_size_type number, const std::string& unit = "", const int multiplier = 1000);
-
 static inline
 std::string add_IEC_binary_multiplier(
     const external_size_type number, const std::string& unit = "")
 {
-    return format_with_SI_IEC_unit_multiplier(number, unit, 1024);
+    return tlx::format_iec_units(number) + unit;
 }
 
 static inline
 std::string add_SI_multiplier(
     external_size_type number, const std::string& unit = "")
 {
-    return format_with_SI_IEC_unit_multiplier(number, unit, 1000);
+    return tlx::format_si_units(number) + unit;
 }
 
 /*!

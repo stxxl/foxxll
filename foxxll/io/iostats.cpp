@@ -649,41 +649,6 @@ double stats_data::get_wait_write_time() const
     return t_wait_write_;
 }
 
-std::string format_with_SI_IEC_unit_multiplier(
-    const uint64_t number, const std::string& unit, int multiplier)
-{
-    // may not overflow, std::numeric_limits<uint64_t>::max() == 16 EB
-    static const std::array<std::string, 7> endings {
-        "", "k", "M", "G", "T", "P", "E"
-    };
-    static const std::array<std::string, 7> binary_endings {
-        "", "Ki", "Mi", "Gi", "Ti", "Pi", "Ei"
-    };
-
-    std::ostringstream out;
-    out << number << ' ';
-
-    size_t scale = 0;
-    auto number_d = static_cast<double>(number);
-    double multiplier_d = multiplier;
-    while (number_d >= multiplier_d)
-    {
-        number_d /= multiplier_d;
-        ++scale;
-    }
-
-    if (scale > 0) {
-        out << '(' << std::fixed << std::setprecision(3) << number_d << ' '
-            << (multiplier == 1024 ? binary_endings[scale] : endings[scale])
-            << unit << ") ";
-    }
-    else {
-        out << unit;
-    }
-
-    return out.str();
-}
-
 void stats_data::to_ostream(std::ostream& o, const std::string line_prefix) const
 {
     constexpr double one_mib = 1024.0 * 1024;
