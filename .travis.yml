@@ -1,11 +1,11 @@
 language: cpp
-sudo: false
+sudo: true
 
 env:
   global:
     # limit parallel threads (default is 32!)
     - OMP_NUM_THREADS=4
-    - TMPDIR=/tmp
+    - TMPDIR=/dev/shm/
     - FOXXLL_TEST_DISKDIR=$TMPDIR # place where to put FOXXLL's data files during tests
 
 matrix:
@@ -64,8 +64,4 @@ before_script:
     -DCMAKE_C_FLAGS="$CMAKE_FLAGS" -DCMAKE_CXX_FLAGS="$CMAKE_FLAGS"
 
 script:
-# Build the library and run tests on three IO subsystems
-- make -j2 VERBOSE=1 &&
-   echo "disk=${FOXXLL_TEST_DISKDIR}/stxxl.$$.tmp,256Mi,syscall unlink" > ~/.stxxl && ./tools/foxxll_tool info && ctest &&
-   echo "disk=${FOXXLL_TEST_DISKDIR}/stxxl.$$.tmp,256Mi,linuxaio unlink" > ~/.stxxl && ./tools/foxxll_tool info && ctest &&
-   echo "disk=${FOXXLL_TEST_DISKDIR}/stxxl.$$.tmp,256Mi,memory" > ~/.stxxl && ./tools/foxxll_tool info && ctest
+- ../.travis-run.sh
