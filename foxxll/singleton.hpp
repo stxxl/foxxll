@@ -48,6 +48,13 @@ public:
 
         return instance;
     }
+
+    inline static instance_type& get_ref() {
+        if (!instance)
+            create_instance();
+
+        return *instance;
+    }
 };
 
 template <typename INSTANCE, bool destroy_on_exit>
