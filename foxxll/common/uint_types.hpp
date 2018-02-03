@@ -91,14 +91,20 @@ public:
     uint_pair()
     {
         // compile-time assertions about size of low_type
-        static_assert(8 * sizeof(low_type) == 32,
-                      "8 * sizeof(low_type) == 32");
+        static_assert(
+            8 * sizeof(low_type) == 32,
+            "8 * sizeof(low_type) == 32"
+        );
         // compile-time assertions about size of our data structure, this tests
         // packing of structures by the compiler
-        static_assert(sizeof(uint_pair) == bytes,
-                      "sizeof(uint_pair) == bytes");
-        static_assert(sizeof(uint_pair) == digits / 8,
-                      "sizeof(uint_pair) == digits / 8");
+        static_assert(
+            sizeof(uint_pair) == bytes,
+            "sizeof(uint_pair) == bytes"
+        );
+        static_assert(
+            sizeof(uint_pair) == digits / 8,
+            "sizeof(uint_pair) == digits / 8"
+        );
         static_assert(digits / 8 == bytes, "digits / 8 == bytes");
     }
 
@@ -223,15 +229,19 @@ public:
     //! return an uint_pair instance containing the smallest value possible
     static uint_pair min()
     {
-        return uint_pair(std::numeric_limits<low_type>::min(),
-                         std::numeric_limits<high_type>::min());
+        return uint_pair(
+            std::numeric_limits<low_type>::min(),
+            std::numeric_limits<high_type>::min()
+        );
     }
 
     //! return an uint_pair instance containing the largest value possible
     static uint_pair max()
     {
-        return uint_pair(std::numeric_limits<low_type>::max(),
-                         std::numeric_limits<high_type>::max());
+        return uint_pair(
+            std::numeric_limits<low_type>::max(),
+            std::numeric_limits<high_type>::max()
+        );
     }
 }
 #if FOXXLL_MSVC

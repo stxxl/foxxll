@@ -84,7 +84,8 @@ void fileperblock_file<base_file_type>::lock()
     if (!lock_file_)
     {
         lock_file_ = tlx::make_counting<base_file_type>(
-            filename_prefix_ + "_fpb_lock", mode_, get_queue_id());
+                filename_prefix_ + "_fpb_lock", mode_, get_queue_id()
+            );
 
         //create lock file and fill it with one page, an empty file cannot be locked
         const int page_size = BlockAlignment;

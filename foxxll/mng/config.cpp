@@ -182,8 +182,10 @@ void config::load_config_file(const std::string& config_path)
     disks_list.insert(disks_list.end(), flash_list.begin(), flash_list.end());
 
     if (disks_list.empty()) {
-        FOXXLL_THROW(std::runtime_error,
-                     "No disks found in '" << config_path << "'.");
+        FOXXLL_THROW(
+            std::runtime_error,
+            "No disks found in '" << config_path << "'."
+        );
     }
 }
 
@@ -320,8 +322,10 @@ void disk_config::parse_line(const std::string& line)
         flash = true;
     }
     else {
-        FOXXLL_THROW(std::runtime_error,
-                     "Unknown configuration token " << eqfield[0]);
+        FOXXLL_THROW(
+            std::runtime_error,
+            "Unknown configuration token " << eqfield[0]
+        );
     }
 
     // *** Set Default Extra Options ***
@@ -357,8 +361,10 @@ void disk_config::parse_line(const std::string& line)
 
     // size: (default unit MiB)
     if (!tlx::parse_si_iec_units(cmfield[1], &size, 'M')) {
-        FOXXLL_THROW(std::runtime_error,
-                     "Invalid disk size '" << cmfield[1] << "' in disk configuration file.");
+        FOXXLL_THROW(
+            std::runtime_error,
+            "Invalid disk size '" << cmfield[1] << "' in disk configuration file."
+        );
     }
 
     if (size == 0) {
@@ -412,8 +418,10 @@ void disk_config::parse_fileio()
             else if (eq[1] == "yes") autogrow = true;
             else
             {
-                FOXXLL_THROW(std::runtime_error,
-                             "Invalid parameter '" << *p << "' in disk configuration file.");
+                FOXXLL_THROW(
+                    std::runtime_error,
+                    "Invalid parameter '" << *p << "' in disk configuration file."
+                );
             }
         }
         else if (*p == "delete" || *p == "delete_on_exit")
@@ -434,8 +442,10 @@ void disk_config::parse_fileio()
             else if (eq[1] == "yes") direct = DIRECT_ON;
             else
             {
-                FOXXLL_THROW(std::runtime_error,
-                             "Invalid parameter '" << *p << "' in disk configuration file.");
+                FOXXLL_THROW(
+                    std::runtime_error,
+                    "Invalid parameter '" << *p << "' in disk configuration file."
+                );
             }
         }
         else if (eq[0] == "queue")
@@ -447,23 +457,29 @@ void disk_config::parse_fileio()
             char* endp;
             queue = static_cast<int>(strtoul(eq[1].c_str(), &endp, 10));
             if (endp && *endp != 0) {
-                FOXXLL_THROW(std::runtime_error,
-                             "Invalid parameter '" << *p << "' in disk configuration file.");
+                FOXXLL_THROW(
+                    std::runtime_error,
+                    "Invalid parameter '" << *p << "' in disk configuration file."
+                );
             }
         }
         else if (eq[0] == "queue_length")
         {
             if (io_impl != "linuxaio") {
-                FOXXLL_THROW(std::runtime_error, "Parameter '" << *p << "' "
-                             "is only valid for fileio linuxaio "
-                             "in disk configuration file.");
+                FOXXLL_THROW(
+                    std::runtime_error, "Parameter '" << *p << "' "
+                        "is only valid for fileio linuxaio "
+                        "in disk configuration file."
+                );
             }
 
             char* endp;
             queue_length = static_cast<int>(strtoul(eq[1].c_str(), &endp, 10));
             if (endp && *endp != 0) {
-                FOXXLL_THROW(std::runtime_error,
-                             "Invalid parameter '" << *p << "' in disk configuration file.");
+                FOXXLL_THROW(
+                    std::runtime_error,
+                    "Invalid parameter '" << *p << "' in disk configuration file."
+                );
             }
         }
         else if (eq[0] == "device_id" || eq[0] == "devid")
@@ -471,8 +487,10 @@ void disk_config::parse_fileio()
             char* endp;
             device_id = static_cast<int>(strtoul(eq[1].c_str(), &endp, 10));
             if (endp && *endp != 0) {
-                FOXXLL_THROW(std::runtime_error,
-                             "Invalid parameter '" << *p << "' in disk configuration file.");
+                FOXXLL_THROW(
+                    std::runtime_error,
+                    "Invalid parameter '" << *p << "' in disk configuration file."
+                );
             }
         }
         else if (*p == "raw_device")
@@ -495,8 +513,10 @@ void disk_config::parse_fileio()
         }
         else
         {
-            FOXXLL_THROW(std::runtime_error,
-                         "Invalid optional parameter '" << *p << "' in disk configuration file.");
+            FOXXLL_THROW(
+                std::runtime_error,
+                "Invalid optional parameter '" << *p << "' in disk configuration file."
+            );
         }
     }
 }

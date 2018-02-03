@@ -37,7 +37,8 @@ static inline double timestamp()
 {
     return static_cast<double>(
         std::chrono::duration_cast<std::chrono::microseconds>(
-            std::chrono::steady_clock::now().time_since_epoch()).count()) / 1e6;
+            std::chrono::steady_clock::now().time_since_epoch()
+        ).count()) / 1e6;
 }
 
 /*!
@@ -257,7 +258,7 @@ public:
                  << m_message
                  << " after " << m_timer.seconds() << " seconds. "
                  << "Processed " << tlx::format_iec_units(m_bytes) << "B"
-    		 << " @ " << tlx::format_iec_units(static_cast<uint64_t>(bps)) << "B/s";
+                 << " @ " << tlx::format_iec_units(static_cast<uint64_t>(bps)) << "B/s";
         }
     }
 

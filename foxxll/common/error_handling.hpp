@@ -45,15 +45,19 @@ namespace foxxll {
 
 //! Throws exception_type with "Error in [function] : [error_message]"
 #define FOXXLL_THROW(exception_type, error_message) \
-    FOXXLL_THROW2(exception_type,                   \
-                  FOXXLL_PRETTY_FUNCTION_NAME,      \
-                  error_message)
+    FOXXLL_THROW2(                                  \
+        exception_type,                             \
+        FOXXLL_PRETTY_FUNCTION_NAME,                \
+        error_message                               \
+    )
 
 //! Throws exception_type with "Error in [function] : [error_message] : [errno_value message]"
 #define FOXXLL_THROW_ERRNO2(exception_type, error_message, errno_value) \
-    FOXXLL_THROW2(exception_type,                                       \
-                  FOXXLL_PRETTY_FUNCTION_NAME,                          \
-                  error_message << " : " << strerror(errno_value))
+    FOXXLL_THROW2(                                                      \
+        exception_type,                                                 \
+        FOXXLL_PRETTY_FUNCTION_NAME,                                    \
+        error_message << " : " << strerror(errno_value)                 \
+    )
 
 //! Throws exception_type with "Error in [function] : [error_message] : [errno message]"
 #define FOXXLL_THROW_ERRNO(exception_type, error_message) \
@@ -61,9 +65,11 @@ namespace foxxll {
 
 //! Throws std::invalid_argument with "Error in [function] : [error_message]"
 #define FOXXLL_THROW_INVALID_ARGUMENT(error_message) \
-    FOXXLL_THROW2(std::invalid_argument,             \
-                  FOXXLL_PRETTY_FUNCTION_NAME,       \
-                  error_message)
+    FOXXLL_THROW2(                                   \
+        std::invalid_argument,                       \
+        FOXXLL_PRETTY_FUNCTION_NAME,                 \
+        error_message                                \
+    )
 
 //! Throws exception_type if (expr) with "Error in [function] : [error_message]"
 #define FOXXLL_THROW_IF(expr, exception_type, error_message) \
@@ -97,7 +103,8 @@ namespace foxxll {
             nullptr, dw,                                                 \
             MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),                   \
             (LPTSTR)&lpMsgBuf,                                           \
-            0, nullptr);                                                 \
+            0, nullptr                                                   \
+        );                                                               \
         std::ostringstream msg;                                          \
         msg << "Error in " << FOXXLL_PRETTY_FUNCTION_NAME                \
             << " : " << error_message                                    \

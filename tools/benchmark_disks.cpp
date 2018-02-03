@@ -32,8 +32,8 @@
 #include <string>
 #include <vector>
 
-#include <tlx/logger.hpp>
 #include <tlx/cmdline_parser.hpp>
+#include <tlx/logger.hpp>
 
 #include <foxxll/io.hpp>
 #include <foxxll/mng.hpp>
@@ -103,7 +103,7 @@ int benchmark_disks_alloc(
     // allocate data blocks
     for (size_t j = 0; j < num_blocks_per_batch; ++j) {
         buffer[j] = reinterpret_cast<block_type>(
-            foxxll::aligned_alloc<4096>(raw_block_size));
+                foxxll::aligned_alloc<4096>(raw_block_size));
     }
 
     // touch data, so it is actually allocated
@@ -119,7 +119,7 @@ int benchmark_disks_alloc(
         for (external_size_type offset = 0; offset < endpos; offset += current_batch_size)
         {
             current_batch_size = static_cast<size_t>(
-                std::min<external_size_type>(batch_size, endpos - offset));
+                    std::min<external_size_type>(batch_size, endpos - offset));
 #if CHECK_AFTER_READ
             const size_t current_batch_size_int = current_batch_size / sizeof(uint32_t);
 #endif
@@ -133,7 +133,8 @@ int benchmark_disks_alloc(
             for (BID& b : bids) b.size = raw_block_size;
 
             foxxll::block_manager::get_instance()->new_blocks(
-                alloc, bids.begin() + num_total_blocks, bids.end());
+                alloc, bids.begin() + num_total_blocks, bids.end()
+            );
 
             if (offset < start_offset)
                 continue;
@@ -168,7 +169,8 @@ int benchmark_disks_alloc(
             {
                 for (size_t j = 0; j < current_num_blocks_per_batch; j++)
                     reqs[j] = bids[num_total_blocks + j].read(
-                        buffer[j], raw_block_size);
+                            buffer[j], raw_block_size
+                        );
 
                 wait_all(reqs, current_num_blocks_per_batch);
 
@@ -242,21 +244,31 @@ int benchmark_disks(int argc, char* argv[])
     size_t block_size = 8 * MiB;
     std::string optrw = "rw", allocstr;
 
-    cp.add_param_bytes("size", length,
-                       "Amount of data to write/read from disks (e.g. 10GiB)");
+    cp.add_param_bytes(
+        "size", length,
+        "Amount of data to write/read from disks (e.g. 10GiB)"
+    );
     cp.add_opt_param_string(
         "r|w", optrw,
-        "Only read or write blocks (default: both write and read)");
+        "Only read or write blocks (default: both write and read)"
+    );
     cp.add_opt_param_string(
         "alloc", allocstr,
-        "Block allocation strategy: random_cyclic, simple_random, fully_random, striping. (default: random_cyclic)");
+        "Block allocation strategy: random_cyclic, simple_random, fully_random, striping. (default: random_cyclic)"
+    );
 
-    cp.add_unsigned('b', "batch", batch_size,
-                    "Number of blocks written/read in one batch (default: D * B)");
-    cp.add_bytes('B', "block_size", block_size,
-                 "Size of blocks written in one syscall. (default: B = 8MiB)");
-    cp.add_bytes('o', "offset", offset,
-                 "Starting offset of operation range. (default: 0)");
+    cp.add_unsigned(
+        'b', "batch", batch_size,
+        "Number of blocks written/read in one batch (default: D * B)"
+    );
+    cp.add_bytes(
+        'B', "block_size", block_size,
+        "Size of blocks written in one syscall. (default: B = 8MiB)"
+    );
+    cp.add_bytes(
+        'o', "offset", offset,
+        "Starting offset of operation range. (default: 0)"
+    );
 
     cp.set_description(
         "This program will benchmark the disks configured by the standard "
@@ -265,7 +277,8 @@ int benchmark_disks(int argc, char* argv[])
         "size describes how many blocks are written/read in one batch. The "
         "are taken from block_manager using given the specified allocation "
         "strategy. If size == 0, then writing/reading operation are done "
-        "until an error occurs. ");
+        "until an error occurs. "
+    );
 
     if (!cp.process(argc, argv))
         return -1;
@@ -274,16 +287,20 @@ int benchmark_disks(int argc, char* argv[])
     {
         if (allocstr == "random_cyclic")
             return benchmark_disks_alloc<foxxll::random_cyclic>(
-                length, offset, batch_size, block_size, optrw);
+                length, offset, batch_size, block_size, optrw
+            );
         if (allocstr == "simple_random")
             return benchmark_disks_alloc<foxxll::simple_random>(
-                length, offset, batch_size, block_size, optrw);
+                length, offset, batch_size, block_size, optrw
+            );
         if (allocstr == "fully_random")
             return benchmark_disks_alloc<foxxll::fully_random>(
-                length, offset, batch_size, block_size, optrw);
+                length, offset, batch_size, block_size, optrw
+            );
         if (allocstr == "striping")
             return benchmark_disks_alloc<foxxll::striping>(
-                length, offset, batch_size, block_size, optrw);
+                length, offset, batch_size, block_size, optrw
+            );
 
         std::cout << "Unknown allocation strategy '" << allocstr << "'" << std::endl;
         cp.print_usage();
@@ -291,5 +308,6 @@ int benchmark_disks(int argc, char* argv[])
     }
 
     return benchmark_disks_alloc<foxxll::default_alloc_strategy>(
-        length, offset, batch_size, block_size, optrw);
+        length, offset, batch_size, block_size, optrw
+    );
 }

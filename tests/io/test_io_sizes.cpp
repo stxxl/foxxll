@@ -31,8 +31,9 @@ int main(int argc, char** argv)
     try
     {
         foxxll::file_ptr file = foxxll::create_file(
-            argv[1], argv[2],
-            foxxll::file::CREAT | foxxll::file::RDWR | foxxll::file::DIRECT);
+                argv[1], argv[2],
+                foxxll::file::CREAT | foxxll::file::RDWR | foxxll::file::DIRECT
+            );
         file->set_size(max_size);
 
         foxxll::request_ptr req;

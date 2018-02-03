@@ -91,10 +91,14 @@ int create_files(int argc, char* argv[])
     external_size_type offset = 0, length;
 
     tlx::CmdlineParser cp;
-    cp.add_param_bytes("filesize", length,
-                       "Number of bytes to write to files.");
-    cp.add_param_stringlist("filename", disks_arr,
-                            "Paths to files to write.");
+    cp.add_param_bytes(
+        "filesize", length,
+        "Number of bytes to write to files."
+    );
+    cp.add_param_stringlist(
+        "filename", disks_arr,
+        "Paths to files to write."
+    );
 
     if (!cp.process(argc, argv))
         return -1;
@@ -137,19 +141,27 @@ int create_files(int argc, char* argv[])
     {
 #if FOXXLL_WINDOWS
  #ifdef RAW_ACCESS
-        disks[i] = new foxxll::wincall_file(disks_arr[i],
-                                            file::CREAT | file::RDWR | file::DIRECT, static_cast<int>(i));
+        disks[i] = new foxxll::wincall_file(
+                disks_arr[i],
+                file::CREAT | file::RDWR | file::DIRECT, static_cast<int>(i)
+            );
  #else
-        disks[i] = new foxxll::wincall_file(disks_arr[i],
-                                            file::CREAT | file::RDWR, static_cast<int>(i));
+        disks[i] = new foxxll::wincall_file(
+                disks_arr[i],
+                file::CREAT | file::RDWR, static_cast<int>(i)
+            );
  #endif
 #else
  #ifdef RAW_ACCESS
-        disks[i] = new foxxll::syscall_file(disks_arr[i],
-                                            file::CREAT | file::RDWR | file::DIRECT, static_cast<int>(i));
+        disks[i] = new foxxll::syscall_file(
+                disks_arr[i],
+                file::CREAT | file::RDWR | file::DIRECT, static_cast<int>(i)
+            );
  #else
-        disks[i] = new foxxll::syscall_file(disks_arr[i],
-                                            file::CREAT | file::RDWR, static_cast<int>(i));
+        disks[i] = new foxxll::syscall_file(
+                disks_arr[i],
+                file::CREAT | file::RDWR, static_cast<int>(i)
+            );
  #endif
 #endif
     }
@@ -172,9 +184,11 @@ int create_files(int argc, char* argv[])
         {
             for (j = 0; j < chunks; j++)
                 reqs[i * chunks + j] =
-                    disks[i]->awrite(buffer + buffer_size_int * i + j * chunk_size_int,
-                                     offset + j * current_chunk_size,
-                                     current_chunk_size);
+                    disks[i]->awrite(
+                        buffer + buffer_size_int * i + j * chunk_size_int,
+                        offset + j * current_chunk_size,
+                        current_chunk_size
+                    );
         }
 
  #ifdef WATCH_TIMES
@@ -206,9 +220,11 @@ int create_files(int argc, char* argv[])
         for (i = 0; i < ndisks; i++)
         {
             for (j = 0; j < chunks; j++)
-                reqs[i * chunks + j] = disks[i]->aread(buffer + buffer_size_int * i + j * chunk_size_int,
-                                                       offset + j * current_chunk_size,
-                                                       current_chunk_size);
+                reqs[i * chunks + j] = disks[i]->aread(
+                        buffer + buffer_size_int * i + j * chunk_size_int,
+                        offset + j * current_chunk_size,
+                        current_chunk_size
+                    );
         }
 
  #ifdef WATCH_TIMES

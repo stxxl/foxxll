@@ -72,8 +72,10 @@ void request_queue_impl_qwqr::add_request(request_ptr& req)
 #if FOXXLL_CHECK_FOR_PENDING_REQUESTS_ON_SUBMISSION
         {
             std::unique_lock<std::mutex> lock(write_mutex_);
-            if (std::find_if(write_queue_.begin(), write_queue_.end(),
-                             bind2nd(file_offset_match(), req))
+            if (std::find_if(
+                    write_queue_.begin(), write_queue_.end(),
+                    bind2nd(file_offset_match(), req)
+                )
                 != write_queue_.end())
             {
                 LOG1 << "READ request submitted for a BID with a pending WRITE request";
@@ -88,8 +90,10 @@ void request_queue_impl_qwqr::add_request(request_ptr& req)
 #if FOXXLL_CHECK_FOR_PENDING_REQUESTS_ON_SUBMISSION
         {
             std::unique_lock<std::mutex> lock(read_mutex_);
-            if (std::find_if(read_queue_.begin(), read_queue_.end(),
-                             bind2nd(file_offset_match(), req))
+            if (std::find_if(
+                    read_queue_.begin(), read_queue_.end(),
+                    bind2nd(file_offset_match(), req)
+                )
                 != read_queue_.end())
             {
                 LOG1 << "WRITE request submitted for a BID with a pending READ request";

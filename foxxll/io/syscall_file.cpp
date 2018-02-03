@@ -41,16 +41,18 @@ void syscall_file::serve(void* buffer, offset_type offset, size_type bytes,
         if (rc < 0)
         {
             FOXXLL_THROW_ERRNO
-                (io_error,
+            (
+                io_error,
                 " this=" << this <<
-                " call=::lseek(fd,offset,SEEK_SET)" <<
-                " path=" << filename_ <<
-                " fd=" << file_des_ <<
-                " offset=" << offset <<
-                " buffer=" << cbuffer <<
-                " bytes=" << bytes <<
-                " op=" << ((op == request::READ) ? "READ" : "WRITE") <<
-                " rc=" << rc);
+                    " call=::lseek(fd,offset,SEEK_SET)" <<
+                    " path=" << filename_ <<
+                    " fd=" << file_des_ <<
+                    " offset=" << offset <<
+                    " buffer=" << cbuffer <<
+                    " bytes=" << bytes <<
+                    " op=" << ((op == request::READ) ? "READ" : "WRITE") <<
+                    " rc=" << rc
+            );
         }
 
         if (op == request::READ)
@@ -63,16 +65,18 @@ void syscall_file::serve(void* buffer, offset_type offset, size_type bytes,
 #endif
             {
                 FOXXLL_THROW_ERRNO
-                    (io_error,
+                (
+                    io_error,
                     " this=" << this <<
-                    " call=::read(fd,buffer,bytes)" <<
-                    " path=" << filename_ <<
-                    " fd=" << file_des_ <<
-                    " offset=" << offset <<
-                    " buffer=" << buffer <<
-                    " bytes=" << bytes <<
-                    " op=" << "READ" <<
-                    " rc=" << rc);
+                        " call=::read(fd,buffer,bytes)" <<
+                        " path=" << filename_ <<
+                        " fd=" << file_des_ <<
+                        " offset=" << offset <<
+                        " buffer=" << buffer <<
+                        " bytes=" << bytes <<
+                        " op=" << "READ" <<
+                        " rc=" << rc
+                );
             }
             bytes = static_cast<size_type>(bytes - rc);
             offset += rc;
@@ -96,16 +100,18 @@ void syscall_file::serve(void* buffer, offset_type offset, size_type bytes,
 #endif
             {
                 FOXXLL_THROW_ERRNO
-                    (io_error,
+                (
+                    io_error,
                     " this=" << this <<
-                    " call=::write(fd,buffer,bytes)" <<
-                    " path=" << filename_ <<
-                    " fd=" << file_des_ <<
-                    " offset=" << offset <<
-                    " buffer=" << buffer <<
-                    " bytes=" << bytes <<
-                    " op=" << "WRITE" <<
-                    " rc=" << rc);
+                        " call=::write(fd,buffer,bytes)" <<
+                        " path=" << filename_ <<
+                        " fd=" << file_des_ <<
+                        " offset=" << offset <<
+                        " buffer=" << buffer <<
+                        " bytes=" << bytes <<
+                        " op=" << "WRITE" <<
+                        " rc=" << rc
+                );
             }
             bytes = static_cast<size_type>(bytes - rc);
             offset += rc;

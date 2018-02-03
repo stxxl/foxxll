@@ -176,10 +176,12 @@ void disk_block_allocator::new_blocks(BIDIterator begin, BIDIterator end)
     if (free_bytes_ < requested_size)
     {
         if (!autogrow_) {
-            FOXXLL_THROW(bad_ext_alloc,
-                         "Out of external memory error: " << requested_size <<
-                         " requested, " << free_bytes_ << " bytes free. "
-                         "Maybe enable autogrow_ flags?");
+            FOXXLL_THROW(
+                bad_ext_alloc,
+                "Out of external memory error: " << requested_size <<
+                    " requested, " << free_bytes_ << " bytes free. "
+                    "Maybe enable autogrow_ flags?"
+            );
         }
 
         LOG1 << "External memory block allocation error: " << requested_size <<
@@ -192,10 +194,12 @@ void disk_block_allocator::new_blocks(BIDIterator begin, BIDIterator end)
     // dump();
 
     space_map_type::iterator space =
-        std::find_if(free_space_.begin(), free_space_.end(),
-                     [requested_size](const place& entry) {
-                         return (entry.second >= requested_size);
-                     });
+        std::find_if(
+            free_space_.begin(), free_space_.end(),
+            [requested_size](const place& entry) {
+                return (entry.second >= requested_size);
+            }
+        );
 
     if (space == free_space_.end() && begin + 1 == end)
     {
@@ -210,10 +214,12 @@ void disk_block_allocator::new_blocks(BIDIterator begin, BIDIterator end)
 
         grow_file(begin->size);
 
-        space = std::find_if(free_space_.begin(), free_space_.end(),
-                             [requested_size](const place& entry) {
-                                 return (entry.second >= requested_size);
-                             });
+        space = std::find_if(
+                free_space_.begin(), free_space_.end(),
+                [requested_size](const place& entry) {
+                    return (entry.second >= requested_size);
+                }
+            );
     }
 
     if (space != free_space_.end())

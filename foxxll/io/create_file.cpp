@@ -75,14 +75,17 @@ file_ptr create_file(disk_config& cfg, int mode, int disk_allocator_id)
     {
         tlx::counting_ptr<ufs_file_base> result =
             tlx::make_counting<syscall_file>(
-                cfg.path, mode, cfg.queue, disk_allocator_id, cfg.device_id);
+                cfg.path, mode, cfg.queue, disk_allocator_id, cfg.device_id
+            );
         result->lock();
 
         // if marked as device but file is not -> throw!
         if (cfg.raw_device && !result->is_device())
         {
-            FOXXLL_THROW(io_error, "Disk " << cfg.path << " was expected to be "
-                         "a raw block device, but it is a normal file!");
+            FOXXLL_THROW(
+                io_error, "Disk " << cfg.path << " was expected to be "
+                    "a raw block device, but it is a normal file!"
+            );
         }
 
         // if is raw_device -> get size and remove some flags.
@@ -102,7 +105,8 @@ file_ptr create_file(disk_config& cfg, int mode, int disk_allocator_id)
     {
         tlx::counting_ptr<fileperblock_file<syscall_file> > result =
             tlx::make_counting<fileperblock_file<syscall_file> >(
-                cfg.path, mode, cfg.queue, disk_allocator_id, cfg.device_id);
+                cfg.path, mode, cfg.queue, disk_allocator_id, cfg.device_id
+            );
         result->lock();
         return result;
     }
@@ -110,7 +114,8 @@ file_ptr create_file(disk_config& cfg, int mode, int disk_allocator_id)
     {
         tlx::counting_ptr<memory_file> result =
             tlx::make_counting<memory_file>(
-                cfg.queue, disk_allocator_id, cfg.device_id);
+                cfg.queue, disk_allocator_id, cfg.device_id
+            );
         result->lock();
         return result;
     }
@@ -124,15 +129,18 @@ file_ptr create_file(disk_config& cfg, int mode, int disk_allocator_id)
         tlx::counting_ptr<ufs_file_base> result =
             tlx::make_counting<linuxaio_file>(
                 cfg.path, mode, cfg.queue, disk_allocator_id,
-                cfg.device_id, cfg.queue_length);
+                cfg.device_id, cfg.queue_length
+            );
 
         result->lock();
 
         // if marked as device but file is not -> throw!
         if (cfg.raw_device && !result->is_device())
         {
-            FOXXLL_THROW(io_error, "Disk " << cfg.path << " was expected to be "
-                         "a raw block device, but it is a normal file!");
+            FOXXLL_THROW(
+                io_error, "Disk " << cfg.path << " was expected to be "
+                    "a raw block device, but it is a normal file!"
+            );
         }
 
         // if is raw_device -> get size and remove some flags.
@@ -154,7 +162,8 @@ file_ptr create_file(disk_config& cfg, int mode, int disk_allocator_id)
     {
         tlx::counting_ptr<ufs_file_base> result =
             tlx::make_counting<mmap_file>(
-                cfg.path, mode, cfg.queue, disk_allocator_id, cfg.device_id);
+                cfg.path, mode, cfg.queue, disk_allocator_id, cfg.device_id
+            );
         result->lock();
 
         if (cfg.unlink_on_open)
@@ -166,7 +175,8 @@ file_ptr create_file(disk_config& cfg, int mode, int disk_allocator_id)
     {
         tlx::counting_ptr<fileperblock_file<mmap_file> > result =
             tlx::make_counting<fileperblock_file<mmap_file> >(
-                cfg.path, mode, cfg.queue, disk_allocator_id, cfg.device_id);
+                cfg.path, mode, cfg.queue, disk_allocator_id, cfg.device_id
+            );
         result->lock();
         return result;
     }
@@ -176,7 +186,8 @@ file_ptr create_file(disk_config& cfg, int mode, int disk_allocator_id)
     {
         tlx::counting_ptr<wfs_file_base> result =
             tlx::make_counting<wincall_file>(
-                cfg.path, mode, cfg.queue, disk_allocator_id, cfg.device_id);
+                cfg.path, mode, cfg.queue, disk_allocator_id, cfg.device_id
+            );
         result->lock();
         return result;
     }
@@ -184,14 +195,17 @@ file_ptr create_file(disk_config& cfg, int mode, int disk_allocator_id)
     {
         tlx::counting_ptr<fileperblock_file<wincall_file> > result =
             tlx::make_counting<fileperblock_file<wincall_file> >(
-                cfg.path, mode, cfg.queue, disk_allocator_id, cfg.device_id);
+                cfg.path, mode, cfg.queue, disk_allocator_id, cfg.device_id
+            );
         result->lock();
         return result;
     }
 #endif
 
-    FOXXLL_THROW(std::runtime_error,
-                 "Unsupported disk I/O implementation '" << cfg.io_impl << "'.");
+    FOXXLL_THROW(
+        std::runtime_error,
+        "Unsupported disk I/O implementation '" << cfg.io_impl << "'."
+    );
 }
 
 } // namespace foxxll

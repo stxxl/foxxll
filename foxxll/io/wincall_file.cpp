@@ -50,7 +50,8 @@ void wincall_file::serve(void* buffer, offset_type offset, size_type bytes,
                 " this=" << this <<
                 " buffer=" << buffer <<
                 " bytes=" << bytes <<
-                " op=" << ((op == request::READ) ? "READ" : "WRITE"));
+                " op=" << ((op == request::READ) ? "READ" : "WRITE")
+        );
     }
     else
     {
@@ -71,7 +72,8 @@ void wincall_file::serve(void* buffer, offset_type offset, size_type bytes,
                         " buffer=" << buffer <<
                         " bytes=" << bytes <<
                         " op=" << ((op == request::READ) ? "READ" : "WRITE") <<
-                        " NumberOfBytesRead= " << NumberOfBytesRead);
+                        " NumberOfBytesRead= " << NumberOfBytesRead
+                );
             }
             else if (NumberOfBytesRead != bytes) {
                 FOXXLL_THROW_WIN_LASTERROR(io_error, " partial read: missing " << (bytes - NumberOfBytesRead) << " out of " << bytes << " bytes");
@@ -91,7 +93,8 @@ void wincall_file::serve(void* buffer, offset_type offset, size_type bytes,
                         " buffer=" << buffer <<
                         " bytes=" << bytes <<
                         " op=" << ((op == request::READ) ? "READ" : "WRITE") <<
-                        " NumberOfBytesWritten= " << NumberOfBytesWritten);
+                        " NumberOfBytesWritten= " << NumberOfBytesWritten
+                );
             }
             else if (NumberOfBytesWritten != bytes) {
                 FOXXLL_THROW_WIN_LASTERROR(io_error, " partial write: missing " << (bytes - NumberOfBytesWritten) << " out of " << bytes << " bytes");

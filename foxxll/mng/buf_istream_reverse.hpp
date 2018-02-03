@@ -84,8 +84,10 @@ public:
 
         // optimal schedule
         nbuffers = std::max(2 * ndisks, nbuffers - 1);
-        compute_prefetch_schedule(bids_.begin(), bids_.end(), prefetch_seq,
-                                  nbuffers, mdevid);
+        compute_prefetch_schedule(
+            bids_.begin(), bids_.end(), prefetch_seq,
+            nbuffers, mdevid
+        );
 
         // create stream prefetcher
         prefetcher = new prefetcher_type(bids_.begin(), bids_.end(), prefetch_seq, nbuffers);

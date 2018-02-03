@@ -119,8 +119,10 @@ ufs_file_base::ufs_file_base(const std::string& filename, int mode)
     }
 #endif
 
-    FOXXLL_THROW_ERRNO(io_error, "open() rc=" << file_des_
-                                              << " path=" << filename_ << " flags=" << flags);
+    FOXXLL_THROW_ERRNO(
+        io_error, "open() rc=" << file_des_
+                               << " path=" << filename_ << " flags=" << flags
+    );
 }
 
 ufs_file_base::~ufs_file_base()
@@ -133,21 +135,29 @@ void ufs_file_base::_after_open()
     // stat file type
 #if FOXXLL_WINDOWS || defined(__MINGW32__)
     struct _stat64 st;
-    FOXXLL_THROW_ERRNO_NE_0(::_fstat64(file_des_, &st), io_error,
-                            "_fstat64() path=" << filename_ << " fd=" << file_des_);
+    FOXXLL_THROW_ERRNO_NE_0(
+        ::_fstat64(file_des_, &st), io_error,
+        "_fstat64() path=" << filename_ << " fd=" << file_des_
+    );
 #else
     struct stat st;
-    FOXXLL_THROW_ERRNO_NE_0(::fstat(file_des_, &st), io_error,
-                            "fstat() path=" << filename_ << " fd=" << file_des_);
+    FOXXLL_THROW_ERRNO_NE_0(
+        ::fstat(file_des_, &st), io_error,
+        "fstat() path=" << filename_ << " fd=" << file_des_
+    );
 #endif
     is_device_ = S_ISBLK(st.st_mode) ? true : false;
 
 #ifdef __APPLE__
     if (mode_ & REQUIRE_DIRECT) {
-        FOXXLL_THROW_ERRNO_NE_0(fcntl(file_des_, F_NOCACHE, 1), io_error,
-                                "fcntl() path=" << filename_ << " fd=" << file_des_);
-        FOXXLL_THROW_ERRNO_NE_0(fcntl(file_des_, F_RDAHEAD, 0), io_error,
-                                "fcntl() path=" << filename_ << " fd=" << file_des_);
+        FOXXLL_THROW_ERRNO_NE_0(
+            fcntl(file_des_, F_NOCACHE, 1), io_error,
+            "fcntl() path=" << filename_ << " fd=" << file_des_
+        );
+        FOXXLL_THROW_ERRNO_NE_0(
+            fcntl(file_des_, F_RDAHEAD, 0), io_error,
+            "fcntl() path=" << filename_ << " fd=" << file_des_
+        );
     }
     else if (mode_ & DIRECT) {
         if (fcntl(file_des_, F_NOCACHE, 1) != 0) {
@@ -229,31 +239,41 @@ void ufs_file_base::_set_size(offset_type newsize)
     {
 #if FOXXLL_WINDOWS || defined(__MINGW32__)
         HANDLE hfile = (HANDLE)::_get_osfhandle(file_des_);
-        FOXXLL_THROW_ERRNO_NE_0((hfile == INVALID_HANDLE_VALUE), io_error,
-                                "_get_osfhandle() path=" << filename_ << " fd=" << file_des_);
+        FOXXLL_THROW_ERRNO_NE_0(
+            (hfile == INVALID_HANDLE_VALUE), io_error,
+            "_get_osfhandle() path=" << filename_ << " fd=" << file_des_
+        );
 
         LARGE_INTEGER desired_pos;
         desired_pos.QuadPart = newsize;
 
         if (!SetFilePointerEx(hfile, desired_pos, nullptr, FILE_BEGIN))
-            FOXXLL_THROW_WIN_LASTERROR(io_error,
-                                       "SetFilePointerEx in ufs_file_base::set_size(..) oldsize=" << cur_size <<
-                                       " newsize=" << newsize << " ");
+            FOXXLL_THROW_WIN_LASTERROR(
+                io_error,
+                "SetFilePointerEx in ufs_file_base::set_size(..) oldsize=" << cur_size <<
+                    " newsize=" << newsize << " "
+            );
 
         if (!SetEndOfFile(hfile))
-            FOXXLL_THROW_WIN_LASTERROR(io_error,
-                                       "SetEndOfFile oldsize=" << cur_size <<
-                                       " newsize=" << newsize << " ");
+            FOXXLL_THROW_WIN_LASTERROR(
+                io_error,
+                "SetEndOfFile oldsize=" << cur_size <<
+                    " newsize=" << newsize << " "
+            );
 #else
-        FOXXLL_THROW_ERRNO_NE_0(::ftruncate(file_des_, newsize), io_error,
-                                "ftruncate() path=" << filename_ << " fd=" << file_des_);
+        FOXXLL_THROW_ERRNO_NE_0(
+            ::ftruncate(file_des_, newsize), io_error,
+            "ftruncate() path=" << filename_ << " fd=" << file_des_
+        );
 #endif
     }
 
 #if !FOXXLL_WINDOWS
     if (newsize > cur_size)
-        FOXXLL_THROW_IF(::lseek(file_des_, newsize - 1, SEEK_SET) < 0, io_error,
-                        "lseek() path=" << filename_ << " fd=" << file_des_ << " pos=" << newsize - 1);
+        FOXXLL_THROW_IF(
+            ::lseek(file_des_, newsize - 1, SEEK_SET) < 0, io_error,
+            "lseek() path=" << filename_ << " fd=" << file_des_ << " pos=" << newsize - 1
+        );
 #endif
 }
 

@@ -45,8 +45,8 @@ protected:
         size_t operator () (const bid_type& bid) const
         {
             size_t result = size_t(bid.storage) +
-                            size_t(bid.offset & 0xffffffff) +
-                            size_t(bid.offset >> 32);
+                size_t(bid.offset & 0xffffffff) +
+                size_t(bid.offset >> 32);
             return result;
         }
 #if FOXXLL_MSVC
