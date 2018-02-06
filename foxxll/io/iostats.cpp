@@ -816,6 +816,4 @@ void scoped_print_iostats::report() const
 
     LOG1 << ss.str();
 }
-
 } // namespace foxxll
-// vim: et:ts=4:sw=4

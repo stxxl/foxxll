@@ -285,6 +285,4 @@ bool ufs_file_base::is_device() const
 {
     return is_device_;
 }
-
 } // namespace foxxll
-// vim: et:ts=4:sw=4

@@ -69,4 +69,3 @@ int main()
 
     return 0;
 }
-// vim: et:ts=4:sw=4

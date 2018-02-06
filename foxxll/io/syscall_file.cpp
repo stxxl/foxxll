@@ -118,6 +118,4 @@ const char* syscall_file::io_type() const
 {
     return "syscall";
 }
-
 } // namespace foxxll
-// vim: et:ts=4:sw=4

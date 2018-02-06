@@ -156,6 +156,4 @@ void disk_block_allocator::add_free_region(uint64_t block_pos, uint64_t block_si
 
     //dump();
 }
-
 } // namespace foxxll
-// vim: et:ts=4:sw=4

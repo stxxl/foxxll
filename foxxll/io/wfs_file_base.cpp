@@ -240,4 +240,3 @@ void wfs_file_base::close_remove()
 } // namespace foxxll
 
 #endif // FOXXLL_WINDOWS
-// vim: et:ts=4:sw=4

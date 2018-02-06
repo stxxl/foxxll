@@ -84,4 +84,3 @@ public:
 #endif // #if FOXXLL_HAVE_LINUXAIO_FILE
 
 #endif // !FOXXLL_IO_LINUXAIO_FILE_HEADER
-// vim: et:ts=4:sw=4

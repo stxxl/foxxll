@@ -408,4 +408,3 @@ public:
 } // namespace foxxll
 
 #endif // !FOXXLL_MNG_TYPED_BLOCK_HEADER
-// vim: et:ts=4:sw=4

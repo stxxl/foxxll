@@ -193,6 +193,4 @@ file_ptr create_file(disk_config& cfg, int mode, int disk_allocator_id)
     FOXXLL_THROW(std::runtime_error,
                  "Unsupported disk I/O implementation '" << cfg.io_impl << "'.");
 }
-
 } // namespace foxxll
-// vim: et:ts=4:sw=4

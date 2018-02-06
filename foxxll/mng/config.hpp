@@ -244,4 +244,3 @@ public:
 } // namespace foxxll
 
 #endif // !FOXXLL_MNG_CONFIG_HEADER
-// vim: et:ts=4:sw=4

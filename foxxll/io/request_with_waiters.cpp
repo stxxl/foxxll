@@ -56,6 +56,4 @@ size_t request_with_waiters::num_waiters()
     std::unique_lock<std::mutex> lock(waiters_mutex_);
     return waiters_.size();
 }
-
 } // namespace foxxll
-// vim: et:ts=4:sw=4

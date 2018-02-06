@@ -234,6 +234,4 @@ void* request_queue_impl_qwqr::worker(void* arg)
     return nullptr;
 #endif
 }
-
 } // namespace foxxll
-// vim: et:ts=4:sw=4

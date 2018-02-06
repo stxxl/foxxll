@@ -89,7 +89,4 @@ void request_with_state::completed(bool canceled)
     file_ = nullptr;
     state_.set_to(READY2DIE);
 }
-
 } // namespace foxxll
-
-// vim: et:ts=4:sw=4

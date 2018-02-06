@@ -129,4 +129,3 @@ aligned_dealloc(void* ptr)
 } // namespace foxxll
 
 #endif // !FOXXLL_COMMON_ALIGNED_ALLOC_HEADER
-// vim: et:ts=4:sw=4

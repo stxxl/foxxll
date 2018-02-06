@@ -65,5 +65,3 @@ int main(int argc, char* argv[])
     delete[] disks;
     delete[] prefetch_order;
 }
-
-// vim: et:ts=4:sw=4

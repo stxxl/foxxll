@@ -74,4 +74,3 @@ void compute_prefetch_schedule(
 } // namespace foxxll
 
 #endif // !FOXXLL_MNG_ASYNC_SCHEDULE_HEADER
-// vim: et:ts=4:sw=4

@@ -137,4 +137,3 @@ inline bool operator != (
 } // namespace foxxll
 
 #endif // !FOXXLL_COMMON_NEW_ALLOC_HEADER
-// vim: et:ts=4:sw=4

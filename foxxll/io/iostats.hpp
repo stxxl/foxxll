@@ -727,4 +727,3 @@ public:
 } // namespace foxxll
 
 #endif // !FOXXLL_IO_IOSTATS_HEADER
-// vim: et:ts=4:sw=4

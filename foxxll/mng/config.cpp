@@ -570,6 +570,4 @@ std::string disk_config::expand_path(std::string path) const
 
     return ss.str();
 }
-
 } // namespace foxxll
-// vim: et:ts=4:sw=4

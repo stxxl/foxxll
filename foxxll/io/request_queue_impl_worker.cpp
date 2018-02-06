@@ -63,6 +63,4 @@ void request_queue_impl_worker::stop_thread(
     assert(s() == TERMINATED);
     s.set_to(NOT_RUNNING);
 }
-
 } // namespace foxxll
-// vim: et:ts=4:sw=4

@@ -454,5 +454,3 @@ int benchmark_files(int argc, char* argv[])
 
     return (verify_failed ? 1 : 0);
 }
-
-// vim: et:ts=4:sw=4

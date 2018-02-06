@@ -61,4 +61,3 @@ const char* linuxaio_file::io_type() const
 } // namespace foxxll
 
 #endif // #if FOXXLL_HAVE_LINUXAIO_FILE
-// vim: et:ts=4:sw=4

@@ -65,6 +65,4 @@ const char* serving_request::io_type() const
 {
     return file_->io_type();
 }
-
 } // namespace foxxll
-// vim: et:ts=4:sw=4

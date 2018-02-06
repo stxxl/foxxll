@@ -43,6 +43,4 @@ request_ptr disk_queued_file::awrite(
 
     return req;
 }
-
 } // namespace foxxll
-// vim: et:ts=4:sw=4

@@ -273,4 +273,3 @@ public:
 } // namespace foxxll
 
 #endif // !FOXXLL_COMMON_TIMER_HEADER
-// vim: et:ts=4:sw=4

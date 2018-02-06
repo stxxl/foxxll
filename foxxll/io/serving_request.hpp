@@ -50,4 +50,3 @@ public:
 } // namespace foxxll
 
 #endif // !FOXXLL_IO_SERVING_REQUEST_HEADER
-// vim: et:ts=4:sw=4

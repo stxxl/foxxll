@@ -66,4 +66,3 @@ public:
 } // namespace foxxll
 
 #endif // !FOXXLL_IO_REQUEST_QUEUE_IMPL_1Q_HEADER
-// vim: et:ts=4:sw=4

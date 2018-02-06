@@ -191,4 +191,3 @@ using BIDArray = tlx::simple_vector<BID<BlockSize> >;
 } // namespace foxxll
 
 #endif // !FOXXLL_MNG_BID_HEADER
-// vim: et:ts=4:sw=4

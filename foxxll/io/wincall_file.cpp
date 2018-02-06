@@ -108,4 +108,3 @@ const char* wincall_file::io_type() const
 } // namespace foxxll
 
 #endif // #if FOXXLL_HAVE_WINCALL_FILE
-// vim: et:ts=4:sw=4

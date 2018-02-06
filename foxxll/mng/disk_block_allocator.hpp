@@ -256,4 +256,3 @@ void disk_block_allocator::new_blocks(BIDIterator begin, BIDIterator end)
 } // namespace foxxll
 
 #endif // !FOXXLL_MNG_DISK_BLOCK_ALLOCATOR_HEADER
-// vim: et:ts=4:sw=4

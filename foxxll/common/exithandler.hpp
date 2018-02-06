@@ -33,4 +33,3 @@ void run_exit_handlers();
 } // namespace foxxll
 
 #endif // !FOXXLL_COMMON_EXITHANDLER_HEADER
-// vim: et:ts=4:sw=4

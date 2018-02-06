@@ -50,4 +50,3 @@ protected:
 } // namespace foxxll
 
 #endif // !FOXXLL_IO_REQUEST_QUEUE_IMPL_WORKER_HEADER
-// vim: et:ts=4:sw=4

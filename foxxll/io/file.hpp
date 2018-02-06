@@ -266,4 +266,3 @@ using file_ptr = tlx::counting_ptr<file>;
 } // namespace foxxll
 
 #endif // !FOXXLL_IO_FILE_HEADER
-// vim: et:ts=4:sw=4

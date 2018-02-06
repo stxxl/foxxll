@@ -83,4 +83,3 @@ public:
 } // namespace foxxll
 
 #endif // !FOXXLL_COMMON_EXCEPTIONS_HEADER
-// vim: et:ts=4:sw=4

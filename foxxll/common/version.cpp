@@ -46,7 +46,4 @@ std::string get_library_version_string_long()
 {
     return get_version_string_long();
 }
-
 } // namespace foxxll
-
-// vim: et:ts=4:sw=4

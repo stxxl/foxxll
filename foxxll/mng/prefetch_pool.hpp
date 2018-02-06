@@ -395,4 +395,3 @@ void swap(foxxll::prefetch_pool<BlockType>& a,
 } // namespace std
 
 #endif // !FOXXLL_MNG_PREFETCH_POOL_HEADER
-// vim: et:ts=4:sw=4
