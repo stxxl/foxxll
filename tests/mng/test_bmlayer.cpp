@@ -64,7 +64,7 @@ void testIO()
     for (i = 0; i < nblocks; ++i)
         reqs[i] = block->write(bids[i], my_handler());
 
-    std::cout << "Waiting " << std::endl;
+    LOG1 << "Waiting";
     foxxll::wait_all(reqs, nblocks);
 
     for (i = 0; i < nblocks; ++i)

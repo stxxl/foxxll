@@ -227,7 +227,7 @@ class add_filler<BaseType, 0>
 public:
     add_filler()
     {
-         LOGC(debug_typed_block) << "[" << static_cast<void*>(this) << "] add_filler<> is constructed";
+        LOGC(debug_typed_block) << "[" << static_cast<void*>(this) << "] add_filler<> is constructed";
     }
 };
 

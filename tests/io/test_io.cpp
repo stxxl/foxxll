@@ -39,7 +39,7 @@ int main(int argc, char** argv)
 {
     if (argc < 2)
     {
-        std::cout << "Usage: " << argv[0] << " tempdir" << std::endl;
+        LOG1 << "Usage: " << argv[0] << " tempdir";
         return -1;
     }
 
@@ -47,7 +47,7 @@ int main(int argc, char** argv)
     tempfilename[0] = std::string(argv[1]) + "/test_io_1.dat";
     tempfilename[1] = std::string(argv[1]) + "/test_io_2.dat";
 
-    std::cout << sizeof(void*) << std::endl;
+    LOG1 << "Size of void*: " << sizeof(void*);
     const int size = 1024 * 384;
     auto* buffer = static_cast<char*>(foxxll::aligned_alloc<4096>(size));
     die_if(buffer == nullptr);
@@ -80,7 +80,7 @@ int main(int argc, char** argv)
 
     foxxll::aligned_dealloc<4096>(buffer);
 
-    std::cout << *(foxxll::stats::get_instance());
+    LOG1 << foxxll::stats::get_ref();
 
     size_t sz;
     for (sz = 123, i = 0; i < 20; ++i, sz *= 10)

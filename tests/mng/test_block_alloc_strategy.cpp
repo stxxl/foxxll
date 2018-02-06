@@ -12,6 +12,8 @@
  *  http://www.boost.org/LICENSE_1_0.txt)
  **************************************************************************/
 
+#include <sstream>
+
 #include <tlx/logger.hpp>
 
 #include <foxxll/common/error_handling.hpp>
@@ -33,14 +35,20 @@ void test_strategy()
     int ndisks = 4;
     int nruns = 10;
     int runsize = 15;
-    std::cout << "firstdisk=" << firstdisk << "  ndisks=" << ndisks << "  nruns=" << nruns << "  runsize=" << runsize;
+
+    std::ostringstream ss;
+    ss << "firstdisk=" << firstdisk << "  ndisks=" << ndisks << "  nruns=" << nruns << "  runsize=" << runsize;
     interleaved itl2(nruns, strategy(firstdisk, firstdisk + ndisks));
     for (int i = 0; i < nruns * runsize; ++i) {
-        if (i % nruns == 0)
-            std::cout << std::endl;
-        std::cout << itl2(i) << " ";
+        if (i % nruns == 0) {
+            LOG1 << ss.str();
+            ss.clear();
+        }
+
+        ss << itl2(i) << " ";
     }
-    std::cout << std::endl;
+
+    LOG1 << ss.str();
 }
 
 int main()

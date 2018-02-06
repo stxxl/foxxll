@@ -13,11 +13,14 @@
 
 #include <cstdio>
 #include <iomanip>
+#include <sstream>
 #include <vector>
+
+#include <tlx/cmdline_parser.hpp>
+#include <tlx/logger.hpp>
 
 #include <foxxll/common/aligned_alloc.hpp>
 #include <foxxll/io.hpp>
-#include <tlx/cmdline_parser.hpp>
 
 #if !FOXXLL_WINDOWS
  #include <unistd.h>
@@ -77,8 +80,7 @@ void out_stat(double start, double end, double* times, unsigned n, const std::ve
 {
     for (unsigned i = 0; i < n; i++)
     {
-        std::cout << i << " " << names[i] << " took " <<
-            100. * (times[i] - start) / (end - start) << " %" << std::endl;
+        LOG1 << i << " " << names[i] << " took " << 100. * (times[i] - start) / (end - start) << " %" << std::endl;
     }
 }
 #endif
@@ -104,7 +106,7 @@ int create_files(int argc, char* argv[])
     for (size_t i = 0; i < disks_arr.size(); ++i)
     {
         unlink(disks_arr[i].c_str());
-        std::cout << "# Add disk: " << disks_arr[i] << std::endl;
+        LOG1 << "# Add disk: " << disks_arr[i];
     }
 
     const size_t ndisks = disks_arr.size();
@@ -156,6 +158,8 @@ int create_files(int argc, char* argv[])
 
     while (offset < endpos)
     {
+        std::stringstream ss;
+
         const size_t current_block_size =
             length
             ? static_cast<size_t>(std::min<external_size_type>(buffer_size, endpos - offset))
@@ -163,7 +167,7 @@ int create_files(int argc, char* argv[])
 
         const size_t current_chunk_size = current_block_size / chunks;
 
-        std::cout << "Disk offset " << std::setw(7) << offset / MB << " MiB: " << std::fixed;
+        ss << "Disk offset " << std::setw(7) << offset / MB << " MiB: " << std::fixed;
 
         double begin = timestamp(), end;
 
@@ -185,19 +189,10 @@ int create_files(int argc, char* argv[])
 
         end = timestamp();
 
-#if 0
-        std::cout << "WRITE\nDisks: " << ndisks
-                  << " \nElapsed time: " << end - begin
-                  << " \nThroughput: " << int(double(buffer_size * ndisks) / MB / (end - begin))
-                  << " MiB/s \nPer one disk:"
-                  << int((buffer_size) / MB / (end - begin)) << " MiB/s"
-                  << std::endl;
-#endif
-
  #ifdef WATCH_TIMES
         out_stat(begin, end, w_finish_times, ndisks, disks_arr);
  #endif
-        std::cout << std::setw(7) << int(double(current_block_size) / MB / (end - begin)) << " MiB/s,";
+        ss << std::setw(7) << int(double(current_block_size) / MB / (end - begin)) << " MiB/s,";
 #endif
 
 #ifndef NOREAD
@@ -219,16 +214,8 @@ int create_files(int argc, char* argv[])
 
         end = timestamp();
 
-#if 0
-        std::cout << "READ\nDisks: " << ndisks
-                  << " \nElapsed time: " << end - begin
-                  << " \nThroughput: " << int(double(buffer_size * ndisks) / MB / (end - begin))
-                  << " MiB/s \nPer one disk:"
-                  << int(double(buffer_size) / MB / (end - begin)) << " MiB/s"
-                  << std::endl;
-#endif
-
-        std::cout << int(double(current_block_size) / MB / (end - begin)) << " MiB/s" << std::endl;
+        ss << int(double(current_block_size) / MB / (end - begin)) << " MiB/s";
+        ss.str();
 
 #ifdef WATCH_TIMES
         out_stat(begin, end, r_finish_times, ndisks, disks_arr);
@@ -242,16 +229,16 @@ int create_files(int argc, char* argv[])
                     size_t ibuf = i / buffer_size_int;
                     size_t pos = i % buffer_size_int;
 
-                    std::cout << "Error on disk " << ibuf << " position " << std::hex << std::setw(8) << offset + pos * sizeof(int)
-                              << "  got: " << std::hex << std::setw(8) << buffer[i] << " wanted: " << std::hex << std::setw(8) << static_cast<int>(i)
-                              << std::dec << std::endl;
+                    LOG1 << "Error on disk " << ibuf << " position " << std::hex << std::setw(8) << offset + pos * sizeof(int)
+                         << "  got: " << std::hex << std::setw(8) << buffer[i] << " wanted: " << std::hex << std::setw(8) << static_cast<int>(i)
+                         << std::dec;
 
                     i = (ibuf + 1) * buffer_size_int; // jump to next
                 }
             }
         }
 #else
-        std::cout << std::endl;
+        LOG1 << ss.str();
 #endif
 
         offset += current_block_size;
