@@ -78,34 +78,34 @@ void run_test(external_size_type span, external_size_type worksize, bool do_init
         blocks.resize(num_blocks_in_span);
         foxxll::block_manager::get_instance()->new_blocks(alloc, blocks.begin(), blocks.end());
 
-        std::cout << "# Span size: "
-                  << foxxll::add_IEC_binary_multiplier(span, "B") << " ("
-                  << num_blocks_in_span << " blocks of "
-                  << foxxll::add_IEC_binary_multiplier(raw_block_size, "B") << ")" << std::endl;
+        LOG1 << "# Span size: "
+             << foxxll::add_IEC_binary_multiplier(span, "B") << " ("
+             << num_blocks_in_span << " blocks of "
+             << foxxll::add_IEC_binary_multiplier(raw_block_size, "B") << ")";
 
-        std::cout << "# Work size: "
-                  << foxxll::add_IEC_binary_multiplier(worksize, "B") << " ("
-                  << num_blocks << " blocks of "
-                  << foxxll::add_IEC_binary_multiplier(raw_block_size, "B") << ")" << std::endl;
+        LOG1 << "# Work size: "
+             << foxxll::add_IEC_binary_multiplier(worksize, "B") << " ("
+             << num_blocks << " blocks of "
+             << foxxll::add_IEC_binary_multiplier(raw_block_size, "B") << ")";
 
         double begin, end, elapsed;
 
         if (do_init)
         {
             begin = timestamp();
-            std::cout << "First fill up space by writing sequentially..." << std::endl;
+            LOG1 << "First fill up space by writing sequentially...";
             for (external_size_type j = 0; j < num_blocks_in_span; j++)
                 reqs[j] = buffer->write(blocks[j]);
             wait_all(reqs, num_blocks_in_span);
             end = timestamp();
             elapsed = end - begin;
-            std::cout << "Written "
-                      << std::setw(12) << num_blocks_in_span << " blocks in " << std::fixed << std::setw(9) << std::setprecision(2) << elapsed << " seconds: "
-                      << std::setw(9) << std::setprecision(1) << (static_cast<double>(num_blocks_in_span) / elapsed) << " blocks/s "
-                      << std::setw(7) << std::setprecision(1) << (static_cast<double>(num_blocks_in_span * raw_block_size) / MiB / elapsed) << " MiB/s write " << std::endl;
+            LOG1 << "Written "
+                 << std::setw(12) << num_blocks_in_span << " blocks in " << std::fixed << std::setw(9) << std::setprecision(2) << elapsed << " seconds: "
+                 << std::setw(9) << std::setprecision(1) << (static_cast<double>(num_blocks_in_span) / elapsed) << " blocks/s "
+                 << std::setw(7) << std::setprecision(1) << (static_cast<double>(num_blocks_in_span * raw_block_size) / MiB / elapsed) << " MiB/s write ";
         }
 
-        std::cout << "Random block access..." << std::endl;
+        LOG1 << "Random block access...";
 
         srand(static_cast<unsigned int>(time(nullptr)));
         std::random_shuffle(blocks.begin(), blocks.end());
@@ -119,9 +119,9 @@ void run_test(external_size_type span, external_size_type worksize, bool do_init
 
             end = timestamp();
             elapsed = end - begin;
-            std::cout << "Read    " << num_blocks << " blocks in " << std::fixed << std::setw(5) << std::setprecision(2) << elapsed << " seconds: "
-                      << std::setw(5) << std::setprecision(1) << (double(num_blocks) / elapsed) << " blocks/s "
-                      << std::setw(5) << std::setprecision(1) << (double(num_blocks * raw_block_size) / MiB / elapsed) << " MiB/s read" << std::endl;
+            LOG1 << "Read    " << num_blocks << " blocks in " << std::fixed << std::setw(5) << std::setprecision(2) << elapsed << " seconds: "
+                 << std::setw(5) << std::setprecision(1) << (double(num_blocks) / elapsed) << " blocks/s "
+                 << std::setw(5) << std::setprecision(1) << (double(num_blocks * raw_block_size) / MiB / elapsed) << " MiB/s read";
         }
 
         std::random_shuffle(blocks.begin(), blocks.end());
@@ -135,14 +135,13 @@ void run_test(external_size_type span, external_size_type worksize, bool do_init
 
             end = timestamp();
             elapsed = end - begin;
-            std::cout << "Written " << num_blocks << " blocks in " << std::fixed << std::setw(5) << std::setprecision(2) << elapsed << " seconds: "
-                      << std::setw(5) << std::setprecision(1) << (double(num_blocks) / elapsed) << " blocks/s "
-                      << std::setw(5) << std::setprecision(1) << (double(num_blocks * raw_block_size) / MiB / elapsed) << " MiB/s write " << std::endl;
+            LOG1 << "Written " << num_blocks << " blocks in " << std::fixed << std::setw(5) << std::setprecision(2) << elapsed << " seconds: "
+                 << std::setw(5) << std::setprecision(1) << (double(num_blocks) / elapsed) << " blocks/s "
+                 << std::setw(5) << std::setprecision(1) << (double(num_blocks * raw_block_size) / MiB / elapsed) << " MiB/s write ";
         }
     }
     catch (const std::exception& ex)
     {
-        std::cout << std::endl;
         LOG1 << ex.what();
     }
 
@@ -194,8 +193,8 @@ int benchmark_disks_random_alloc(external_size_type span, size_t block_size, ext
     else if (block_size == 128 * MiB)
         run(128 * MiB);
     else
-        std::cerr << "Unsupported block_size " << block_size << "." << std::endl
-                  << "Available are only powers of two from 4 KiB to 128 MiB. You must use 'ki' instead of 'k'." << std::endl;
+        LOG1 << "Unsupported block_size " << block_size << ".\n"
+             << "Available are only powers of two from 4 KiB to 128 MiB. You must use 'ki' instead of 'k'.";
 #undef run
 
     return 0;
@@ -249,7 +248,7 @@ int benchmark_disks_random(int argc, char* argv[])
         if (allocstr == "striping")
             return run_alloc(foxxll::striping);
 
-        std::cout << "Unknown allocation strategy '" << allocstr << "'" << std::endl;
+        LOG1 << "Unknown allocation strategy '" << allocstr << "'";
         cp.print_usage();
         return -1;
     }

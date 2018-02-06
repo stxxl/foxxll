@@ -46,40 +46,6 @@ class disk_block_allocator
 {
     constexpr static bool debug = false;
 
-    //! pair (offset, size) used for free space calculation
-    using place = std::pair<uint64_t, uint64_t>;
-    using space_map_type = std::map<uint64_t, uint64_t>;
-
-    std::mutex mutex_;
-    //! map of free space as places
-    space_map_type free_space_;
-    uint64_t free_bytes_ = 0;
-    uint64_t disk_bytes_ = 0;
-    uint64_t cfg_bytes_;
-    file* storage_;
-    bool autogrow_;
-
-    void dump() const;
-
-    void deallocation_error(
-        uint64_t block_pos, uint64_t block_size,
-        const space_map_type::iterator& pred,
-        const space_map_type::iterator& succ) const;
-
-    // expects the mutex_ to be locked to prevent concurrent access
-    void add_free_region(uint64_t block_pos, uint64_t block_size);
-
-    // expects the mutex_ to be locked to prevent concurrent access
-    void grow_file(uint64_t extend_bytes)
-    {
-        if (extend_bytes == 0)
-            return;
-
-        storage_->set_size(disk_bytes_ + extend_bytes);
-        add_free_region(disk_bytes_, extend_bytes);
-        disk_bytes_ += extend_bytes;
-    }
-
 public:
     disk_block_allocator(file* storage, const disk_config& cfg)
         : cfg_bytes_(cfg.size),
@@ -102,7 +68,7 @@ public:
         }
     }
 
-    //! Returns autogrow_
+    //! Returns autogrow
     bool autogrow() const { return autogrow_; }
 
     bool has_available_space(uint64_t bytes) const
@@ -151,6 +117,41 @@ public:
             "), free:" << free_bytes_ << " total:" << disk_bytes_;
 
         add_free_region(bid.offset, bid.size);
+    }
+
+private:
+    //! pair (offset, size) used for free space calculation
+    using place = std::pair<uint64_t, uint64_t>;
+    using space_map_type = std::map<uint64_t, uint64_t>;
+
+    std::mutex mutex_;
+    //! map of free space as places
+    space_map_type free_space_;
+    uint64_t free_bytes_ = 0;
+    uint64_t disk_bytes_ = 0;
+    uint64_t cfg_bytes_;
+    file* storage_;
+    bool autogrow_;
+
+    void dump() const;
+
+    void deallocation_error(
+        uint64_t block_pos, uint64_t block_size,
+        const space_map_type::iterator& pred,
+        const space_map_type::iterator& succ) const;
+
+    // expects the mutex_ to be locked to prevent concurrent access
+    void add_free_region(uint64_t block_pos, uint64_t block_size);
+
+    // expects the mutex_ to be locked to prevent concurrent access
+    void grow_file(uint64_t extend_bytes)
+    {
+        if (extend_bytes == 0)
+            return;
+
+        storage_->set_size(disk_bytes_ + extend_bytes);
+        add_free_region(disk_bytes_, extend_bytes);
+        disk_bytes_ += extend_bytes;
     }
 };
 

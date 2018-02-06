@@ -1,5 +1,7 @@
 # FOXXLL
-Travis-CI Status of master branch: [![Travis-CI Status](https://travis-ci.org/foxxll/foxxll.svg?branch=master)](https://travis-ci.org/foxxll/foxxll)
+Travis-CI Status of branch `master`: [![Travis-CI Status](https://travis-ci.org/foxxll/foxxll.svg?branch=master)](https://travis-ci.org/foxxll/foxxll)
+Coverity Result of branch `coverity_scan`: [![Coverity Status](https://scan.coverity.com/projects/15041/badge.svg?flat=1)](https://scan.coverity.com/projects/foxxll)
+
 
 FOXXLL is the **Fo**undation of ST**XX**L and Thri**LL** and offers solutions to (mostly) external-memory related issues.
 The lowest layer, the Asynchronous I/O primitives layer (AIO layer), abstracts away the details of how asynchronous I/O is performed on a particular operating system.

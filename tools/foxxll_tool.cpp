@@ -88,9 +88,8 @@ struct SubTool subtools[] = {
 int main_usage(const char* arg0)
 {
     LOG1 << foxxll::get_version_string_long();
-
-    std::cout << "Usage: " << arg0 << " <subtool> ..." << std::endl
-              << "Available subtools: " << std::endl;
+    LOG1 << "Usage: " << arg0 << " <subtool> ...\n"
+        "Available subtools: ";
 
     int shortlen = 0;
 
@@ -103,25 +102,23 @@ int main_usage(const char* arg0)
     for (unsigned int i = 0; subtools[i].name; ++i)
     {
         if (subtools[i].shortline) continue;
-        std::cout << "  " << subtools[i].name << std::endl;
+        LOG1 << "  " << subtools[i].name;
         tlx::CmdlineParser::output_wrap(std::cout, subtools[i].description, 80, 6, 6);
-        std::cout << std::endl;
     }
 
     for (unsigned int i = 0; subtools[i].name; ++i)
     {
         if (!subtools[i].shortline) continue;
-        std::cout << "  " << std::left << std::setw(shortlen + 2)
-                  << subtools[i].name << subtools[i].description << std::endl;
+        LOG1 << "  " << std::left << std::setw(shortlen + 2)
+             << subtools[i].name << subtools[i].description;
     }
-    std::cout << std::endl;
 
     return 0;
 }
 
 int main(int argc, char** argv)
 {
-    char progsub[256];
+    static char progsub[256];
 
     if (foxxll::check_library_version() != 0)
         LOG1 << "version mismatch between headers and library";
@@ -138,7 +135,7 @@ int main(int argc, char** argv)
                 return subtools[i].func(argc - 1, argv + 1);
             }
         }
-        std::cout << "Unknown subtool '" << argv[1] << "'" << std::endl;
+        LOG1 << "Unknown subtool '" << argv[1] << "'";
     }
 
     return main_usage(argv[0]);

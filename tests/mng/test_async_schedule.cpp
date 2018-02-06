@@ -14,6 +14,7 @@
 #include <cstdlib>
 #include <random>
 
+#include <tlx/die.hpp>
 #include <tlx/logger.hpp>
 
 #include <foxxll/mng/async_schedule.hpp>
@@ -30,6 +31,9 @@ int main(int argc, char* argv[])
     const size_t D = strtoul(argv[1], nullptr, 0);
     const size_t L = strtoul(argv[2], nullptr, 0);
     const size_t m = strtoul(argv[3], nullptr, 0);
+    die_unless(D > 0);
+    die_unless(L > 0);
+    die_unless(m > 0);
     uint32_t seed = strtoul(argv[4], nullptr, 0);
     size_t* disks = new size_t[L];
     size_t* prefetch_order = new size_t[L];

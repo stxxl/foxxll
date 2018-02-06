@@ -13,6 +13,8 @@
 
 #include <cstring>
 
+#include <tlx/logger.hpp>
+
 #include <foxxll/common/aligned_alloc.hpp>
 #include <foxxll/io.hpp>
 
@@ -25,8 +27,7 @@ struct print_completion
 {
     void operator () (foxxll::request* ptr, bool success)
     {
-        std::cout << "Request completed: " << ptr
-                  << " success: " << success << std::endl;
+        LOG1 << "Request completed: " << ptr << " success: " << success;
     }
 };
 
@@ -34,7 +35,7 @@ int main(int argc, char** argv)
 {
     if (argc < 3)
     {
-        std::cout << "Usage: " << argv[0] << " filetype tempfile" << std::endl;
+        LOG1 << "Usage: " << argv[0] << " filetype tempfile";
         return -1;
     }
 
@@ -52,35 +53,36 @@ int main(int argc, char** argv)
     foxxll::request_ptr req[kNumBlocks];
 
     // without cancelation
-    std::cout << "Posting " << kNumBlocks << " requests." << std::endl;
-    foxxll::stats_data stats1(*foxxll::stats::get_instance());
-    for (unsigned i = 0; i < kNumBlocks; i++)
-        req[i] = file->awrite(buffer, i * size, size, print_completion());
-    wait_all(req, kNumBlocks);
-    std::cout << foxxll::stats_data(*foxxll::stats::get_instance()) - stats1;
+    LOG1 << "Posting " << kNumBlocks << " requests.";
+    {
+        foxxll::scoped_print_iostats stats("Posting");
+        for (unsigned i = 0; i < kNumBlocks; i++)
+            req[i] = file->awrite(buffer, i * size, size, print_completion());
+        wait_all(req, kNumBlocks);
+    }
 
     // with cancelation
-    std::cout << "Posting " << kNumBlocks << " requests." << std::endl;
     foxxll::stats_data stats2(*foxxll::stats::get_instance());
-    for (unsigned i = 0; i < kNumBlocks; i++)
-        req[i] = file->awrite(buffer, i * size, size, print_completion());
-
-    // cancel first half
-    std::cout << "Canceling first " << kNumBlocks / 2 << " requests." << std::endl;
-    size_t num_canceled = cancel_all(req, req + kNumBlocks / 2);
-    std::cout << "Successfully canceled " << num_canceled << " requests." << std::endl;
-
-    // cancel every second in second half
-    for (unsigned i = kNumBlocks / 2; i < kNumBlocks; i += 2)
     {
-        std::cout << "Canceling request " << &(*(req[i])) << std::endl;
-        if (req[i]->cancel())
-            std::cout << "Request canceled: " << &(*(req[i])) << std::endl;
-        else
-            std::cout << "Request not canceled: " << &(*(req[i])) << std::endl;
+        foxxll::scoped_print_iostats stats("Posting with cancellation");
+        for (unsigned i = 0; i < kNumBlocks; i++)
+            req[i] = file->awrite(buffer, i * size, size, print_completion());
+
+        // cancel first half
+        LOG1 << "Canceling first " << (kNumBlocks / 2) << " requests.";
+        size_t num_canceled = cancel_all(req, req + kNumBlocks / 2);
+        LOG1 << "Successfully canceled " << num_canceled << " requests.";
+
+        // cancel every second in second half
+        for (unsigned i = kNumBlocks / 2; i < kNumBlocks; i += 2) {
+            LOG1 << "Canceling request " << &(*(req[i]));
+            if (req[i]->cancel())
+                LOG1 << "Request canceled: " << &(*(req[i]));
+            else
+                LOG1 << "Request not canceled: " << &(*(req[i]));
+        }
+        wait_all(req, kNumBlocks);
     }
-    wait_all(req, kNumBlocks);
-    std::cout << foxxll::stats_data(*foxxll::stats::get_instance()) - stats2;
 
     foxxll::aligned_dealloc<4096>(buffer);
 

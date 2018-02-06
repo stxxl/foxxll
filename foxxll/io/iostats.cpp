@@ -425,9 +425,10 @@ stats_data::summary<T>::summary(
 }
 
 struct FileStatsDataCompare {
-    long long operator () (const file_stats_data& a, const file_stats_data& b) const {
+    long long operator () (const file_stats_data& a, const file_stats_data& b) const
+    {
         return static_cast<long long>(a.get_device_id())
-            - static_cast<long long>(b.get_device_id());
+               - static_cast<long long>(b.get_device_id());
     }
 };
 

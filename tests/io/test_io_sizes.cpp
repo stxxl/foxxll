@@ -10,9 +10,11 @@
  *  http://www.boost.org/LICENSE_1_0.txt)
  **************************************************************************/
 
+#include <tlx/die.hpp>
+#include <tlx/logger.hpp>
+
 #include <foxxll/io.hpp>
 #include <foxxll/mng.hpp>
-#include <tlx/string/format_si_iec_units.hpp>
 
 //! \example io/test_io_sizes.cpp
 //! This tests the maximum chunk size that a file type can handle with a single request.
@@ -21,7 +23,7 @@ int main(int argc, char** argv)
 {
     if (argc < 4)
     {
-        std::cout << "Usage: " << argv[0] << " filetype tempfile maxsize" << std::endl;
+        LOG1 << "Usage: " << argv[0] << " filetype tempfile maxsize";
         return -1;
     }
 
@@ -36,48 +38,47 @@ int main(int argc, char** argv)
         file->set_size(max_size);
 
         foxxll::request_ptr req;
-        foxxll::stats_data stats1(*foxxll::stats::get_instance());
-        for (size_t size = 4096; size < max_size; size *= 2)
+
         {
-            //generate data
-            for (size_t i = 0; i < size / sizeof(size_t); ++i)
-                buffer[i] = i;
+            foxxll::scoped_print_iostats stats("IO");
+            for (size_t size = 4096; size < max_size; size *= 2) {
+                //generate data
+                for (size_t i = 0; i < size / sizeof(size_t); ++i)
+                    buffer[i] = i;
 
-            //write
-            LOG1 << tlx::format_iec_units(size) << "are being written at once";
-            req = file->awrite(buffer, 0, size);
-            wait_all(&req, 1);
+                //write
+                LOG1 << tlx::format_iec_units(size) << "are being written at once";
+                req = file->awrite(buffer, 0, size);
+                wait_all(&req, 1);
 
-            //fill with wrong data
-            for (size_t i = 0; i < size / sizeof(size_t); ++i)
-                buffer[i] = 0xFFFFFFFFFFFFFFFFull;
+                //fill with wrong data
+                for (size_t i = 0; i < size / sizeof(size_t); ++i)
+                    buffer[i] = 0xFFFFFFFFFFFFFFFFull;
 
-            //read again
-            LOG1 << tlx::format_iec_units(size) << "are being read at once";
-            req = file->aread(buffer, 0, size);
-            wait_all(&req, 1);
+                //read again
+                LOG1 << tlx::format_iec_units(size) << "are being read at once";
+                req = file->aread(buffer, 0, size);
+                wait_all(&req, 1);
 
-            //check
-            bool wrong = false;
-            for (size_t i = 0; i < size / sizeof(size_t); ++i)
-                if (buffer[i] != i)
-                {
-                    LOG1 << "Read inconsistent data at position " << i * sizeof(size_t);
-                    wrong = true;
+                //check
+                bool wrong = false;
+                for (size_t i = 0; i < size / sizeof(size_t); ++i)
+                    if (buffer[i] != i) {
+                        LOG1 << "Read inconsistent data at position " << i * sizeof(size_t);
+                        wrong = true;
+                        break;
+                    }
+
+                if (wrong)
                     break;
-                }
-
-            if (wrong)
-                break;
+            }
         }
-        std::cout << foxxll::stats_data(*foxxll::stats::get_instance()) - stats1;
 
         file->close_remove();
     }
     catch (foxxll::io_error e)
     {
-        std::cerr << e.what() << std::endl;
-        throw;
+        die(e.what());
     }
 
     foxxll::aligned_dealloc<4096>(buffer);

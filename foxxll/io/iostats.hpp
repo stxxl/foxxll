@@ -27,8 +27,8 @@
 #include <vector>
 
 #include <tlx/logger.hpp>
-#include <tlx/unused.hpp>
 #include <tlx/string.hpp>
+#include <tlx/unused.hpp>
 
 #include <foxxll/common/error_handling.hpp>
 #include <foxxll/common/timer.hpp>

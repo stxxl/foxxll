@@ -76,7 +76,7 @@ int main()
     for (size_t i = 0; i < nblocks; ++i)
         reqs[i] = block[i].write(bids[i], my_handler());
 
-    std::cout << "Waiting " << std::endl;
+    LOG1 << "Waiting";
     wait_all(reqs.get(), nblocks);
 
     for (size_t i = 0; i < nblocks; i++) {
