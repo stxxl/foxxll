@@ -1,5 +1,6 @@
 # FOXXLL
 Travis-CI Status of branch `master`: [![Travis-CI Status](https://travis-ci.org/foxxll/foxxll.svg?branch=master)](https://travis-ci.org/foxxll/foxxll)
+
 Coverity Result of branch `coverity_scan`: [![Coverity Status](https://scan.coverity.com/projects/15041/badge.svg?flat=1)](https://scan.coverity.com/projects/foxxll)
 
 

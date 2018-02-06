@@ -17,6 +17,7 @@
 #define FOXXLL_IO_FILE_HEADER
 
 #include <cassert>
+#include <limits>
 #include <ostream>
 #include <string>
 
