@@ -121,7 +121,8 @@ int main_usage(const char* arg0)
 
 int main(int argc, char** argv)
 {
-    char progsub[256];
+    static char progsub[256];
+
 
     if (foxxll::check_library_version() != 0)
         LOG1 << "version mismatch between headers and library";
