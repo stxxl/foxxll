@@ -14,7 +14,9 @@
 #include <cstring>
 #include <limits>
 
+#include <tlx/die.hpp>
 #include <tlx/logger.hpp>
+
 
 #include <foxxll/common/aligned_alloc.hpp>
 #include <foxxll/io.hpp>
@@ -48,6 +50,8 @@ int main(int argc, char** argv)
     std::cout << sizeof(void*) << std::endl;
     const int size = 1024 * 384;
     auto* buffer = static_cast<char*>(foxxll::aligned_alloc<4096>(size));
+    die_if(buffer == nullptr);
+
     memset(buffer, 0, size);
 
 #if FOXXLL_HAVE_MMAP_FILE

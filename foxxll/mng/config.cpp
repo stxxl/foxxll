@@ -13,6 +13,7 @@
  *  http://www.boost.org/LICENSE_1_0.txt)
  **************************************************************************/
 
+#include <cassert>
 #include <fstream>
 #include <regex>
 
@@ -224,6 +225,7 @@ std::pair<unsigned, unsigned> config::flash_range() const
 disk_config& config::disk(size_t disk)
 {
     check_initialized();
+    assert(disk < disks_list.size());
     return disks_list[disk];
 }
 

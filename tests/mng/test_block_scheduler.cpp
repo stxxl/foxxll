@@ -194,10 +194,7 @@ void test1()
     bs.release(sbi, false);
     bs.deinitialize(sbi);
     bs.initialize(sbi, external_block_type());
-    if (bs.is_simulating())
-        bs.extract_external_block(sbi);
-    else
-        bs.extract_external_block(sbi);
+    bs.extract_external_block(sbi);
     bs.free_swappable_block(sbi);
 
 #if 0
@@ -212,10 +209,7 @@ void test1()
     bs.release(sbi, false);
     bs.deinitialize(sbi);
     bs.initialize(sbi, external_block_type());
-    if (bs.is_simulating())
-        bs.extract_external_block(sbi);
-    else
-        bs.extract_external_block(sbi);
+    bs.extract_external_block(sbi);
     bs.free_swappable_block(sbi);
 #endif
 
