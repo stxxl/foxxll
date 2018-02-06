@@ -17,6 +17,7 @@
 
 #include <algorithm>
 #include <cstdlib>
+#include <iterator>
 #include <memory>
 #include <mutex>
 #include <string>
@@ -90,7 +91,8 @@ public:
     void new_block(const DiskAssignFunctor& functor,
                    BID<BlockSize>& bid, size_t alloc_offset = 0)
     {
-        new_blocks(functor, &(&bid)[0], &(&bid)[1], alloc_offset);
+
+        new_blocks(functor, &bid, std::next(&bid, 1), alloc_offset);
     }
 
     //! Deallocates blocks.
