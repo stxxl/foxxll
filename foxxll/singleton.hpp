@@ -49,7 +49,8 @@ public:
         return instance;
     }
 
-    inline static instance_type& get_ref() {
+    inline static instance_type & get_ref()
+    {
         if (!instance)
             create_instance();
 
