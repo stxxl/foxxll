@@ -47,7 +47,7 @@ void syscall_file::serve(void* buffer, offset_type offset, size_type bytes,
                 " path=" << filename_ <<
                 " fd=" << file_des_ <<
                 " offset=" << offset <<
-                " buffer=" << cbuffer <<
+                " buffer=" << static_cast<void*>(cbuffer) <<
                 " bytes=" << bytes <<
                 " op=" << ((op == request::READ) ? "READ" : "WRITE") <<
                 " rc=" << rc);
@@ -69,7 +69,7 @@ void syscall_file::serve(void* buffer, offset_type offset, size_type bytes,
                     " path=" << filename_ <<
                     " fd=" << file_des_ <<
                     " offset=" << offset <<
-                    " buffer=" << buffer <<
+                    " buffer=" << static_cast<void*>(buffer) <<
                     " bytes=" << bytes <<
                     " op=" << "READ" <<
                     " rc=" << rc);
@@ -102,7 +102,7 @@ void syscall_file::serve(void* buffer, offset_type offset, size_type bytes,
                     " path=" << filename_ <<
                     " fd=" << file_des_ <<
                     " offset=" << offset <<
-                    " buffer=" << buffer <<
+                    " buffer=" << static_cast<void*>(buffer) <<
                     " bytes=" << bytes <<
                     " op=" << "WRITE" <<
                     " rc=" << rc);
