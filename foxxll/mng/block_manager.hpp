@@ -234,7 +234,7 @@ void block_manager::new_blocks(
         for (size_t i = 0; i < disk_blocks[d]; ++i) {
             bids[i].storage = disk_files_[d].get();
 
-            LOGC(verbose_block_life_cycle) << "BLC:new    " << FMT_BID(bids[i]);
+            LOGC(verbose_block_life_cycle) << "BLC:new    " << bids[i];
             bid_begin[bid_perm[i]] = bids[i];
 
             total_allocation_ += bids[i].size;
@@ -257,7 +257,7 @@ void block_manager::delete_block(const BID<BlockSize>& bid)
     if (!bid.is_managed())
         return;  // self managed disk
 
-    LOGC(verbose_block_life_cycle) << "BLC:delete " << FMT_BID(bid);
+    LOGC(verbose_block_life_cycle) << "BLC:delete " << bid;
     assert(bid.storage->get_allocator_id() >= 0);
     block_allocators_[bid.storage->get_allocator_id()]->delete_block(bid);
     disk_files_[bid.storage->get_allocator_id()]->discard(bid.offset, bid.size);

@@ -7,6 +7,7 @@
  *  Copyright (C) 2009, 2010 Andreas Beckmann <beckmann@cs.uni-frankfurt.de>
  *  Copyright (C) 2009 Johannes Singler <singler@ira.uka.de>
  *  Copyright (C) 2013 Timo Bingmann <tb@panthema.net>
+ *  Copyright (C) 2018 Manuel Penschuck <foxxll@manuel.jetzt>
  *
  *  Distributed under the Boost Software License, Version 1.0.
  *  (See accompanying file LICENSE_1_0.txt or copy at
@@ -19,13 +20,12 @@
 #include <cstring>
 #include <iomanip>
 #include <ostream>
+#include <sstream>
 
 #include <foxxll/common/utils.hpp>
 #include <foxxll/io/file.hpp>
 #include <foxxll/io/request.hpp>
 #include <tlx/simple_vector.hpp>
-
-#define FMT_BID(_bid_) "[" << (_bid_).storage->get_allocator_id() << "]0x" << std::hex << std::setfill('0') << std::setw(8) << (_bid_).offset << "/0x" << std::setw(8) << (_bid_).size
 
 namespace foxxll {
 
@@ -162,24 +162,35 @@ public:
     }
 };
 
+/**
+ * Prints a BID to an ostream using the following format
+ * \verbatim
+ *  [0x12345678|0]0x00100000/0x00010000
+ *  [file ptr|file id]offset/size
+ * \endverbatim
+ *
+ * \node
+ * Can be used to replace the obsolete FMT_BID macro
+ */
 template <size_t BlockSize>
 std::ostream& operator << (std::ostream& s, const BID<BlockSize>& bid)
 {
-    // [0x12345678|0]0x00100000/0x00010000
-    // [file ptr|file id]offset/size
+    std::stringstream ss;
 
-    std::ios state(nullptr);
-    state.copyfmt(s);
+    ss << "[" << static_cast<void*>(bid.storage) << "|";
 
-    s << "[" << bid.storage << "|";
-    if (bid.storage)
-        s << bid.storage->get_allocator_id();
-    else
-        s << "?";
-    s << "]0x" << std::hex << std::setfill('0') << std::setw(8) << bid.offset
-      << "/0x" << std::setw(8) << bid.size << std::dec;
+    if (bid.storage) {
+        ss << bid.storage->get_allocator_id();
+    }
+    else {
+        ss << "?";
+    }
 
-    s.copyfmt(state);
+    ss << "]0x" << std::hex << std::setfill('0') << std::setw(8) << bid.offset
+       << "/0x" << std::setw(8) << bid.size << std::dec;
+
+    s << ss.str();
+
     return s;
 }
 
