@@ -65,6 +65,14 @@ namespace foxxll {
                   FOXXLL_PRETTY_FUNCTION_NAME,       \
                   error_message)
 
+//! Throws foxxll::unreachable with "Error in file [file], line [line] : this code should never be reachable"
+#define FOXXLL_THROW_UNREACHABLE()                              \
+    FOXXLL_THROW2(foxxll::unreachable,                          \
+                 "file " << __FILE__ << ", line " << __LINE__, \
+                 "this code should never be reachable")
+
+////////////////////////////////////////////////////////////////////////////
+
 //! Throws exception_type if (expr) with "Error in [function] : [error_message]"
 #define FOXXLL_THROW_IF(expr, exception_type, error_message) \
     do {                                                     \
