@@ -31,7 +31,7 @@ endif()
 # default to Debug building for single-config generators
 if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
   message("Defaulting CMAKE_BUILD_TYPE to Debug")
-  set(CMAKE_BUILD_TYPE "Debug")
+  set(CMAKE_BUILD_TYPE "Debug" CACHE STRING "Build type")
 endif()
 
 # FOXXLL version string
@@ -65,8 +65,6 @@ endif()
 # please document all build options in doc/install.doc:install_build_options
 
 option(FOXXLL_BUILD_TESTS "Build all foxxll test programs" OFF)
-
-option(USE_OPENMP "Use OpenMP for multi-core parallelism" ON)
 
 option(FOXXLL_TRY_COMPILE_HEADERS "Test foxxll header files for self-sufficiency: try to compile them." OFF)
 
@@ -367,7 +365,10 @@ endif()
 ###############################################################################
 # find tlx
 
+if(NOT TARGET tlx)
 add_subdirectory(extlib/tlx)
+endif()
+
 set(FOXXLL_EXTRA_LIBRARIES ${FOXXLL_EXTRA_LIBRARIES} tlx)
 
 ###############################################################################
@@ -377,9 +378,6 @@ set(FOXXLL_EXTRA_LIBRARIES ${FOXXLL_EXTRA_LIBRARIES} tlx)
 configure_file(
   ${PROJECT_SOURCE_DIR}/foxxll/config.hpp.in
   ${PROJECT_BINARY_DIR}/foxxll/config.hpp)
-
-# CXX_FLAGS required for compilation
-set(FOXXLL_CXX_FLAGS ${OpenMP_CXX_FLAGS})
 
 # Custom build type "ReleaseWithAssert".
 string(REGEX REPLACE "[/-][dD][^/-]*NDEBUG" "" CMAKE_C_FLAGS_RELWITHASSERT_INIT_T "${CMAKE_C_FLAGS_RELWITHDEBINFO_INIT}")
