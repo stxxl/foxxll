@@ -38,3 +38,5 @@
     } while (false)
 
 #endif // !FOXXLL_COMMON_DIE_WITH_MESSAGE_HEADER
+
+/**************************************************************************/

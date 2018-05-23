@@ -87,3 +87,5 @@ public:
 } // namespace foxxll
 
 #endif // !FOXXLL_COMMON_ONOFF_SWITCH_HEADER
+
+/**************************************************************************/

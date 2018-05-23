@@ -80,3 +80,5 @@ public:
 } // namespace foxxll
 
 #endif // !FOXXLL_IO_FILEPERBLOCK_FILE_HEADER
+
+/**************************************************************************/

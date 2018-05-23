@@ -25,3 +25,5 @@ namespace foxxll {
 } // namespace foxxll
 
 #endif // !FOXXLL_MNG_HEADER
+
+/**************************************************************************/

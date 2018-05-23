@@ -819,3 +819,5 @@ void scoped_print_iostats::report() const
 }
 
 } // namespace foxxll
+
+/**************************************************************************/

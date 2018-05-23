@@ -124,3 +124,5 @@ bool linuxaio_request::cancel_aio(linuxaio_queue* queue)
 } // namespace foxxll
 
 #endif // #if FOXXLL_HAVE_LINUXAIO_FILE
+
+/**************************************************************************/

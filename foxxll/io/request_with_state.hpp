@@ -59,3 +59,5 @@ protected:
 } // namespace foxxll
 
 #endif // !FOXXLL_IO_REQUEST_WITH_STATE_HEADER
+
+/**************************************************************************/

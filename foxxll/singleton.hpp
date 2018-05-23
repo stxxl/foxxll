@@ -87,3 +87,5 @@ singleton<INSTANCE, destroy_on_exit>::instance = nullptr;
 } // namespace foxxll
 
 #endif // !FOXXLL_SINGLETON_HEADER
+
+/**************************************************************************/

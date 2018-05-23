@@ -257,3 +257,5 @@ using default_alloc_strategy = foxxll::random_cyclic;
 } // namespace foxxll
 
 #endif // !FOXXLL_MNG_BLOCK_ALLOC_STRATEGY_HEADER
+
+/**************************************************************************/

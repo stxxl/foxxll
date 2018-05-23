@@ -59,3 +59,5 @@ public:
 } // namespace foxxll
 
 #endif // !FOXXLL_IO_SYSCALL_FILE_HEADER
+
+/**************************************************************************/

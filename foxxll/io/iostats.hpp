@@ -728,3 +728,5 @@ public:
 } // namespace foxxll
 
 #endif // !FOXXLL_IO_IOSTATS_HEADER
+
+/**************************************************************************/

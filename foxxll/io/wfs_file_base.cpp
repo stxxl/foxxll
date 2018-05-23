@@ -240,3 +240,5 @@ void wfs_file_base::close_remove()
 } // namespace foxxll
 
 #endif // FOXXLL_WINDOWS
+
+/**************************************************************************/

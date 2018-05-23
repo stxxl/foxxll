@@ -61,3 +61,5 @@ public:
 } // namespace foxxll
 
 #endif // !FOXXLL_IO_UFS_FILE_BASE_HEADER
+
+/**************************************************************************/

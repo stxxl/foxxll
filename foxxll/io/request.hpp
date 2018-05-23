@@ -139,3 +139,5 @@ std::ostream& operator << (std::ostream& out, const request& req);
 } // namespace foxxll
 
 #endif // !FOXXLL_IO_REQUEST_HEADER
+
+/**************************************************************************/

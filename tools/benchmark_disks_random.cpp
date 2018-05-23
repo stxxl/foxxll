@@ -256,3 +256,5 @@ int benchmark_disks_random(int argc, char* argv[])
     return run_alloc(foxxll::default_alloc_strategy);
 #undef run_alloc
 }
+
+/**************************************************************************/

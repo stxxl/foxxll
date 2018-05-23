@@ -71,3 +71,5 @@ public:
 } // namespace foxxll
 
 #endif // !FOXXLL_IO_REQUEST_QUEUE_IMPL_QWQR_HEADER
+
+/**************************************************************************/

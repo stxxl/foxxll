@@ -70,3 +70,5 @@ public:
 #endif // #if FOXXLL_HAVE_WINCALL_FILE
 
 #endif // !FOXXLL_IO_WINCALL_FILE_HEADER
+
+/**************************************************************************/

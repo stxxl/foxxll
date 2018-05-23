@@ -33,3 +33,5 @@ void run_exit_handlers();
 } // namespace foxxll
 
 #endif // !FOXXLL_COMMON_EXITHANDLER_HEADER
+
+/**************************************************************************/

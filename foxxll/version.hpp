@@ -94,3 +94,5 @@ inline void print_library_version_mismatch()
 } // namespace foxxll
 
 #endif // !FOXXLL_VERSION_HEADER
+
+/**************************************************************************/

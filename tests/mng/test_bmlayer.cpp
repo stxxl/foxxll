@@ -171,3 +171,5 @@ int main()
     LOG1 << "block_manager current allocation: " << bm->current_allocation();
     LOG1 << "block_manager maximum allocation: " << bm->maximum_allocation();
 }
+
+/**************************************************************************/

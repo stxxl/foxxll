@@ -61,3 +61,5 @@
 //          scratch on a single disk (RAID0)
 
 #endif // !FOXXLL_DEFINES_HEADER
+
+/**************************************************************************/

@@ -202,3 +202,5 @@ using BIDArray = tlx::simple_vector<BID<BlockSize> >;
 } // namespace foxxll
 
 #endif // !FOXXLL_MNG_BID_HEADER
+
+/**************************************************************************/

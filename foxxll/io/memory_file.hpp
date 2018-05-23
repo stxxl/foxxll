@@ -62,3 +62,5 @@ public:
 } // namespace foxxll
 
 #endif // !FOXXLL_IO_MEMORY_FILE_HEADER
+
+/**************************************************************************/

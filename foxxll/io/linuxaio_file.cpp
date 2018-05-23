@@ -61,3 +61,5 @@ const char* linuxaio_file::io_type() const
 } // namespace foxxll
 
 #endif // #if FOXXLL_HAVE_LINUXAIO_FILE
+
+/**************************************************************************/

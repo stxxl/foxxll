@@ -118,4 +118,7 @@ const char* syscall_file::io_type() const
 {
     return "syscall";
 }
+
 } // namespace foxxll
+
+/**************************************************************************/

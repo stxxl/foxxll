@@ -1871,3 +1871,5 @@ public:
 } // namespace foxxll
 
 #endif // !FOXXLL_MNG_BLOCK_SCHEDULER_HEADER
+
+/**************************************************************************/

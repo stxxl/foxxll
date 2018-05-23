@@ -83,3 +83,5 @@ public:
 } // namespace foxxll
 
 #endif // !FOXXLL_COMMON_EXCEPTIONS_HEADER
+
+/**************************************************************************/

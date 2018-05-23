@@ -68,8 +68,8 @@ namespace foxxll {
 //! Throws foxxll::unreachable with "Error in file [file], line [line] : this code should never be reachable"
 #define FOXXLL_THROW_UNREACHABLE()                              \
     FOXXLL_THROW2(foxxll::unreachable,                          \
-                 "file " << __FILE__ << ", line " << __LINE__, \
-                 "this code should never be reachable")
+                  "file " << __FILE__ << ", line " << __LINE__, \
+                  "this code should never be reachable")
 
 ////////////////////////////////////////////////////////////////////////////
 
@@ -119,3 +119,5 @@ namespace foxxll {
 } // namespace foxxll
 
 #endif // !FOXXLL_COMMON_ERROR_HANDLING_HEADER
+
+/**************************************************************************/

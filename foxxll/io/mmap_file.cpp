@@ -72,3 +72,5 @@ const char* mmap_file::io_type() const
 } // namespace foxxll
 
 #endif // #if FOXXLL_HAVE_MMAP_FILE
+
+/**************************************************************************/

@@ -136,4 +136,7 @@ uint64_t block_manager::maximum_allocation() const
     std::unique_lock<std::mutex> lock(mutex_);
     return maximum_allocation_;
 }
+
 } // namespace foxxll
+
+/**************************************************************************/

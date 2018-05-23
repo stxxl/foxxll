@@ -113,4 +113,7 @@ void disk_queues::set_priority_op(const request_queue::priority_op& op)
     for (request_queue_map::iterator i = queues_.begin(); i != queues_.end(); i++)
         i->second->set_priority_op(op);
 }
+
 } // namespace foxxll
+
+/**************************************************************************/

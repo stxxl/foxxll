@@ -62,3 +62,5 @@ public:
 } // namespace foxxll
 
 #endif // !FOXXLL_COMMON_TMETA_HEADER
+
+/**************************************************************************/

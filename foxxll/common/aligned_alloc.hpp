@@ -129,3 +129,5 @@ aligned_dealloc(void* ptr)
 } // namespace foxxll
 
 #endif // !FOXXLL_COMMON_ALIGNED_ALLOC_HEADER
+
+/**************************************************************************/

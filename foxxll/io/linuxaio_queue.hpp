@@ -101,3 +101,5 @@ public:
 #endif // #if FOXXLL_HAVE_LINUXAIO_FILE
 
 #endif // !FOXXLL_IO_LINUXAIO_QUEUE_HEADER
+
+/**************************************************************************/

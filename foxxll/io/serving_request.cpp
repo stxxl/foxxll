@@ -65,4 +65,7 @@ const char* serving_request::io_type() const
 {
     return file_->io_type();
 }
+
 } // namespace foxxll
+
+/**************************************************************************/

@@ -137,3 +137,5 @@ inline bool operator != (
 } // namespace foxxll
 
 #endif // !FOXXLL_COMMON_NEW_ALLOC_HEADER
+
+/**************************************************************************/

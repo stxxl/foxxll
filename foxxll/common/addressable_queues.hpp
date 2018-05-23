@@ -202,3 +202,5 @@ public:
 } // namespace foxxll
 
 #endif // !FOXXLL_COMMON_ADDRESSABLE_QUEUES_HEADER
+
+/**************************************************************************/

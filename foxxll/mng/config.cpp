@@ -572,4 +572,7 @@ std::string disk_config::expand_path(std::string path) const
 
     return ss.str();
 }
+
 } // namespace foxxll
+
+/**************************************************************************/

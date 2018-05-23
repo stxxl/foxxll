@@ -96,4 +96,7 @@ std::ostream& operator << (std::ostream& out, const request& req)
 {
     return req.print(out);
 }
+
 } // namespace foxxll
+
+/**************************************************************************/

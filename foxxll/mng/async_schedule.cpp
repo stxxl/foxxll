@@ -204,4 +204,7 @@ void compute_prefetch_schedule(
     delete[] write_order;
     tlx::unused(w_steps);
 }
+
 } // namespace foxxll
+
+/**************************************************************************/

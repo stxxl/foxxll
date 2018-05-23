@@ -68,3 +68,5 @@ public:
 } // namespace foxxll
 
 #endif // !FOXXLL_COMMON_SHARED_STATE_HEADER
+
+/**************************************************************************/

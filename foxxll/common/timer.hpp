@@ -273,3 +273,5 @@ public:
 } // namespace foxxll
 
 #endif // !FOXXLL_COMMON_TIMER_HEADER
+
+/**************************************************************************/

@@ -64,3 +64,5 @@ public:
 #endif // FOXXLL_WINDOWS
 
 #endif // !FOXXLL_IO_WFS_FILE_BASE_HEADER
+
+/**************************************************************************/

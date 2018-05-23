@@ -432,3 +432,5 @@ int benchmark_files(int argc, char* argv[])
 
     return (verify_failed ? 1 : 0);
 }
+
+/**************************************************************************/

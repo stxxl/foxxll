@@ -278,3 +278,5 @@ void block_manager::delete_blocks(
 } // namespace foxxll
 
 #endif // !FOXXLL_MNG_BLOCK_MANAGER_HEADER
+
+/**************************************************************************/

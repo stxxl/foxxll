@@ -318,3 +318,5 @@ public:
 } // namespace std
 
 #endif // !FOXXLL_COMMON_UINT_TYPES_HEADER
+
+/**************************************************************************/

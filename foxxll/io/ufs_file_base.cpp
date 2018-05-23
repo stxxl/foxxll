@@ -285,4 +285,7 @@ bool ufs_file_base::is_device() const
 {
     return is_device_;
 }
+
 } // namespace foxxll
+
+/**************************************************************************/

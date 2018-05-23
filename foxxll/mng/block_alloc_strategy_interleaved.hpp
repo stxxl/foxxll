@@ -165,3 +165,5 @@ struct interleaved_alloc_traits<single_disk>
 } // namespace foxxll
 
 #endif // !FOXXLL_MNG_BLOCK_ALLOC_STRATEGY_INTERLEAVED_HEADER
+
+/**************************************************************************/

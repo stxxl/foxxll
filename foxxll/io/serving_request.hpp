@@ -50,3 +50,5 @@ public:
 } // namespace foxxll
 
 #endif // !FOXXLL_IO_SERVING_REQUEST_HEADER
+
+/**************************************************************************/

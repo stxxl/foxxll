@@ -82,3 +82,5 @@ public:
 } // namespace foxxll
 
 #endif // !FOXXLL_IO_DISK_QUEUES_HEADER
+
+/**************************************************************************/

@@ -129,3 +129,5 @@ public:
 } // namespace foxxll
 
 #endif // !FOXXLL_MNG_BUF_OSTREAM_HEADER
+
+/**************************************************************************/

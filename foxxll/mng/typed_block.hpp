@@ -408,3 +408,5 @@ public:
 } // namespace foxxll
 
 #endif // !FOXXLL_MNG_TYPED_BLOCK_HEADER
+
+/**************************************************************************/

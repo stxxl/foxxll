@@ -156,3 +156,5 @@ inline typename Container::value_type pop_begin(Container& c)
 } // namespace foxxll
 
 #endif // !FOXXLL_COMMON_UTILS_HEADER
+
+/**************************************************************************/

@@ -97,3 +97,5 @@ public:
 } // namespace foxxll
 
 #endif // !FOXXLL_IO_REQUEST_INTERFACE_HEADER
+
+/**************************************************************************/

@@ -44,3 +44,5 @@ typename std::make_signed<Integral>::type as_signed(Integral value)
 } // namespace foxxll
 
 #endif // !FOXXLL_COMMON_TYPES_HEADER
+
+/**************************************************************************/

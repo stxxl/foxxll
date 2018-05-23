@@ -36,3 +36,5 @@ namespace foxxll {
 } // namespace foxxll
 
 #endif // !FOXXLL_IO_HEADER
+
+/**************************************************************************/

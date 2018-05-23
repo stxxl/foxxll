@@ -62,3 +62,5 @@ public:
 #endif // #if FOXXLL_HAVE_MMAP_FILE
 
 #endif // !FOXXLL_IO_MMAP_FILE_HEADER
+
+/**************************************************************************/

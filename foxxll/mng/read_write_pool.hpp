@@ -227,3 +227,5 @@ void swap(foxxll::read_write_pool<BlockType>& a,
 } // namespace std
 
 #endif // !FOXXLL_MNG_READ_WRITE_POOL_HEADER
+
+/**************************************************************************/

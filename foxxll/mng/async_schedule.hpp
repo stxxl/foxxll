@@ -74,3 +74,5 @@ void compute_prefetch_schedule(
 } // namespace foxxll
 
 #endif // !FOXXLL_MNG_ASYNC_SCHEDULE_HEADER
+
+/**************************************************************************/

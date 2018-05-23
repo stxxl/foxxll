@@ -283,3 +283,5 @@ void* linuxaio_queue::wait_async(void* arg)
 } // namespace foxxll
 
 #endif // #if FOXXLL_HAVE_LINUXAIO_FILE
+
+/**************************************************************************/

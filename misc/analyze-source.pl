@@ -281,14 +281,23 @@ sub process_cpp {
         $guard =~ tr!/!_!;
         $guard =~ s!\.hpp(\.in)?$!!;
         $guard = uc($guard)."_HEADER";
-        print $guard."\n";
+        #print $guard."\n";
 
         expectr($path, $i, @data, "#ifndef $guard\n", qr/^#ifndef /); ++$i;
         expectr($path, $i, @data, "#define $guard\n", qr/^#define /); ++$i;
 
         my $n = scalar(@data)-1;
         if ($data[$n] =~ m!// vim:!) { --$n; } # skip vim
-        expectr($path, $n, @data, "#endif // !$guard\n", qr/^#endif /);
+        expectr($path, $n-2, @data, "#endif // !$guard\n", qr/^#endif /);
+    }
+
+    # check terminating /****/ comment
+    {
+        my $n = scalar(@data)-1;
+        if ($data[$n] !~ m!^/\*{74}/$!) {
+            push(@data, "\n");
+            push(@data, "/".('*'x74)."/\n");
+        }
     }
 
     # run uncrustify if in filter
@@ -471,12 +480,6 @@ foreach my $file (@filelist)
         process_cpp($file);
     }
     elsif ($file =~ m!^doc/[^/]*\.dox$!) {
-        process_cpp($file);
-    }
-    elsif ($file =~ m!^include/stxxl/[^/]*$!) {
-        process_cpp($file);
-    }
-    elsif ($file =~ m!^include/stxxl/[^/]*$!) {
         process_cpp($file);
     }
     elsif ($file =~ m!\.(pl|plot)$!) {

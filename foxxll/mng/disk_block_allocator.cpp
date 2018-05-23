@@ -146,4 +146,7 @@ void disk_block_allocator::add_free_region(uint64_t block_pos, uint64_t block_si
     free_space_[region_pos] = region_size;
     free_bytes_ += block_size;
 }
+
 } // namespace foxxll
+
+/**************************************************************************/

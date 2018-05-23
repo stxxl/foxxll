@@ -157,3 +157,5 @@ size_t wait_any(request_ptr req_array[], size_t count)
 } // namespace foxxll
 
 #endif // !FOXXLL_IO_REQUEST_OPERATIONS_HEADER
+
+/**************************************************************************/

@@ -37,3 +37,5 @@ file_ptr create_file(disk_config& config, int mode,
 } // namespace foxxll
 
 #endif // !FOXXLL_IO_CREATE_FILE_HEADER
+
+/**************************************************************************/

@@ -71,3 +71,5 @@ int main()
         test_strategy<foxxll::random_cyclic_flash>();
     test_strategy<foxxll::single_disk>();
 }
+
+/**************************************************************************/
