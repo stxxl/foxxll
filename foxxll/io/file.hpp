@@ -216,25 +216,25 @@ public:
 
 protected:
     //! count the number of requests referencing this file
-    tlx::reference_counter m_request_ref;
+    tlx::reference_counter request_ref_;
 
 public:
     //! increment referenced requests
     void add_request_ref()
     {
-        m_request_ref.inc_reference();
+        request_ref_.inc_reference();
     }
 
     //! decrement referenced requests
     void delete_request_ref()
     {
-        m_request_ref.dec_reference();
+        request_ref_.dec_reference();
     }
 
     //! return number of referenced requests
     size_t get_request_nref()
     {
-        return m_request_ref.reference_count();
+        return request_ref_.reference_count();
     }
 
 public:

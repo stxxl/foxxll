@@ -801,20 +801,21 @@ void stats_data::to_ostream(std::ostream& o, const std::string line_prefix) cons
 
 void scoped_print_iostats::report() const
 {
-    const auto result = foxxll::stats_data(*foxxll::stats::get_instance()) - m_begin;
+    const auto result = foxxll::stats_data(*foxxll::stats::get_instance()) - begin_;
 
     std::ostringstream ss;
 
-    ss << (m_message.empty() ? "" : "Finished ") << m_message << ". ";
+    ss << (message_.empty() ? "" : "Finished ") << message_ << ". ";
 
-    if (m_bytes) {
-        const auto bps = static_cast<double>(m_bytes) / result.get_elapsed_time();
-        ss << "Processed " << tlx::format_iec_units(m_bytes) << "B"
+    if (bytes_) {
+        const auto bps = static_cast<double>(bytes_) / result.get_elapsed_time();
+        ss << "Processed " << tlx::format_iec_units(bytes_) << "B"
            << " @ " << tlx::format_iec_units(static_cast<uint64_t>(bps)) << "B/s. ";
     }
 
-    result.to_ostream(ss, m_key);
+    result.to_ostream(ss, key_);
 
     LOG1 << ss.str();
 }
+
 } // namespace foxxll

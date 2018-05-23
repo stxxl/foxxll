@@ -654,23 +654,24 @@ std::string add_SI_multiplier(
 }
 
 /*!
- * Simple scoped iostats reporter which takes a message and reports the relative IO performance on destruction
+ * Simple scoped iostats reporter which takes a message and reports the relative
+ * IO performance on destruction
  */
 class scoped_print_iostats
 {
 protected:
     //! message
-    std::string m_message;
-    std::string m_key;
+    std::string message_;
+    std::string key_;
 
     //! initial io-stats
-    foxxll::stats_data m_begin;
+    foxxll::stats_data begin_;
 
     //! bytes processed
-    uint64_t m_bytes;
+    uint64_t bytes_;
 
     //! report on destruction
-    bool m_report_on_destruction;
+    bool report_on_destruction_;
 
 public:
     /*!
@@ -681,11 +682,11 @@ public:
      * \param bytes    Used to compute MB/s as an initial overview
      */
     scoped_print_iostats(const std::string& message, const std::string key, uint64_t bytes)
-        : m_message(message),
-          m_key(key),
-          m_begin(*foxxll::stats::get_instance()),
-          m_bytes(bytes),
-          m_report_on_destruction(true)
+        : message_(message),
+          key_(key),
+          begin_(*foxxll::stats::get_instance()),
+          bytes_(bytes),
+          report_on_destruction_(true)
     {
         LOG1 << "Starting " << message;
     }
@@ -701,7 +702,7 @@ public:
     //! stats at initialization
     const foxxll::stats_data & initial_stats() const
     {
-        return m_begin;
+        return begin_;
     }
 
     //! print out relative stats via LOG
@@ -710,14 +711,14 @@ public:
     //! Same as report() but disables reporting on destruction
     void final_report()
     {
-        m_report_on_destruction = false;
+        report_on_destruction_ = false;
         report();
     }
 
     //! on destruction: report stats
     ~scoped_print_iostats()
     {
-        if (m_report_on_destruction)
+        if (report_on_destruction_)
             report();
     }
 };
