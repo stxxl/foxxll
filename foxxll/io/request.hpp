@@ -119,6 +119,8 @@ public:
 
     const char * io_type() const override;
 
+    void release_file_reference();
+
     //! \}
 
 protected:

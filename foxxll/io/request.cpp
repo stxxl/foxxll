@@ -92,6 +92,13 @@ const char* request::io_type() const
     return file_->io_type();
 }
 
+void request::release_file_reference() {
+    if (file_) {
+        file_->delete_request_ref();
+        file_ = nullptr;
+    }
+}
+
 std::ostream& operator << (std::ostream& out, const request& req)
 {
     return req.print(out);

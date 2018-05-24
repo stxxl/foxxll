@@ -84,9 +84,8 @@ void request_with_state::completed(bool canceled)
     if (on_complete_)
         on_complete_(this, !canceled);
     notify_waiters();
-    // delete request
-    file_->delete_request_ref();
-    file_ = nullptr;
+    // delete request reference in file
+    release_file_reference();
     state_.set_to(READY2DIE);
 }
 
