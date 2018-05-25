@@ -10,25 +10,13 @@ env:
   - OMP_NUM_THREADS=4
   - TMPDIR=/tmp/
   - FOXXLL_TEST_DISKDIR=$TMPDIR
-  # This encrypts the coverity project token
-  - secure: pJDa6r0X6rI3mmSH2p1dDxO26uGWdjP2jmLl1arsHlVtK47XDUVZCK1K/3y/cwsg+OadGqbIF+7+uLQlPhxBKGgV8he0u1qhPlgZvaJNh9AJ5TcMIc1LbTtmJNteY/5gaTIOPpLxcYTR7bP/X6CxE6QHXHZ+aoN9FIRVT2utDv0nH+DKyOA07HkR98qfPawxyj2SZPQnJxWnSKDszqYE5vIrzQv9VkgocS6e/DKxzmFlkQ8b76Ru48wGYpeiwvouL4flakxdyG17Ax9dMcR3mNy4BVHQbj0GVK/Q7Aaz+MB/HJPx1kuvuQw97i9CWXYN/+fIdWVosvpoW4wZyVH28nARq449C3VVTexG/llP7+QH8+1J7evvdVieBYU49V9CTOW/Fn6x7Rg4ABqDasNZiawAF/3b8qRTmxHvd9ulKDvX/sx0qT8OGJN1hYKDxoE13Zn92NVVud9/ndE9dMJDPP2jKZlQMYTbkh0VKNwvANvwdpzGAMQOq4Sa7gkPGnh4jiC1++eHU9diSKssGRLZsu6hagzdTxf3eL3MZafpqI79D3KnN8j5HM3YMRjVBO0NkxJEataQ7J7TKPhWhqfzGe/WKjpN0SnIq6hN2MX3NJmWEnMwShycFgKVRAmQTFLoGsenzQSgMe6CU7yipCDWuZjZ2cngazOgu+DzcIga1lg=
 
 git:
   depth: 3
 
-addons:
-  coverity_scan:
-    project:
-      name: FOXXLL
-    notification_email: foxxll@manuel.jetzt
-    build_command: make -j 4
-    branch_pattern: coverity_scan
-    build_command_prepend: "cov-configure --comptype gcc --compiler g++-5 --template"
-
 matrix:
   include:
-  # MAKE SURE THAT THE FIRST ENTRY IS SUITED FOR COVERITY BUILDS; USE G++-5 or change cov-configure!
-  - env: CMAKE_CC="gcc-5"     CMAKE_CXX="g++-5" COMPILER_FLAGS=""       CMAKE_ARGS="-DCMAKE_BUILD_TYPE=Release"
+  - env: CMAKE_CC="gcc-5"     CMAKE_CXX="g++-5" COMPILER_FLAGS=""       BUILD_TYPE="Release"
     os: linux
     addons: &gcc5
       apt:
@@ -37,11 +25,11 @@ matrix:
         packages:
           - g++-5
 
-  - env: CMAKE_CC="gcc-5"     CMAKE_CXX="g++-5" COMPILER_FLAGS=""       CMAKE_ARGS="-DCMAKE_BUILD_TYPE=RelWithAssert"
+  - env: CMAKE_CC="gcc-5"     CMAKE_CXX="g++-5" COMPILER_FLAGS=""       BUILD_TYPE="RelWithAssert"
     os: linux
     addons: *gcc5
 
-  - env: CMAKE_CC="gcc-7"     CMAKE_CXX="g++-7" COMPILER_FLAGS=""       CMAKE_ARGS="-DCMAKE_BUILD_TYPE=Release"
+  - env: CMAKE_CC="gcc-7"     CMAKE_CXX="g++-7" COMPILER_FLAGS=""       BUILD_TYPE="Release"
     os: linux
     addons: &gcc7
       apt:
@@ -50,11 +38,11 @@ matrix:
         packages:
           - g++-7
 
-  - env: CMAKE_CC="gcc-7"     CMAKE_CXX="g++-7" COMPILER_FLAGS=""       CMAKE_ARGS="-DCMAKE_BUILD_TYPE=RelWithAssert"
+  - env: CMAKE_CC="gcc-7"     CMAKE_CXX="g++-7" COMPILER_FLAGS=""       BUILD_TYPE="RelWithAssert"
     os: linux
     addons: *gcc7
 
-  - env: CMAKE_CC="clang-4.0" CMAKE_CXX="clang++-4.0" COMPILER_FLAGS="" CMAKE_ARGS="-DCMAKE_BUILD_TYPE=RelWithAssert"
+  - env: CMAKE_CC="clang-4.0" CMAKE_CXX="clang++-4.0" COMPILER_FLAGS="" BUILD_TYPE="RelWithAssert"
     os: linux
     dist: trusty
     addons: &clang40
@@ -65,30 +53,8 @@ matrix:
           packages:
             - clang-4.0
 
-  - env: CMAKE_CC="clang" CMAKE_CXX="clang++" COMPILER_FLAGS="" CMAKE_ARGS="-DCMAKE_BUILD_TYPE=RelWithAssert"
+  - env: CMAKE_CC="clang" CMAKE_CXX="clang++" COMPILER_FLAGS="" BUILD_TYPE="RelWithAssert"
     os: osx
-
-before_install:
-  - if [ "$TRAVIS_BRANCH" = "coverity_scan" ] && [ "${TRAVIS_JOB_NUMBER##*.}" != 1 ]; then
-      echo "Do coverity build only on first job";
-      exit 0;
-    fi
-
-  # # Add repositories
-  # - sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
-  # - if [ "$CMAKE_CXX" = "clang++-3.9" ]; then
-  #     wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | sudo apt-key add -;
-  #     sudo add-apt-repository -y 'deb http://llvm.org/apt/trusty/ llvm-toolchain-trusty-3.9 main';
-  #   fi
-  # - if [ "$CMAKE_CXX" = "clang++-5.0" ]; then
-  #     wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | sudo apt-key add -;
-  #     sudo add-apt-repository -y 'deb http://llvm.org/apt/trusty/ llvm-toolchain-trusty-5.0 main';
-  #   fi
-
-  # # Install dependencies
-  # - sudo apt -y update
-  # - if [ "$CMAKE_CXX" = "g++-5" ] || [ "$CMAKE_CXX" = "g++-7" ]; then sudo apt install -y $CMAKE_CXX; fi
-  # - if [ "$CMAKE_CC" = "clang-3.9" ] || [ "$CMAKE_CC" = "clang-5.0" ]; then sudo apt install -y g++-5 $CMAKE_CC libiomp-dev; fi
 
 before_script:
   # print out some information
@@ -97,12 +63,13 @@ before_script:
   # configure
   - mkdir build; cd build
   - cmake
-      -DCMAKE_C_COMPILER=$CMAKE_CC -DCMAKE_CXX_COMPILER=$CMAKE_CXX
+      -DCMAKE_BUILD_TYPE="$BUILD_TYPE"
+      -DCMAKE_C_COMPILER="$CMAKE_CC" -DCMAKE_CXX_COMPILER="$CMAKE_CXX"
       -DCMAKE_C_FLAGS="$COMPILER_FLAGS" -DCMAKE_CXX_FLAGS="$COMPILER_FLAGS"
       -DFOXXLL_BUILD_TESTS=ON
       -DFOXXLL_TRY_COMPILE_HEADERS=ON
       $CMAKE_ARGS ..
 
 script:
-  - if [ "${COVERITY_SCAN_BRANCH}" = 1 ]; then echo "Do run a coverity build"; exit 0; fi
-  - ../.travis-run.sh
+  - make -j4
+  - ../misc/travis-run.sh
