@@ -11,7 +11,9 @@
 ############################################################################
 
 foxxll_build_test(test_uint_types)
+foxxll_build_test(test_literals)
 
 foxxll_test(test_uint_types)
+foxxll_test(test_literals)
 
 ############################################################################

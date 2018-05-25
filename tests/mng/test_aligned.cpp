@@ -13,9 +13,10 @@
 #include <iostream>
 #include <vector>
 
+#include <foxxll/common/literals.hpp>
 #include <foxxll/mng.hpp>
 
-#define BLOCK_SIZE (512 * 1024)
+constexpr auto BLOCK_SIZE = 512_iKiB;
 
 struct type
 {
@@ -47,12 +48,12 @@ void test_typed_block()
 
 void test_aligned_alloc()
 {
-    void* p = foxxll::aligned_alloc<1024>(4096);
+    void* p = foxxll::aligned_alloc<1_iKiB>(1_iKiB);
     void* q = nullptr;
-    void* r = foxxll::aligned_alloc<1024>(4096, 42);
-    foxxll::aligned_dealloc<1024>(p);
-    foxxll::aligned_dealloc<1024>(q);
-    foxxll::aligned_dealloc<1024>(r);
+    void* r = foxxll::aligned_alloc<1_iKiB>(4_iKiB, 42);
+    foxxll::aligned_dealloc<1_iKiB>(p);
+    foxxll::aligned_dealloc<1_iKiB>(q);
+    foxxll::aligned_dealloc<1_iKiB>(r);
 }
 
 void test_typed_block_vector()
