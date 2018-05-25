@@ -207,7 +207,7 @@ int benchmark_disks_random(int argc, char* argv[])
     tlx::CmdlineParser cp;
 
     external_size_type span, worksize = 0;
-    size_t block_size = 8 * MiB;
+    external_size_type block_size = 8 * MiB;
     std::string optirw = "irw", allocstr;
 
     cp.add_param_bytes(

@@ -107,7 +107,7 @@ int benchmark_files(int argc, char* argv[])
     bool sync_io = false;
     bool resize_after_open = false;
     std::string file_type = default_file_type;
-    size_t block_size = 0;
+    external_size_type block_size = 0;
     unsigned int batch_size = 1;
     std::string opstr = "wv";
     uint32_t pattern = 0;

@@ -241,7 +241,7 @@ int benchmark_disks(int argc, char* argv[])
 
     external_size_type length = 0, offset = 0;
     unsigned int batch_size = 0;
-    size_t block_size = 8 * MiB;
+    external_size_type block_size = 8 * MiB;
     std::string optrw = "rw", allocstr;
 
     cp.add_param_bytes("size", length,
