@@ -40,11 +40,13 @@ void test1()
 
     die_unless_throws(
         cfg.parse_line("disk=/var/tmp/foxxll.tmp, 100 GiB, wincall_fileperblock unlink direct=on"),
-        std::runtime_error);
+        std::runtime_error
+    );
 
     die_unless_throws(
         cfg.parse_line("disk=/var/tmp/foxxll.tmp,0x,syscall"),
-        std::runtime_error);
+        std::runtime_error
+    );
 }
 
 void test2()
@@ -63,8 +65,10 @@ void test2()
         die_unequal(disk1.path, "/tmp/foxxll-1.tmp");
         die_unequal(disk1.size, 100 * 1024 * uint64_t(1024));
         die_unequal(disk1.autogrow, 1);
-        die_unequal(disk1.fileio_string(),
-                    "syscall direct=off unlink_on_open");
+        die_unequal(
+            disk1.fileio_string(),
+            "syscall direct=off unlink_on_open"
+        );
 
         config->add_disk(disk1);
 
@@ -74,8 +78,10 @@ void test2()
 
         die_unequal(disk2.path, "/tmp/foxxll-2.tmp");
         die_unequal(disk2.size, 200 * 1024 * uint64_t(1024));
-        die_unequal(disk2.fileio_string(),
-                    "syscall autogrow=no direct=off unlink_on_open");
+        die_unequal(
+            disk2.fileio_string(),
+            "syscall autogrow=no direct=off unlink_on_open"
+        );
         die_unequal(disk2.direct, 0);
 
         config->add_disk(disk2);

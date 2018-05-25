@@ -19,22 +19,24 @@
 
 //! Check condition X and die miserably if false. Same as die_if()
 //! except user additionally pass message
-#define die_with_message_if(X, msg)                                        \
-    do {                                                                   \
-        if ((X)) {                                                         \
-            die_with_sstream(                                              \
-                "DIE: Assertion \"" #X "\" succeeded!\n " << msg << "\n"); \
-        }                                                                  \
+#define die_with_message_if(X, msg)                                      \
+    do {                                                                 \
+        if ((X)) {                                                       \
+            die_with_sstream(                                            \
+                "DIE: Assertion \"" #X "\" succeeded!\n " << msg << "\n" \
+            );                                                           \
+        }                                                                \
     } while (false)
 
 //! Check condition X and die miserably if false. Same as die_unless()
 //! except user additionally pass message
-#define die_with_message_unless(X, msg)                                 \
-    do {                                                                \
-        if (!(X)) {                                                     \
-            die_with_sstream(                                           \
-                "DIE: Assertion \"" #X "\" failed!\n " << msg << "\n"); \
-        }                                                               \
+#define die_with_message_unless(X, msg)                               \
+    do {                                                              \
+        if (!(X)) {                                                   \
+            die_with_sstream(                                         \
+                "DIE: Assertion \"" #X "\" failed!\n " << msg << "\n" \
+            );                                                        \
+        }                                                             \
     } while (false)
 
 #endif // !FOXXLL_COMMON_DIE_WITH_MESSAGE_HEADER

@@ -46,8 +46,9 @@ int main(int argc, char** argv)
     memset(buffer, 0, size);
 
     foxxll::file_ptr file = foxxll::create_file(
-        argv[1], argv[2],
-        foxxll::file::CREAT | foxxll::file::RDWR | foxxll::file::DIRECT);
+            argv[1], argv[2],
+            foxxll::file::CREAT | foxxll::file::RDWR | foxxll::file::DIRECT
+        );
 
     file->set_size(kNumBlocks * size);
     foxxll::request_ptr req[kNumBlocks];

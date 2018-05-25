@@ -188,7 +188,8 @@ void block_manager::new_blocks(
         size_t disk_id = functor(alloc_offset + i);
 
         if (!block_allocators_[disk_id]->has_available_space(
-                disk_bytes[disk_id] + bid->size))
+                disk_bytes[disk_id] + bid->size
+            ))
         {
             // find disk (cyclically) that has enough free space for block
 
@@ -196,7 +197,8 @@ void block_manager::new_blocks(
             {
                 size_t try_disk_id = (disk_id + adv) % ndisks_;
                 if (block_allocators_[try_disk_id]->has_available_space(
-                        disk_bytes[try_disk_id] + bid->size))
+                        disk_bytes[try_disk_id] + bid->size
+                    ))
                 {
                     disk_id = try_disk_id;
                     break;

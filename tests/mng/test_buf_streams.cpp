@@ -56,8 +56,10 @@ int main()
             unsigned value;
             in >> value;
 
-            die_with_message_unless(value == i,
-                                    "Error at position " << std::hex << i << " (" << value << ") block " << (i / block_type::size));
+            die_with_message_unless(
+                value == i,
+                "Error at position " << std::hex << i << " (" << value << ") block " << (i / block_type::size)
+            );
             die_unless(prevalue == value);
         }
     }
@@ -69,8 +71,10 @@ int main()
             unsigned value;
             in >> value;
 
-            die_with_message_unless(value == nelements - i - 1,
-                                    "Error at position " << std::hex << i << " (" << value << ") block " << (i / block_type::size));
+            die_with_message_unless(
+                value == nelements - i - 1,
+                "Error at position " << std::hex << i << " (" << value << ") block " << (i / block_type::size)
+            );
             die_unless(prevalue == value);
         }
     }

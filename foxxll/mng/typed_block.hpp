@@ -278,8 +278,10 @@ public:
 
     typed_block()
     {
-        static_assert(sizeof(typed_block) == raw_size,
-                      "sizeof(typed_block) == raw_size");
+        static_assert(
+            sizeof(typed_block) == raw_size,
+            "sizeof(typed_block) == raw_size"
+        );
         LOGC(debug_typed_block) << "[" << static_cast<void*>(this) << "] typed_block is constructed";
 #if 0
         assert(((long)this) % BlockAlignment == 0);
@@ -346,7 +348,8 @@ public:
         LOGC(debug_typed_block) << "typed::block operator new[]: bytes=" << bytes << ", meta_info_size=" << meta_info_size;
 
         void* result = aligned_alloc<BlockAlignment>(
-            bytes - meta_info_size, meta_info_size);
+                bytes - meta_info_size, meta_info_size
+            );
 
 #if FOXXLL_WITH_VALGRIND
         memset(result, 0, bytes);
@@ -360,7 +363,8 @@ public:
         LOGC(debug_typed_block) << "typed::block operator new[]: bytes=" << bytes << ", meta_info_size=" << meta_info_size;
 
         void* result = aligned_alloc<BlockAlignment>(
-            bytes - meta_info_size, meta_info_size);
+                bytes - meta_info_size, meta_info_size
+            );
 
 #if FOXXLL_WITH_VALGRIND
         memset(result, 0, bytes);

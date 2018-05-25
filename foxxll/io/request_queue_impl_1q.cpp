@@ -71,8 +71,10 @@ void request_queue_impl_1q::add_request(request_ptr& req)
 #if FOXXLL_CHECK_FOR_PENDING_REQUESTS_ON_SUBMISSION
     {
         std::unique_lock<std::mutex> lock(queue_mutex_);
-        if (std::find_if(queue_.begin(), queue_.end(),
-                         bind2nd(file_offset_match(), req))
+        if (std::find_if(
+                queue_.begin(), queue_.end(),
+                bind2nd(file_offset_match(), req)
+            )
             != queue_.end())
         {
             LOG1 << "request submitted for a BID with a pending request";

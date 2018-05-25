@@ -152,8 +152,10 @@ void file_stats::read_op_finished(const size_t size, double duration)
 
 file_stats_data file_stats_data::operator + (const file_stats_data& a) const
 {
-    FOXXLL_THROW_IF(device_id_ != a.device_id_, std::runtime_error,
-                    "foxxll::file_stats_data objects do not belong to the same file/disk");
+    FOXXLL_THROW_IF(
+        device_id_ != a.device_id_, std::runtime_error,
+        "foxxll::file_stats_data objects do not belong to the same file/disk"
+    );
 
     file_stats_data fsd;
     fsd.device_id_ = device_id_;
@@ -170,8 +172,10 @@ file_stats_data file_stats_data::operator + (const file_stats_data& a) const
 
 file_stats_data file_stats_data::operator - (const file_stats_data& a) const
 {
-    FOXXLL_THROW_IF(device_id_ != a.device_id_, std::runtime_error,
-                    "foxxll::file_stats_data objects do not belong to the same file/disk");
+    FOXXLL_THROW_IF(
+        device_id_ != a.device_id_, std::runtime_error,
+        "foxxll::file_stats_data objects do not belong to the same file/disk"
+    );
 
     file_stats_data fsd;
     fsd.device_id_ = device_id_;
@@ -347,10 +351,11 @@ file_stats* stats::create_file_stats(unsigned int device_id)
 {
     std::unique_lock<std::mutex> lock(list_mutex_);
     auto it = std::lower_bound(
-        file_stats_list_.begin(), file_stats_list_.end(),
-        device_id, [](const file_stats& fs, unsigned id) {
-            return fs.get_device_id() < id;
-        });
+            file_stats_list_.begin(), file_stats_list_.end(),
+            device_id, [](const file_stats& fs, unsigned id) {
+                return fs.get_device_id() < id;
+            }
+        );
     if (it != file_stats_list_.end() && it->get_device_id())
         return &*it;
 
@@ -393,10 +398,12 @@ stats_data::summary<T>::summary(
         values_per_device.emplace_back(get_value(f), f.get_device_id());
     }
 
-    std::sort(values_per_device.begin(), values_per_device.end(),
-              [](std::pair<T, unsigned> a, std::pair<T, unsigned> b) {
-                  return a.first < b.first;
-              });
+    std::sort(
+        values_per_device.begin(), values_per_device.end(),
+        [](std::pair<T, unsigned> a, std::pair<T, unsigned> b) {
+            return a.first < b.first;
+        }
+    );
 
     if (values_per_device.size() != 0)
     {
@@ -409,8 +416,9 @@ stats_data::summary<T>::summary(
             ? values_per_device[mid].first
             : (values_per_device[mid - 1].first + values_per_device[mid].first) / 2.0;
 
-        total = std::accumulate(values_per_device.cbegin(), values_per_device.cend(), T(0),
-                                [](T sum, const auto& x) { return sum + x.first; });
+        total = std::accumulate(
+                values_per_device.cbegin(), values_per_device.cend(), T(0),
+                [](T sum, const auto& x) { return sum + x.first; });
 
         average = static_cast<double>(total) / values_per_device.size();
     }
@@ -443,7 +451,8 @@ stats_data stats_data::operator + (const stats_data& a) const
         FileStatsDataCompare(),
         [](const file_stats_data& a, const file_stats_data& b) {
             return a + b;
-        });
+        }
+    );
 
     s.p_reads_ = p_reads_ + a.p_reads_;
     s.p_writes_ = p_writes_ + a.p_writes_;
@@ -466,7 +475,8 @@ stats_data stats_data::operator - (const stats_data& a) const
         FileStatsDataCompare(),
         [](const file_stats_data& a, const file_stats_data& b) {
             return a - b;
-        });
+        }
+    );
 
     s.p_reads_ = p_reads_ - a.p_reads_;
     s.p_writes_ = p_writes_ - a.p_writes_;

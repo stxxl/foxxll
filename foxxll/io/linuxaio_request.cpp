@@ -79,15 +79,17 @@ bool linuxaio_request::post()
     // time before the call.
     time_posted_ = timestamp();
     linuxaio_queue* queue = dynamic_cast<linuxaio_queue*>(
-        disk_queues::get_instance()->get_queue(file_->get_queue_id()));
+            disk_queues::get_instance()->get_queue(file_->get_queue_id()));
 
     long success = syscall(SYS_io_submit, queue->get_io_context(), 1, &cb_pointer);
     // At this point another thread may have already called complete(),
     // so consider most values as invalidated!
 
     if (success == -1 && errno != EAGAIN)
-        FOXXLL_THROW_ERRNO(io_error, "linuxaio_request::post"
-                           " io_submit()");
+        FOXXLL_THROW_ERRNO(
+            io_error, "linuxaio_request::post"
+            " io_submit()"
+        );
 
     return success == 1;
 }
@@ -103,7 +105,7 @@ bool linuxaio_request::cancel()
 
     request_ptr req(this);
     linuxaio_queue* queue = dynamic_cast<linuxaio_queue*>(
-        disk_queues::get_instance()->get_queue(file_->get_queue_id()));
+            disk_queues::get_instance()->get_queue(file_->get_queue_id()));
     return queue->cancel_request(req);
 }
 

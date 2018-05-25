@@ -212,26 +212,32 @@ int benchmark_disks_random(int argc, char* argv[])
 
     cp.add_param_bytes(
         "span", span,
-        "Span of external memory to write/read to (e.g. 10GiB).");
+        "Span of external memory to write/read to (e.g. 10GiB)."
+    );
     cp.add_opt_param_bytes(
         "block_size", block_size,
-        "Size of blocks to randomly write/read (default: 8MiB).");
+        "Size of blocks to randomly write/read (default: 8MiB)."
+    );
     cp.add_opt_param_bytes(
         "size", worksize,
-        "Amount of data to operate on (e.g. 2GiB), default: whole span.");
+        "Amount of data to operate on (e.g. 2GiB), default: whole span."
+    );
     cp.add_opt_param_string(
         "i|r|w", optirw,
-        "Operations: [i]nitialize, [r]ead, and/or [w]rite (default: all).");
+        "Operations: [i]nitialize, [r]ead, and/or [w]rite (default: all)."
+    );
     cp.add_opt_param_string(
         "alloc", allocstr,
-        "Block allocation strategy: random_cyclic, simple_random, fully_random, striping (default: random_cyclic).");
+        "Block allocation strategy: random_cyclic, simple_random, fully_random, striping (default: random_cyclic)."
+    );
 
     cp.set_description(
         "This program will benchmark _random_ block access on the disks "
         "configured by the standard .foxxll disk configuration files mechanism. "
         "Available block sizes are power of two from 4 KiB to 128 MiB. "
         "A set of three operations can be performed: sequential initialization, "
-        "random reading and random writing.");
+        "random reading and random writing."
+    );
 
     if (!cp.process(argc, argv))
         return -1;

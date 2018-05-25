@@ -80,19 +80,23 @@ void disk_block_allocator::add_free_region(uint64_t block_pos, uint64_t block_si
 
         if (pred != free_space_.end()) {
             if (pred->first <= region_pos && (pred->first + pred->second) > region_pos) {
-                FOXXLL_THROW2(bad_ext_alloc, "disk_block_allocator::check_corruption",
-                              "Error: double deallocation of external memory, trying to deallocate "
-                              "region " << region_pos << " + " << region_size << " in empty space"
-                              "[" << pred->first << " + " << pred->second << "]");
+                FOXXLL_THROW2(
+                    bad_ext_alloc, "disk_block_allocator::check_corruption",
+                    "Error: double deallocation of external memory, trying to deallocate "
+                    "region " << region_pos << " + " << region_size << " in empty space"
+                        "[" << pred->first << " + " << pred->second << "]"
+                );
             }
         }
 
         if (succ != free_space_.end()) {
             if (region_pos <= succ->first && (region_pos + region_size) > succ->first) {
-                FOXXLL_THROW2(bad_ext_alloc, "disk_block_allocator::check_corruption",
-                              "Error: double deallocation of external memory, trying to deallocate "
-                              "region " << region_pos << " + " << region_size << "  which overlaps empty space "
-                              "[" << succ->first << " + " << succ->second << "]");
+                FOXXLL_THROW2(
+                    bad_ext_alloc, "disk_block_allocator::check_corruption",
+                    "Error: double deallocation of external memory, trying to deallocate "
+                    "region " << region_pos << " + " << region_size << "  which overlaps empty space "
+                        "[" << succ->first << " + " << succ->second << "]"
+                );
             }
         }
 

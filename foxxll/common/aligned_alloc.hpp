@@ -78,7 +78,7 @@ inline void * aligned_alloc(size_t size, size_t meta_info_size = 0)
     #endif
     char* reserve_buffer = buffer + sizeof(char*) + meta_info_size;
     char* result = reserve_buffer + Alignment -
-                   (reinterpret_cast<size_t>(reserve_buffer) % Alignment) - meta_info_size;
+        (reinterpret_cast<size_t>(reserve_buffer) % Alignment) - meta_info_size;
     LOGC(debug_aligned_alloc) << "foxxll::aligned_alloc<" << Alignment << ">() address "
                               << static_cast<void*>(result) << " lost " << (result - buffer) << " bytes";
     //-tb: check that there is space for one char* before the "result" pointer

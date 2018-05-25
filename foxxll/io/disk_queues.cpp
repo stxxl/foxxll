@@ -72,7 +72,8 @@ void disk_queues::add_request(request_ptr& req, disk_id_type disk)
 #if FOXXLL_HAVE_LINUXAIO_FILE
         if (dynamic_cast<linuxaio_request*>(req.get()))
             q = queues_[disk] = new linuxaio_queue(
-                    dynamic_cast<linuxaio_file*>(req->get_file())->get_desired_queue_length());
+                        dynamic_cast<linuxaio_file*>(req->get_file())->get_desired_queue_length()
+                    );
         else
 #endif
         q = queues_[disk] = new request_queue_impl_qwqr();

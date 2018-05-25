@@ -101,8 +101,10 @@ void test1()
         size_t num_err = 0;
         for (size_t i = 0; i < block_size; ++i)
             num_err += (ib[i] != i);
-        die_with_message_unless(num_err == 0,
-                                "previously initialized block had " << num_err << " errors.");
+        die_with_message_unless(
+            num_err == 0,
+            "previously initialized block had " << num_err << " errors."
+        );
     }
     {
         // get a new reference to the already allocated block (because we forgot the old one)
@@ -184,7 +186,8 @@ void test1()
 
     // switch to LFD processing
     delete bs.switch_algorithm_to(
-        new foxxll::block_scheduler_algorithm_offline_lfd<swappable_block_type>(asim));
+        new foxxll::block_scheduler_algorithm_offline_lfd<swappable_block_type>(asim)
+    );
 
     sbi = bs.allocate_swappable_block();
     bs.acquire(sbi);
@@ -200,7 +203,8 @@ void test1()
 #if 0
     // 2013-tb: segfaults due to missing prediction sequence? TODO
     delete bs.switch_algorithm_to(
-        new foxxll::block_scheduler_algorithm_offline_lru_prefetching<swappable_block_type>(asim));
+        new foxxll::block_scheduler_algorithm_offline_lru_prefetching<swappable_block_type>(asim)
+    );
     sbi = bs.allocate_swappable_block();
     bs.acquire(sbi);
     bs.acquire(sbi);
@@ -216,8 +220,10 @@ void test1()
     delete bs_ptr;
 
     int_bl->read(ext_bl)->wait();
-    die_with_message_unless(test_pattern_B(*int_bl) == 0,
-                            "after extraction changed block should contain pattern B.");
+    die_with_message_unless(
+        test_pattern_B(*int_bl) == 0,
+        "after extraction changed block should contain pattern B."
+    );
     delete int_bl;
 }
 
@@ -347,10 +353,14 @@ int main(int argc, char** argv)
 
     tlx::CmdlineParser cp;
 
-    cp.add_int('t', "test-case", "I", test_case,
-               "number of the test case to run");
-    cp.add_int('m', "memory", "N", internal_memory_megabytes,
-               "internal memory to use (in megabytes)");
+    cp.add_int(
+        't', "test-case", "I", test_case,
+        "number of the test case to run"
+    );
+    cp.add_int(
+        'm', "memory", "N", internal_memory_megabytes,
+        "internal memory to use (in megabytes)"
+    );
 
     cp.set_description("foxxll block_scheduler test");
     cp.set_author("Raoul Steffen, R-Steffen@gmx.de");

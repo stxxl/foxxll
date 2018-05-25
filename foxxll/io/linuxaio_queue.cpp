@@ -51,8 +51,10 @@ linuxaio_queue::linuxaio_queue(int desired_queue_length)
         max_events_ <<= 1;               // try with half as many events
     }
     if (result != 0) {
-        FOXXLL_THROW_ERRNO(io_error, "linuxaio_queue::linuxaio_queue"
-                           " io_setup() nr_events=" << max_events_);
+        FOXXLL_THROW_ERRNO(
+            io_error, "linuxaio_queue::linuxaio_queue"
+            " io_setup() nr_events=" << max_events_
+        );
     }
 
     num_free_events_.signal(max_events_);
@@ -101,7 +103,8 @@ bool linuxaio_queue::cancel_request(request_ptr& req)
         std::unique_lock<std::mutex> lock(waiting_mtx_);
 
         pos = std::find(
-            waiting_requests_.begin(), waiting_requests_.end(), req);
+                waiting_requests_.begin(), waiting_requests_.end(), req
+            );
         if (pos != waiting_requests_.end())
         {
             waiting_requests_.erase(pos);
@@ -168,10 +171,13 @@ void linuxaio_queue::post_requests()
 
                 // wait for at least one event to complete, no time limit
                 long num_events = syscall(
-                    SYS_io_getevents, context_, 1, max_events_, events, nullptr);
+                        SYS_io_getevents, context_, 1, max_events_, events, nullptr
+                    );
                 if (num_events < 0) {
-                    FOXXLL_THROW_ERRNO(io_error, "linuxaio_queue::post_requests"
-                                       " io_getevents() nr_events=" << num_events);
+                    FOXXLL_THROW_ERRNO(
+                        io_error, "linuxaio_queue::post_requests"
+                        " io_getevents() nr_events=" << num_events
+                    );
                 }
 
                 handle_events(events, num_events, false);
@@ -197,7 +203,7 @@ void linuxaio_queue::handle_events(io_event* events, long num_events, bool cance
     for (int e = 0; e < num_events; ++e)
     {
         request* r = reinterpret_cast<request*>(
-            static_cast<uintptr_t>(events[e].data));
+                static_cast<uintptr_t>(events[e].data));
         r->completed(canceled);
         // release counting_ptr reference, this may delete the request object
         r->dec_reference();
@@ -226,7 +232,8 @@ void linuxaio_queue::wait_requests()
         long num_events;
         while (1) {
             num_events = syscall(
-                SYS_io_getevents, context_, 1, max_events_, events, nullptr);
+                    SYS_io_getevents, context_, 1, max_events_, events, nullptr
+                );
 
             if (num_events < 0) {
                 if (errno == EINTR) {
@@ -234,8 +241,10 @@ void linuxaio_queue::wait_requests()
                     continue;
                 }
 
-                FOXXLL_THROW_ERRNO(io_error, "linuxaio_queue::wait_requests"
-                                   " io_getevents() nr_events=" << max_events_);
+                FOXXLL_THROW_ERRNO(
+                    io_error, "linuxaio_queue::wait_requests"
+                    " io_getevents() nr_events=" << max_events_
+                );
             }
             break;
         }

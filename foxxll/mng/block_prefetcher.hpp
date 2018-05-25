@@ -145,8 +145,9 @@ public:
                 " @ " << &read_buffers[i] <<
                 " @ " << read_bids[i];
             read_reqs[i] = read_buffers[i].read(
-                read_bids[i],
-                set_switch_handler(*(completed + prefetch_seq[i]), do_after_fetch));
+                    read_bids[i],
+                    set_switch_handler(*(completed + prefetch_seq[i]), do_after_fetch)
+                );
             pref_buffer[prefetch_seq[i]] = i;
         }
     }
@@ -190,8 +191,9 @@ public:
             read_bids[ibuffer] =
                 bid_type(*(consume_seq_begin + next_2_prefetch));
             read_reqs[ibuffer] = read_buffers[ibuffer].read(
-                read_bids[ibuffer],
-                set_switch_handler(*(completed + next_2_prefetch), do_after_fetch));
+                    read_bids[ibuffer],
+                    set_switch_handler(*(completed + next_2_prefetch), do_after_fetch)
+                );
         }
 
         if (nextconsume >= seq_length)

@@ -47,8 +47,10 @@ void request_with_waiters::delete_waiter(onoff_switch* sw)
 void request_with_waiters::notify_waiters()
 {
     std::unique_lock<std::mutex> lock(waiters_mutex_);
-    std::for_each(waiters_.begin(), waiters_.end(),
-                  std::mem_fun(&onoff_switch::on));
+    std::for_each(
+        waiters_.begin(), waiters_.end(),
+        std::mem_fun(&onoff_switch::on)
+    );
 }
 
 size_t request_with_waiters::num_waiters()

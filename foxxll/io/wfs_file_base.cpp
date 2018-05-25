@@ -89,8 +89,10 @@ static HANDLE open_file_impl(const std::string& filename, int mode)
         // ignored
     }
 
-    HANDLE file_des_ = ::CreateFileA(filename.c_str(), dwDesiredAccess, dwShareMode, nullptr,
-                                     dwCreationDisposition, dwFlagsAndAttributes, nullptr);
+    HANDLE file_des_ = ::CreateFileA(
+            filename.c_str(), dwDesiredAccess, dwShareMode, nullptr,
+            dwCreationDisposition, dwFlagsAndAttributes, nullptr
+        );
 
     if (file_des_ != INVALID_HANDLE_VALUE)
         return file_des_;
@@ -102,8 +104,10 @@ static HANDLE open_file_impl(const std::string& filename, int mode)
 
         dwFlagsAndAttributes &= ~FILE_FLAG_NO_BUFFERING;
 
-        HANDLE file_des2 = ::CreateFileA(filename.c_str(), dwDesiredAccess, dwShareMode, nullptr,
-                                         dwCreationDisposition, dwFlagsAndAttributes, nullptr);
+        HANDLE file_des2 = ::CreateFileA(
+                filename.c_str(), dwDesiredAccess, dwShareMode, nullptr,
+                dwCreationDisposition, dwFlagsAndAttributes, nullptr
+            );
 
         if (file_des2 != INVALID_HANDLE_VALUE)
             return file_des2;
@@ -212,13 +216,17 @@ void wfs_file_base::set_size(offset_type newsize)
         }
 
         if (!SetFilePointerEx(file_des_, desired_pos, nullptr, FILE_BEGIN))
-            FOXXLL_THROW_WIN_LASTERROR(io_error,
-                                       "SetFilePointerEx() in wfs_file_base::set_size(..) oldsize=" << cur_size <<
-                                       " newsize=" << newsize << " ");
+            FOXXLL_THROW_WIN_LASTERROR(
+                io_error,
+                "SetFilePointerEx() in wfs_file_base::set_size(..) oldsize=" << cur_size <<
+                    " newsize=" << newsize << " "
+            );
 
         if (!SetEndOfFile(file_des_))
-            FOXXLL_THROW_WIN_LASTERROR(io_error, "SetEndOfFile() oldsize=" << cur_size <<
-                                       " newsize=" << newsize << " ");
+            FOXXLL_THROW_WIN_LASTERROR(
+                io_error, "SetEndOfFile() oldsize=" << cur_size <<
+                    " newsize=" << newsize << " "
+            );
 
         if (direct_with_bad_size)
         {

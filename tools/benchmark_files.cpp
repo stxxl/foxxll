@@ -116,42 +116,64 @@ int benchmark_files(int argc, char* argv[])
 
     tlx::CmdlineParser cp;
 
-    cp.add_param_bytes("length", length,
-                       "Length to write in file.");
+    cp.add_param_bytes(
+        "length", length,
+        "Length to write in file."
+    );
 
-    cp.add_param_stringlist("filename", files_arr,
-                            "File path to run benchmark on.");
+    cp.add_param_stringlist(
+        "filename", files_arr,
+        "File path to run benchmark on."
+    );
 
-    cp.add_bytes('o', "offset", offset,
-                 "Starting offset to write in file.");
+    cp.add_bytes(
+        'o', "offset", offset,
+        "Starting offset to write in file."
+    );
 
-    cp.add_bool(0, "no-direct", no_direct_io,
-                "open files without O_DIRECT");
+    cp.add_bool(
+        0, "no-direct", no_direct_io,
+        "open files without O_DIRECT"
+    );
 
-    cp.add_bool(0, "sync", sync_io,
-                "open files with O_SYNC|O_DSYNC|O_RSYNC");
+    cp.add_bool(
+        0, "sync", sync_io,
+        "open files with O_SYNC|O_DSYNC|O_RSYNC"
+    );
 
-    cp.add_bool(0, "resize", resize_after_open,
-                "resize the file size after opening, "
-                "needed e.g. for creating mmap files");
+    cp.add_bool(
+        0, "resize", resize_after_open,
+        "resize the file size after opening, "
+        "needed e.g. for creating mmap files"
+    );
 
-    cp.add_bytes(0, "block_size", block_size,
-                 "block size for operations (default 8 MiB)");
+    cp.add_bytes(
+        0, "block_size", block_size,
+        "block size for operations (default 8 MiB)"
+    );
 
-    cp.add_unsigned(0, "batch_size", batch_size,
-                    "increase (default 1) to submit several I/Os at once "
-                    "and report average rate");
+    cp.add_unsigned(
+        0, "batch_size", batch_size,
+        "increase (default 1) to submit several I/Os at once "
+        "and report average rate"
+    );
 
-    cp.add_string('f', "file-type", file_type,
-                  "Method to open file (syscall|mmap|wincall|...) "
-                  "default: " + file_type);
+    cp.add_string(
+        'f', "file-type", file_type,
+        "Method to open file (syscall|mmap|wincall|...) "
+        "default: " + file_type
+    );
 
-    cp.add_string('p', "operations", opstr,
-                  "[w]rite pattern, [r]ead without verification, "
-                  "read and [v]erify pattern (default: 'wv')");
+    cp.add_string(
+        'p', "operations", opstr,
+        "[w]rite pattern, [r]ead without verification, "
+        "read and [v]erify pattern (default: 'wv')"
+    );
 
-    cp.add_unsigned(0, "pattern", pattern,
-                    "32-bit pattern to write (default: block index)");
+    cp.add_unsigned(
+        0, "pattern", pattern,
+        "32-bit pattern to write (default: block index)"
+    );
 
     cp.set_description(
         "Open a file using one of FOXXLL's file abstractions and perform "
@@ -159,7 +181,8 @@ int benchmark_files(int argc, char* argv[])
         "Block sizes and batch size can be adjusted via command line. "
         "If length == 0 , then operation will continue till end of space "
         "(please ignore the write error). "
-        "Memory consumption: block_size * batch_size * num_files");
+        "Memory consumption: block_size * batch_size * num_files"
+    );
 
     if (!cp.process(argc, argv))
         return -1;
@@ -276,9 +299,11 @@ int benchmark_files(int argc, char* argv[])
                 {
                     for (size_t j = 0; j < current_num_blocks; j++)
                         reqs[i * current_num_blocks + j] =
-                            files[i]->awrite(buffer + current_step_size_int * i + j * block_size_int,
-                                             offset + j * block_size,
-                                             block_size);
+                            files[i]->awrite(
+                                buffer + current_step_size_int * i + j * block_size_int,
+                                offset + j * block_size,
+                                block_size
+                            );
                 }
 
  #ifdef WATCH_TIMES
@@ -313,9 +338,11 @@ int benchmark_files(int argc, char* argv[])
                 {
                     for (size_t j = 0; j < current_num_blocks; j++)
                         reqs[i * current_num_blocks + j] =
-                            files[i]->aread(buffer + current_step_size_int * i + j * block_size_int,
-                                            offset + j * block_size,
-                                            block_size);
+                            files[i]->aread(
+                                buffer + current_step_size_int * i + j * block_size_int,
+                                offset + j * block_size,
+                                block_size
+                            );
                 }
 
  #ifdef WATCH_TIMES

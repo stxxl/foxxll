@@ -14,6 +14,9 @@
 #  http://www.boost.org/LICENSE_1_0.txt)
 ############################################################################
 
+# uncrustify executable
+my $uncrustify = "uncrustify-0.64";
+
 # print multiple email addresses
 my $email_multimap = 0;
 
@@ -22,9 +25,6 @@ my $launch_emacs = 0;
 
 # write changes to files (dangerous!)
 my $write_changes = 0;
-
-# uncrustify program
-my $uncrustify;
 
 # function testing whether to uncrustify a path
 sub filter_uncrustify($) {
@@ -453,19 +453,9 @@ foreach my $arg (@ARGV) {
     or die("Please run this script in the STXXL source base directory.");
 
 # check uncrustify's version:
-eval {
-    no warnings;
-    my $uncrustver = `uncrustify-0.64 --version` or die;
-    if ($uncrustver eq "uncrustify 0.64\n") {
-        $uncrustify = "uncrustify-0.64";
-    }
-};
-if ($@) {
-    my ($uncrustver) = filter_program("", "uncrustify", "--version");
-    ($uncrustver eq "uncrustify 0.64\n")
-        or die("Requires uncrustify 0.64 to run correctly. Got: $uncrustver");
-    $uncrustify = "uncrustify";
-}
+my ($uncrustver) = filter_program("", $uncrustify, "--version");
+($uncrustver eq "uncrustify 0.64\n")
+    or die("Requires $uncrustify to run correctly. Got: $uncrustver");
 
 use File::Find;
 my @filelist;
