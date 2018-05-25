@@ -131,22 +131,9 @@ void config::load_default_config()
 {
     LOG1 << "Warning: no config file found.";
     LOG1 << "Using default disk configuration.";
-#if !FOXXLL_WINDOWS
-    disk_config entry1("disk=/var/tmp/foxxll,1Gi,syscall unlink");
+    disk_config entry1(default_disk_path(), 1000 * 1024 * 1024, default_disk_io_impl());
     entry1.delete_on_exit = true;
     entry1.autogrow = true;
-#else
-    disk_config entry1("", 1000 * 1024 * 1024, "wincall");
-    entry1.delete_on_exit = true;
-    entry1.autogrow = true;
-
-    char* tmpstr = new char[255];
-    if (GetTempPathA(255, tmpstr) == 0)
-        FOXXLL_THROW_WIN_LASTERROR(resource_error, "GetTempPathA()");
-    entry1.path = tmpstr;
-    entry1.path += "foxxll.tmp";
-    delete[] tmpstr;
-#endif
     disks_list.push_back(entry1);
 
     // no flash disks
@@ -235,6 +222,22 @@ const std::string& config::disk_path(size_t disk) const
     return disks_list[disk].path;
 }
 
+std::string config::default_disk_path()
+{
+#if !FOXXLL_WINDOWS
+    return "/var/tmp/foxxll";
+#else
+    char* tmpstr = new char[255];
+    if (GetTempPathA(255, tmpstr) == 0)
+        FOXXLL_THROW_WIN_LASTERROR(resource_error, "GetTempPathA()");
+    std::string result = tmpstr;
+    result += "foxxll.tmp";
+    delete[] tmpstr;
+    return result;
+#endif
+}
+
+
 external_size_type config::disk_size(size_t disk) const
 {
     assert(is_initialized);
@@ -245,6 +248,15 @@ const std::string& config::disk_io_impl(size_t disk) const
 {
     assert(is_initialized);
     return disks_list[disk].io_impl;
+}
+
+std::string config::default_disk_io_impl()
+{
+#if !FOXXLL_WINDOWS
+    return "syscall";
+#else
+    return "wincall";
+#endif
 }
 
 external_size_type config::total_size() const
