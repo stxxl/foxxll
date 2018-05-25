@@ -92,7 +92,8 @@ const char* request::io_type() const
     return file_->io_type();
 }
 
-void request::release_file_reference() {
+void request::release_file_reference()
+{
     if (file_) {
         file_->delete_request_ref();
         file_ = nullptr;

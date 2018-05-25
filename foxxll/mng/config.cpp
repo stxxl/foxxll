@@ -15,7 +15,6 @@
 
 #include <cassert>
 #include <fstream>
-#include <regex>
 
 #include <tlx/logger.hpp>
 
@@ -25,6 +24,7 @@
 #include <foxxll/io/file.hpp>
 #include <foxxll/mng/config.hpp>
 #include <foxxll/version.hpp>
+#include <tlx/string/expand_environment_variables.hpp>
 #include <tlx/string/parse_si_iec_units.hpp>
 #include <tlx/string/split.hpp>
 
@@ -342,7 +342,7 @@ void disk_config::parse_line(const std::string& line)
     std::vector<std::string> cmfield = tlx::split(',', eqfield[1], 3, 3);
 
     // path:
-    path = expand_path(cmfield[0]);
+    path = tlx::expand_environment_variables(cmfield[0]);
     // replace $$ -> pid in path
     {
         std::string::size_type pos;
@@ -554,23 +554,6 @@ std::string disk_config::fileio_string() const
     }
 
     return oss.str();
-}
-
-std::string disk_config::expand_path(std::string path) const
-{
-    std::regex var_matcher("\\$([A-Z]+(_[A-Z]+)*)");
-    std::smatch match;
-
-    std::stringstream ss;
-
-    while (std::regex_search(path, match, var_matcher)) {
-        ss << match.prefix().str();
-        ss << std::getenv(match[1].str().c_str());
-        path = match.suffix().str();
-    }
-    ss << path;
-
-    return ss.str();
 }
 
 } // namespace foxxll
