@@ -111,24 +111,26 @@ endif()
 ###############################################################################
 # enable use of "make package"
 
-# general package settings
-set(CPACK_PACKAGE_VENDOR "FOXXLL Maintainer Team")
-set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Library of external memory algorithms")
-set(CPACK_PACKAGE_DESCRIPTION_FILE "${CMAKE_CURRENT_SOURCE_DIR}/README.md")
-set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_SOURCE_DIR}/LICENSE_1_0.txt")
-set(CPACK_PACKAGE_VERSION_MAJOR "${FOXXLL_VERSION_MAJOR}")
-set(CPACK_PACKAGE_VERSION_MINOR "${FOXXLL_VERSION_MINOR}")
-set(CPACK_PACKAGE_VERSION_PATCH "${FOXXLL_VERSION_PATCH}")
+if(NOT CPack_CMake_INCLUDED)
+  # general package settings
+  set(CPACK_PACKAGE_VENDOR "FOXXLL Maintainer Team")
+  set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Library of external memory algorithms")
+  set(CPACK_PACKAGE_DESCRIPTION_FILE "${CMAKE_CURRENT_SOURCE_DIR}/README.md")
+  set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_SOURCE_DIR}/LICENSE_1_0.txt")
+  set(CPACK_PACKAGE_VERSION_MAJOR "${FOXXLL_VERSION_MAJOR}")
+  set(CPACK_PACKAGE_VERSION_MINOR "${FOXXLL_VERSION_MINOR}")
+  set(CPACK_PACKAGE_VERSION_PATCH "${FOXXLL_VERSION_PATCH}")
 
-# source packaging
-set(CPACK_SOURCE_GENERATOR "TGZ")
-set(CPACK_SOURCE_PACKAGE_FILE_NAME "${CMAKE_PROJECT_NAME}-${CPACK_PACKAGE_VERSION_MAJOR}.${CPACK_PACKAGE_VERSION_MINOR}.${CPACK_PACKAGE_VERSION_PATCH}")
-set(CPACK_SOURCE_IGNORE_FILES "/\\\\..*$;/build;${CPACK_SOURCE_IGNORE_FILES}")
+  # source packaging
+  set(CPACK_SOURCE_GENERATOR "TGZ")
+  set(CPACK_SOURCE_PACKAGE_FILE_NAME "${CMAKE_PROJECT_NAME}-${CPACK_PACKAGE_VERSION_MAJOR}.${CPACK_PACKAGE_VERSION_MINOR}.${CPACK_PACKAGE_VERSION_PATCH}")
+  set(CPACK_SOURCE_IGNORE_FILES "/\\\\..*$;/build;${CPACK_SOURCE_IGNORE_FILES}")
 
-# binary packaging
-set(CPACK_GENERATOR "TGZ")
+  # binary packaging
+  set(CPACK_GENERATOR "TGZ")
 
-include(CPack)
+  include(CPack)
+endif()
 
 ###############################################################################
 # check platform
