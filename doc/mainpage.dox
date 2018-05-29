@@ -1,0 +1,62 @@
+/***************************************************************************
+ *  doc/mainpage.dox
+ *
+ *  Main page of FOXXLL doxygen tree. All doc pages should be linked here.
+ *
+ *  Part of the STXXL. See http://stxxl.org
+ *
+ *  Copyright (C) 2013 Timo Bingmann <tb@panthema.net>
+ *
+ *  Distributed under the Boost Software License, Version 1.0.
+ *  (See accompanying file LICENSE_1_0.txt or copy at
+ *  http://www.boost.org/LICENSE_1_0.txt)
+ **************************************************************************/
+
+/**
+
+\if FOXXLL_MAINPAGE
+ \mainpage Welcome to FOXXLL - A C++ Library for Asynchronous I/O and Block Management
+\else
+ \page foxxll Welcome to FOXXLL - A C++ Library for Asynchronous I/O and Block Management
+\endif
+
+FOXXLL is a C++ library for asynchronous I/O and block management. It is used by STXXL and Thrill for external memory support.
+
+FOXXLL usually opens one big file and the user program then allocates regularly-sized blocks inside the file. These blocks can then be read/written using asynchronous operations. This is the basic layer for many large data structures or stream processing algorithms.
+
+See STXXL for more information of external memory algorithms: https://stxxl.org
+
+And Thrill for distributed (external) memory processing: http://project-thrill.org
+
+*/
+
+// Module Groups are defined here to fix their order:
+
+/*!
+\defgroup foxxll foxxll - A C++ Library for Asynchronous I/O and Block Management
+\{
+
+\}
+
+*/
+
+/*!
+  \defgroup foxxll_mnglayer Block Management Layer
+  \ingroup foxxll
+
+  Group of classes which help controlling external memory space, managing disks, and allocating and deallocating blocks of external storage.
+
+*/
+
+/*!
+  \defgroup foxxll_iolayer I/O Primitives Layer
+  \ingroup foxxll
+
+  Group of classes which enable abstraction from operating system calls and support system-independent interfaces for asynchronous I/O.
+*/
+
+/*! \defgroup foxxll_support Common Utilities and Support Classes
+  \ingroup foxxll
+
+  Supporting classes also useful for applications.
+*/

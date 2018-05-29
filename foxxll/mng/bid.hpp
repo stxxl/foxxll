@@ -29,7 +29,7 @@
 
 namespace foxxll {
 
-//! \addtogroup mnglayer
+//! \addtogroup foxxll_mnglayer
 //! \{
 
 //! Block identifier class.
@@ -169,7 +169,7 @@ public:
  *  [file ptr|file id]offset/size
  * \endverbatim
  *
- * \node
+ * \note
  * Can be used to replace the obsolete FMT_BID macro
  */
 template <size_t BlockSize>

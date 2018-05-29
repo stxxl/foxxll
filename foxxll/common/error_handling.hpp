@@ -14,7 +14,7 @@
 #ifndef FOXXLL_COMMON_ERROR_HANDLING_HEADER
 #define FOXXLL_COMMON_ERROR_HANDLING_HEADER
 
-/** \file error_handling.h
+/** \file error_handling.hpp
  * Macros for convenient error checking and reporting via exception.
  */
 

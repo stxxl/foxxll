@@ -25,7 +25,7 @@
 
 namespace foxxll {
 
-//! \addtogroup fileimpl
+//! \addtogroup foxxll_fileimpl
 //! \{
 
 //! Base for UNIX file system implementations.

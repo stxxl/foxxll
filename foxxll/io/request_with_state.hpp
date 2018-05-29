@@ -20,7 +20,7 @@
 
 namespace foxxll {
 
-//! \addtogroup reqlayer
+//! \addtogroup foxxll_reqlayer
 //! \{
 
 //! Request with completion shared_state.

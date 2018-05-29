@@ -28,7 +28,7 @@
 
 namespace foxxll {
 
-//! \addtogroup mnglayer
+//! \addtogroup foxxll_mnglayer
 //! \{
 
 //! Encapsulate the configuration of one "disk". The disk is actually a file

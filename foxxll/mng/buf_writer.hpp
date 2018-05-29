@@ -21,8 +21,8 @@
 
 namespace foxxll {
 
-//! \defgroup schedlayer Block Scheduling Sublayer
-//! \ingroup mnglayer
+//! \defgroup foxxll_schedlayer Block Scheduling Sublayer
+//! \ingroup foxxll_mnglayer
 //! Group of classes which help in scheduling
 //! sequences of read and write requests
 //! via prefetching and buffered writing

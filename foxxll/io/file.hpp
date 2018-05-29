@@ -39,10 +39,10 @@
 
 namespace foxxll {
 
-//! \addtogroup iolayer
+//! \addtogroup foxxll_iolayer
 //! \{
 
-//! \defgroup fileimpl File I/O Implementations
+//! \defgroup foxxll_fileimpl File I/O Implementations
 //! Implementations of \c foxxll::file for various file access methods and
 //! operating systems.
 //! \{
@@ -253,7 +253,7 @@ public:
 
 //! \}
 
-//! \defgroup reqlayer I/O Requests and Queues
+//! \defgroup foxxll_reqlayer I/O Requests and Queues
 //! Encapsulation of an I/O request, queues for requests and threads to process
 //! them.
 //! \{

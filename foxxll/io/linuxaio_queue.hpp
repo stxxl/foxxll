@@ -28,7 +28,7 @@
 
 namespace foxxll {
 
-//! \addtogroup reqlayer
+//! \addtogroup foxxll_reqlayer
 //! \{
 
 //! Queue for linuxaio_file(s)

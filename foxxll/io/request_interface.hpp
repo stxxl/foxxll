@@ -21,7 +21,7 @@
 
 namespace foxxll {
 
-//! \addtogroup reqlayer
+//! \addtogroup foxxll_reqlayer
 //! \{
 
 class onoff_switch;

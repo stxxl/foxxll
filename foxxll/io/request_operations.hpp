@@ -21,7 +21,7 @@
 
 namespace foxxll {
 
-//! \addtogroup reqlayer
+//! \addtogroup foxxll_reqlayer
 //! \{
 
 //! Collection of functions to track statuses of a number of requests.

@@ -28,7 +28,7 @@
 
 namespace foxxll {
 
-//! \addtogroup reqlayer
+//! \addtogroup foxxll_reqlayer
 //! \{
 
 constexpr size_t BlockAlignment = 4096;

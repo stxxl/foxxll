@@ -29,7 +29,7 @@
 
 namespace foxxll {
 
-//! \addtogroup support
+//! \addtogroup foxxll_support
 //! \{
 
 //! Returns number of seconds since the epoch, high resolution.

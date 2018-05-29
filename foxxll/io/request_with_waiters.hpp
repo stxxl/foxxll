@@ -22,7 +22,7 @@
 
 namespace foxxll {
 
-//! \addtogroup reqlayer
+//! \addtogroup foxxll_reqlayer
 //! \{
 
 //! Request that is aware of threads waiting for it to complete.

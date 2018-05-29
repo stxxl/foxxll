@@ -21,7 +21,7 @@
 
 namespace foxxll {
 
-//! \addtogroup schedlayer
+//! \addtogroup foxxll_schedlayer
 //! \{
 
 // a paranoid check

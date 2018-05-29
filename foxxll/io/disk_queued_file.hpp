@@ -20,7 +20,7 @@
 
 namespace foxxll {
 
-//! \addtogroup fileimpl
+//! \addtogroup foxxll_fileimpl
 //! \{
 
 //! Implementation of some file methods based on serving_request.

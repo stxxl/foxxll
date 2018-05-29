@@ -17,7 +17,7 @@
 
 namespace foxxll {
 
-//! \addtogroup schedlayer
+//! \addtogroup foxxll_schedlayer
 //! \{
 
 //! Buffered output stream.

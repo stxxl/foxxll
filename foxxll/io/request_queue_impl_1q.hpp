@@ -24,7 +24,7 @@
 
 namespace foxxll {
 
-//! \addtogroup reqlayer
+//! \addtogroup foxxll_reqlayer
 //! \{
 
 //! Implementation of a local request queue having only one queue for both read

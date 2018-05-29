@@ -19,7 +19,7 @@
 
 namespace foxxll {
 
-//! \addtogroup fileimpl
+//! \addtogroup foxxll_fileimpl
 //! \{
 
 //! Implementation of file based on other files, dynamically allocate one file per block.

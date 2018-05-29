@@ -31,14 +31,14 @@ constexpr bool debug_typed_block = true;
 constexpr bool debug_typed_block = false;
 #endif
 
-//! \addtogroup mnglayer
+//! \addtogroup foxxll_mnglayer
 //! \{
 
 //! Block Manager Internals \internal
 namespace mng_local {
 
-//! \defgroup mnglayer_internals Internals
-//! \ingroup mnglayer
+//! \defgroup foxxll_mnglayer_internals Internals
+//! \ingroup foxxll_mnglayer
 //! Internals and support classes
 //! \{
 

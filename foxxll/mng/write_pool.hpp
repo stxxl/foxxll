@@ -29,7 +29,7 @@
 
 namespace foxxll {
 
-//! \addtogroup schedlayer
+//! \addtogroup foxxll_schedlayer
 //! \{
 
 //! Implements dynamically resizable buffered writing pool.

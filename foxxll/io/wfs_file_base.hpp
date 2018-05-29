@@ -29,7 +29,7 @@
 
 namespace foxxll {
 
-//! \addtogroup fileimpl
+//! \addtogroup foxxll_fileimpl
 //! \{
 
 //! Base for Windows file system implementations.

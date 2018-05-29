@@ -34,7 +34,7 @@
 
 namespace foxxll {
 
-//! \addtogroup fileimpl
+//! \addtogroup foxxll_fileimpl
 //! \{
 
 //! Implementation of file based on Windows native I/O calls.
@@ -47,6 +47,7 @@ public:
     //! \param queue_id disk queue identifier
     //! \param allocator_id linked disk_allocator
     //! \param device_id physical device identifier
+    //! \param file_stats file-specific stats
     wincall_file(
         const std::string& filename,
         int mode,

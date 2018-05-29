@@ -23,8 +23,8 @@
 
 namespace foxxll {
 
-//! \defgroup alloc Allocation Functors
-//! \ingroup mnglayer
+//! \defgroup foxxll_alloc Allocation Functors
+//! \ingroup foxxll_mnglayer
 //! Standard allocation strategies encapsulated in functors.
 //! \{
 
@@ -222,12 +222,12 @@ struct offset_allocator
     //! Creates functor based on instance of \c BaseAllocator functor
     //! with offset.
     //! \param offset offset
-    //! \param base_ used to create a copy
+    //! \param base used to create a copy
     offset_allocator(int offset, const BaseAllocator& base)
         : base_(base), offset_(offset) { }
 
     //! Creates functor based on instance of \c BaseAllocator functor.
-    //! \param base_ used to create a copy
+    //! \param base used to create a copy
     explicit offset_allocator(const BaseAllocator& base)
         : base_(base), offset_(0) { }
 

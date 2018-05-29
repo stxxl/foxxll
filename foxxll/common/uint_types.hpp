@@ -251,7 +251,7 @@ public:
 __attribute__ ((packed)); // NOLINT
 #endif
 
-//! \addtogroup support
+//! \addtogroup foxxll_support
 //! \{
 
 //! Construct a 40-bit unsigned integer stored in five bytes.

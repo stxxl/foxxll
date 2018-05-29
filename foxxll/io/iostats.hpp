@@ -38,7 +38,7 @@
 
 namespace foxxll {
 
-//! \addtogroup iolayer
+//! \addtogroup foxxll_iolayer
 //!
 //! \{
 

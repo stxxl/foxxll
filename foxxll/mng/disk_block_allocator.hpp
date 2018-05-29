@@ -34,7 +34,7 @@
 
 namespace foxxll {
 
-//! \ingroup mnglayer
+//! \ingroup foxxll_mnglayer
 //! \{
 
 /*!

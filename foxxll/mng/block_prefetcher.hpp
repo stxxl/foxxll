@@ -25,7 +25,7 @@
 
 namespace foxxll {
 
-//! \addtogroup schedlayer
+//! \addtogroup foxxll_schedlayer
 //! \{
 
 class set_switch_handler

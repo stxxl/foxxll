@@ -26,7 +26,7 @@
 
 namespace foxxll {
 
-//! \addtogroup fileimpl
+//! \addtogroup foxxll_fileimpl
 //! \{
 
 //! Implementation of memory mapped access file.
@@ -39,6 +39,7 @@ public:
     //! \param queue_id disk queue identifier
     //! \param allocator_id linked disk_allocator
     //! \param device_id physical device identifier
+    //! \param file_stats file-specific stats
     inline mmap_file(
         const std::string& filename,
         int mode,

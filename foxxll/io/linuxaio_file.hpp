@@ -28,7 +28,7 @@ namespace foxxll {
 
 class linuxaio_queue;
 
-//! \addtogroup fileimpl
+//! \addtogroup foxxll_fileimpl
 //! \{
 
 //! Implementation of \c file based on the Linux kernel interface for

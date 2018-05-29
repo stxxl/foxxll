@@ -42,7 +42,7 @@
 
 namespace foxxll {
 
-//! \addtogroup mnglayer
+//! \addtogroup foxxll_mnglayer
 //! \{
 
 /*!

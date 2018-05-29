@@ -25,7 +25,7 @@
 
 namespace foxxll {
 
-//! \addtogroup reqlayer
+//! \addtogroup foxxll_reqlayer
 //! \{
 
 //! Implementation of request queue worker threads. Worker threads can be
