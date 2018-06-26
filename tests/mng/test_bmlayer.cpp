@@ -23,7 +23,7 @@
 #include <foxxll/mng/prefetch_pool.hpp>
 #include <foxxll/mng/typed_block.hpp>
 
-#define BLOCK_SIZE (1024 * 512)
+static const size_t test_block_size = 1024 * 512;
 
 struct MyType
 {
@@ -39,12 +39,12 @@ struct my_handler
     }
 };
 
-using block_type = foxxll::typed_block<BLOCK_SIZE, MyType>;
+using block_type = foxxll::typed_block<test_block_size, MyType>;
 
 void testIO()
 {
     const unsigned nblocks = 2;
-    foxxll::BIDArray<BLOCK_SIZE> bids(nblocks);
+    foxxll::BIDArray<test_block_size> bids(nblocks);
     std::vector<int> disks(nblocks, 2);
     foxxll::request_ptr* reqs = new foxxll::request_ptr[nblocks];
     foxxll::block_manager* bm = foxxll::block_manager::get_instance();
@@ -129,15 +129,15 @@ void testWritePool()
     pool.write(blk, bid);
 }
 
-using block_type1 = foxxll::typed_block<BLOCK_SIZE, int>;
-using buf_ostream_type = foxxll::buf_ostream<block_type1, foxxll::BIDArray<BLOCK_SIZE>::iterator>;
-using buf_istream_type = foxxll::buf_istream<block_type1, foxxll::BIDArray<BLOCK_SIZE>::iterator>;
+using block_type1 = foxxll::typed_block<test_block_size, int>;
+using buf_ostream_type = foxxll::buf_ostream<block_type1, foxxll::BIDArray<test_block_size>::iterator>;
+using buf_istream_type = foxxll::buf_istream<block_type1, foxxll::BIDArray<test_block_size>::iterator>;
 
 void testStreams()
 {
     const unsigned nblocks = 64;
     const unsigned nelements = nblocks * block_type1::size;
-    foxxll::BIDArray<BLOCK_SIZE> bids(nblocks);
+    foxxll::BIDArray<test_block_size> bids(nblocks);
 
     foxxll::block_manager* bm = foxxll::block_manager::get_instance();
     bm->new_blocks(foxxll::striping(), bids.begin(), bids.end());

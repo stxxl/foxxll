@@ -77,7 +77,7 @@ int main(int argc, char** argv)
 
         file->close_remove();
     }
-    catch (foxxll::io_error e)
+    catch (foxxll::io_error& e)
     {
         die(e.what());
     }

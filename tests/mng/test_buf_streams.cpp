@@ -21,25 +21,25 @@
 #include <foxxll/mng/buf_istream_reverse.hpp>
 #include <foxxll/mng/buf_ostream.hpp>
 
-#define BLOCK_SIZE (1024 * 512)
+static const size_t test_block_size = 1024 * 512;
 
-using block_type = foxxll::typed_block<BLOCK_SIZE, unsigned>;
-using bid_iterator_type = foxxll::BIDArray<BLOCK_SIZE>::iterator;
+using block_type = foxxll::typed_block<test_block_size, unsigned>;
+using bid_iterator_type = foxxll::BIDArray<test_block_size>::iterator;
 
 using buf_ostream_type = foxxll::buf_ostream<block_type, bid_iterator_type>;
 using buf_istream_type = foxxll::buf_istream<block_type, bid_iterator_type>;
 using buf_istream_reverse_type = foxxll::buf_istream_reverse<block_type, bid_iterator_type>;
 
 // forced instantiations
-template class foxxll::buf_ostream<block_type, foxxll::BIDArray<BLOCK_SIZE>::iterator>;
-template class foxxll::buf_istream<block_type, foxxll::BIDArray<BLOCK_SIZE>::iterator>;
-template class foxxll::buf_istream_reverse<block_type, foxxll::BIDArray<BLOCK_SIZE>::iterator>;
+template class foxxll::buf_ostream<block_type, foxxll::BIDArray<test_block_size>::iterator>;
+template class foxxll::buf_istream<block_type, foxxll::BIDArray<test_block_size>::iterator>;
+template class foxxll::buf_istream_reverse<block_type, foxxll::BIDArray<test_block_size>::iterator>;
 
 int main()
 {
     const unsigned nblocks = 128;
     const unsigned nelements = nblocks * block_type::size;
-    foxxll::BIDArray<BLOCK_SIZE> bids(nblocks);
+    foxxll::BIDArray<test_block_size> bids(nblocks);
 
     foxxll::block_manager* bm = foxxll::block_manager::get_instance();
     bm->new_blocks(foxxll::striping(), bids.begin(), bids.end());

@@ -42,7 +42,7 @@ public:
 protected:
     struct bid_hash
     {
-        size_t operator () (const bid_type& bid) const
+        size_t operator () (const bid_type& bid) const noexcept
         {
             size_t result = size_t(bid.storage) +
                 size_t(bid.offset & 0xffffffff) +
@@ -50,7 +50,7 @@ protected:
             return result;
         }
 #if FOXXLL_MSVC
-        bool operator () (const bid_type& a, const bid_type& b) const
+        bool operator () (const bid_type& a, const bid_type& b) const noexcept
         {
             return (a.storage < b.storage) || (a.storage == b.storage && a.offset < b.offset);
         }
