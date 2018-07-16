@@ -483,13 +483,13 @@ endif(FOXXLL_BUILD_TESTS)
 
 ###############################################################################
 # install header files
-
-install(FILES include/foxxll.h DESTINATION ${INSTALL_INCLUDE_DIR})
-install(DIRECTORY include/foxxll DESTINATION ${INSTALL_INCLUDE_DIR})
+install(DIRECTORY foxxll
+  DESTINATION ${INSTALL_INCLUDE_DIR}
+  FILES_MATCHING PATTERN "*.hpp")
 
 # also copy the config file with build options!
-install(FILES ${PROJECT_BINARY_DIR}/include/foxxll/bits/config.h
-  DESTINATION ${INSTALL_INCLUDE_DIR}/foxxll/bits/)
+install(FILES ${PROJECT_BINARY_DIR}/foxxll/config.hpp
+  DESTINATION ${INSTALL_INCLUDE_DIR}/foxxll/)
 
 ###############################################################################
 # prepare pkg-config file
