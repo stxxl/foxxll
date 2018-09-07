@@ -150,7 +150,7 @@ public:
                 busy_write_blocks.push_back(ibuffer);
             }
         }
-        LOG << "Adding write request to batch";
+        TLX_LOG << "Adding write request to batch";
 
         size_t ibuffer = filled_block - write_buffers;
         write_bids[ibuffer] = bid;

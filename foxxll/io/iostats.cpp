@@ -20,7 +20,7 @@
 #include <sstream>
 #include <string>
 
-#include <tlx/logger.hpp>
+#include <tlx/logger/core.hpp>
 
 #include <foxxll/common/timer.hpp>
 #include <foxxll/common/types.hpp>
@@ -266,10 +266,11 @@ void stats::wait_finished(const wait_op_type wait_op)
         }
 #ifdef FOXXLL_WAIT_LOG_ENABLED
         if (waitlog)
-            LOG1 << (now - last_reset) << "\t"
-                 << ((wait_op == WAIT_OP_READ) ? diff : 0.0) << "\t"
-                 << ((wait_op != WAIT_OP_READ) ? diff : 0.0) << "\t"
-                 << t_wait_read_ << "\t" << t_wait_write_ << "\n" << line_prefix << std::flush;
+            TLX_LOG1
+                << (now - last_reset) << "\t"
+                << ((wait_op == WAIT_OP_READ) ? diff : 0.0) << "\t"
+                << ((wait_op != WAIT_OP_READ) ? diff : 0.0) << "\t"
+                << t_wait_read_ << "\t" << t_wait_write_ << "\n" << line_prefix << std::flush;
 #endif
     }
 }
@@ -825,7 +826,7 @@ void scoped_print_iostats::report() const
 
     result.to_ostream(ss, key_);
 
-    LOG1 << ss.str();
+    TLX_LOG1 << ss.str();
 }
 
 } // namespace foxxll

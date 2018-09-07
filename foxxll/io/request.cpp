@@ -13,7 +13,7 @@
 
 #include <ostream>
 
-#include <tlx/logger.hpp>
+#include <tlx/logger/core.hpp>
 
 #include <foxxll/io/file.hpp>
 #include <foxxll/io/request.hpp>
@@ -28,34 +28,34 @@ request::request(
       file_(file), buffer_(buffer), offset_(offset), bytes_(bytes),
       op_(op)
 {
-    LOG << "request_with_state[" << static_cast<void*>(this) << "]::request(...), ref_cnt=" << reference_count();
+    TLX_LOG << "request_with_state[" << static_cast<void*>(this) << "]::request(...), ref_cnt=" << reference_count();
     file_->add_request_ref();
 }
 
 request::~request()
 {
-    LOG << "request_with_state[" << static_cast<void*>(this) << "]::~request(), ref_cnt=" << reference_count();
+    TLX_LOG << "request_with_state[" << static_cast<void*>(this) << "]::~request(), ref_cnt=" << reference_count();
 }
 
 void request::check_alignment() const
 {
     if (offset_ % BlockAlignment != 0)
-        LOG1 << "Offset is not aligned: modulo " <<
+        TLX_LOG1 << "Offset is not aligned: modulo " <<
             BlockAlignment << " = " << offset_ % BlockAlignment;
 
     if (bytes_ % BlockAlignment != 0)
-        LOG1 << "Size is not a multiple of " <<
+        TLX_LOG1 << "Size is not a multiple of " <<
             BlockAlignment << ", = " << bytes_ % BlockAlignment;
 
     if (size_t(buffer_) % BlockAlignment != 0)
-        LOG1 << "Buffer is not aligned: modulo " <<
+        TLX_LOG1 << "Buffer is not aligned: modulo " <<
             BlockAlignment << " = " << size_t(buffer_) % BlockAlignment <<
             " (" << buffer_ << ")";
 }
 
 void request::check_nref_failed(bool after)
 {
-    LOG1 << "WARNING: serious error, reference to the request is lost " <<
+    TLX_LOG1 << "WARNING: serious error, reference to the request is lost " <<
     (after ? "after" : "before") << " serve()" <<
         " nref=" << reference_count() <<
         " this=" << this <<

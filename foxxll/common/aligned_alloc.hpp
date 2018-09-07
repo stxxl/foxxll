@@ -17,7 +17,7 @@
 #include <cassert>
 #include <cstdlib>
 
-#include <tlx/logger.hpp>
+#include <tlx/logger/core.hpp>
 
 #include <foxxll/common/utils.hpp>
 
@@ -47,8 +47,9 @@ bool aligned_alloc_settings<MustBeInt>::may_use_realloc = true;
 template <size_t Alignment>
 inline void * aligned_alloc(size_t size, size_t meta_info_size = 0)
 {
-    LOGC(debug_aligned_alloc) << "foxxll::aligned_alloc<" << Alignment << ">(), "
-        "size = " << size << ", meta info size = " << meta_info_size;
+    TLX_LOGC(debug_aligned_alloc)
+        << "foxxll::aligned_alloc<" << Alignment << ">(), "
+        << "size = " << size << ", meta info size = " << meta_info_size;
 #if !defined(FOXXLL_WASTE_MORE_MEMORY_FOR_IMPROVED_ACCESS_AFTER_ALLOCATED_MEMORY_CHECKS)
     // malloc()/realloc() variant that frees the unused amount of memory
     // after the data area of size 'size'. realloc() from valgrind does not
@@ -79,8 +80,9 @@ inline void * aligned_alloc(size_t size, size_t meta_info_size = 0)
     char* reserve_buffer = buffer + sizeof(char*) + meta_info_size;
     char* result = reserve_buffer + Alignment -
         (reinterpret_cast<size_t>(reserve_buffer) % Alignment) - meta_info_size;
-    LOGC(debug_aligned_alloc) << "foxxll::aligned_alloc<" << Alignment << ">() address "
-                              << static_cast<void*>(result) << " lost " << (result - buffer) << " bytes";
+    TLX_LOGC(debug_aligned_alloc)
+        << "foxxll::aligned_alloc<" << Alignment << ">() address "
+        << static_cast<void*>(result) << " lost " << (result - buffer) << " bytes";
     //-tb: check that there is space for one char* before the "result" pointer
     // delivered to the user. this char* is set below to the beginning of the
     // allocated area.
@@ -94,7 +96,7 @@ inline void * aligned_alloc(size_t size, size_t meta_info_size = 0)
         if (buffer != realloced) {
             // hmm, realloc does move the memory block around while shrinking,
             // might run under valgrind, so disable realloc and retry
-            LOG1 << "foxxll::aligned_alloc: disabling realloc()";
+            TLX_LOG1 << "foxxll::aligned_alloc: disabling realloc()";
             std::free(realloced);
             aligned_alloc_settings<int>::may_use_realloc = false;
             return aligned_alloc<Alignment>(size, meta_info_size);
@@ -103,13 +105,14 @@ inline void * aligned_alloc(size_t size, size_t meta_info_size = 0)
     }
 
     *(reinterpret_cast<char**>(result) - 1) = buffer;
-    LOGC(debug_aligned_alloc) << "foxxll::aligned_alloc<" << Alignment << ">(), allocated at " <<
-        static_cast<void*>(buffer) << " returning " << static_cast<void*>(result);
+    TLX_LOGC(debug_aligned_alloc)
+        << "foxxll::aligned_alloc<" << Alignment << ">(), allocated at "
+        << static_cast<void*>(buffer) << " returning " << static_cast<void*>(result);
 
-    LOGC(debug_aligned_alloc) <<
-        "foxxll::aligned_alloc<" << Alignment <<
-        ">(size = " << size << ", meta info size = " << meta_info_size <<
-        ") => buffer = " << static_cast<void*>(buffer) << ", ptr = " << static_cast<void*>(result);
+    TLX_LOGC(debug_aligned_alloc)
+        << "foxxll::aligned_alloc<" << Alignment
+        << ">(size = " << size << ", meta info size = " << meta_info_size
+        << ") => buffer = " << static_cast<void*>(buffer) << ", ptr = " << static_cast<void*>(result);
 
     return result;
 }
@@ -121,8 +124,9 @@ aligned_dealloc(void* ptr)
     if (!ptr)
         return;
     char* buffer = *(static_cast<char**>(ptr) - 1);
-    LOGC(debug_aligned_alloc) << "foxxll::aligned_dealloc<" << Alignment << ">(), "
-        "ptr = " << ptr << ", buffer = " << static_cast<void*>(buffer);
+    TLX_LOGC(debug_aligned_alloc)
+        << "foxxll::aligned_dealloc<" << Alignment << ">(), "
+        << "ptr = " << ptr << ", buffer = " << static_cast<void*>(buffer);
     std::free(buffer);
 }
 

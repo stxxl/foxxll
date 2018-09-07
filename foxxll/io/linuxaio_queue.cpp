@@ -22,7 +22,7 @@
 #include <algorithm>
 
 #include <tlx/die.hpp>
-#include <tlx/logger.hpp>
+#include <tlx/logger/core.hpp>
 
 #include <foxxll/common/error_handling.hpp>
 #include <foxxll/io/linuxaio_request.hpp>
@@ -59,7 +59,7 @@ linuxaio_queue::linuxaio_queue(int desired_queue_length)
 
     num_free_events_.signal(max_events_);
 
-    LOG1 << "Set up an linuxaio queue with " << max_events_ << " entries.";
+    TLX_LOG1 << "Set up an linuxaio queue with " << max_events_ << " entries.";
 
     start_thread(post_async, static_cast<void*>(this), post_thread_, post_thread_state_);
     start_thread(wait_async, static_cast<void*>(this), wait_thread_, wait_thread_state_);

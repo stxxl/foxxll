@@ -21,7 +21,7 @@
 #include <utility>
 #include <vector>
 
-#include <tlx/logger.hpp>
+#include <tlx/logger/core.hpp>
 
 #include <foxxll/singleton.hpp>
 #include <foxxll/version.hpp>

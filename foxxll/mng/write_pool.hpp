@@ -25,7 +25,8 @@
 #include <foxxll/config.hpp>
 #include <foxxll/io/request_operations.hpp>
 
-#define FOXXLL_VERBOSE_WPOOL(msg) LOG << "write_pool[" << static_cast<void*>(this) << "]" << msg
+#define FOXXLL_VERBOSE_WPOOL(msg) \
+    TLX_LOG << "write_pool[" << static_cast<void*>(this) << "]" << msg
 
 namespace foxxll {
 

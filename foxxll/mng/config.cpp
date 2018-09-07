@@ -16,7 +16,7 @@
 #include <cassert>
 #include <fstream>
 
-#include <tlx/logger.hpp>
+#include <tlx/logger/core.hpp>
 
 #include <foxxll/common/error_handling.hpp>
 #include <foxxll/common/utils.hpp>
@@ -41,7 +41,7 @@ namespace foxxll {
 
 static inline bool exist_file(const std::string& path)
 {
-    LOG0 << "Checking " << path << " for disk configuration.";
+    TLX_LOG0 << "Checking " << path << " for disk configuration.";
     std::ifstream in(path.c_str());
     return in.good();
 }
@@ -49,7 +49,7 @@ static inline bool exist_file(const std::string& path)
 config::config()
     : is_initialized(false)
 {
-    LOG1 << get_version_string_long();
+    TLX_LOG1 << get_version_string_long();
     print_library_version_mismatch();
 }
 
@@ -60,7 +60,7 @@ config::~config()
     {
         if (it->delete_on_exit)
         {
-            LOG1 << "Removing disk file: " << it->path;
+            TLX_LOG1 << "Removing disk file: " << it->path;
             unlink(it->path.c_str());
         }
     }
@@ -129,8 +129,8 @@ void config::find_config()
 
 void config::load_default_config()
 {
-    LOG1 << "Warning: no config file found.";
-    LOG1 << "Using default disk configuration.";
+    TLX_LOG1 << "Warning: no config file found.";
+    TLX_LOG1 << "Using default disk configuration.";
     disk_config entry1(default_disk_path(), 1000 * 1024 * 1024, default_disk_io_impl());
     entry1.delete_on_exit = true;
     entry1.autogrow = true;

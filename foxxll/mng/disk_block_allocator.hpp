@@ -23,7 +23,7 @@
 #include <ostream>
 #include <utility>
 
-#include <tlx/logger.hpp>
+#include <tlx/logger/core.hpp>
 
 #include <foxxll/common/error_handling.hpp>
 #include <foxxll/common/exceptions.hpp>
@@ -112,9 +112,9 @@ public:
     {
         std::unique_lock<std::mutex> lock(mutex_);
 
-        LOG << "disk_block_allocator::delete_block<" << BlockSize <<
-            ">(pos=" << bid.offset << ", size=" << bid.size <<
-            "), free:" << free_bytes_ << " total:" << disk_bytes_;
+        TLX_LOG1 << "disk_block_allocator::delete_block<" << BlockSize
+                 << ">(pos=" << bid.offset << ", size=" << size_t(bid.size)
+                 << "), free:" << free_bytes_ << " total:" << disk_bytes_;
 
         add_free_region(bid.offset, bid.size);
     }
@@ -162,13 +162,13 @@ void disk_block_allocator::new_blocks(BIDIterator begin, BIDIterator end)
 
     for (BIDIterator cur = begin; cur != end; ++cur)
     {
-        LOG << "Asking for a block with size: " << cur->size;
+        TLX_LOG << "Asking for a block with size: " << cur->size;
         requested_size += cur->size;
     }
 
     std::unique_lock<std::mutex> lock(mutex_);
 
-    LOG << "disk_block_allocator::new_blocks<BlockSize>"
+    TLX_LOG << "disk_block_allocator::new_blocks<BlockSize>"
         ", BlockSize = " << begin->size <<
         ", free:" << free_bytes_ << " total:" << disk_bytes_ <<
         ", blocks: " << (end - begin) <<
@@ -185,9 +185,10 @@ void disk_block_allocator::new_blocks(BIDIterator begin, BIDIterator end)
             );
         }
 
-        LOG1 << "External memory block allocation error: " << requested_size <<
-            " bytes requested, " << free_bytes_ <<
-            " bytes free. Trying to extend the external memory space...";
+        TLX_LOG1
+            << "External memory block allocation error: " << requested_size
+            << " bytes requested, " << free_bytes_
+            << " bytes free. Trying to extend the external memory space...";
 
         grow_file(requested_size);
     }
@@ -205,10 +206,10 @@ void disk_block_allocator::new_blocks(BIDIterator begin, BIDIterator end)
     if (space == free_space_.end() && begin + 1 == end)
     {
         if (!autogrow_) {
-            LOG1 << "Warning: Severe external memory space fragmentation!";
+            TLX_LOG1 << "Warning: Severe external memory space fragmentation!";
             dump();
 
-            LOG1 << "External memory block allocation error: " << requested_size <<
+            TLX_LOG1 << "External memory block allocation error: " << requested_size <<
                 " bytes requested, " << free_bytes_ <<
                 " bytes free. Trying to extend the external memory space...";
         }
@@ -246,7 +247,7 @@ void disk_block_allocator::new_blocks(BIDIterator begin, BIDIterator end)
     }
 
     // no contiguous region found
-    LOG << "Warning, when allocating an external memory space, no"
+    TLX_LOG << "Warning, when allocating an external memory space, no"
         "contiguous region found. It might harm the performance";
 
     assert(end - begin > 1);

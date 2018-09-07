@@ -12,7 +12,7 @@
  *  http://www.boost.org/LICENSE_1_0.txt)
  **************************************************************************/
 
-#include <tlx/logger.hpp>
+#include <tlx/logger/core.hpp>
 
 #include <foxxll/common/error_handling.hpp>
 #include <foxxll/io/wfs_file_base.hpp>
@@ -75,11 +75,11 @@ static HANDLE open_file_impl(const std::string& filename, int mode)
         // TODO: try also FILE_FLAG_WRITE_THROUGH option ?
 #else
         if (mode & file::REQUIRE_DIRECT) {
-            LOG1 << "Error: open()ing " << filename << " with DIRECT mode required, but the system does not support it.";
+            TLX_LOG1 << "Error: open()ing " << filename << " with DIRECT mode required, but the system does not support it.";
             return INVALID_HANDLE_VALUE;
         }
         else {
-            LOG1 << "Warning: open()ing " << filename << " without DIRECT mode, as the system does not support it.";
+            TLX_LOG1 << "Warning: open()ing " << filename << " without DIRECT mode, as the system does not support it.";
         }
 #endif
     }
@@ -100,7 +100,7 @@ static HANDLE open_file_impl(const std::string& filename, int mode)
 #if !FOXXLL_DIRECT_IO_OFF
     if ((mode& file::DIRECT) && !(mode & file::REQUIRE_DIRECT))
     {
-        LOG1 << "CreateFile() error on path=" << filename << " mode=" << mode << ", retrying without DIRECT mode.";
+        TLX_LOG1 << "CreateFile() error on path=" << filename << " mode=" << mode << ", retrying without DIRECT mode.";
 
         dwFlagsAndAttributes &= ~FILE_FLAG_NO_BUFFERING;
 
@@ -134,7 +134,7 @@ wfs_file_base::wfs_file_base(const std::string& filename, int mode)
         char buf[32768], * part;
         if (!GetFullPathNameA(filename.c_str(), sizeof(buf), buf, &part))
         {
-            LOG1 << "wfs_file_base::wfs_file_base(): GetFullPathNameA() error for file " << filename;
+            TLX_LOG1 << "wfs_file_base::wfs_file_base(): GetFullPathNameA() error for file " << filename;
             bytes_per_sector_ = 512;
         }
         else
@@ -143,7 +143,7 @@ wfs_file_base::wfs_file_base(const std::string& filename, int mode)
             DWORD bytes_per_sector_;
             if (!GetDiskFreeSpaceA(buf, nullptr, &bytes_per_sector_, nullptr, nullptr))
             {
-                LOG1 << "wfs_file_base::wfs_file_base(): GetDiskFreeSpaceA() error for path " << buf;
+                TLX_LOG1 << "wfs_file_base::wfs_file_base(): GetDiskFreeSpaceA() error for path " << buf;
                 bytes_per_sector_ = 512;
             }
             else

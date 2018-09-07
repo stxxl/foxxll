@@ -14,7 +14,7 @@
  *  http://www.boost.org/LICENSE_1_0.txt)
  **************************************************************************/
 
-#include <tlx/logger.hpp>
+#include <tlx/logger/core.hpp>
 
 #include <foxxll/common/error_handling.hpp>
 #include <foxxll/common/exceptions.hpp>
@@ -68,12 +68,14 @@ ufs_file_base::ufs_file_base(const std::string& filename, int mode)
         flags |= O_DIRECT;
 #else
         if (mode & REQUIRE_DIRECT) {
-            LOG1 << "Error: open()ing " << filename_ << " with DIRECT mode required, but the system does not support it.";
+            TLX_LOG1 << "Error: open()ing " << filename_
+                     << " with DIRECT mode required, but the system does not support it.";
             file_des_ = -1;
             return;
         }
         else {
-            LOG1 << "Warning: open()ing " << filename_ << " without DIRECT mode, as the system does not support it.";
+            TLX_LOG1 << "Warning: open()ing " << filename_
+                     << " without DIRECT mode, as the system does not support it.";
         }
 #endif
     }
@@ -105,8 +107,8 @@ ufs_file_base::ufs_file_base(const std::string& filename, int mode)
 #if !FOXXLL_DIRECT_IO_OFF
     if ((mode & DIRECT) && !(mode & REQUIRE_DIRECT) && errno == EINVAL)
     {
-        LOG1 << "open() error on path=" << filename_
-             << " flags=" << flags << ", retrying without O_DIRECT.";
+        TLX_LOG1 << "open() error on path=" << filename_
+                 << " flags=" << flags << ", retrying without O_DIRECT.";
 
         flags &= ~O_DIRECT;
         mode &= ~DIRECT;
@@ -161,12 +163,13 @@ void ufs_file_base::_after_open()
     }
     else if (mode_ & DIRECT) {
         if (fcntl(file_des_, F_NOCACHE, 1) != 0) {
-            LOG1 << "fcntl(fd,F_NOCACHE,1) failed on path=" << filename_ <<
-                " fd=" << file_des_ << " : " << strerror(errno);
+            TLX_LOG1
+                << "fcntl(fd,F_NOCACHE,1) failed on path=" << filename_
+                << " fd=" << file_des_ << " : " << strerror(errno);
         }
         if (fcntl(file_des_, F_RDAHEAD, 0) != 0) {
-            LOG1 << "fcntl(fd,F_RDAHEAD,0) failed on path=" << filename_ <<
-                " fd=" << file_des_ << " : " << strerror(errno);
+            TLX_LOG1 << "fcntl(fd,F_RDAHEAD,0) failed on path=" << filename_
+                     << " fd=" << file_des_ << " : " << strerror(errno);
         }
     }
 #endif
@@ -282,18 +285,21 @@ void ufs_file_base::close_remove()
     close();
 
     if (is_device_) {
-        LOG1 << "remove() path=" << filename_ << " skipped as file is device node";
+        TLX_LOG1 << "remove() path=" << filename_
+                 << " skipped as file is device node";
         return;
     }
 
     if (::remove(filename_.c_str()) != 0)
-        LOG1 << "remove() error on path=" << filename_ << " error=" << strerror(errno);
+        TLX_LOG1 << "remove() error on path=" << filename_
+                 << " error=" << strerror(errno);
 }
 
 void ufs_file_base::unlink()
 {
     if (is_device_) {
-        LOG1 << "unlink() path=" << filename_ << " skipped as file is device node";
+        TLX_LOG1 << "unlink() path=" << filename_
+                 << " skipped as file is device node";
         return;
     }
 

@@ -27,13 +27,13 @@ void disk_block_allocator::dump() const
 {
     uint64_t total = 0;
     space_map_type::const_iterator cur = free_space_.begin();
-    LOG1 << "Free regions dump:";
+    TLX_LOG1 << "Free regions dump:";
     for ( ; cur != free_space_.end(); ++cur)
     {
-        LOG1 << "Free chunk: begin: " << (cur->first) << " size: " << (cur->second);
+        TLX_LOG1 << "Free chunk: begin: " << (cur->first) << " size: " << (cur->second);
         total += cur->second;
     }
-    LOG1 << "Total bytes: " << total;
+    TLX_LOG1 << "Total bytes: " << total;
 }
 
 void disk_block_allocator::deallocation_error(
@@ -41,30 +41,30 @@ void disk_block_allocator::deallocation_error(
     const space_map_type::iterator& pred,
     const space_map_type::iterator& succ) const
 {
-    LOG1 << "Error deallocating block at " << block_pos << " size " << block_size;
-    LOG1 << ((pred == succ) ? "pred==succ" : "pred!=succ");
+    TLX_LOG1 << "Error deallocating block at " << block_pos << " size " << block_size;
+    TLX_LOG1 << ((pred == succ) ? "pred==succ" : "pred!=succ");
     if (pred == free_space_.end()) {
-        LOG1 << "pred==free_space_.end()";
+        TLX_LOG1 << "pred==free_space_.end()";
     }
     else {
         if (pred == free_space_.begin())
-            LOG1 << "pred==free_space_.begin()";
-        LOG1 << "pred: begin=" << pred->first << " size=" << pred->second;
+            TLX_LOG1 << "pred==free_space_.begin()";
+        TLX_LOG1 << "pred: begin=" << pred->first << " size=" << pred->second;
     }
     if (succ == free_space_.end()) {
-        LOG1 << "succ==free_space_.end()";
+        TLX_LOG1 << "succ==free_space_.end()";
     }
     else {
         if (succ == free_space_.begin())
-            LOG1 << "succ==free_space_.begin()";
-        LOG1 << "succ: begin=" << succ->first << " size=" << succ->second;
+            TLX_LOG1 << "succ==free_space_.begin()";
+        TLX_LOG1 << "succ: begin=" << succ->first << " size=" << succ->second;
     }
     dump();
 }
 
 void disk_block_allocator::add_free_region(uint64_t block_pos, uint64_t block_size)
 {
-    LOG << "Deallocating a block with size: " << block_size << " position: " << block_pos;
+    TLX_LOG << "Deallocating a block with size: " << block_size << " position: " << block_pos;
     uint64_t region_pos = block_pos;
     uint64_t region_size = block_size;
 

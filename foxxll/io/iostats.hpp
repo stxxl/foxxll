@@ -26,7 +26,7 @@
 #include <utility>
 #include <vector>
 
-#include <tlx/logger.hpp>
+#include <tlx/logger/core.hpp>
 #include <tlx/string.hpp>
 #include <tlx/unused.hpp>
 
@@ -688,7 +688,7 @@ public:
           bytes_(bytes),
           report_on_destruction_(true)
     {
-        LOG1 << "Starting " << message;
+        TLX_LOG1 << "Starting " << message;
     }
 
     explicit scoped_print_iostats(const std::string& message, uint64_t bytes = 0)

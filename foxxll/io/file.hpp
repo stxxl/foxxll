@@ -22,7 +22,7 @@
 #include <string>
 
 #include <tlx/counting_ptr.hpp>
-#include <tlx/logger.hpp>
+#include <tlx/logger/core.hpp>
 #include <tlx/unused.hpp>
 
 #include <foxxll/common/exceptions.hpp>
@@ -177,8 +177,8 @@ public:
     {
         const size_t nr = get_request_nref();
         if (nr != 0) {
-            LOG1 << "foxxll::file is being deleted while there are still "
-                 << nr << " (unfinished) requests referencing it";
+            TLX_LOG1 << "foxxll::file is being deleted while there are still "
+                     << nr << " (unfinished) requests referencing it";
         }
     }
 

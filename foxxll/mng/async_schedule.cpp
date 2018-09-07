@@ -102,7 +102,7 @@ size_t simulate_async_write(
             size_t j = disk_queues[ii].front();
             disk_queues[ii].pop();
             event_queue.push(sim_event(1, j));
-            LOG << "Block " << j << " scheduled";
+            TLX_LOG << "Block " << j << " scheduled";
         }
 
     while (!event_queue.empty())
@@ -118,7 +118,8 @@ size_t simulate_async_write(
             oldtime = cur.timestamp;
         }
 
-        LOG << "Block " << cur.iblock << " put out, time " << cur.timestamp << " disk: " << disks[cur.iblock];
+        TLX_LOG << "Block " << cur.iblock << " put out, time "
+                << cur.timestamp << " disk: " << disks[cur.iblock];
         o_time[cur.iblock] = std::pair<size_t, size_t>(cur.iblock, cur.timestamp);
 
         if (i > 0)
@@ -132,13 +133,15 @@ size_t simulate_async_write(
             {
                 if (!disk_queues[disk].empty())
                 {
-                    LOG << "c Block " << disk_queues[disk].front() << " scheduled for time " << cur.timestamp + 1;
+                    TLX_LOG << "c Block " << disk_queues[disk].front()
+                            << " scheduled for time " << cur.timestamp + 1;
                     event_queue.push(sim_event(cur.timestamp + 1, disk_queues[disk].front()));
                     disk_queues[disk].pop();
                 }
                 else
                 {
-                    LOG << "a Block " << (i - 1) << " scheduled for time " << cur.timestamp + 1;
+                    TLX_LOG << "a Block " << (i - 1)
+                            << " scheduled for time " << cur.timestamp + 1;
                     event_queue.push(sim_event(cur.timestamp + 1, --i));
                 }
                 disk_busy[disk] = true;
@@ -149,7 +152,8 @@ size_t simulate_async_write(
         size_t disk = get_disk(cur.iblock, disks, D);
         if (!disk_busy[disk] && !disk_queues[disk].empty())
         {
-            LOG << "b Block " << disk_queues[disk].front() << " scheduled for time " << cur.timestamp + 1;
+            TLX_LOG << "b Block " << disk_queues[disk].front()
+                    << " scheduled for time " << cur.timestamp + 1;
             event_queue.push(sim_event(cur.timestamp + 1, disk_queues[disk].front()));
             disk_queues[disk].pop();
             disk_busy[disk] = true;
@@ -187,10 +191,10 @@ void compute_prefetch_schedule(
 
     size_t w_steps = async_schedule_local::simulate_async_write(first, L, m, D, write_order);
 
-    LOG << "Write steps: " << w_steps;
+    TLX_LOG << "Write steps: " << w_steps;
 
     for (size_t i = 0; i < L; i++)
-        LOG << first[i] << " " << write_order[i].first << " " << write_order[i].second;
+        TLX_LOG << first[i] << " " << write_order[i].first << " " << write_order[i].second;
 
     std::stable_sort(write_order, write_order + L, async_schedule_local::write_time_cmp());
 
@@ -198,7 +202,7 @@ void compute_prefetch_schedule(
     {
         out_first[i] = write_order[i].first;
         //if(out_first[i] != i)
-        LOG << i << " " << out_first[i];
+        TLX_LOG << i << " " << out_first[i];
     }
 
     delete[] write_order;

@@ -20,7 +20,7 @@
 
 #include <linux/aio_abi.h>
 
-#include <tlx/logger.hpp>
+#include <tlx/logger/core.hpp>
 
 #include <foxxll/io/request_with_state.hpp>
 
@@ -54,11 +54,11 @@ public:
         : request_with_state(on_complete, file, buffer, offset, bytes, op)
     {
         assert(dynamic_cast<linuxaio_file*>(file));
-        LOG << "linuxaio_request[" << this << "]" <<
-            " linuxaio_request" <<
-            "(file=" << file << " buffer=" << buffer <<
-            " offset=" << offset << " bytes=" << bytes <<
-            " op=" << op << ")";
+        TLX_LOG << "linuxaio_request[" << this << "]"
+                << " linuxaio_request"
+                << "(file=" << file << " buffer=" << buffer
+                << " offset=" << offset << " bytes=" << bytes
+                << " op=" << op << ")";
     }
 
     bool post();

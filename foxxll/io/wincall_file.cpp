@@ -22,7 +22,7 @@
 #endif
 #include <windows.h>
 
-#include <tlx/logger.hpp>
+#include <tlx/logger/core.hpp>
 
 #include <foxxll/common/error_handling.hpp>
 #include <foxxll/io/iostats.hpp>
@@ -35,7 +35,8 @@ void wincall_file::serve(void* buffer, offset_type offset, size_type bytes,
     std::unique_lock<std::mutex> fd_lock(fd_mutex_);
 
     if (bytes > 32 * 1024 * 1024) {
-        LOG1 << "Using a block size larger than 32 MiB may not work with the " << io_type() << " filetype";
+        TLX_LOG1 << "Using a block size larger than 32 MiB"
+                 << " may not work with the " << io_type() << " filetype";
     }
 
     HANDLE handle = file_des_;

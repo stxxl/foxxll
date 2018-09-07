@@ -16,7 +16,7 @@
 #include <algorithm>
 #include <functional>
 
-#include <tlx/logger.hpp>
+#include <tlx/logger/core.hpp>
 
 #include <foxxll/common/error_handling.hpp>
 #include <foxxll/config.hpp>
@@ -66,7 +66,7 @@ void request_queue_impl_1q::add_request(request_ptr& req)
     if (thread_state_() != RUNNING)
         FOXXLL_THROW_INVALID_ARGUMENT("Request submitted to not running queue.");
     if (!dynamic_cast<serving_request*>(req.get()))
-        LOG1 << "Incompatible request submitted to running queue.";
+        TLX_LOG1 << "Incompatible request submitted to running queue.";
 
 #if FOXXLL_CHECK_FOR_PENDING_REQUESTS_ON_SUBMISSION
     {
@@ -77,7 +77,7 @@ void request_queue_impl_1q::add_request(request_ptr& req)
             )
             != queue_.end())
         {
-            LOG1 << "request submitted for a BID with a pending request";
+            TLX_LOG1 << "request submitted for a BID with a pending request";
         }
     }
 #endif
@@ -94,7 +94,7 @@ bool request_queue_impl_1q::cancel_request(request_ptr& req)
     if (thread_state_() != RUNNING)
         FOXXLL_THROW_INVALID_ARGUMENT("Request canceled to not running queue.");
     if (!dynamic_cast<serving_request*>(req.get()))
-        LOG1 << "Incompatible request submitted to running queue.";
+        TLX_LOG1 << "Incompatible request submitted to running queue.";
 
     bool was_still_in_queue = false;
     {

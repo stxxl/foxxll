@@ -40,12 +40,13 @@ serving_request::serving_request(
 void serving_request::serve()
 {
     check_nref();
-    LOG << "serving_request[" << static_cast<void*>(this) << "]::serve(): " <<
-        buffer_ << " @ [" <<
-        file_ << "|" << file_->get_allocator_id() << "]0x" <<
-        std::hex << std::setfill('0') << std::setw(8) <<
-        offset_ << "/0x" << bytes_ <<
-    (op_ == request::READ ? " READ" : " WRITE");
+    TLX_LOG
+        << "serving_request[" << static_cast<void*>(this) << "]::serve(): "
+        << buffer_ << " @ ["
+        << file_ << "|" << file_->get_allocator_id() << "]0x"
+        << std::hex << std::setfill('0') << std::setw(8)
+        << offset_ << "/0x" << bytes_
+        << (op_ == request::READ ? " READ" : " WRITE");
 
     try
     {

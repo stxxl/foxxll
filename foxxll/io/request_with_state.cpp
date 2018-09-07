@@ -26,14 +26,14 @@ namespace foxxll {
 
 request_with_state::~request_with_state()
 {
-    LOG << "request_with_state[" << static_cast<void*>(this) << "]::~(), ref_cnt: " << reference_count();
+    TLX_LOG << "request_with_state[" << static_cast<void*>(this) << "]::~(), ref_cnt: " << reference_count();
 
     assert(state_() == DONE || state_() == READY2DIE);
 }
 
 void request_with_state::wait(bool measure_time)
 {
-    LOG << "request_with_state[" << static_cast<void*>(this) << "]::wait()";
+    TLX_LOG << "request_with_state[" << static_cast<void*>(this) << "]::wait()";
 
     stats::scoped_wait_timer wait_timer(
         op_ == READ ? stats::WAIT_OP_READ : stats::WAIT_OP_WRITE, measure_time);
@@ -45,8 +45,8 @@ void request_with_state::wait(bool measure_time)
 
 bool request_with_state::cancel()
 {
-    LOG << "request_with_state[" << static_cast<void*>(this) << "]::cancel() "
-        << file_ << " " << buffer_ << " " << offset_;
+    TLX_LOG << "request_with_state[" << static_cast<void*>(this) << "]::cancel() "
+            << file_ << " " << buffer_ << " " << offset_;
 
     if (!file_) return false;
 
@@ -77,7 +77,7 @@ bool request_with_state::poll()
 
 void request_with_state::completed(bool canceled)
 {
-    LOG << "request_with_state[" << static_cast<void*>(this) << "]::completed()";
+    TLX_LOG << "request_with_state[" << static_cast<void*>(this) << "]::completed()";
     // change state
     state_.set_to(DONE);
     // user callback

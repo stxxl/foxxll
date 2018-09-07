@@ -25,7 +25,7 @@ namespace foxxll {
 
 void linuxaio_request::completed(bool posted, bool canceled)
 {
-    LOG << "linuxaio_request[" << this << "] completed(" <<
+    TLX_LOG << "linuxaio_request[" << this << "] completed(" <<
         posted << "," << canceled << ")";
 
     auto* stats = file_->get_file_stats();
@@ -71,7 +71,7 @@ void linuxaio_request::fill_control_block()
 //! \returns false if submission fails
 bool linuxaio_request::post()
 {
-    LOG << "linuxaio_request[" << this << "] post()";
+    TLX_LOG << "linuxaio_request[" << this << "] post()";
 
     fill_control_block();
     iocb* cb_pointer = &cb_;
@@ -99,7 +99,7 @@ bool linuxaio_request::post()
 //! Routine is called by user, as part of the request interface.
 bool linuxaio_request::cancel()
 {
-    LOG << "linuxaio_request[" << this << "] cancel()";
+    TLX_LOG << "linuxaio_request[" << this << "] cancel()";
 
     if (!file_) return false;
 
@@ -112,7 +112,7 @@ bool linuxaio_request::cancel()
 //! Cancel already posted request
 bool linuxaio_request::cancel_aio(linuxaio_queue* queue)
 {
-    LOG << "linuxaio_request[" << this << "] cancel_aio()";
+    TLX_LOG << "linuxaio_request[" << this << "] cancel_aio()";
 
     if (!file_) return false;
 

@@ -15,7 +15,7 @@
 #include <cstring>
 #include <limits>
 
-#include <tlx/logger.hpp>
+#include <tlx/logger/core.hpp>
 #include <tlx/unused.hpp>
 
 #include <foxxll/io/iostats.hpp>
@@ -75,7 +75,7 @@ void memory_file::discard(offset_type offset, offset_type size)
     std::unique_lock<std::mutex> lock(mutex_);
 #ifndef FOXXLL_MEMFILE_DONT_CLEAR_FREED_MEMORY
     // overwrite the freed region with uninitialized memory
-    LOG1 << "discard at " << offset << " len " << size;
+    TLX_LOG1 << "discard at " << offset << " len " << size;
     void* uninitialized = malloc(BlockAlignment);
     while (size >= BlockAlignment) {
         memcpy(ptr_ + offset, uninitialized, BlockAlignment);

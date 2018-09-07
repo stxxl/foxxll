@@ -18,7 +18,7 @@
 #include <string>
 
 #include <tlx/counting_ptr.hpp>
-#include <tlx/logger.hpp>
+#include <tlx/logger/core.hpp>
 #include <tlx/unused.hpp>
 
 #include <foxxll/common/aligned_alloc.hpp>
@@ -107,13 +107,15 @@ void fileperblock_file<base_file_type>::discard(offset_type offset, offset_type 
     tlx::unused(length);
 #ifdef FOXXLL_FILEPERBLOCK_NO_DELETE
     if (::truncate(filename_for_block(offset).c_str(), 0) != 0)
-        LOG1 << "truncate() error on path=" << filename_for_block(offset) << " error=" << strerror(errno);
+        TLX_LOG1 << "truncate() error on path=" << filename_for_block(offset)
+                 << " error=" << strerror(errno);
 #else
     if (::remove(filename_for_block(offset).c_str()) != 0)
-        LOG1 << "remove() error on path=" << filename_for_block(offset) << " error=" << strerror(errno);
+        TLX_LOG1 << "remove() error on path=" << filename_for_block(offset)
+                 << " error=" << strerror(errno);
 #endif
 
-    LOG << "discard " << offset << " + " << length;
+    TLX_LOG << "discard " << offset << " + " << length;
 }
 
 template <class base_file_type>
@@ -122,10 +124,12 @@ void fileperblock_file<base_file_type>::export_files(offset_type offset, offset_
     std::string original(filename_for_block(offset));
     filename.insert(0, original.substr(0, original.find_last_of("/") + 1));
     if (::remove(filename.c_str()) != 0)
-        LOG1 << "remove() error on path=" << filename << " error=" << strerror(errno);
+        TLX_LOG1 << "remove() error on path=" << filename
+                 << " error=" << strerror(errno);
 
     if (::rename(original.c_str(), filename.c_str()) != 0)
-        LOG1 << "rename() error on path=" << filename << " to=" << original << " error=" << strerror(errno);
+        TLX_LOG1 << "rename() error on path=" << filename
+                 << " to=" << original << " error=" << strerror(errno);
 
 #if !FOXXLL_WINDOWS
     //TODO: implement on Windows

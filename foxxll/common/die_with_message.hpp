@@ -13,7 +13,7 @@
 #ifndef FOXXLL_COMMON_DIE_WITH_MESSAGE_HEADER
 #define FOXXLL_COMMON_DIE_WITH_MESSAGE_HEADER
 
-#include <tlx/die.hpp>
+#include <tlx/die/core.hpp>
 
 // These macros are a compat layer until we have stream support in die_if/die_unless
 
@@ -22,7 +22,7 @@
 #define die_with_message_if(X, msg)                                      \
     do {                                                                 \
         if ((X)) {                                                       \
-            die_with_sstream(                                            \
+            tlx_die_with_sstream(                                        \
                 "DIE: Assertion \"" #X "\" succeeded!\n " << msg << "\n" \
             );                                                           \
         }                                                                \
@@ -33,7 +33,7 @@
 #define die_with_message_unless(X, msg)                               \
     do {                                                              \
         if (!(X)) {                                                   \
-            die_with_sstream(                                         \
+            tlx_die_with_sstream(                                     \
                 "DIE: Assertion \"" #X "\" failed!\n " << msg << "\n" \
             );                                                        \
         }                                                             \

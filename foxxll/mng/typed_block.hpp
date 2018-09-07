@@ -51,7 +51,8 @@ class filler_struct
 public:
     filler_struct()
     {
-        LOGC(debug_typed_block) << "[" << static_cast<void*>(this) << "] filler_struct is constructed";
+        TLX_LOGC(debug_typed_block)
+            << "[" << static_cast<void*>(this) << "] filler_struct is constructed";
     }
 };
 
@@ -63,7 +64,8 @@ class filler_struct<0>
 public:
     filler_struct()
     {
-        LOGC(debug_typed_block) << "[" << static_cast<void*>(this) << "] filler_struct<> is constructed";
+        TLX_LOGC(debug_typed_block)
+            << "[" << static_cast<void*>(this) << "] filler_struct<> is constructed";
     }
 };
 
@@ -87,7 +89,8 @@ public:
 
     element_block()
     {
-        LOGC(debug_typed_block) << "[" << static_cast<void*>(this) << "] element_block is constructed";
+        TLX_LOGC(debug_typed_block)
+            << "[" << static_cast<void*>(this) << "] element_block is constructed";
     }
 
     //! An operator to access elements in the block
@@ -154,7 +157,8 @@ public:
 
     block_w_bids()
     {
-        LOGC(debug_typed_block) << "[" << static_cast<void*>(this) << "] block_w_bids is constructed";
+        TLX_LOGC(debug_typed_block)
+            << "[" << static_cast<void*>(this) << "] block_w_bids is constructed";
     }
 };
 
@@ -170,7 +174,8 @@ public:
 
     block_w_bids()
     {
-        LOGC(debug_typed_block) << "[" << static_cast<void*>(this) << "] block_w_bids<> is constructed";
+        TLX_LOGC(debug_typed_block)
+            << "[" << static_cast<void*>(this) << "] block_w_bids<> is constructed";
     }
 };
 
@@ -188,7 +193,8 @@ public:
 
     block_w_info()
     {
-        LOGC(debug_typed_block) << "[" << static_cast<void*>(this) << "] block_w_info is constructed";
+        TLX_LOGC(debug_typed_block)
+            << "[" << static_cast<void*>(this) << "] block_w_info is constructed";
     }
 };
 
@@ -201,7 +207,8 @@ public:
 
     block_w_info()
     {
-        LOGC(debug_typed_block) << "[" << static_cast<void*>(this) << "] block_w_info<> is constructed";
+        TLX_LOGC(debug_typed_block)
+            << "[" << static_cast<void*>(this) << "] block_w_info<> is constructed";
     }
 };
 
@@ -216,7 +223,8 @@ private:
 public:
     add_filler()
     {
-        LOGC(debug_typed_block) << "[" << static_cast<void*>(this) << "] add_filler is constructed";
+        TLX_LOGC(debug_typed_block)
+            << "[" << static_cast<void*>(this) << "] add_filler is constructed";
     }
 };
 
@@ -227,7 +235,8 @@ class add_filler<BaseType, 0>
 public:
     add_filler()
     {
-        LOGC(debug_typed_block) << "[" << static_cast<void*>(this) << "] add_filler<> is constructed";
+        TLX_LOGC(debug_typed_block)
+            << "[" << static_cast<void*>(this) << "] add_filler<> is constructed";
     }
 };
 
@@ -282,7 +291,8 @@ public:
             sizeof(typed_block) == raw_size,
             "sizeof(typed_block) == raw_size"
         );
-        LOGC(debug_typed_block) << "[" << static_cast<void*>(this) << "] typed_block is constructed";
+        TLX_LOGC(debug_typed_block)
+            << "[" << static_cast<void*>(this) << "] typed_block is constructed";
 #if 0
         assert(((long)this) % BlockAlignment == 0);
 #endif
@@ -297,7 +307,8 @@ public:
     request_ptr write(const bid_type& bid,
                       completion_handler on_complete = completion_handler())
     {
-        LOGC(debug_block_life_cycle) << "BLC:write  " << bid;
+        TLX_LOGC(debug_block_life_cycle)
+            << "BLC:write  " << bid;
         return bid.storage->awrite(this, bid.offset, raw_size, on_complete);
     }
 
@@ -310,7 +321,8 @@ public:
     request_ptr read(const bid_type& bid,
                      completion_handler on_complete = completion_handler())
     {
-        LOGC(debug_block_life_cycle) << "BLC:read   " << bid;
+        TLX_LOGC(debug_block_life_cycle)
+            << "BLC:read   " << bid;
         return bid.storage->aread(this, bid.offset, raw_size, on_complete);
     }
 
@@ -323,7 +335,8 @@ public:
     request_ptr write(const BID<0>& bid,
                       completion_handler on_complete = completion_handler())
     {
-        LOGC(debug_block_life_cycle) << "BLC:write  " << bid;
+        TLX_LOGC(debug_block_life_cycle)
+            << "BLC:write  " << bid;
         assert(bid.size >= raw_size);
         return bid.storage->awrite(this, bid.offset, raw_size, on_complete);
     }
@@ -337,7 +350,8 @@ public:
     request_ptr read(const BID<0>& bid,
                      completion_handler on_complete = completion_handler())
     {
-        LOGC(debug_block_life_cycle) << "BLC:read   " << bid;
+        TLX_LOGC(debug_block_life_cycle)
+            << "BLC:read   " << bid;
         assert(bid.size >= raw_size);
         return bid.storage->aread(this, bid.offset, raw_size, on_complete);
     }
@@ -345,7 +359,9 @@ public:
     static void* operator new (size_t bytes)
     {
         size_t meta_info_size = bytes % raw_size;
-        LOGC(debug_typed_block) << "typed::block operator new[]: bytes=" << bytes << ", meta_info_size=" << meta_info_size;
+        TLX_LOGC(debug_typed_block)
+            << "typed::block operator new[]: bytes=" << bytes
+            << ", meta_info_size=" << meta_info_size;
 
         void* result = aligned_alloc<BlockAlignment>(
                 bytes - meta_info_size, meta_info_size
@@ -360,7 +376,9 @@ public:
     static void* operator new[] (size_t bytes)
     {
         size_t meta_info_size = bytes % raw_size;
-        LOGC(debug_typed_block) << "typed::block operator new[]: bytes=" << bytes << ", meta_info_size=" << meta_info_size;
+        TLX_LOGC(debug_typed_block)
+            << "typed::block operator new[]: bytes=" << bytes
+            << ", meta_info_size=" << meta_info_size;
 
         void* result = aligned_alloc<BlockAlignment>(
                 bytes - meta_info_size, meta_info_size
@@ -402,7 +420,8 @@ public:
     //  be 8 bytes long in g++."
     ~typed_block()
     {
-        LOGC(debug_typed_block) << "[" << static_cast<void*>(this) << "] typed_block is destructed";
+        TLX_LOGC(debug_typed_block)
+            << "[" << static_cast<void*>(this) << "] typed_block is destructed";
     }
 #endif
 };
