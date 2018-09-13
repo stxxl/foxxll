@@ -151,7 +151,7 @@ public:
     //! \return pointer to the block. Ownership of the block goes to the caller.
     block_type * steal()
     {
-        die_unless(!free_blocks.empty());
+        tlx_die_unless(!free_blocks.empty());
 
         block_type* p = free_blocks.back();
         free_blocks.pop_back();

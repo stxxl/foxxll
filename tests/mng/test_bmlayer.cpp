@@ -14,6 +14,7 @@
 
 #include <iostream>
 
+#include <tlx/die.hpp>
 #include <tlx/logger.hpp>
 
 #include <foxxll/io/request_operations.hpp>

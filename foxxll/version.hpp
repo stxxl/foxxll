@@ -16,7 +16,7 @@
 
 #include <string>
 
-#include <tlx/die.hpp>
+#include <tlx/die/core.hpp>
 
 #include <foxxll/config.hpp>
 
@@ -85,7 +85,7 @@ inline void print_library_version_mismatch()
 {
     if (foxxll::check_library_version() != 0)
     {
-        die(
+        tlx_die(
             "version mismatch between headers"
             " (" << FOXXLL_VERSION_STRING ") and library"
                 " (" << get_library_version_string() << ")"

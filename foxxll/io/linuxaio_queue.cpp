@@ -21,7 +21,7 @@
 
 #include <algorithm>
 
-#include <tlx/die.hpp>
+#include <tlx/die/core.hpp>
 #include <tlx/logger/core.hpp>
 
 #include <foxxll/common/error_handling.hpp>
@@ -77,9 +77,9 @@ void linuxaio_queue::add_request(request_ptr& req)
     if (req.empty())
         FOXXLL_THROW_INVALID_ARGUMENT("Empty request submitted to disk_queue.");
     if (post_thread_state_() != RUNNING)
-        die("Request submitted to stopped queue.");
+        tlx_die("Request submitted to stopped queue.");
     if (!dynamic_cast<linuxaio_request*>(req.get()))
-        die("Non-LinuxAIO request submitted to LinuxAIO queue.");
+        tlx_die("Non-LinuxAIO request submitted to LinuxAIO queue.");
 
     std::unique_lock<std::mutex> lock(waiting_mtx_);
 
@@ -92,11 +92,11 @@ bool linuxaio_queue::cancel_request(request_ptr& req)
     if (req.empty())
         FOXXLL_THROW_INVALID_ARGUMENT("Empty request canceled disk_queue.");
     if (post_thread_state_() != RUNNING)
-        die("Request canceled in stopped queue.");
+        tlx_die("Request canceled in stopped queue.");
 
     linuxaio_request* areq = dynamic_cast<linuxaio_request*>(req.get());
     if (!areq)
-        die("Non-LinuxAIO request submitted to LinuxAIO queue.");
+        tlx_die("Non-LinuxAIO request submitted to LinuxAIO queue.");
 
     queue_type::iterator pos;
     {

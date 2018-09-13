@@ -20,6 +20,7 @@
 #include <foxxll/mng/buf_istream.hpp>
 #include <foxxll/mng/buf_istream_reverse.hpp>
 #include <foxxll/mng/buf_ostream.hpp>
+#include <tlx/die.hpp>
 
 static const size_t test_block_size = 1024 * 512;
 
