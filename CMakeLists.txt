@@ -94,7 +94,7 @@ set(FOXXLL_INSTALL_BIN_DIR ${CMAKE_INSTALL_BINDIR}
   CACHE PATH "Installation directory for executables")
 set(FOXXLL_INSTALL_LIB_DIR ${CMAKE_INSTALL_LIBDIR}
   CACHE PATH "Installation directory for libraries")
-set(FOXXLL_INSTALL_INCLUDE_DIR "${CMAKE_INSTALL_INCLUDEDIR}/foxxll"
+set(FOXXLL_INSTALL_INCLUDE_DIR ${CMAKE_INSTALL_INCLUDEDIR}
   CACHE PATH "Installation directory for header files")
 set(FOXXLL_INSTALL_PKGCONFIG_DIR "${CMAKE_INSTALL_LIBDIR}/pkgconfig"
   CACHE PATH "Installation directory for pkg-config file")
@@ -501,9 +501,13 @@ endif(FOXXLL_BUILD_TESTS)
 ###############################################################################
 # install header files
 
+install(DIRECTORY foxxll
+  DESTINATION ${FOXXLL_INSTALL_INCLUDE_DIR}
+  FILES_MATCHING PATTERN "*.hpp")
+
 # also copy the config file with build options!
 install(FILES ${PROJECT_BINARY_DIR}/foxxll/config.hpp
-  DESTINATION ${FOXXLL_INSTALL_INCLUDE_DIR}/foxxll/)
+  DESTINATION ${INSTALL_INCLUDE_DIR}/foxxll/)
 
 ###############################################################################
 # prepare pkg-config file
