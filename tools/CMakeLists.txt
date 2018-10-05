@@ -17,6 +17,7 @@ foxxll_build_tool(foxxll_tool
   benchmark_disks_random.cpp
   )
 
-install(TARGETS foxxll_tool RUNTIME DESTINATION ${INSTALL_BIN_DIR})
+install(TARGETS foxxll_tool
+  RUNTIME DESTINATION ${FOXXLL_INSTALL_BIN_DIR})
 
 ############################################################################

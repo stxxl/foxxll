@@ -64,15 +64,20 @@ endif()
 
 # please document all build options in doc/install.doc:install_build_options
 
-option(FOXXLL_BUILD_TESTS "Build all foxxll test programs" OFF)
+option(FOXXLL_BUILD_TESTS
+  "Build all foxxll test programs" OFF)
 
-option(FOXXLL_TRY_COMPILE_HEADERS "Test foxxll header files for self-sufficiency: try to compile them." OFF)
+option(FOXXLL_TRY_COMPILE_HEADERS
+  "Test foxxll header files for self-sufficiency: try to compile them." OFF)
 
-option(USE_VALGRIND "Run tests with valgrind, pre-initialize some memory buffers." OFF)
+option(USE_VALGRIND
+  "Run tests with valgrind, pre-initialize some memory buffers." OFF)
 
-option(USE_MALLOC_COUNT "Compile all programs with included malloc_count heap profiler." OFF)
+option(USE_MALLOC_COUNT
+  "Compile all programs with included malloc_count heap profiler." OFF)
 
-option(USE_GCOV "Compile and run tests with gcov for coverage analysis." OFF)
+option(USE_GCOV
+  "Compile and run tests with gcov for coverage analysis." OFF)
 
 ### building shared and/or static libraries
 
@@ -83,17 +88,24 @@ option(FOXXLL_BUILD_SHARED_LIBS "Build shared library version of libfoxxll" OFF)
 
 ### allow user to specify other installation paths
 
-set(INSTALL_BIN_DIR "bin" CACHE PATH "Installation directory for executables")
-set(INSTALL_LIB_DIR "lib" CACHE PATH "Installation directory for libraries")
-set(INSTALL_INCLUDE_DIR "include" CACHE PATH "Installation directory for header files")
-set(INSTALL_PKGCONFIG_DIR "lib/pkgconfig" CACHE PATH "Installation directory for pkg-config file")
+include(GNUInstallDirs)
+
+set(FOXXLL_INSTALL_BIN_DIR ${CMAKE_INSTALL_BINDIR}
+  CACHE PATH "Installation directory for executables")
+set(FOXXLL_INSTALL_LIB_DIR ${CMAKE_INSTALL_LIBDIR}
+  CACHE PATH "Installation directory for libraries")
+set(FOXXLL_INSTALL_INCLUDE_DIR "${CMAKE_INSTALL_INCLUDEDIR}/foxxll"
+  CACHE PATH "Installation directory for header files")
+set(FOXXLL_INSTALL_PKGCONFIG_DIR "${CMAKE_INSTALL_LIBDIR}/pkgconfig"
+  CACHE PATH "Installation directory for pkg-config file")
 
 if(WIN32 AND NOT CYGWIN)
-  set(DEF_INSTALL_CMAKE_DIR "CMake")
+  set(FOXXLL_DEFAULT_INSTALL_CMAKE_DIR "CMake")
 else()
-  set(DEF_INSTALL_CMAKE_DIR "lib/cmake/foxxll")
+  set(FOXXLL_DEFAULT_INSTALL_CMAKE_DIR "${CMAKE_INSTALL_LIBDIR}/cmake/foxxll")
 endif()
-set(INSTALL_CMAKE_DIR "${DEF_INSTALL_CMAKE_DIR}" CACHE PATH "Installation directory for cmake files")
+set(INSTALL_CMAKE_DIR "${FOXXLL_DEFAULT_INSTALL_CMAKE_DIR}"
+  CACHE PATH "Installation directory for cmake files")
 
 ###############################################################################
 # enable use of "make test"
@@ -280,6 +292,8 @@ set(THREADS_PREFER_PTHREAD_FLAG TRUE)
 find_package(Threads REQUIRED)
 set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${CMAKE_THREAD_LIBS_INIT}")
 
+set(FOXXLL_DEPEND_LIBRARIES ${FOXXLL_DEPEND_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT})
+
 # for testing for c++ system include files
 include(CheckIncludeFileCXX)
 
@@ -361,17 +375,20 @@ check_cxx_source_compiles(
 if(USE_MALLOC_COUNT)
   # malloc_count requires the linux dl (dynamic linker) library
   find_library(DL_LIBRARIES NAMES dl)
-  set(FOXXLL_EXTRA_LIBRARIES ${FOXXLL_EXTRA_LIBRARIES} ${DL_LIBRARIES})
+  set(FOXXLL_DEPEND_LIBRARIES ${FOXXLL_DEPEND_LIBRARIES} ${DL_LIBRARIES})
 endif()
 
 ###############################################################################
 # find tlx
 
 if(NOT TARGET tlx)
-add_subdirectory(extlib/tlx)
+  add_subdirectory(extlib/tlx)
 endif()
 
-set(FOXXLL_EXTRA_LIBRARIES ${FOXXLL_EXTRA_LIBRARIES} tlx)
+set(FOXXLL_DEPEND_INCLUDE_DIRS
+  ${TLX_INCLUDE_DIRS} ${FOXXLL_DEPEND_INCLUDE_DIRS})
+set(FOXXLL_DEPEND_LIBRARIES
+  ${TLX_LIBRARIES} ${FOXXLL_DEPEND_LIBRARIES})
 
 ###############################################################################
 # configure environment for building
@@ -397,12 +414,12 @@ mark_as_advanced( CMAKE_CXX_FLAGS_RELWITHASSERT CMAKE_C_FLAGS_RELWITHASSERT CMAK
 set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS "None" "Debug" "Release" "RelWithDebInfo" "MinSizeRel" "RelWithAssert")
 
 # globally adds top-level include directories
-set(FOXXLL_INCLUDE_DIRS ${PROJECT_SOURCE_DIR}/ ${PROJECT_BINARY_DIR}/)
-include_directories(${FOXXLL_INCLUDE_DIRS})
+set(FOXXLL_INCLUDE_DIRS
+  ${PROJECT_SOURCE_DIR}/ ${PROJECT_BINARY_DIR}/
+  ${FOXXLL_DEPEND_INCLUDE_DIRS})
 
 # for targets using foxxll library
-set(FOXXLL_EXTRA_LIBRARIES ${FOXXLL_EXTRA_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT})
-set(FOXXLL_LIBRARIES foxxll ${FOXXLL_EXTRA_LIBRARIES})
+set(FOXXLL_LIBRARIES foxxll ${FOXXLL_DEPEND_LIBRARIES})
 
 # export FOXXLL_INCLUDE_DIRS and FOXXLL_LIBRARIES to global CACHE
 set(FOXXLL_CXX_FLAGS "${FOXXLL_CXX_FLAGS}" CACHE STRING "Compiler flags for FOXXLL")
@@ -484,12 +501,9 @@ endif(FOXXLL_BUILD_TESTS)
 ###############################################################################
 # install header files
 
-install(FILES include/foxxll.h DESTINATION ${INSTALL_INCLUDE_DIR})
-install(DIRECTORY include/foxxll DESTINATION ${INSTALL_INCLUDE_DIR})
-
 # also copy the config file with build options!
-install(FILES ${PROJECT_BINARY_DIR}/include/foxxll/bits/config.h
-  DESTINATION ${INSTALL_INCLUDE_DIR}/foxxll/bits/)
+install(FILES ${PROJECT_BINARY_DIR}/foxxll/config.hpp
+  DESTINATION ${FOXXLL_INSTALL_INCLUDE_DIR}/foxxll/)
 
 ###############################################################################
 # prepare pkg-config file
@@ -498,9 +512,9 @@ configure_file(misc/cmake/foxxll.pc
   "${PROJECT_BINARY_DIR}/${FOXXLL_LIBNAME}.pc" @ONLY)
 
 # copy the foxxll.pc file into lib/pkgconfig
-if(INSTALL_PKGCONFIG_DIR)
+if(FOXXLL_INSTALL_PKGCONFIG_DIR)
   install(FILES ${PROJECT_BINARY_DIR}/${FOXXLL_LIBNAME}.pc
-    DESTINATION ${INSTALL_PKGCONFIG_DIR})
+    DESTINATION ${FOXXLL_INSTALL_PKGCONFIG_DIR})
 endif()
 
 ###############################################################################
@@ -512,7 +526,8 @@ if(${CMAKE_MAJOR_VERSION}.${CMAKE_MINOR_VERSION} GREATER 2.6)
 endif()
 
 # add foxxll library targets to the build tree export set
-export(TARGETS ${FOXXLL_EXPORTED_LIBS} FILE "${PROJECT_BINARY_DIR}/foxxll-targets.cmake")
+export(TARGETS ${FOXXLL_EXPORTED_LIBS}
+  FILE "${PROJECT_BINARY_DIR}/foxxll-targets.cmake")
 
 # calculate absolute install paths
 foreach(dir LIB BIN INCLUDE CMAKE)

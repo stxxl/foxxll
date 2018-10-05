@@ -70,6 +70,10 @@ if(USE_MALLOC_COUNT)
 
 endif(USE_MALLOC_COUNT)
 
+# glob header files
+file(GLOB_RECURSE FOXXLL_HEADER_FILES
+  RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}" FOLLOW_SYMLINKS "*.hpp")
+
 # tell top-level cmakelists which library we build
 set(FOXXLL_EXPORTED_LIBS foxxll)
 
@@ -85,37 +89,39 @@ if(FOXXLL_BUILD_SHARED_LIBS)
   add_library(foxxll SHARED ${LIBFOXXLL_SOURCES})
   set_target_properties(foxxll PROPERTIES OUTPUT_NAME "${FOXXLL_LIBNAME}")
   set_target_properties(foxxll PROPERTIES VERSION "${FOXXLL_VERSION_STRING}")
+  set_target_properties(foxxll PROPERTIES PUBLIC_HEADER "${FOXXLL_HEADER_FILES}")
 
   target_compile_definitions(foxxll PUBLIC ${FOXXLL_DEFINITIONS})
   target_include_directories(foxxll PUBLIC
     $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/>
     $<BUILD_INTERFACE:${PROJECT_BINARY_DIR}/>
     $<INSTALL_INTERFACE:/>)
-  #target_include_directories(foxxll SYSTEM PUBLIC ${FOXXLL_INCLUDE_DIRS})
-  target_link_libraries(foxxll ${FOXXLL_EXTRA_LIBRARIES})
+  target_link_libraries(foxxll ${FOXXLL_DEPEND_LIBRARIES})
 
   install(TARGETS foxxll
     EXPORT foxxll-targets
-    ARCHIVE DESTINATION ${INSTALL_LIB_DIR}
-    LIBRARY DESTINATION ${INSTALL_LIB_DIR})
+    PUBLIC_HEADER DESTINATION ${FOXXLL_INSTALL_INCLUDE_DIR}
+    ARCHIVE DESTINATION ${FOXXLL_INSTALL_LIB_DIR}
+    LIBRARY DESTINATION ${FOXXLL_INSTALL_LIB_DIR})
 
   if(FOXXLL_BUILD_STATIC_LIBS)
     # but also build STATIC library
     add_library(foxxll_static STATIC ${LIBFOXXLL_SOURCES})
     set_target_properties(foxxll_static PROPERTIES OUTPUT_NAME "${FOXXLL_LIBNAME}")
     set_target_properties(foxxll_static PROPERTIES VERSION "${FOXXLL_VERSION_STRING}")
+    set_target_properties(foxxll PROPERTIES PUBLIC_HEADER "${FOXXLL_HEADER_FILES}")
 
     target_compile_definitions(foxxll_static PUBLIC ${FOXXLL_DEFINITIONS})
     target_include_directories(foxxll_static PUBLIC
       $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/>
       $<BUILD_INTERFACE:${PROJECT_BINARY_DIR}/>
       $<INSTALL_INTERFACE:/>)
-    #target_include_directories(foxxll_static SYSTEM PUBLIC ${FOXXLL_INCLUDE_DIRS})
-    target_link_libraries(foxxll_static ${FOXXLL_EXTRA_LIBRARIES})
+    target_link_libraries(foxxll_static ${FOXXLL_DEPEND_LIBRARIES})
 
     install(TARGETS foxxll_static
       EXPORT foxxll-targets
-      ARCHIVE DESTINATION ${INSTALL_LIB_DIR})
+      ARCHIVE DESTINATION ${FOXXLL_INSTALL_LIB_DIR}
+      LIBRARY DESTINATION ${FOXXLL_INSTALL_LIB_DIR})
 
     # we build both shared and static, export both
     set(FOXXLL_EXPORTED_LIBS foxxll foxxll_static)
@@ -131,19 +137,20 @@ else()
   add_library(foxxll STATIC ${LIBFOXXLL_SOURCES})
   set_target_properties(foxxll PROPERTIES OUTPUT_NAME "${FOXXLL_LIBNAME}")
   set_target_properties(foxxll PROPERTIES VERSION "${FOXXLL_VERSION_STRING}")
+  set_target_properties(foxxll PROPERTIES PUBLIC_HEADER "${FOXXLL_HEADER_FILES}")
 
   target_compile_definitions(foxxll PUBLIC ${FOXXLL_DEFINITIONS})
   target_include_directories(foxxll PUBLIC
     $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/>
     $<BUILD_INTERFACE:${PROJECT_BINARY_DIR}/>
     $<INSTALL_INTERFACE:/>)
-  #target_include_directories(foxxll SYSTEM PUBLIC ${FOXXLL_INCLUDE_DIRS})
-  target_link_libraries(foxxll ${FOXXLL_EXTRA_LIBRARIES})
+  target_link_libraries(foxxll ${FOXXLL_DEPEND_LIBRARIES})
 
   install(TARGETS foxxll
     EXPORT foxxll-targets
-    ARCHIVE DESTINATION ${INSTALL_LIB_DIR}
-    LIBRARY DESTINATION ${INSTALL_LIB_DIR})
+    PUBLIC_HEADER DESTINATION ${FOXXLL_INSTALL_INCLUDE_DIR}
+    ARCHIVE DESTINATION ${FOXXLL_INSTALL_LIB_DIR}
+    LIBRARY DESTINATION ${FOXXLL_INSTALL_LIB_DIR})
 
 endif()
 
