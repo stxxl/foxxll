@@ -70,8 +70,8 @@ if(USE_MALLOC_COUNT)
 
 endif(USE_MALLOC_COUNT)
 
-# tell top-level cmakelists which library we build
-set(FOXXLL_EXPORTED_LIBS foxxll)
+# tell top-level cmakelists which library we export
+set(FOXXLL_EXPORTED_LIBS foxxll tlx)
 
 # we name debug library builds "foxxll_debug" and release builds "foxxll"
 string(TOLOWER "foxxll_${CMAKE_BUILD_TYPE}" FOXXLL_LIBNAME)
