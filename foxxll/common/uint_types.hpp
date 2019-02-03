@@ -24,6 +24,8 @@
 #include <foxxll/common/utils.hpp>
 #include <foxxll/config.hpp>
 
+#include <tlx/define/likely.hpp>
+
 namespace foxxll {
 
 /*!
@@ -158,7 +160,7 @@ public:
     //! prefix increment operator (directly manipulates the integer parts)
     uint_pair& operator ++ ()
     {
-        if (UNLIKELY(low == low_max()))
+        if (TLX_UNLIKELY(low == low_max()))
             ++high, low = 0;
         else
             ++low;
@@ -168,7 +170,7 @@ public:
     //! prefix decrement operator (directly manipulates the integer parts)
     uint_pair& operator -- ()
     {
-        if (UNLIKELY(low == 0))
+        if (TLX_UNLIKELY(low == 0))
             --high, low = low_max();
         else
             --low;

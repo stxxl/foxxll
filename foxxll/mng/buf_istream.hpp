@@ -19,6 +19,8 @@
 #include <foxxll/mng/block_prefetcher.hpp>
 #include <foxxll/mng/config.hpp>
 
+#include <tlx/define/likely.hpp>
+
 namespace foxxll {
 
 //! \addtogroup foxxll_schedlayer
@@ -103,7 +105,7 @@ public:
 
         record = current_blk->elem[current_elem++];
 
-        if (UNLIKELY(current_elem >= block_type::size))
+        if (TLX_UNLIKELY(current_elem >= block_type::size))
         {
             current_elem = 0;
 #ifdef BUF_ISTREAM_CHECK_END
@@ -138,7 +140,7 @@ public:
 
         current_elem++;
 
-        if (UNLIKELY(current_elem >= block_type::size))
+        if (TLX_UNLIKELY(current_elem >= block_type::size))
         {
             current_elem = 0;
 #ifdef BUF_ISTREAM_CHECK_END

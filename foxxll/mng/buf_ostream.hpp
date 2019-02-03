@@ -15,6 +15,8 @@
 
 #include <foxxll/mng/buf_writer.hpp>
 
+#include <tlx/define/likely.hpp>
+
 namespace foxxll {
 
 //! \addtogroup foxxll_schedlayer
@@ -63,7 +65,7 @@ public:
     self_type& operator << (const_reference record)
     {
         current_blk->elem[current_elem++] = record;
-        if (UNLIKELY(current_elem >= block_type::size))
+        if (TLX_UNLIKELY(current_elem >= block_type::size))
         {
             current_elem = 0;
             current_blk = writer.write(current_blk, *(current_bid++));
@@ -90,7 +92,7 @@ public:
     self_type& operator ++ ()
     {
         ++current_elem;
-        if (UNLIKELY(current_elem >= block_type::size))
+        if (TLX_UNLIKELY(current_elem >= block_type::size))
         {
             current_elem = 0;
             current_blk = writer.write(current_blk, *(current_bid++));

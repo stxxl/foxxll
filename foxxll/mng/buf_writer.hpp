@@ -19,6 +19,8 @@
 #include <foxxll/io/disk_queues.hpp>
 #include <foxxll/io/request_operations.hpp>
 
+#include <tlx/define/likely.hpp>
+
 namespace foxxll {
 
 //! \defgroup foxxll_schedlayer Block Scheduling Sublayer
@@ -106,7 +108,7 @@ public:
                 break;
             }
         }
-        if (UNLIKELY(free_write_blocks.empty()))
+        if (TLX_UNLIKELY(free_write_blocks.empty()))
         {
             size_t size = busy_write_blocks.size();
             request_ptr* reqs = new request_ptr[size];

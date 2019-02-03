@@ -72,22 +72,6 @@ div_ceil(Integral n, Integral2 d)
 #endif
 }
 
-#ifdef __GNUC__
-#define HAVE_BUILTIN_EXPECT
-#endif
-
-#ifdef HAVE_BUILTIN_EXPECT
- #define LIKELY(c)   __builtin_expect((c), 1)
-#else
- #define LIKELY(c)   c
-#endif
-
-#ifdef HAVE_BUILTIN_EXPECT
- #define UNLIKELY(c)   __builtin_expect((c), 0)
-#else
- #define UNLIKELY(c)   c
-#endif
-
 inline size_t longhash1(uint64_t key_)
 {
     key_ += ~(key_ << 32);
