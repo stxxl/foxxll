@@ -37,8 +37,9 @@ matrix:
           - ubuntu-toolchain-r-test
         packages:
           - g++-7
+          - lcov
 
-  - env: CMAKE_CC="gcc-7"     CMAKE_CXX="g++-7" COMPILER_FLAGS=""       BUILD_TYPE="RelWithAssert"
+  - env: CMAKE_CC="gcc-7"     CMAKE_CXX="g++-7" COMPILER_FLAGS=""       BUILD_TYPE="RelWithAssert" BUILD_COVERAGE="1"
     os: linux
     addons: *gcc7
 
@@ -60,6 +61,12 @@ before_script:
   # print out some information
   - df -h
 
+  # gcov coverage
+  - if [ -n "$BUILD_COVERAGE" -a -n "$COVERALLS_REPO_TOKEN" ]; then
+      pip install --user cpp-coveralls;
+      CMAKE_ARGS="$CMAKE_ARGS -DFOXXLL_USE_GCOV=ON";
+    fi
+
   # configure
   - mkdir build; cd build
   - cmake
@@ -69,6 +76,12 @@ before_script:
       -DFOXXLL_BUILD_TESTS=ON
       -DFOXXLL_TRY_COMPILE_HEADERS=ON
       $CMAKE_ARGS ..
+
+after_success:
+  - cd $TRAVIS_BUILD_DIR
+  - if [ -n "$BUILD_COVERAGE" -a -n "$COVERALLS_REPO_TOKEN" ]; then
+      coveralls --exclude tests --exclude extlib --gcov-options '\-lp';
+    fi
 
 script:
   - make -j4

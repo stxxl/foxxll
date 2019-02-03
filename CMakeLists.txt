@@ -76,7 +76,7 @@ option(USE_VALGRIND
 option(USE_MALLOC_COUNT
   "Compile all programs with included malloc_count heap profiler." OFF)
 
-option(USE_GCOV
+option(FOXXLL_USE_GCOV
   "Compile and run tests with gcov for coverage analysis." OFF)
 
 ### building shared and/or static libraries
@@ -232,7 +232,7 @@ endif()
 ###############################################################################
 # enable gcov coverage analysis with gcc
 
-if(USE_GCOV)
+if(FOXXLL_USE_GCOV)
   # find programs
   find_program(GENHTML genhtml)
   find_program(LCOV lcov)
@@ -281,7 +281,7 @@ if(USE_GCOV)
     COMMENT "Generate HTML coverage report "
     DEPENDS lcov-runtests lcov-html)
 
-endif(USE_GCOV)
+endif(FOXXLL_USE_GCOV)
 
 ###############################################################################
 # find thread and random library

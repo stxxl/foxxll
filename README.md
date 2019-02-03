@@ -1,6 +1,9 @@
 # FOXXLL
 Travis-CI Status of branch `master`: [![Travis-CI Status](https://travis-ci.org/stxxl/foxxll.svg?branch=master)](https://travis-ci.org/stxxl/foxxll)
 
+Coveralls Test Coverageof branch `master`:
+[![Coverage Status](https://coveralls.io/repos/github/stxxl/foxxll/badge.svg?branch=master)](https://coveralls.io/github/stxxl/foxxll?branch=master)
+
 Coverity Result of branch `coverity_scan`: [![Coverity Status](https://scan.coverity.com/projects/15041/badge.svg?flat=1)](https://scan.coverity.com/projects/foxxll)
 
 
