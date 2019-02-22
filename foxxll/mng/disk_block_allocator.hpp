@@ -112,7 +112,7 @@ public:
     {
         std::unique_lock<std::mutex> lock(mutex_);
 
-        TLX_LOG1 << "disk_block_allocator::delete_block<" << BlockSize
+        TLX_LOG0 << "disk_block_allocator::delete_block<" << BlockSize
                  << ">(pos=" << bid.offset << ", size=" << size_t(bid.size)
                  << "), free:" << free_bytes_ << " total:" << disk_bytes_;
 
