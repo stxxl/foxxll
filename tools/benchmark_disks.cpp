@@ -55,15 +55,18 @@ using foxxll::external_size_type;
 #define KiB (1024)
 #define MiB (1024 * 1024)
 
+bool g_quiet = false;
+double g_time_limit = NAN;
+
 template <typename AllocStrategy>
 int benchmark_disks_alloc(
-    external_size_type length, external_size_type start_offset,
+    external_size_type size, external_size_type start_offset,
     size_t batch_size, const size_t raw_block_size,
     const std::string& optrw)
 {
-    external_size_type endpos = start_offset + length;
+    external_size_type endpos = start_offset + size;
 
-    if (length == 0)
+    if (size == 0)
         endpos = std::numeric_limits<external_size_type>::max();
 
     bool do_read = (optrw.find('r') != std::string::npos);
@@ -91,8 +94,8 @@ int benchmark_disks_alloc(
     std::vector<block_type> buffer(num_blocks_per_batch);
     foxxll::request_ptr* reqs = new foxxll::request_ptr[num_blocks_per_batch];
     std::vector<BID> bids;
-    double totaltimeread = 0, totaltimewrite = 0;
-    external_size_type totalsizeread = 0, totalsizewrite = 0;
+    double total_time_read = 0, total_time_write = 0;
+    external_size_type total_size_read = 0, total_size_write = 0;
 
     LOG1 << "# Batch size: "
          << foxxll::add_IEC_binary_multiplier(batch_size, "B") << " ("
@@ -115,6 +118,8 @@ int benchmark_disks_alloc(
     try {
         AllocStrategy alloc;
         size_t current_batch_size;
+
+        double ts_begin = timestamp();
 
         for (external_size_type offset = 0; offset < endpos; offset += current_batch_size)
         {
@@ -141,7 +146,9 @@ int benchmark_disks_alloc(
             if (offset < start_offset)
                 continue;
 
-            ss << "Offset    " << std::setw(7) << (offset / MiB) << " MiB: " << std::fixed;
+            if (!g_quiet)
+                ss << "Offset    " << std::setw(7) << (offset / MiB) << " MiB: "
+                   << std::fixed;
 
             double begin = timestamp(), end, elapsed;
 
@@ -154,15 +161,16 @@ int benchmark_disks_alloc(
 
                 end = timestamp();
                 elapsed = end - begin;
-                totalsizewrite += current_batch_size;
-                totaltimewrite += elapsed;
+                total_size_write += current_batch_size;
+                total_time_write += elapsed;
             }
             else
                 elapsed = 0.0;
 
-            ss << std::setw(5) << std::setprecision(1)
-               << (double(current_batch_size) / MiB / elapsed)
-               << " MiB/s write, ";
+            if (!g_quiet)
+                ss << std::setw(5) << std::setprecision(1)
+                   << (double(current_batch_size) / MiB / elapsed)
+                   << " MiB/s write, ";
 
             begin = timestamp();
 
@@ -177,17 +185,19 @@ int benchmark_disks_alloc(
 
                 end = timestamp();
                 elapsed = end - begin;
-                totalsizeread += current_batch_size;
-                totaltimeread += elapsed;
+                total_size_read += current_batch_size;
+                total_time_read += elapsed;
             }
             else
                 elapsed = 0.0;
 
-            ss << std::setw(5) << std::setprecision(1)
-               << (double(current_batch_size) / MiB / elapsed)
-               << " MiB/s read";
+            if (!g_quiet)
+                ss << std::setw(5) << std::setprecision(1)
+                   << (double(current_batch_size) / MiB / elapsed)
+                   << " MiB/s read";
 
-            LOG1 << ss.str();
+            if (!g_quiet)
+                LOG1 << ss.str();
 
 #if CHECK_AFTER_READ
             for (size_t j = 0; j < current_num_blocks_per_batch; j++)
@@ -215,6 +225,8 @@ int benchmark_disks_alloc(
                 }
             }
 #endif
+            if (timestamp() - ts_begin > g_time_limit)
+                break;
         }
     }
     catch (const std::exception& ex)
@@ -223,9 +235,26 @@ int benchmark_disks_alloc(
     }
 
     LOG1 << "=============================================================================================\n"
-         << "# Average over " << std::setw(7) << totalsizewrite / MiB << " MiB: "
-         << std::setw(5) << std::setprecision(1) << (double(totalsizewrite) / MiB / totaltimewrite) << " MiB/s write, "
-         << std::setw(5) << std::setprecision(1) << (double(totalsizeread) / MiB / totaltimeread) << " MiB/s read";
+         << "# Average over " << std::setw(7) << total_size_write / MiB << " MiB: "
+         << std::setw(5) << std::setprecision(1)
+         << (double(total_size_write) / MiB / total_time_write) << " MiB/s write, "
+         << std::setw(5) << std::setprecision(1)
+         << (double(total_size_read) / MiB / total_time_read) << " MiB/s read";
+
+    std::cout << "RESULT"
+              << (getenv("RESULT") ? getenv("RESULT") : "")
+              << " size=" << size
+              << " op=" << optrw
+              << " block_size=" << raw_block_size
+              << " batch_size=" << batch_size / raw_block_size
+              << " offset=" << start_offset
+              << " write_time=" << total_time_write
+              << " read_time=" << total_time_read
+              << " write_size=" << total_size_write
+              << " read_size=" << total_size_read
+              << " time=" << (total_time_write + total_time_read)
+              << " total_size=" << (total_size_write + total_size_read)
+              << std::endl;
 
     delete[] reqs;
 
@@ -241,13 +270,17 @@ int benchmark_disks(int argc, char* argv[])
 
     tlx::CmdlineParser cp;
 
-    external_size_type length = 0, offset = 0;
+    external_size_type size = 0, offset = 0;
     unsigned int batch_size = 0;
     external_size_type block_size = 8 * MiB;
     std::string optrw = "rw", allocstr;
 
+    cp.add_flag(
+        'q', "quiet", g_quiet, "quiet processing"
+    );
+
     cp.add_param_bytes(
-        "size", length,
+        "size", size,
         "Amount of data to write/read from disks (e.g. 10GiB)"
     );
     cp.add_opt_param_string(
@@ -271,6 +304,10 @@ int benchmark_disks(int argc, char* argv[])
         'o', "offset", offset,
         "Starting offset of operation range. (default: 0)"
     );
+    cp.add_double(
+        'T', "time-limit", g_time_limit,
+        "limit time of experiment (seconds)"
+    );
 
     cp.set_description(
         "This program will benchmark the disks configured by the standard "
@@ -289,19 +326,19 @@ int benchmark_disks(int argc, char* argv[])
     {
         if (allocstr == "random_cyclic")
             return benchmark_disks_alloc<foxxll::random_cyclic>(
-                length, offset, batch_size, block_size, optrw
+                size, offset, batch_size, block_size, optrw
             );
         if (allocstr == "simple_random")
             return benchmark_disks_alloc<foxxll::simple_random>(
-                length, offset, batch_size, block_size, optrw
+                size, offset, batch_size, block_size, optrw
             );
         if (allocstr == "fully_random")
             return benchmark_disks_alloc<foxxll::fully_random>(
-                length, offset, batch_size, block_size, optrw
+                size, offset, batch_size, block_size, optrw
             );
         if (allocstr == "striping")
             return benchmark_disks_alloc<foxxll::striping>(
-                length, offset, batch_size, block_size, optrw
+                size, offset, batch_size, block_size, optrw
             );
 
         LOG1 << "Unknown allocation strategy '" << allocstr << "'";
@@ -310,7 +347,7 @@ int benchmark_disks(int argc, char* argv[])
     }
 
     return benchmark_disks_alloc<foxxll::default_alloc_strategy>(
-        length, offset, batch_size, block_size, optrw
+        size, offset, batch_size, block_size, optrw
     );
 }
 
