@@ -44,8 +44,6 @@ class linuxaio_request : public request_with_state
     iocb cb_;
     double time_posted_;
 
-    void fill_control_block();
-
 public:
     linuxaio_request(
         const completion_handler& on_complete,
@@ -61,7 +59,7 @@ public:
                 << " op=" << op << ")";
     }
 
-    bool post();
+    iocb * fill_control_block();
     bool cancel() final;
     bool cancel_aio(linuxaio_queue* queue);
     void completed(bool posted, bool canceled);

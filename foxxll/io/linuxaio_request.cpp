@@ -51,13 +51,14 @@ void linuxaio_request::completed(bool posted, bool canceled)
     request_with_state::completed(canceled);
 }
 
-void linuxaio_request::fill_control_block()
+iocb* linuxaio_request::fill_control_block()
 {
     linuxaio_file* af = dynamic_cast<linuxaio_file*>(file_);
 
-    memset(&cb_, 0, sizeof(cb_));
-    // indirection, I/O system retains a virtual counting_ptr reference
+    // increment, I/O system retains a virtual counting_ptr reference
     ReferenceCounter::inc_reference();
+
+    memset(&cb_, 0, sizeof(cb_));
     cb_.aio_data = reinterpret_cast<__u64>(this);
     cb_.aio_fildes = af->file_des_;
     cb_.aio_lio_opcode = (op_ == READ) ? IOCB_CMD_PREAD : IOCB_CMD_PWRITE;
@@ -65,33 +66,12 @@ void linuxaio_request::fill_control_block()
     cb_.aio_buf = static_cast<__u64>(reinterpret_cast<unsigned long>(buffer_));
     cb_.aio_nbytes = bytes_;
     cb_.aio_offset = offset_;
-}
 
-//! Submits an I/O request to the OS
-//! \returns false if submission fails
-bool linuxaio_request::post()
-{
-    TLX_LOG << "linuxaio_request[" << this << "] post()";
-
-    fill_control_block();
-    iocb* cb_pointer = &cb_;
     // io_submit might considerable time, so we have to remember the current
     // time before the call.
     time_posted_ = timestamp();
-    linuxaio_queue* queue = dynamic_cast<linuxaio_queue*>(
-            disk_queues::get_instance()->get_queue(file_->get_queue_id()));
 
-    long success = syscall(SYS_io_submit, queue->get_io_context(), 1, &cb_pointer);
-    // At this point another thread may have already called complete(),
-    // so consider most values as invalidated!
-
-    if (success == -1 && errno != EAGAIN)
-        FOXXLL_THROW_ERRNO(
-            io_error, "linuxaio_request::post"
-            " io_submit()"
-        );
-
-    return success == 1;
+    return &cb_;
 }
 
 //! Cancel the request
@@ -118,8 +98,10 @@ bool linuxaio_request::cancel_aio(linuxaio_queue* queue)
 
     io_event event;
     long result = syscall(SYS_io_cancel, queue->get_io_context(), &cb_, &event);
-    if (result == 0)    //successfully canceled
+    if (result == 0) {
+        // successfully canceled
         queue->handle_events(&event, 1, true);
+    }
     return result == 0;
 }
 
