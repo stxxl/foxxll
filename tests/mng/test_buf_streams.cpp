@@ -15,7 +15,6 @@
 
 #include <iostream>
 
-#include <foxxll/common/die_with_message.hpp>
 #include <foxxll/mng.hpp>
 #include <foxxll/mng/buf_istream.hpp>
 #include <foxxll/mng/buf_istream_reverse.hpp>
@@ -57,7 +56,7 @@ int main()
             unsigned value;
             in >> value;
 
-            die_with_message_unless(
+            die_verbose_unless(
                 value == i,
                 "Error at position " << std::hex << i << " (" << value << ") block " << (i / block_type::size)
             );
@@ -72,7 +71,7 @@ int main()
             unsigned value;
             in >> value;
 
-            die_with_message_unless(
+            die_verbose_unless(
                 value == nelements - i - 1,
                 "Error at position " << std::hex << i << " (" << value << ") block " << (i / block_type::size)
             );

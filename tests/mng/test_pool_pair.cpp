@@ -15,8 +15,8 @@
 #include <iostream>
 
 #include <tlx/logger.hpp>
+#include <tlx/die.hpp>
 
-#include <foxxll/common/die_with_message.hpp>
 #include <foxxll/mng.hpp>
 #include <foxxll/mng/prefetch_pool.hpp>
 #include <foxxll/mng/write_pool.hpp>
@@ -72,7 +72,7 @@ int main()
         blk = w_pool.steal();
         p_pool.read(blk, bid)->wait();
 
-        die_with_message_unless(
+        die_verbose_unless(
             (*blk)[0].integer == 23,
             "WRITE-AFTER-WRITE COHERENCE FAILURE"
         );
@@ -106,7 +106,7 @@ int main()
         // get the hinted block
         p_pool.read(blk, bid)->wait();
 
-        die_with_message_unless(
+        die_verbose_unless(
             (*blk)[0].integer == 23,
             "WRITE-AFTER-HINT COHERENCE FAILURE"
         );
@@ -140,7 +140,7 @@ int main()
         // get the hinted block
         p_pool.read(blk, bid)->wait();
 
-        die_with_message_unless(
+        die_verbose_unless(
             (*blk)[0].integer == 23,
             "WRITE-AFTER-HINT COHERENCE FAILURE"
         );

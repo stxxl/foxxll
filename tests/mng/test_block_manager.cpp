@@ -22,7 +22,6 @@
 #include <tlx/die.hpp>
 #include <tlx/logger.hpp>
 
-#include <foxxll/common/die_with_message.hpp>
 #include <foxxll/io.hpp>
 #include <foxxll/mng.hpp>
 
@@ -91,7 +90,7 @@ int main()
         reqs[i]->wait();
         for (size_t j = 0; j < block_type::size; ++j)
         {
-            die_with_message_unless(
+            die_verbose_unless(
                 i + j == block[i].elem[j].integer,
                 "Error in block " << std::hex << i << " pos: " << j
                                   << " value read: " << block[i].elem[j].integer
