@@ -125,7 +125,7 @@ int main()
         bm->new_block(alloc, bid);
         blk = w_pool.steal();
         (*blk)[0].integer = 42;
-        w_pool.write(blk, bid);
+        w_pool.write(blk, bid)->wait();
 
         // hint the block
         p_pool.hint(bid, w_pool); // flush w_pool
