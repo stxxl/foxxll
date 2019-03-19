@@ -39,106 +39,177 @@ using foxxll::external_size_type;
 #define KiB (1024)
 #define MiB (1024 * 1024)
 
-struct print_number
+template <typename AllocStrategy>
+int run_test(external_size_type span, size_t block_size,
+             external_size_type work_size, size_t batch_size,
+             const std::string& optirw)
 {
-    size_t n;
+    bool do_init = (optirw.find('i') != std::string::npos);
+    bool do_read = (optirw.find('r') != std::string::npos);
+    bool do_write = (optirw.find('w') != std::string::npos);
 
-    explicit print_number(size_t n) : n(n) { }
+    if (block_size > 128 * MiB) {
+        LOG1 << "block_size " << block_size
+             << " is larger than the limit 128 MiB.";
+        return -1;
+    }
 
-    void operator () (foxxll::request*, bool /* success */) { }
-};
+    using block_type = foxxll::typed_block<128* MiB, size_t>;
+    using BID_type = foxxll::BID<0>;
 
-template <size_t BlockSize, typename AllocStrategy>
-void run_test(external_size_type span, external_size_type worksize, bool do_init, bool do_read, bool do_write)
-{
-    const size_t raw_block_size = BlockSize;
-
-    using block_type = foxxll::typed_block<raw_block_size, size_t>;
-    using BID_type = foxxll::BID<raw_block_size>;
-
-    external_size_type num_blocks = foxxll::div_ceil(worksize, raw_block_size);
-    external_size_type num_blocks_in_span = foxxll::div_ceil(span, raw_block_size);
+    size_t num_blocks = foxxll::div_ceil(work_size, block_size);
+    size_t num_blocks_in_span = foxxll::div_ceil(span, block_size);
 
     num_blocks = std::min(num_blocks, num_blocks_in_span);
     if (num_blocks == 0) num_blocks = num_blocks_in_span;
 
-    worksize = num_blocks * raw_block_size;
+    work_size = num_blocks * block_size;
+
+    if (batch_size == 0)
+        batch_size = work_size;
+
+    size_t num_blocks_in_batch = foxxll::div_ceil(batch_size, block_size);
+
+    size_t num_batches = foxxll::div_ceil(num_blocks, num_blocks_in_batch);
 
     block_type* buffer = new block_type;
     request_ptr* reqs = new request_ptr[num_blocks_in_span];
     std::vector<BID_type> blocks;
 
-    //touch data, so it is actually allocated
+    // touch data, so it is actually allocated
     for (size_t i = 0; i < block_type::size; ++i)
         (*buffer)[i] = i;
+
+    std::default_random_engine rng(std::random_device { } ());
 
     try {
         AllocStrategy alloc;
 
         blocks.resize(num_blocks_in_span);
-        foxxll::block_manager::get_instance()->new_blocks(alloc, blocks.begin(), blocks.end());
+        for (size_t i = 0; i < blocks.size(); ++i)
+            blocks[i].size = block_size;
+
+        foxxll::block_manager::get_instance()->new_blocks(
+            alloc, blocks.begin(), blocks.end()
+        );
 
         LOG1 << "# Span size: "
              << foxxll::add_IEC_binary_multiplier(span, "B") << " ("
              << num_blocks_in_span << " blocks of "
-             << foxxll::add_IEC_binary_multiplier(raw_block_size, "B") << ")";
+             << foxxll::add_IEC_binary_multiplier(block_size, "B") << ")";
 
         LOG1 << "# Work size: "
-             << foxxll::add_IEC_binary_multiplier(worksize, "B") << " ("
+             << foxxll::add_IEC_binary_multiplier(work_size, "B") << " ("
              << num_blocks << " blocks of "
-             << foxxll::add_IEC_binary_multiplier(raw_block_size, "B") << ")";
+             << foxxll::add_IEC_binary_multiplier(block_size, "B") << ")";
+
+        LOG1 << "# Batch size: "
+             << foxxll::add_IEC_binary_multiplier(batch_size, "B") << " ("
+             << batch_size << " blocks of "
+             << foxxll::add_IEC_binary_multiplier(block_size, "B") << ")";
+
+        LOG1 << "# Number of Batches: " << num_batches;
 
         double begin, end, elapsed;
+        double time_write = 0, time_read = 0;
 
         if (do_init)
         {
             begin = timestamp();
+
             LOG1 << "First fill up space by writing sequentially...";
-            for (external_size_type j = 0; j < num_blocks_in_span; j++)
-                reqs[j] = buffer->write(blocks[j]);
+            for (size_t j = 0; j < num_blocks_in_span; j++)
+                reqs[j] = blocks[j].write(buffer, block_size);
             wait_all(reqs, num_blocks_in_span);
+
             end = timestamp();
             elapsed = end - begin;
             LOG1 << "Written "
-                 << std::setw(12) << num_blocks_in_span << " blocks in " << std::fixed << std::setw(9) << std::setprecision(2) << elapsed << " seconds: "
-                 << std::setw(9) << std::setprecision(1) << (static_cast<double>(num_blocks_in_span) / elapsed) << " blocks/s "
-                 << std::setw(7) << std::setprecision(1) << (static_cast<double>(num_blocks_in_span * raw_block_size) / MiB / elapsed) << " MiB/s write ";
+                 << std::setw(12) << num_blocks_in_span << " blocks in "
+                 << std::fixed << std::setw(9) << std::setprecision(2)
+                 << elapsed << " seconds: "
+                 << std::setw(9) << std::setprecision(1)
+                 << (static_cast<double>(num_blocks_in_span) / elapsed) << " blocks/s "
+                 << std::setw(7) << std::setprecision(1)
+                 << (static_cast<double>(num_blocks_in_span * block_size) / MiB / elapsed) << " MiB/s write ";
         }
 
         LOG1 << "Random block access...";
 
-        srand(static_cast<unsigned int>(time(nullptr)));
-        std::random_shuffle(blocks.begin(), blocks.end());
-
-        begin = timestamp();
-        if (do_read)
-        {
-            for (external_size_type j = 0; j < num_blocks; j++)
-                reqs[j] = buffer->read(blocks[j], print_number(j));
-            wait_all(reqs, num_blocks);
-
-            end = timestamp();
-            elapsed = end - begin;
-            LOG1 << "Read    " << num_blocks << " blocks in " << std::fixed << std::setw(5) << std::setprecision(2) << elapsed << " seconds: "
-                 << std::setw(5) << std::setprecision(1) << (double(num_blocks) / elapsed) << " blocks/s "
-                 << std::setw(5) << std::setprecision(1) << (double(num_blocks * raw_block_size) / MiB / elapsed) << " MiB/s read";
-        }
-
-        std::random_shuffle(blocks.begin(), blocks.end());
+        std::shuffle(blocks.begin(), blocks.end(), rng);
 
         begin = timestamp();
         if (do_write)
         {
-            for (external_size_type j = 0; j < num_blocks; j++)
-                reqs[j] = buffer->write(blocks[j], print_number(j));
-            wait_all(reqs, num_blocks);
+            size_t offset = 0, remaining_blocks = num_blocks;
+            while (remaining_blocks) {
+                size_t this_batch = std::min(num_blocks_in_batch, remaining_blocks);
+                for (size_t j = 0; j < this_batch; j++)
+                    reqs[j] = blocks[j + offset].write(buffer, block_size);
+                wait_all(reqs, this_batch);
+                offset += this_batch;
+                remaining_blocks -= this_batch;
+            }
 
             end = timestamp();
-            elapsed = end - begin;
-            LOG1 << "Written " << num_blocks << " blocks in " << std::fixed << std::setw(5) << std::setprecision(2) << elapsed << " seconds: "
-                 << std::setw(5) << std::setprecision(1) << (double(num_blocks) / elapsed) << " blocks/s "
-                 << std::setw(5) << std::setprecision(1) << (double(num_blocks * raw_block_size) / MiB / elapsed) << " MiB/s write ";
+            time_write = elapsed = end - begin;
+
+            LOG1 << "Written " << num_blocks << " blocks in "
+                 << std::fixed << std::setw(5) << std::setprecision(2)
+                 << elapsed << " seconds: "
+                 << std::setw(5) << std::setprecision(1)
+                 << (double(num_blocks) / elapsed) << " blocks/s "
+                 << std::setw(5) << std::setprecision(1)
+                 << (double(num_blocks * block_size) / MiB / elapsed) << " MiB/s write ";
         }
+
+        std::shuffle(blocks.begin(), blocks.end(), rng);
+
+        begin = timestamp();
+        if (do_read)
+        {
+            size_t offset = 0, remaining_blocks = num_blocks;
+            while (remaining_blocks) {
+                size_t this_batch = std::min(num_blocks_in_batch, remaining_blocks);
+                for (size_t j = 0; j < this_batch; j++)
+                    reqs[j] = blocks[j + offset].read(buffer, block_size);
+                wait_all(reqs, this_batch);
+                offset += this_batch;
+                remaining_blocks -= this_batch;
+            }
+
+            end = timestamp();
+            time_read = elapsed = end - begin;
+
+            LOG1 << "Read    " << num_blocks << " blocks in "
+                 << std::fixed << std::setw(5) << std::setprecision(2)
+                 << elapsed << " seconds: "
+                 << std::setw(5) << std::setprecision(1)
+                 << (double(num_blocks) / elapsed) << " blocks/s "
+                 << std::setw(5) << std::setprecision(1)
+                 << (double(num_blocks * block_size) / MiB / elapsed) << " MiB/s read";
+        }
+
+        std::cout << "RESULT"
+                  << (getenv("RESULT") ? getenv("RESULT") : "")
+                  << " span=" << span
+                  << " work_size=" << work_size
+                  << " op=" << (do_init ? "i" : "") << (do_read ? "r" : "") << (do_write ? "w" : "")
+                  << " block_size=" << block_size
+                  << " num_blocks=" << num_blocks
+                  << " num_blocks_in_span=" << num_blocks_in_span
+                  << " batch_size=" << batch_size
+                  << " write_time=" << time_write
+                  << " read_time=" << time_read
+                  << " write_blocks_per_sec="
+                  << (do_write ? num_blocks / time_write : 0)
+                  << " read_blocks_per_sec="
+                  << (do_read ? num_blocks / time_read : 0)
+                  << " write_bytes_per_sec="
+                  << (do_write ? (num_blocks * block_size) / time_write : 0)
+                  << " read_bytes_per_sec="
+                  << (do_read ? (num_blocks * block_size) / time_read : 0)
+                  << std::endl;
     }
     catch (const std::exception& ex)
     {
@@ -148,54 +219,7 @@ void run_test(external_size_type span, external_size_type worksize, bool do_init
     delete[] reqs;
     delete buffer;
 
-    foxxll::block_manager::get_instance()->delete_blocks(blocks.begin(), blocks.end());
-}
-
-template <typename AllocStrategy>
-int benchmark_disks_random_alloc(external_size_type span, size_t block_size, external_size_type worksize,
-                                 const std::string& optirw)
-{
-    bool do_init = (optirw.find('i') != std::string::npos);
-    bool do_read = (optirw.find('r') != std::string::npos);
-    bool do_write = (optirw.find('w') != std::string::npos);
-
-#define run(bs) run_test<bs, AllocStrategy>(span, worksize, do_init, do_read, do_write)
-    if (block_size == 4 * KiB)
-        run(4 * KiB);
-    else if (block_size == 8 * KiB)
-        run(8 * KiB);
-    else if (block_size == 16 * KiB)
-        run(16 * KiB);
-    else if (block_size == 32 * KiB)
-        run(32 * KiB);
-    else if (block_size == 64 * KiB)
-        run(64 * KiB);
-    else if (block_size == 128 * KiB)
-        run(128 * KiB);
-    else if (block_size == 256 * KiB)
-        run(256 * KiB);
-    else if (block_size == 512 * KiB)
-        run(512 * KiB);
-    else if (block_size == 1 * MiB)
-        run(1 * MiB);
-    else if (block_size == 2 * MiB)
-        run(2 * MiB);
-    else if (block_size == 4 * MiB)
-        run(4 * MiB);
-    else if (block_size == 8 * MiB)
-        run(8 * MiB);
-    else if (block_size == 16 * MiB)
-        run(16 * MiB);
-    else if (block_size == 32 * MiB)
-        run(32 * MiB);
-    else if (block_size == 64 * MiB)
-        run(64 * MiB);
-    else if (block_size == 128 * MiB)
-        run(128 * MiB);
-    else
-        LOG1 << "Unsupported block_size " << block_size << ".\n"
-             << "Available are only powers of two from 4 KiB to 128 MiB. You must use 'ki' instead of 'k'.";
-#undef run
+    // foxxll::block_manager::get_instance()->delete_blocks(blocks.begin(), blocks.end());
 
     return 0;
 }
@@ -206,7 +230,7 @@ int benchmark_disks_random(int argc, char* argv[])
 
     tlx::CmdlineParser cp;
 
-    external_size_type span, worksize = 0;
+    external_size_type span, work_size = 0, batch_size = 0;
     external_size_type block_size = 8 * MiB;
     std::string optirw = "irw", allocstr;
 
@@ -219,7 +243,7 @@ int benchmark_disks_random(int argc, char* argv[])
         "Size of blocks to randomly write/read (default: 8MiB)."
     );
     cp.add_opt_param_bytes(
-        "size", worksize,
+        "size", work_size,
         "Amount of data to operate on (e.g. 2GiB), default: whole span."
     );
     cp.add_opt_param_string(
@@ -228,7 +252,12 @@ int benchmark_disks_random(int argc, char* argv[])
     );
     cp.add_opt_param_string(
         "alloc", allocstr,
-        "Block allocation strategy: random_cyclic, simple_random, fully_random, striping (default: random_cyclic)."
+        "Block allocation strategy: random_cyclic, simple_random, "
+        "fully_random, striping (default: random_cyclic)."
+    );
+    cp.add_bytes(
+        'B', "batch_size", batch_size,
+        "Amount of data in a batch (e.g. 2GiB), default: whole work size."
     );
 
     cp.set_description(
@@ -242,7 +271,7 @@ int benchmark_disks_random(int argc, char* argv[])
     if (!cp.process(argc, argv))
         return -1;
 
-#define run_alloc(alloc) benchmark_disks_random_alloc<alloc>(span, block_size, worksize, optirw)
+#define run_alloc(alloc) run_test<alloc>(span, block_size, work_size, batch_size, optirw)
     if (allocstr.size())
     {
         if (allocstr == "random_cyclic")
