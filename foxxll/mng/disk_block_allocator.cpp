@@ -121,7 +121,8 @@ void disk_block_allocator::add_free_region(uint64_t block_pos, uint64_t block_si
                     // coalesce with successor
                     region_size += (*succ).second;
                     free_space_.erase(succ);
-                    succ = pred;
+                    if (succ_is_not_the_first)
+                        succ = pred;
                 }
 
                 if (succ_is_not_the_first) {
