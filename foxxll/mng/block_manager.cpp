@@ -56,13 +56,13 @@ block_manager::block_manager()
         {
             disk_files_[i] = create_file(cfg, file::CREAT | file::RDWR, i);
 
-            TLX_LOG1 << "Disk '" << cfg.path << "' is allocated, space: "
+            TLX_LOG1 << "foxxll: Disk '" << cfg.path << "' is allocated, space: "
                      << (cfg.size) / (1024 * 1024)
                      << " MiB, I/O implementation: " << cfg.fileio_string();
         }
         catch (io_error&)
         {
-            TLX_LOG1 << "Error allocating disk '" << cfg.path << "', space: "
+            TLX_LOG1 << "foxxll: Error allocating disk '" << cfg.path << "', space: "
                      << (cfg.size) / (1024 * 1024)
                      << " MiB, I/O implementation: " << cfg.fileio_string();
             throw;
@@ -78,14 +78,14 @@ block_manager::block_manager()
 
     if (ndisks_ > 1)
     {
-        TLX_LOG1 << "In total " << ndisks_ << " disks are allocated, space: "
+        TLX_LOG1 << "foxxll: In total " << ndisks_ << " disks are allocated, space: "
                  << (total_size / (1024 * 1024)) << " MiB";
     }
 }
 
 block_manager::~block_manager()
 {
-    TLX_LOG << "Block manager destructor";
+    TLX_LOG << "foxxll: Block manager destructor";
     for (size_t i = ndisks_; i > 0; )
     {
         --i;

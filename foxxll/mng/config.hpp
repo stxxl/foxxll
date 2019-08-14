@@ -228,6 +228,9 @@ public:
     //! Returns name of the default I/O implementation
     virtual std::string default_disk_io_impl();
 
+    //! returns the name of the default config file prefix
+    virtual std::string default_config_file_name();
+
     //! Returns disk size.
     //! \param disk disk's identifier
     //! \return disk size in bytes

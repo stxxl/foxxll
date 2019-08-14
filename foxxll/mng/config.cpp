@@ -41,17 +41,14 @@ namespace foxxll {
 
 static inline bool exist_file(const std::string& path)
 {
-    TLX_LOG0 << "Checking " << path << " for disk configuration.";
+    TLX_LOG0 << "foxxll: Checking " << path << " for disk configuration.";
     std::ifstream in(path.c_str());
     return in.good();
 }
 
 config::config()
     : is_initialized(false)
-{
-    TLX_LOG1 << get_version_string_long();
-    print_library_version_mismatch();
-}
+{ }
 
 config::~config()
 {
@@ -60,7 +57,7 @@ config::~config()
     {
         if (it->delete_on_exit)
         {
-            TLX_LOG1 << "Removing disk file: " << it->path;
+            TLX_LOG1 << "foxxll: Removing disk file: " << it->path;
             unlink(it->path.c_str());
         }
     }
@@ -68,6 +65,9 @@ config::~config()
 
 void config::initialize()
 {
+    TLX_LOG1 << get_version_string_long();
+    print_library_version_mismatch();
+
     first_flash = 0;
 
     // if disks_list is empty, then try to load disk configuration files
@@ -104,7 +104,7 @@ void config::find_config()
 
     // check current directory
     {
-        std::string basepath = "./.stxxl";
+        std::string basepath = "./" + default_config_file_name();
 
         if (hostname && exist_file(basepath + "." + hostname + suffix))
             return load_config_file(basepath + "." + hostname + suffix);
@@ -116,7 +116,8 @@ void config::find_config()
     // check home directory
     if (home)
     {
-        std::string basepath = std::string(home) + "/.stxxl";
+        std::string basepath =
+            std::string(home) + "/" + default_config_file_name();
 
         if (hostname && exist_file(basepath + "." + hostname + suffix))
             return load_config_file(basepath + "." + hostname + suffix);
@@ -131,8 +132,8 @@ void config::find_config()
 
 void config::load_default_config()
 {
-    TLX_LOG1 << "Warning: no config file found.";
-    TLX_LOG1 << "Using default disk configuration.";
+    TLX_LOG1 << "foxxll: [Warning] no config file found.";
+    TLX_LOG1 << "foxxll: Using default disk configuration.";
     disk_config entry1(default_disk_path(), 1000 * 1024 * 1024,
                        default_disk_io_impl());
     entry1.delete_on_exit = true;
@@ -250,6 +251,11 @@ std::string config::default_disk_io_impl()
 #else
     return "wincall";
 #endif
+}
+
+std::string config::default_config_file_name()
+{
+    return ".stxxl";
 }
 
 external_size_type config::disk_size(size_t disk) const
