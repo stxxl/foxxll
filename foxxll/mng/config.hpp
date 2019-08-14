@@ -127,19 +127,19 @@ class config : public singleton<config>
     //! Finished initializing config
     bool is_initialized;
 
-    //! Constructor: this must be inlined to print the header version
-    //! string.
+protected:
+    //! Constructor: this must be inlined to print the header version string.
     config();
 
     //! deletes autogrow files
-    ~config();
+    virtual ~config();
 
     //! Search several places for a config file.
-    void find_config();
+    virtual void find_config();
 
     //! If disk list is empty, then search different locations for a disk
     //! configuration file, or load a default config if everything fails.
-    void initialize();
+    virtual void initialize();
 
 public:
     //! \name Initialization Functions
@@ -154,10 +154,10 @@ public:
     }
 
     //! Load disk configuration file.
-    void load_config_file(const std::string& config_path);
+    virtual void load_config_file(const std::string& config_path);
 
     //! Load default configuration.
-    void load_default_config();
+    virtual void load_default_config();
 
     //! Add a disk to the configuration list.
     //!
@@ -223,7 +223,10 @@ public:
 
     //! Returns default path of disk.
     //! \return string that contains the disk's path name
-    static std::string default_disk_path();
+    virtual std::string default_disk_path();
+
+    //! Returns name of the default I/O implementation
+    virtual std::string default_disk_io_impl();
 
     //! Returns disk size.
     //! \param disk disk's identifier
@@ -233,9 +236,6 @@ public:
     //! Returns name of I/O implementation of particular disk.
     //! \param disk disk's identifier
     const std::string & disk_io_impl(size_t disk) const;
-
-    //! Returns name of the default I/O implementation
-    static std::string default_disk_io_impl();
 
     //! Returns the total size over all disks
     external_size_type total_size() const;

@@ -68,6 +68,8 @@ config::~config()
 
 void config::initialize()
 {
+    first_flash = 0;
+
     // if disks_list is empty, then try to load disk configuration files
     if (disks_list.size() == 0)
     {
@@ -131,13 +133,11 @@ void config::load_default_config()
 {
     TLX_LOG1 << "Warning: no config file found.";
     TLX_LOG1 << "Using default disk configuration.";
-    disk_config entry1(default_disk_path(), 1000 * 1024 * 1024, default_disk_io_impl());
+    disk_config entry1(default_disk_path(), 1000 * 1024 * 1024,
+                       default_disk_io_impl());
     entry1.delete_on_exit = true;
     entry1.autogrow = true;
-    disks_list.push_back(entry1);
-
-    // no flash disks
-    first_flash = static_cast<unsigned int>(disks_list.size());
+    add_disk(entry1);
 }
 
 void config::load_config_file(const std::string& config_path)
@@ -180,6 +180,8 @@ void config::load_config_file(const std::string& config_path)
 config& config::add_disk(const disk_config& cfg)
 {
     disks_list.push_back(cfg);
+    // no flash disks anymore
+    ++first_flash;
     return *this;
 }
 
@@ -208,7 +210,9 @@ std::pair<unsigned, unsigned> config::regular_disk_range() const
 std::pair<unsigned, unsigned> config::flash_range() const
 {
     assert(is_initialized);
-    return std::pair<unsigned, unsigned>(first_flash, static_cast<unsigned>(disks_list.size()));
+    return std::pair<unsigned, unsigned>(
+        first_flash, static_cast<unsigned>(disks_list.size())
+    );
 }
 
 disk_config& config::disk(size_t disk)
@@ -239,6 +243,15 @@ std::string config::default_disk_path()
 #endif
 }
 
+std::string config::default_disk_io_impl()
+{
+#if !FOXXLL_WINDOWS
+    return "syscall";
+#else
+    return "wincall";
+#endif
+}
+
 external_size_type config::disk_size(size_t disk) const
 {
     assert(is_initialized);
@@ -249,15 +262,6 @@ const std::string& config::disk_io_impl(size_t disk) const
 {
     assert(is_initialized);
     return disks_list[disk].io_impl;
-}
-
-std::string config::default_disk_io_impl()
-{
-#if !FOXXLL_WINDOWS
-    return "syscall";
-#else
-    return "wincall";
-#endif
 }
 
 external_size_type config::total_size() const

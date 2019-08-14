@@ -14,8 +14,8 @@
 
 #include <iostream>
 
-#include <tlx/logger.hpp>
 #include <tlx/die.hpp>
+#include <tlx/logger.hpp>
 
 #include <foxxll/mng.hpp>
 #include <foxxll/mng/prefetch_pool.hpp>
