@@ -507,7 +507,7 @@ install(DIRECTORY foxxll
 
 # also copy the config file with build options!
 install(FILES ${PROJECT_BINARY_DIR}/foxxll/config.hpp
-  DESTINATION ${INSTALL_INCLUDE_DIR}/foxxll/)
+  DESTINATION ${FOXXLL_INSTALL_INCLUDE_DIR}/foxxll/)
 
 ###############################################################################
 # prepare pkg-config file
