@@ -134,7 +134,9 @@ private:
         for (size_t i = 0; i < diff_; i++)
             perm_[i] = i;
 
-        std::random_shuffle(perm_.begin(), perm_.end());
+        std::random_device rd;
+        std::mt19937 g(rd());
+        std::shuffle(perm_.begin(), perm_.end(), g);
     }
 
 public:

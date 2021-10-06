@@ -92,7 +92,9 @@ struct interleaved_random_cyclic : public interleaved_striping
             for (size_t j = 0; j < diff_; j++)
                 perms_[i][j] = j;
 
-            std::random_shuffle(perms_[i].begin(), perms_[i].end());
+            std::random_device rd;
+            std::mt19937 g(rd());
+            std::shuffle(perms_[i].begin(), perms_[i].end(), g);
         }
     }
 
