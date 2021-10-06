@@ -49,7 +49,7 @@ void request_with_waiters::notify_waiters()
     std::unique_lock<std::mutex> lock(waiters_mutex_);
     std::for_each(
         waiters_.begin(), waiters_.end(),
-        std::mem_fun(&onoff_switch::on)
+        std::mem_fn(&onoff_switch::on)
     );
 }
 

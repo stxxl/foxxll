@@ -73,7 +73,7 @@ void request_queue_impl_1q::add_request(request_ptr& req)
         std::unique_lock<std::mutex> lock(queue_mutex_);
         if (std::find_if(
                 queue_.begin(), queue_.end(),
-                bind2nd(file_offset_match(), req)
+                [&](const auto& el){return file_offset_match{}(el, req);}
             )
             != queue_.end())
         {
