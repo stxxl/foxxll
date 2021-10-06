@@ -32,6 +32,7 @@
 
 namespace foxxll {
 
+
 struct file_offset_match
     : public std::binary_function<request_ptr, request_ptr, bool>
 {
@@ -74,7 +75,7 @@ void request_queue_impl_qwqr::add_request(request_ptr& req)
             std::unique_lock<std::mutex> lock(write_mutex_);
             if (std::find_if(
                     write_queue_.begin(), write_queue_.end(),
-                    bind2nd(file_offset_match(), req)
+                    [&](const auto& x) { return file_offset_match{}(x, req);}
                 )
                 != write_queue_.end())
             {
@@ -92,7 +93,7 @@ void request_queue_impl_qwqr::add_request(request_ptr& req)
             std::unique_lock<std::mutex> lock(read_mutex_);
             if (std::find_if(
                     read_queue_.begin(), read_queue_.end(),
-                    bind2nd(file_offset_match(), req)
+                    [&](const auto& x) { return file_offset_match{}(x, req);}
                 )
                 != read_queue_.end())
             {
