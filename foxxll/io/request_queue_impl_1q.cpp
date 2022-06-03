@@ -34,7 +34,6 @@
 namespace foxxll {
 
 struct file_offset_match
-    : public std::binary_function<request_ptr, request_ptr, bool>
 {
     bool operator () (
         const request_ptr& a,
