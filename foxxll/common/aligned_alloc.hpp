@@ -91,6 +91,7 @@ inline void * aligned_alloc(size_t size, size_t meta_info_size = 0)
     // free unused memory behind the data area
     // so access behind the requested size can be recognized
     size_t realloc_size = static_cast<size_t>(result - buffer) + meta_info_size + size;
+    size_t result_offset = result - buffer;
     if (realloc_size < alloc_size && aligned_alloc_settings<int>::may_use_realloc) {
         auto* realloced = static_cast<char*>(std::realloc(buffer, realloc_size));
         if (buffer != realloced) {
@@ -101,6 +102,10 @@ inline void * aligned_alloc(size_t size, size_t meta_info_size = 0)
             aligned_alloc_settings<int>::may_use_realloc = false;
             return aligned_alloc<Alignment>(size, meta_info_size);
         }
+        // `result` and `buffer` are invalidated by the call to `realloc`, so we have to reinstate them.
+        // Note that otherwise any access to them is undefined behavior, even if the `realloc` was in-place.
+        buffer = realloced;
+        result = buffer + result_offset;
         assert(result + size <= buffer + realloc_size);
     }
 
