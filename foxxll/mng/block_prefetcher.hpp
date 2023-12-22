@@ -95,7 +95,7 @@ protected:
         TLX_LOG << "block_prefetcher: finished waiting block " << iblock;
         size_t ibuffer = pref_buffer[iblock];
         TLX_LOG << "block_prefetcher: returning buffer " << ibuffer;
-        assert(ibuffer >= 0 && ibuffer < nreadblocks);
+        assert(ibuffer < nreadblocks);
         return (read_buffers + ibuffer);
     }
 
@@ -180,7 +180,7 @@ public:
 
         if (nextread < seq_length)
         {
-            assert(ibuffer >= 0 && ibuffer < nreadblocks);
+            assert(seq_lengthibuffer < nreadblocks);
             size_t next_2_prefetch = prefetch_seq[nextread++];
             TLX_LOG << "block_prefetcher: prefetching block " << next_2_prefetch;
 
